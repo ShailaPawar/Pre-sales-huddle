@@ -1,0 +1,36 @@
+<section id="page-sub-header">
+  <a ng-href="#/create" class="btn btn-primary pull-right" id="add-new-prospect">
+    Add new prospect</a>
+</section>
+
+<section id = "prospect-list">
+  <h2 class = "pull-left"> Prospect List </h2>
+  <table class = "table">
+    <thread>
+      <th scope = "col" data-field="pName" data-sortable="true"> Prospect Name </th>
+      <th scope = "col" data-field="date" data-sortable="true"> Creation Date </th>
+      <th scope = "col" data-field="techStack" data-sortable="true"> Tech Stack </th>
+      <th scope = "col" data-field="domain" data-sortable="true"> Domain </th>
+      <th scope = "col" data-field="teamSize" data-sortable="true"> Probable Team Size </th>
+      <th scope = "col" data-field="notes" data-sortable="true"> Notes </th>
+      <th scope = "col"> Action </th>
+    </thread>
+    <tbody>
+      <tr ng-repeat = "prospect in prospects">
+        <td> {{ prospect.Name }} </td>
+        <td> {{ prospect.StartDate }} </td>
+        <td> {{ prospect.TechStack }} </td>
+        <td> {{ prospect.Domain }} </td>
+        <td> {{ prospect.DesiredTeamSize }} </td>
+        <td> {{ prospect.Notes }} </td>
+        <td>
+          <a href = "#/edit/{{ prospect.$id}}" class = "edit-btn">
+            <span class = "glyphicon glyphicon-edit" aria-hidden = "true">
+            </span>
+            <span class = "visuallyhidden">Edit {{prospect.Name}} </span>
+          </a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</section>

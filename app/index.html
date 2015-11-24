@@ -1,0 +1,129 @@
+<!doctype html>
+<html class = "no-js" ng-app = "PreSales-Huddle" lang = "en">
+  <head>
+    <meta charset = "utf-8">
+    <title ng-bind = "title"> Synerzip pre-sales huddle </title>
+    <meta name = "description" content = "">
+    <metaname = "viewport" content = "width = device-width">
+    <link rel = "stylesheet" href =
+      "http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css"/>
+
+    <link rel = "stylesheet" href = "styles/main.css">
+    <!-- <link rel = "icon" type = "image/png" href = "images/pre_sales_huddle.png"> -->
+
+    <head profile = "http://www.w3.org/2005/10/profile">
+    <meta name="google-signin-scope" content="profile email">
+
+    <meta name="google-signin-client_id" content =
+      "726910394043-ptmnorekimlpkmruvlbq1neqvpoenk6k.apps.googleusercontent.com">
+
+    <script src="https://apis.google.com/js/platform.js" async defer>
+    </script>
+  </head>
+
+  <body>
+    <div class = "container">
+      <header class = "header">
+        <img src = "images/pre_sales_huddle.png" alt = "PreSales-Huddle"
+          id = "app-logo">
+        <font face="calibri" size="9"> Synerzip pre-sales huddle </font>
+
+        <nav id = "top-nav" class = "pull-right">
+          <ul class = "nav nav-pills">
+            <li ng-class = "{active: isActive('/prospects')}" id = "home" style="visibility:hidden;" disabled>
+              <a ng-href = "#/prospects"> Prospect List <span class = "visuallyhidden"
+                class="btn btn-primary pull-right"> - currently selected </span>
+              </a>
+            </li>
+
+            <li class = "sign-out" id = "sign-out" style="visibility:hidden;" disabled>
+              <a href = "#" onclick = "signOut();"> Sign Out <span class = "visuallyhidden"
+                class="btn btn-primary pull-right"> - currently selected </span>
+              </a>
+            </li>
+          </ul>
+        </nav>
+      </header>
+      <div class = "google-button" id = "g-signinP">
+      <div class="g-signin2" data-onsuccess="onSignIn" data-theme="dark" id = "g-signin">
+      </div>
+    </div>
+
+    <main class = "main" id = "main">
+      <div ng-view = ""></div>
+    </main>
+    <script>
+
+      function onSignIn(googleUser) {
+        // Useful data for your client-side scripts:
+        var profile = googleUser.getBasicProfile();
+        console.log("ID: " + profile.getId());
+        console.log("Name: " + profile.getName());
+        console.log("Image URL: " + profile.getImageUrl());
+        console.log("Email: " + profile.getEmail());
+
+        // The ID token you need to pass to your backend:
+        var id_token = googleUser.getAuthResponse().id_token;
+        console.log("ID Token: " + id_token);
+
+        window.location = '#/prospects';
+        // var signInButton = document.getElementById('g-signin');
+        // var signInButtonParent = document.getElementById('g-signinP');
+        // signInButtonParent.removeChild(signInButton);
+        document.getElementById('g-signin').style.visibility='hidden';
+        document.getElementById('g-signinP').style.height = '0px';
+        document.getElementById('sign-out').style.visibility='visible';
+        document.getElementById('home').style.visibility='visible';
+      };
+
+      function signOut() {
+        var auth2 = gapi.auth2.getAuthInstance();
+        auth2.signOut().then(function () {
+          console.log('User signed out.');
+        });
+        window.location = '#';
+        window.location.reload();
+        document.getElementById('g-signin').style.visibility='visible'
+        document.getElementById('g-signinP').style.removeProperty('height');
+        document.getElementById('sign-out').style.visibility='hidden';
+        document.getElementById('home').style.visibility='hidden';
+      }
+    </script>
+
+      <footer class = "footer">
+        <p>Copyright @ Synerzip Inc. All Rights Reserved. </p>
+      </footer>
+    </div>
+
+     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
+    <script>
+      (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r;
+        i[r] = i[r] || function () {
+          (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date();
+        a = s.createElement(o),
+          m = s.getElementsByTagName(o)[0];
+        a.async = 1;
+        a.src = g;
+        m.parentNode.insertBefore(a, m)
+      })(window, document, 'script', '//www.google-analytics.com/analytics.js',
+        'ga');
+
+      ga('create', 'UA-XXXXX-X');
+      ga('send', 'pageview');
+    </script>
+
+    <script src =
+      "http://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js">
+    </script>
+    <script src = "http://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular-route.min.js">
+    </script>
+    <script src = "http://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular-resource.js">
+    </script>
+
+    <script src = "scripts/app.js"></script>
+    <script src = "scripts/controllers.js"></script>
+
+  </body>
+</html>

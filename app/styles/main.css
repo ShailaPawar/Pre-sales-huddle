@@ -1,0 +1,104 @@
+body {
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+a {
+  color: #397AB2;
+}
+
+h2 {
+  font-family: calibri;
+  font-size: 250%;
+}
+
+.google-button
+{
+  margin: auto;
+  width: 10%;
+  padding: 10px;
+}
+
+.header,
+.footer {
+  padding-left: 15px;
+  padding-right: 15px;
+  font-family: calibri;
+}
+
+.header {
+  border-bottom: 1px solid #e5e5e5;
+  margin-bottom: 30px;
+  overflow: hidden;
+}
+
+.header #app-logo {
+  width: 11em;
+  margin-bottom: 0.2em;
+}
+
+#top-nav {
+  display: inline-block;
+  margin-top: 1.8em;
+}
+
+.footer {
+  padding-top: 19px;
+  color: #747474;
+  border-top: 1px solid #e5e5e5;
+}
+
+.visuallyhidden {
+  border: 0;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  width: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  position: absolute !important;
+}
+
+label {
+  width: 100%;
+  margin-bottom: 0px;
+  font-family: calibri;
+  font-size: 125%;
+}
+
+/* ========== Pill Nav Overrides ======== */
+
+.nav > li > a{
+    margin-left: 4px;
+    border: solid 1px #FFFFFF;
+}
+
+.nav > li > a:hover,
+.nav > li > a:focus {
+    border: solid 1px #2C5E89;
+}
+.nav > li.active > a:hover,
+.nav > li.active > a:focus {
+    text-decoration: none;
+}
+
+.nav-pills > li.active > a{
+    background-color: #397AB2;
+}
+
+.nav-pills > li.active > a:hover,
+.nav-pills > li.active > a:focus {
+    color: #ffffff;
+    background-color: #2C5E89;
+}
+
+
+.nav > li .visuallyhidden{
+    display: none;
+}
+
+.nav > li.active .visuallyhidden{
+    display: inline;
+}
+
+
