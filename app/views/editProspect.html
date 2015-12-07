@@ -1,0 +1,92 @@
+<section id="page-sub-header">
+    <a ng-href="#/discussions" class="btn btn-primary pull-right" id="discussions"> Discussions </a>
+</section>
+
+<section>
+    <h2> Update Prospect </h2>
+    <form name = "editForm" novalidate ng-submit="submitMyForm()">
+        <div class="container" style="background-color:whitesmoke">
+        <p>
+            <span style = "font-size: 9pt;"> All fields marked with an
+                <img src = "../images/required.gif" alt = "asterisk" class = "required-star"> are required.
+            </span>
+        </p>
+        <div class = "form-group" ng-class = "{ 'has-error' : editForm.prospectName.$invalid && submitted }">
+            <label for = "prospectName"> Prospect Name:
+                <img src = "../images/required.gif" alt = "Required" class = "required-star">
+                <em class = "error">
+                    <span class = "error" ng-show = "editForm.prospectName.$invalid && submitted"> Must not be blank. </span>
+                </em>
+            </label>
+
+            <input type = "text" ng-model = "prospect.Name" id = "prospectName" name = "prospectName" class = "form-control" required>
+        </div>
+        <div class = "form-group" ng-class = "{ 'has-error' : editForm.date.$invalid && submitted }">
+            <label for = "date"> Creation Date:
+                <img src = "../images/required.gif" alt = "Required" class = "required-star">
+                <em class = "error">
+                    <span class = "error" ng-show = "editForm.date.$invalid && submitted"> Must not be blank. </span>
+                </em>
+            </label>
+
+            <input type = "date" ng-model = "prospect.StartDate" id = "date" name = "date" class = "form-control" required>
+        </div>
+        <div class = "form-group" ng-class = "{ 'has-error' : editForm.techStack.$invalid && submitted }">
+            <label for = "techStack"> Tech Stack:
+                <img src = "../images/required.gif" alt = "Required" class = "required-star">
+                <em class = "error">
+                    <span class = "error" ng-show = "editForm.techStack.$invalid && submitted"> Must not be blank. </span>
+                </em>
+            </label>
+
+            <input type = "text" ng-model = "prospect.TechStack" id = "techStack" name = "techStack"
+                   placeholder = "e.g: C++, JavaScript, iOS" class = "form-control" required>
+        </div>
+  <div class = "form-group" ng-class = "{ 'has-error' :
+      editForm.domain.$invalid && submittted }">
+    <label for = "domain"> Domain:
+      <img src = "../images/required.gif" alt = "Required" class =
+        "required-star">
+      <em class = "error">
+        <span class = "error" ng-show = "editForm.domain.$invalid &&
+          submitted"> Must not be blank. </span>
+      </em>
+    </label>
+
+    <input type = "text" ng-model = "prospect.Domain" id = "domain" name = "domain" 
+      placeholder = "e.g: Education, Finance" class = "form-control" required>
+  </div>
+  <div class = "form-group" ng-class = "{ 'has-error' :
+      editForm.teamSize.$invalid && submittted }">
+    <label for = "teamSize"> Probable Team Size:
+      <img src = "../images/required.gif" alt = "Required" class =
+        "required-star">
+      <em class = "error">
+        <span class = "error" ng-show = "editForm.teamSize.$invalid &&
+          submitted"> Must not be blank. </span>
+      </em>
+    </label>
+
+    <input type = "number" ng-model = "prospect.DesiredTeamSize" id = "teamSize" name = "teamSize"
+      class = "form-control" min="0" required>
+  </div>
+
+  <div class = "form-group">
+    <label for = "notes"> Notes:
+    </label>
+
+    <textarea  ng-model = "prospect.Notes" id = "notes" name = "notes"class =
+      "form-control"></textarea>
+  </div>
+
+  <div class = "form-group">
+    <input type="button" value="Cancel" class="col-sm-1 btn btn-primary"
+           ng-click="go('prospects')">
+    <button type="button" class="col-sm-1 btn btn-primary"
+            ng-click="editProspect()" style="margin-left:10px;"> Save </button>
+  </div>
+  </div>
+  <div class="form-group">
+  </div>
+    </form>
+</section>

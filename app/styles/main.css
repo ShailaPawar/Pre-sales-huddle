@@ -39,11 +39,11 @@ h2 {
 
 #top-nav {
   display: inline-block;
-  margin-top: 1.8em;
+  /*margin-top: 1.8em;*/
 }
 
 .footer {
-  padding-top: 19px;
+  /*padding-top: 19px;*/
   color: #747474;
   border-top: 1px solid #e5e5e5;
 }
@@ -59,6 +59,11 @@ h2 {
   position: absolute !important;
 }
 
+.lastDiv {
+    padding-bottom: 10px;
+    background-color:whitesmoke;
+}
+
 label {
   width: 100%;
   margin-bottom: 0px;
@@ -66,6 +71,9 @@ label {
   font-size: 125%;
 }
 
+.form-control {
+    width: 500px;
+}
 /* ========== Pill Nav Overrides ======== */
 
 .nav > li > a{
