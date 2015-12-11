@@ -181,3 +181,8 @@ span.buttonText {
     pointer-events: none;
     -webkit-font-smoothing: antialiased;
 }
+
+#cancel-button{
+    margin-bottom: 2%;
+
+}

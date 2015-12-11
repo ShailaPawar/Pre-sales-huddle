@@ -3,52 +3,53 @@
 angular.module('PreSales-Huddle', ['ngResource', 'ngRoute'])
     .config(function ($routeProvider, $httpProvider) {
         $routeProvider.when('/prospects', {
-        templateUrl: '../views/viewProspects.html',
-        controller: 'ProspectsCtrl',
-        title: 'All Prospects'
-    })
-    .when('/editProspect', {
-        templateUrl: '../views/editProspect.html',
-        controller: 'EditProspectCtrl',
-        title: 'Edit Prospect'
-    })
+                templateUrl: '../views/viewProspects.html',
+                controller: 'ProspectsCtrl',
+                title: 'All Prospects'
+            })
+            .when('/editProspect', {
+                templateUrl: '../views/editProspect.html',
+                controller: 'EditProspectCtrl',
+                title: 'Edit Prospect'
+            })
 
-    .when('/createProspect', {
+            .when('/createProspect', {
                 templateUrl: '../views/addProspect.html',
                 controller: 'AddProspectCtrl',
                 title: 'Add Prospect'
             })
-    .when('/discussions', {
-        templateUrl: '../views/viewDiscussions.html',
-        controller: 'DiscussionsCtrl',
-        title: 'Discussions'
-    })
-    .when('/addDiscussion', {
-        templateUrl: '../views/addDiscussion.html',
-        controller: 'AddDiscussionCtrl',
-        title: 'Add Discussion'
-    })
-    .when('/create', {
-        templateUrl: '../views/addProspect.html',
-        controller: 'AddProspectCtrl',
-        title: 'Add Prospect'
-    })
-    .when('/addToClient', {
-        templateUrl: '../views/addToClient.html',
-        controller: 'AddClientCtrl',
-        title: 'Add To Client'
-    })
+            .when('/discussions', {
+                templateUrl: '../views/viewDiscussions.html',
+                controller: 'DiscussionsCtrl',
+                title: 'Discussions'
+            })
+            .when('/addDiscussion', {
+                templateUrl: '../views/addDiscussion.html',
+                controller: 'AddDiscussionCtrl',
+                title: 'Add Discussion'
+            })
+            .when('/create', {
+                templateUrl: '../views/addProspect.html',
+                controller: 'AddProspectCtrl',
+                title: 'Add Prospect'
+            })
+            .when('/addToClient', {
+                templateUrl: '../views/addToClient.html',
+                controller: 'AddClientCtrl',
+                title: 'Add To Client'
+            })
 
-    .when('/clientInfo', {
-        templateUrl: '../views/clientInfo.html',
-        controller: 'ClientInfoCtrl',
-        title: 'Client Information'
-    })
+            .when('/clientInfo', {
+                templateUrl: '../views/clientInfo.html',
+                controller: 'ClientInfoCtrl',
+                title: 'Client Information'
+            })
 
-    .when('/clients', {
-        templateUrl: '../views/viewClients.html',
-        controller: 'ClientCtrl',
-        title: 'All Clients'
+            .when('/clients', {
+                templateUrl: '../views/viewClients.html',
+                controller: 'ClientCtrl',
+                title: 'All Clients'
+            })
     }).run(['$window', function ($window) {
         $window.GoogleAsyncInit = function () {
             // Executed when the SDK is loaded

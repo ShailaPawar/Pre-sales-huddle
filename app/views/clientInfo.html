@@ -1,11 +1,11 @@
 <section id="page-sub-header">
-    <a ng-href="" ng-click="go('prospects')"class="btn btn-primary pull-right" id="discussions"> BACK </a>
+    <a ng-href="" ng-click="go('prospects')"class="col-sm-2 btn btn-primary pull-right" id="discussions"> BACK </a>
 </section>
 
 <section>
     <h2> Client Information</h2>
     <form name = "editClient" novalidate ng-submit="submitMyForm()">
-        <div class="container" style="background-color:whitesmoke">
+        <div class="container" id = "form-container">
             <div class = "form-group" ng-class = "{ 'has-error' : editClient.prospectName.$invalid && submitted }">
                 <label for = "prospectName"> Prospect Name:
                 </label>

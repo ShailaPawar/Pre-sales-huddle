@@ -3,39 +3,33 @@
     <a ng-href="#/editProspect" class="col-sm-2  btn btn-primary pull-right" id="editProspect"> Back </a>
 </section>
 
-<!--<section>-->
-    <!--<h2> Discussions </h2>-->
-    <!--<form name = "discussionsForm" novalidate>-->
-        <!--<div class = "container" style="background-color:whitesmoke">-->
-            <!--<div class = "form-group">-->
-                <!--<label for = "query"> Question: </label>-->
-                <!--<input type = "text" id = "query" name = "query" ng-model = "discussion.Query" class = "form-control" required>-->
-                <!--<label for = "answer"> Answer: </label>-->
-                <!--<input type = "text" id = "answer" name = "answer" ng-model = "discussion.Answer" class = "form-control" required>-->
-            <!--</div>-->
-            <!--&lt;!&ndash;<div class = "form-group">&ndash;&gt;-->
-                <!--&lt;!&ndash;<input type="button" value="Cancel" class="col-sm-1 btn btn-primary" ng-click="go('discussions')">&ndash;&gt;-->
-                <!--&lt;!&ndash;<button type="button" class="col-sm-1 btn btn-primary" ng-click="addDiscussion()" style="margin-left:10px;"> Add </button>&ndash;&gt;-->
-            <!--&lt;!&ndash;</div>&ndash;&gt;-->
-        <!--</div>-->
-        <!--<div class="form-group"></div>-->
-    <!--</form>-->
-<!--</section>-->
-
 <section id="discussions">
-    <h2 class = "pull-left"> Discussions </h2>
-    <table class = "table table-striped table-hover" style="background-color:whitesmoke">
-        <thead>
-            <th> User </th>
-            <th> Question </th>
-            <th> Answer </th>
-        </thead>
-        <tbody>
-            <tr ng-repeat = "discussion in discussions">
-                <td> {{ discussion.UserID }} </td>
-                <td> {{ discussion.Query }} </td>
-                <td contenteditable='true'> {{ discussion.Answer }} </td>
-            </tr>
-        </tbody>
-    </table>
+        <!--<div id = "ansModal" class="container">-->
+            <!--<input type = "text" ng-model = "answer" id = "answer" name = "answer"-->
+                   <!--class = "form-control" required>-->
+            <!--<div class = "form-group">-->
+                <!--<input type="button" id="cancel-button" value="Cancel" class="col-sm-2 btn btn-primary" ng-click="go('discussions')">-->
+                <!--<button type="button" class="col-sm-2 btn btn-primary" ng-click="addAnswer()" style="margin-left:10px;"> Save </button>-->
+            <!--</div>-->
+
+        <!--</div>-->
+
+
+        <h2 class = "pull-left"> Discussions </h2>
+
+        <table class = "table table-striped table-hover" style="background-color:whitesmoke">
+            <thead>
+                <!--<th> User </th>-->
+                <th> Question </th>
+                <th> Answer </th>
+            </thead>
+            <tbody>
+                <tr ng-repeat = "discussion in discussions">
+                    <!--<td> {{ discussion.UserID }} </td>-->
+                    <td> {{ discussion.Query }} </td>
+                    <td> {{ discussion.Answer }}</td>
+                    <!--<td> <button type="button" class="col-sm-1 btn btn-primary" ng-click="giveAnswer()"> Add an answer </button></td>-->
+                </tr>
+            </tbody>
+        </table>
 </section>

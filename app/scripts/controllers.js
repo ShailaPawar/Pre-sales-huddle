@@ -4,7 +4,6 @@ var baseURL = "http://presaleshuddle:8080/";
 angular.module('PreSales-Huddle')
 
     .controller('GoogleSignInCtrl', function($scope, $rootScope, $location) {
-        console.log("In Sign In Ctrl.");
         function googleLogin(){
             var auth2 = gapi.auth2.getAuthInstance();
             return auth2.signIn();
@@ -13,17 +12,18 @@ angular.module('PreSales-Huddle')
         $scope.onSignIn = function() {
             googleLogin()
                 .then(function (data) {
-                    //console.log("data", data);
+
                     var profile = data.getBasicProfile();
-                    //console.log(profile);
                     $rootScope.currentUser = profile.getEmail();
                     $rootScope.currentUserImage = profile.getImageUrl();
-                    //console.log($rootScope.currentUser);
+                    $rootScope.salesName = profile.getName();
+
                     window.location = '#/prospects';
                     document.getElementById('signin').style.visibility='hidden';
                     document.getElementById('g-signinP').style.height = '0px';
                     document.getElementById('sign-out').style.visibility='visible';
-                    document.getElementById('home').style.visibility='visible';
+                    document.getElementById('prospectList').style.visibility='visible';
+                    document.getElementById('clientList').style.visibility='visible';
                 }, function (err) {
                     console.log(err)
                 });
@@ -31,7 +31,6 @@ angular.module('PreSales-Huddle')
     })
 
     .controller('SignOutCtrl', function($scope, $rootScope, $location) {
-        console.log("In Sign Out Controller.");
         function LogOut() {
             var auth2 = gapi.auth2.getAuthInstance();
             return auth2.signOut();
@@ -40,48 +39,58 @@ angular.module('PreSales-Huddle')
         $scope.signOut = function() {
             LogOut()
                 .then(function() {
-                        console.log('User signed out.');
-                        window.location = '#';
-                        window.location.reload();
-                        document.getElementById('signin').style.visibility = 'visible';
-                        document.getElementById('g-signinP').style.removeProperty('height');
-                        document.getElementById('sign-out').style.visibility = 'hidden';
-                        document.getElementById('home').style.visibility = 'hidden';
+                    console.log('User signed out.');
+                    window.location = '#';
+                    window.location.reload();
+                    document.getElementById('signin').style.visibility = 'visible';
+                    document.getElementById('g-signinP').style.removeProperty('height');
+                    document.getElementById('sign-out').style.visibility = 'hidden';
+                    document.getElementById('prospectList').style.visibility = 'hidden';
+                    document.getElementById('clientList').style.visibility='hidden';
                 });
         };
     })
 
     .controller('ProspectsCtrl', function($scope, $http, $rootScope) {
+        document.getElementById('signin').style.visibility='hidden';
+        document.getElementById('g-signinP').style.height = '0px';
+        document.getElementById('sign-out').style.visibility='visible';
+        document.getElementById('prospectList').style.visibility='visible';
+        document.getElementById('clientList').style.visibility='visible';
 
-            document.getElementById('signin').style.visibility='hidden';
-            document.getElementById('g-signinP').style.height = '0px';
-            document.getElementById('sign-out').style.visibility='visible';
-            document.getElementById('home').style.visibility='visible';
         // default sorting order is by Prospect Creation Date
         $scope.orderByField = 'CreateDate';
 
         $scope.saveData = function(prospect) {
             $rootScope.prospectToUpdate = prospect;
 
+            // creation date
             $rootScope.createDate = $rootScope.prospectToUpdate.CreateDate.toString();
             $rootScope.createDate = $rootScope.createDate.split('T')[0];
             $rootScope.createDate = new Date($rootScope.createDate);
 
             $rootScope.prospectToUpdate.CreateDate = $rootScope.createDate;
 
+            // start date
+            $rootScope.startDate = $rootScope.prospectToUpdate.StartDate.toString();
+            $rootScope.startDate = $rootScope.startDate.split('T')[0];
+            $rootScope.startDate = new Date($rootScope.startDate);
+
+            $rootScope.prospectToUpdate.StartDate = $rootScope.startDate;
+
         };
 
         $http.get(baseURL + 'prospect/all/').success(function(data, status, headers, config) {
             $scope.prospects = data;
-        }).error(function(data, status, header, config) {
-        });
+        }).error(function(data, status, header, config) {});
     })
 
     .controller('AddProspectCtrl', function($scope, $http, $rootScope, $location) {
         document.getElementById('signin').style.visibility='hidden';
         document.getElementById('g-signinP').style.height = '0px';
         document.getElementById('sign-out').style.visibility='visible';
-        document.getElementById('home').style.visibility='visible';
+        document.getElementById('prospectList').style.visibility='visible';
+        document.getElementById('clientList').style.visibility='visible';
 
         $scope.maxDate = new Date();
         $scope.date = $scope.maxDate;
@@ -89,9 +98,6 @@ angular.module('PreSales-Huddle')
 
         $scope.addProspect = function() {
 
-            // var mydate = $scope.date.toString();
-            // var date = mydate.split('T')[0];
-            // console.log(date,typeof(date));
             console.log("In AddProspectCtrl, Creation Date: ", $scope.date);
             var data = {
                 Name: $scope.prospectName,
@@ -105,7 +111,6 @@ angular.module('PreSales-Huddle')
             console.log(data);
             $http.post(baseURL + 'prospect/', data = data).success(function(data, status, headers, config) {
                 console.log('Prospect added.');
-
                 $location.path('/prospects');
             }).error(function(data, status, headers, config) {
                 console.log('Prospect not added.');
@@ -130,7 +135,8 @@ angular.module('PreSales-Huddle')
         document.getElementById('signin').style.visibility='hidden';
         document.getElementById('g-signinP').style.height = '0px';
         document.getElementById('sign-out').style.visibility='visible';
-        document.getElementById('home').style.visibility='visible';
+        document.getElementById('prospectList').style.visibility='visible';
+        document.getElementById('clientList').style.visibility='visible';
 
         $scope.maxDate = new Date();
         $scope.prospect = $rootScope.prospectToUpdate;
@@ -149,7 +155,6 @@ angular.module('PreSales-Huddle')
 
             $http.put(baseURL + 'prospect/', data = data).success(function(data, status, headers, config) {
                 console.log('Prospect updated.');
-
                 $location.path('/prospects');
             }).error(function(data, status, headers, config) {
                 console.log(data, status, headers, config);
@@ -168,23 +173,17 @@ angular.module('PreSales-Huddle')
         document.getElementById('signin').style.visibility='hidden';
         document.getElementById('g-signinP').style.height = '0px';
         document.getElementById('sign-out').style.visibility='visible';
-        document.getElementById('home').style.visibility='visible';
+        document.getElementById('prospectList').style.visibility='visible';
+        document.getElementById('clientList').style.visibility='visible';
 
         console.log($rootScope.currentUser);
 
         $scope.addDiscussion = function() {
-
-            // var mydate = $scope.date.toString();
-            // var date = mydate.split('T')[0];
-            // console.log(date,typeof(date));
-            console.log($scope.date);
             var data = {
                 ProspectID: $rootScope.prospectToUpdate.ProspectID,
                 UserID: $rootScope.currentUser,
                 Query: $scope.query
             };
-
-            console.log(data);
 
             $http.post(baseURL + 'discussion/', data = data).success(function(data, status, headers, config) {
                 console.log('Discussion added.');
@@ -204,32 +203,54 @@ angular.module('PreSales-Huddle')
     })
 
     .controller('DiscussionsCtrl', function($scope, $http, $rootScope) {
-
         document.getElementById('signin').style.visibility='hidden';
         document.getElementById('g-signinP').style.height = '0px';
         document.getElementById('sign-out').style.visibility='visible';
-        document.getElementById('home').style.visibility='visible';
+        document.getElementById('prospectList').style.visibility='visible';
+        document.getElementById('clientList').style.visibility='visible';
 
         var prospect = $rootScope.prospectToUpdate;
-        console.log(prospect);
 
         $http.get(baseURL + 'discussion/prospectid/' + prospect.ProspectID).success(function(data, status, headers, config) {
             console.log(data);
             $scope.discussions = data;
-            console.log($scope.discussions);
         }).error(function(data, status, header, config) {});
+
+        //$scope.giveAnswer = function() {
+        //    document.getElementById('ansModal').dialog('open');
+        //}
+        //
+        //$scope.addAnswer = function() {
+        //    var data = {
+        //        ProspectID: $rootScope.prospectToUpdate.ProspectID,
+        //        UserID: $rootScope.currentUser,
+        //        Query: $scope.query,
+        //        Answer: $scope.answer
+        //    };
+        //
+        //    $http.post(baseURL + 'discussion/', data = data).success(function(data, status, headers, config) {
+        //        console.log('Discussion added.');
+        //        $location.path('/discussions');
+        //    }).error(function(data, status, headers, config) {
+        //        console.log('Discussion not added.');
+        //    });
+        //}
     })
-//addTOClientCtrl to add prospect to client
+
+    //addTOClientCtrl to add prospect to client
     .controller('AddClientCtrl', function($scope, $http, $rootScope, $location) {
-        var prospectFetched = $rootScope.prospectToUpdate;
+        document.getElementById('signin').style.visibility='hidden';
+        document.getElementById('g-signinP').style.height = '0px';
+        document.getElementById('sign-out').style.visibility='visible';
+        document.getElementById('prospectList').style.visibility='visible';
+        document.getElementById('clientList').style.visibility='visible';
+
         $scope.maxDate = new Date();
         $scope.StartDate = $scope.maxDate;
-        console.log("date:", $scope.StartDate);
-        var mydate = $scope.StartDate.toString();
-        var date1 = mydate.split('T')[0];
+
+        var prospectFetched = $rootScope.prospectToUpdate;
         $scope.prospect = prospectFetched;
-        $scope.prospect.StartDate =  new Date(date1);
-        salesName=profile.getName();
+
         $scope.addToClient = function() {
             var data = {
                 ProspectID: $rootScope.prospectToUpdate.ProspectID,
@@ -241,31 +262,35 @@ angular.module('PreSales-Huddle')
                 Notes: $scope.prospect.Notes ,
                 BUHead:$scope.Head,
                 TeamSize:$scope.TeamSize,
-                SalesID: salesName
+                SalesID: $rootScope.salesName
             };
-            console.log(data);
+
             $http.put(baseURL + 'prospect/', data = data).success(function(data, status, headers, config) {
                 console.log('Prospect added to Client.');
                 $location.path('/prospects');
             }).error(function(data, status, headers, config) {
                     console.log('Prospect Not added to Client.');
-                });
+            });
         };
+
         // Cancel button function
         $scope.go = function(path) {
-            $rootScope.lastform = "create";
+            $rootScope.lastform = "createProspect";
             $location.path(path);
         }
     })
 
     //ClientInfoCtrl to view details of a particular client
     .controller('ClientInfoCtrl', function($scope, $http, $rootScope, $location) {
+        document.getElementById('signin').style.visibility='hidden';
+        document.getElementById('g-signinP').style.height = '0px';
+        document.getElementById('sign-out').style.visibility='visible';
+        document.getElementById('prospectList').style.visibility='visible';
+        document.getElementById('clientList').style.visibility='visible';
+
         var prospectFetched = $rootScope.prospectToUpdate;
-        var mydate = prospectFetched.StartDate.toString();
-        var date = mydate.split('T')[0];
         $scope.prospect = prospectFetched;
-        $scope.prospect.StartDate = new Date(date);
-        console.log($scope.prospect.StartDate);
+
         // back button function
         $scope.go = function(path) {
             javascript:history.go(-1);
@@ -274,19 +299,27 @@ angular.module('PreSales-Huddle')
 
     //clientCtrl  to show client list
     .controller('ClientCtrl', function($scope, $http, $rootScope) {
+        document.getElementById('signin').style.visibility='hidden';
+        document.getElementById('g-signinP').style.height = '0px';
+        document.getElementById('sign-out').style.visibility='visible';
+        document.getElementById('prospectList').style.visibility='visible';
+        document.getElementById('clientList').style.visibility='visible';
+
         //  search keyword by  Prospect name
         $scope.searchWord = function (prospectList) {
             return (angular.lowercase(prospectList.Name).indexOf(angular.lowercase($scope.search) || '') !== -1   );
         };
+
         // default sorting order is by Prospect start Date
         $scope.orderByField = 'StartDate';
+
         $scope.showClientInfo = function(prospect) {
-        $rootScope.prospectToUpdate = prospect;
+            $rootScope.prospectToUpdate = prospect;
         };
         $http.get(baseURL + 'prospect/all/').success(function(data, status, headers, config) {
             $scope.prospects = data;
         }).error(function(data, status, header, config) {
-            });
+        });
     });
 
 
