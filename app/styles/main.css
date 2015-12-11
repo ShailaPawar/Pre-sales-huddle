@@ -10,6 +10,7 @@ a {
 h2 {
   font-family: calibri;
   font-size: 250%;
+    padding-top: -3%;
 }
 
 .google-button
@@ -157,4 +158,26 @@ span.buttonText {
    background-color: whitesmoke;
    width: 46%;
    height: 60% !important;
+}
+
+/* ========== Search Bar ======== */
+
+#searchBar {
+    padding-left: 25px;
+}
+
+#searchBar + #searchIcon {
+    opacity:.8;
+    height:100%;
+    width:25px;
+    display:-webkit-box;
+    -webkit-box-pack:center;
+    -webkit-box-align:center;
+    position: absolute;
+    content:"\e008";
+    font-family: 'Glyphicons Halflings';
+    font-style: normal;
+    font-weight: 400;
+    pointer-events: none;
+    -webkit-font-smoothing: antialiased;
 }

@@ -1,0 +1,64 @@
+<script>
+    $('a[data-toggle = "tooltip"]').tooltip({
+        animated: 'fade',
+        placement: 'bottom'
+    });
+</script>
+<section id = "prospect-list">
+    <div class="col-xs-6" >
+        <div class="right-inner-add-on" style="width: 70%;display: inline;position: relative;white-space: nowrap">
+            <h2 class = "pull-left" style="margin-top: -1% !important;"> Client List </h2>
+            <div class="col-xs-6">
+                <input type="search" ng-model="search" class="form-control " id="searchBar" placeholder="Search By Client Name" />
+                <span class="glyphicon glyphicon-search" id="searchIcon" style="float: left"></span>
+            </div>
+        </div>
+    </div>
+    <table class = "table table-striped table-hover" style="background-color:whitesmoke">
+        <thead>
+            <th ng-click="orderByField='Name'; reverseSort = !reverseSort"> Client Name
+                <span ng-show="orderByField == 'Name'">
+                    <span ng-show="!reverseSort" class="glyphicon glyphicon-chevron-up"></span>
+                    <span ng-show="reverseSort" class="glyphicon glyphicon-chevron-down"></span>
+                </span>
+            </th>
+            <th ng-click="orderByField='StartDate'; reverseSort = !reverseSort"> Start Date
+                <span ng-show="orderByField == 'StartDate'">
+                    <span ng-show="!reverseSort" class="glyphicon glyphicon-chevron-up"></span>
+                    <span ng-show="reverseSort" class="glyphicon glyphicon-chevron-down"></span>
+                </span>
+            </th>
+            <th ng-click="orderByField='TechStack'; reverseSort = !reverseSort"> BU Head
+                <span ng-show="orderByField == 'TechStack'">
+                    <span ng-show="!reverseSort" class="glyphicon glyphicon-chevron-up"></span>
+                    <span ng-show="reverseSort" class="glyphicon glyphicon-chevron-down"></span>
+                </span>
+            </th>
+            <th ng-click="orderByField='Domain'; reverseSort = !reverseSort"> Sales
+                <span ng-show="orderByField == 'Domain'">
+                    <span ng-show="!reverseSort" class="glyphicon glyphicon-chevron-up"></span>
+                    <span ng-show="reverseSort" class="glyphicon glyphicon-chevron-down"></span>
+                </span>
+            </th>
+            <th>
+                Action
+            </th>
+        </thead>
+        <tbody>
+            <span ng-hide="{{!prospect.BUHead}}">
+                <tr ng-hide="{{!prospect.BUHead}}" ng-repeat = "prospect in prospects | orderBy:orderByField:reverseSort | filter:searchWord" >
+                    <td> {{ prospect.Name }} </td>
+                    <td> {{ prospect.StartDate  | date: "yyyy-MM-dd"}} </td>
+                    <td> {{ prospect.BUHead }} </td>
+                    <td> {{ prospect.SalesID }} </td>
+                    <td>
+                        <a href = '#/clientInfo' ng-click="showClientInfo(prospect)" class = "edit-btn" data-toggle = "tooltip" title = "Client Information" >
+                            <span  class = "glyphicon glyphicon-user" aria-hidden = "true" style="margin-left: 10%" ></span>
+                            <span class = "visuallyhidden"> Edit {{prospect.Name}} </span>
+                        </a>
+                    </td>
+                </tr>
+            </span>
+        </tbody>
+    </table>
+</section>

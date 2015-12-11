@@ -103,7 +103,6 @@ angular.module('PreSales-Huddle')
             };
 
             console.log(data);
-
             $http.post(baseURL + 'prospect/', data = data).success(function(data, status, headers, config) {
                 console.log('Prospect added.');
 
@@ -175,6 +174,10 @@ angular.module('PreSales-Huddle')
 
         $scope.addDiscussion = function() {
 
+            // var mydate = $scope.date.toString();
+            // var date = mydate.split('T')[0];
+            // console.log(date,typeof(date));
+            console.log($scope.date);
             var data = {
                 ProspectID: $rootScope.prospectToUpdate.ProspectID,
                 UserID: $rootScope.currentUser,
@@ -215,6 +218,75 @@ angular.module('PreSales-Huddle')
             $scope.discussions = data;
             console.log($scope.discussions);
         }).error(function(data, status, header, config) {});
+    })
+//addTOClientCtrl to add prospect to client
+    .controller('AddClientCtrl', function($scope, $http, $rootScope, $location) {
+        var prospectFetched = $rootScope.prospectToUpdate;
+        $scope.maxDate = new Date();
+        $scope.StartDate = $scope.maxDate;
+        console.log("date:", $scope.StartDate);
+        var mydate = $scope.StartDate.toString();
+        var date1 = mydate.split('T')[0];
+        $scope.prospect = prospectFetched;
+        $scope.prospect.StartDate =  new Date(date1);
+        salesName=profile.getName();
+        $scope.addToClient = function() {
+            var data = {
+                ProspectID: $rootScope.prospectToUpdate.ProspectID,
+                Name: $scope.prospect.Name,
+                StartDate : $scope.StartDate,
+                TechStack: $scope.prospect.TechStack,
+                Domain: $scope.prospect.Domain,
+                DesiredTeamSize: $scope.prospect.DesiredTeamSize,
+                Notes: $scope.prospect.Notes ,
+                BUHead:$scope.Head,
+                TeamSize:$scope.TeamSize,
+                SalesID: salesName
+            };
+            console.log(data);
+            $http.put(baseURL + 'prospect/', data = data).success(function(data, status, headers, config) {
+                console.log('Prospect added to Client.');
+                $location.path('/prospects');
+            }).error(function(data, status, headers, config) {
+                    console.log('Prospect Not added to Client.');
+                });
+        };
+        // Cancel button function
+        $scope.go = function(path) {
+            $rootScope.lastform = "create";
+            $location.path(path);
+        }
+    })
+
+    //ClientInfoCtrl to view details of a particular client
+    .controller('ClientInfoCtrl', function($scope, $http, $rootScope, $location) {
+        var prospectFetched = $rootScope.prospectToUpdate;
+        var mydate = prospectFetched.StartDate.toString();
+        var date = mydate.split('T')[0];
+        $scope.prospect = prospectFetched;
+        $scope.prospect.StartDate = new Date(date);
+        console.log($scope.prospect.StartDate);
+        // back button function
+        $scope.go = function(path) {
+            javascript:history.go(-1);
+        }
+    })
+
+    //clientCtrl  to show client list
+    .controller('ClientCtrl', function($scope, $http, $rootScope) {
+        //  search keyword by  Prospect name
+        $scope.searchWord = function (prospectList) {
+            return (angular.lowercase(prospectList.Name).indexOf(angular.lowercase($scope.search) || '') !== -1   );
+        };
+        // default sorting order is by Prospect start Date
+        $scope.orderByField = 'StartDate';
+        $scope.showClientInfo = function(prospect) {
+        $rootScope.prospectToUpdate = prospect;
+        };
+        $http.get(baseURL + 'prospect/all/').success(function(data, status, headers, config) {
+            $scope.prospects = data;
+        }).error(function(data, status, header, config) {
+            });
     });
 
 

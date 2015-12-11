@@ -27,14 +27,19 @@
                 <span style="font-family: calibri; font-size: 30pt"> Synerzip pre-sales huddle </span>
                 <nav id = "top-nav" class = "pull-right">
                     <ul class = "nav nav-pills">
-                        <li ng-class = "{active: isActive('/prospects')}" id = "home" style="visibility:hidden;" disabled>
+
+                        <li ng-class = "{active: isActive('/prospects')}" id = "prospectList" style="visibility:hidden;" disabled>
                             <a ng-href = "#/prospects"> Prospect List
                                 <span class = "visuallyhidden" class="btn btn-primary pull-right"> - currently selected </span>
                             </a>
                         </li>
-                        <li class = "sign-out" id = "sign-out" ng-controller="SignOutCtrl" style="visibility:hidden;" disabled>
-                            <a ng-click = "signOut();"> Sign Out
+			<li id = "clientList" style="visibility:hidden;" disabled>
+                            <a ng-href = "#/clients"> Client List
                                 <span class = "visuallyhidden" class="btn btn-primary pull-right"> - currently selected </span>
+                            </a>
+                        </li>
+                        <li class = "sign-out" id = "sign-out" ng-controller="SignOutCtrl" style="visibility:hidden;" disabled>
+                            <a ng-click = "signOut();"> Sign Out                                <span class = "visuallyhidden" class="btn btn-primary pull-right"> - currently selected </span>
                             </a>
                         </li>
                     </ul>
@@ -59,6 +64,40 @@
                 <p><span style="background-color:whitesmoke">Copyright @ Synerzip Inc. All Rights Reserved. </span></p>
             </footer>
         </div>
+
+        <script>
+            function onSignIn(googleUser) {
+                // Useful data for your client-side scripts:
+                var profile = googleUser.getBasicProfile();
+                console.log("ID: " + profile.getId());
+                console.log("Name: " + profile.getName());
+                console.log("Image URL: " + profile.getImageUrl());
+                console.log("Email: " + profile.getEmail());
+
+                // The ID token you need to pass to your backend:
+                var id_token = googleUser.getAuthResponse().id_token;
+                console.log("ID Token: " + id_token);
+
+                window.location = '#/prospects';
+                document.getElementById('g-signin').style.visibility='hidden';
+                document.getElementById('g-signinP').style.height = '0px';
+                document.getElementById('sign-out').style.visibility='visible';
+                document.getElementById('home').style.visibility='visible';
+            };
+
+            function signOut() {
+                var auth2 = gapi.auth2.getAuthInstance();
+                auth2.signOut().then(function () {
+                    console.log('User signed out.');
+                });
+                window.location = '#';
+                window.location.reload();
+                document.getElementById('g-signin').style.visibility='visible';
+                document.getElementById('g-signinP').style.removeProperty('height');
+                document.getElementById('sign-out').style.visibility='hidden';
+                document.getElementById('home').style.visibility='hidden';
+            }
+        </script>
 
         <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
         <script>

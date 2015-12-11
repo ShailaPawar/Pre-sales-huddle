@@ -1,0 +1,53 @@
+<section id="page-sub-header">
+    <a ng-href="" ng-click="go('prospects')"class="btn btn-primary pull-right" id="discussions"> BACK </a>
+</section>
+
+<section>
+    <h2> Client Information</h2>
+    <form name = "editClient" novalidate ng-submit="submitMyForm()">
+        <div class="container" style="background-color:whitesmoke">
+            <div class = "form-group" ng-class = "{ 'has-error' : editClient.prospectName.$invalid && submitted }">
+                <label for = "prospectName"> Prospect Name:
+                </label>
+
+                <input type = "text" ng-model = "prospect.Name" id = "prospectName" name = "prospectName" class = "form-control" readonly>
+            </div>
+            <div class = "form-group" ng-class = "{ 'has-error' : editClient.techStack.$invalid && submitted }">
+                 <label for = "techStack"> Tech Stack:
+                 </label>
+
+                <input type = "text" ng-model = "prospect.TechStack" id = "techStack" name = "techStack" placeholder = "e.g: C++, JavaScript, iOS" class = "form-control" readonly>
+            </div>
+            <div class = "form-group" ng-class = "{ 'has-error' : editClient.domain.$invalid && submittted }">
+                <label for = "domain"> Domain:
+                </label>
+
+                <input type = "text" ng-model = "prospect.Domain" id = "domain" name = "domain" placeholder = "e.g: Education, Finance" class = "form-control" readonly>
+            </div>
+            <div class = "form-group" ng-class = "{ 'has-error' : editClient.Head.$invalid && submittted }">
+                <label for = "Head"> BU Head:
+                </label>
+
+                <input type = "text" ng-model = "prospect.BUHead" id = "Head" name = "Head" placeholder = "" class = "form-control" readonly>
+            </div>
+            <div class = "form-group" ng-class = "{ 'has-error' : editClient.teamSize.$invalid && submittted }">
+                <label for = "teamSize">Team Size:
+                </label>
+
+                <input type = "number" ng-model = "prospect.TeamSize" id = "teamSize" name = "teamSize" class = "form-control" min="0" readonly>
+            </div>
+            <div class = "form-group" ng-class = "{ 'has-error' : editClient.salesHead.$invalid && submittted }">
+                <label for = "salesHead"> Sales:
+                </label>
+
+                <input type = "text" ng-model = "prospect.SalesID" id = "salesHead" name = "salesHead" placeholder = "" class = "form-control" readonly>
+            </div>
+            <div class = "form-group">
+                <label for = "notes"> Notes:
+                </label>
+
+                <textarea  ng-model = "prospect.Notes" id = "notes" name = "notes"class ="form-control" readonly></textarea>
+            </div>
+        </div>
+    </form>
+</section>
