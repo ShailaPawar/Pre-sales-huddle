@@ -109,4 +109,52 @@ label {
     display: inline;
 }
 
+span.icon {
+    display: inline-block;
+    vertical-align: middle;
+    width: 35px;
+    height: 35px;
+    border: #2265d4 1px solid;
+    background-image: url("../images/google_sign_in.jpg");
+    background-color: #FFFFFF;
+    background-repeat: no-repeat;
+    background-position: center;
+}
 
+span.buttonText {
+    display: inline-block;
+    vertical-align: middle;
+
+    padding-left: 10px;
+    font-size: 14px;
+    font-weight: bold;
+    font-family: 'Roboto', sans-serif;
+    text-align: center;
+}
+
+#signin {
+    display: inline-block;
+    background: #4285f4;
+    color: white;
+    width: 120px;
+    white-space: nowrap;
+}
+#signin:hover {
+    cursor: pointer;
+}
+
+.footer {
+   /*padding-top: 98%;*/
+   text-align: center;
+   width: 1150px;
+   color: #747474;
+   border-top: 1px solid #e5e5e5;
+   position: fixed;
+   bottom: 0;
+}
+
+#form-container {
+   background-color: whitesmoke;
+   width: 46%;
+   height: 60% !important;
+}

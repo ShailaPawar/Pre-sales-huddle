@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<!-- saved from url=(0035)http://presaleshuddle:9000/#/create -->
+<html class="no-js ng-scope gr__presaleshuddle" ng-app="PreSales-Huddle" lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><style type="text/css">@charset "UTF-8";[ng\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide:not(.ng-hide-animate){display:none !important;}ng\:form{display:block;}</style>
+    <meta charset="utf-8">
+    <title ng-bind="title" class="ng-binding"></title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width = device-width">
+    <link rel="stylesheet" href="./presaleshuddle_files/bootstrap.min.css">
+    <link rel="stylesheet" href="./presaleshuddle_files/dataTables.bootstrap.min.css">
+
+    <link rel="stylesheet" href="./presaleshuddle_files/main.css">
+    <!-- <link rel = "icon" type = "image/png" href = "images/pre_sales_huddle.png"> -->
+
+    
+    <meta name="google-signin-scope" content="profile email">
+
+    <meta name="google-signin-client_id" content="726910394043-ptmnorekimlpkmruvlbq1neqvpoenk6k.apps.googleusercontent.com">
+
+    <script src="./presaleshuddle_files/cb=gapi.loaded_0" async=""></script><script async="" src="./presaleshuddle_files/analytics.js"></script><script src="./presaleshuddle_files/platform.js" async="" defer="" gapi_processed="true">
+    </script>
+
+    <style>
+      header {
+        background: url("images/syn_grp_pic.jpg");
+        background-size: cover;
+        background-repeat: no-repeat;
+    }
+    </style>
+  <style>.abcRioButton{-webkit-border-radius:1px;border-radius:1px;-webkit-box-shadow 0 2px 4px 0px rgba(0,0,0,.25);box-shadow:0 2px 4px 0 rgba(0,0,0,.25);-webkit-box-sizing:border-box;box-sizing:border-box;-webkit-transition:background-color .218s,border-color .218s,box-shadow .218s;transition:background-color .218s,border-color .218s,box-shadow .218s;-webkit-user-select:none;-webkit-appearance:none;background-color:#fff;background-image:none;color:#262626;cursor:pointer;outline:none;overflow:hidden;position:relative;text-align:center;vertical-align:middle;white-space:nowrap;width:auto}.abcRioButton:hover{-webkit-box-shadow:0 0 3px 3px rgba(66,133,244,.3);box-shadow:0 0 3px 3px rgba(66,133,244,.3)}.abcRioButtonRed,.abcRioButtonBlue{border:none;color:#fff}.abcRioButtonRed{background-color:#dc4e41}.abcRioButtonRed:active{background-color:#c53829}.abcRioButtonBlue{background-color:#4285f4}.abcRioButtonBlue:hover{background-color:#4285f4}.abcRioButtonBlue:active{background-color:#3367d6}.abcRioButtonLightBlue{background-color:#fff;color:#757575}.abcRioButtonLightBlue:active{background-color:#eee;color:#6d6d6d}.abcRioButtonWhite{background-color:#fff;color:#dc4e41}.abcRioButtonWhite:active{background-color:#eee}.abcRioButtonWhite path{fill:#dc4e41}.abcRioButtonIcon{float:left}.abcRioButtonBlue .abcRioButtonIcon{background-color:#fff;-webkit-border-radius:1px;border-radius:1px}.abcRioButtonSvg{display:block}.abcRioButtonContents{font-family:Roboto,arial,sans-serif;font-size:14px;font-weight:500;letter-spacing:.21px;margin-left:6px;margin-right:6px;vertical-align:top}.abcRioButtonContentWrapper{height:100%;width:100%}.abcRioButtonGreen .abcRioButtonContentWrapper,.abcRioButtonRed .abcRioButtonContentWrapper,.abcRioButtonBlue .abcRioButtonContentWrapper,.abcRioButtonDarkGray .abcRioButtonContentWrapper,.abcRioButtonGrayedOut .abcRioButtonContentWrapper{border:1px solid transparent}.abcRioButtonErrorWrapper,.abcRioButtonWorkingWrapper{display:none;height:100%;width:100%}.abcRioButtonErrorIcon,.abcRioButtonWorkingIcon{margin-left:auto;margin-right:auto}.abcRioButtonErrorState,.abcRioButtonWorkingState{border:1px solid #d5d5d5;border:1px solid rgba(0,0,0,.17);-webkit-box-shadow:0 1px 0 rgba(0,0,0,.05);box-shadow:0 1px 0 rgba(0,0,0,.05);color:#262626}.abcRioButtonErrorState:hover,.abcRioButtonWorkingState:hover{border:1px solid #aaa;border:1px solid rgba(0,0,0,.25);-webkit-box-shadow:0 1px 0 rgba(0,0,0,.1);box-shadow:0 1px 0 rgba(0,0,0,.1)}.abcRioButtonErrorState:active,.abcRioButtonWorkingState:active{border:1px solid #aaa;border:1px solid rgba(0,0,0,.25);-webkit-box-shadow:inset 0 1px 0 #ddd;box-shadow:inset 0 1px 0 #ddd;color:#262626}.abcRioButtonWorkingState,.abcRioButtonWorkingState:hover{background-color:#f5f5f5}.abcRioButtonWorkingState:active{background-color:#e5e5e5}.abcRioButtonErrorState,.abcRioButtonErrorState:hover{background-color:#fff}.abcRioButtonErrorState:active{background-color:#e5e5e5}.abcRioButtonWorkingState .abcRioButtonWorkingWrapper,.abcRioButtonErrorState .abcRioButtonErrorWrapper{display:block}.abcRioButtonErrorState .abcRioButtonContentWrapper,.abcRioButtonWorkingState .abcRioButtonContentWrapper,.abcRioButtonErrorState .abcRioButtonWorkingWrapper{display:none}.-webkit-keyframes abcRioButtonWorkingIconPathSpinKeyframes{0%{-webkit-transform:rotate(0)}} </style></head>
+
+  <body>
+  <!-- <body background = "images/syn_grp_pic.jpg" background-size = "cover"> -->
+    <div class="container">
+      <header class="header">
+        <img src="./presaleshuddle_files/pre_sales_huddle.png" alt="PreSales-Huddle" id="app-logo">
+        <span style="font-family: calibri; font-size: 30pt"> Synerzip pre-sales huddle </span>
+
+        <nav id="top-nav" class="pull-right">
+          <ul class="nav nav-pills">
+            <li ng-class="{active: isActive(&#39;/prospects&#39;)}" id="home" style="visibility: visible;" disabled="">
+              <a ng-href="#/prospects" href="http://presaleshuddle:9000/#/prospects"> Prospect List <span class="visuallyhidden"> - currently selected </span>
+              </a>
+            </li>
+
+            <li class="sign-out" id="sign-out" style="visibility: visible;" disabled="">
+              <a href="http://presaleshuddle:9000/#" onclick="signOut();"> Sign Out <span class="visuallyhidden"> - currently selected </span>
+              </a>
+            </li>
+          </ul>
+        </nav>
+      </header>
+      <div class="google-button" id="g-signinP" style="height: 0px;">
+      <div class="g-signin2" data-onsuccess="onSignIn" data-theme="dark" id="g-signin" data-gapiscan="true" data-onload="true" style="visibility: hidden;"><div style="height:36px;width:120px;" class="abcRioButton abcRioButtonBlue"><div class="abcRioButtonContentWrapper"><div class="abcRioButtonIcon" style="padding:8px"><div style="width:18px;height:18px;" class="abcRioButtonSvgImageWithFallback abcRioButtonIconImage abcRioButtonIconImage18"><svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="18px" height="18px" viewBox="0 0 48 48" class="abcRioButtonSvg"><g><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"></path><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"></path><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"></path><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"></path><path fill="none" d="M0 0h48v48H0z"></path></g></svg></div></div><span style="font-size:13px;line-height:34px;" class="abcRioButtonContents"><span id="not_signed_inc0bu03bdqdxt" style="display: none;">Sign in</span><span id="connectedc0bu03bdqdxt">Signed in</span></span></div></div></div>
+    </div>
+
+    <main class="main" id="main">
+      <!-- ngView:  --><div ng-view="" class="ng-scope"><h2 class="ng-scope"> Add a Prospect </h2>
+<form name="createForm" novalidate="" class="ng-pristine ng-scope ng-invalid ng-invalid-required">
+  <p> <span style="font-size: 9pt;"> All fields marked with an <img src="./presaleshuddle_files/required.gif" alt="asterisk" class="required-star"> are required. </span></p>
+  <div class="form-group" ng-class="{ &#39;has-error&#39; :
+    createForm.prospectName.$invalid &amp;&amp; submitted }">
+    <label for="prospectName"> Prospect Name:
+      <img src="./presaleshuddle_files/required.gif" alt="Required" class="required-star">
+      <em class="error">
+        <span class="error ng-hide" ng-show="createForm.prospectName.$invalid &amp;&amp;
+          submitted"> Must not be blank. </span>
+      </em>
+    </label>
+
+    <input type="text" id="prospectName" name="prospectName" ng-model="prospectName" class="form-control ng-pristine ng-untouched ng-invalid ng-invalid-required" required="">
+  </div>
+  <div class="form-group" ng-class="{ &#39;has-error&#39; : createForm.date.$invalid
+    &amp;&amp; submitted }">
+    <label for="date"> Date:
+      <img src="./presaleshuddle_files/required.gif" alt="Required" class="required-star">
+      <em class="error">
+        <span class="error ng-hide" ng-show="createForm.date.$invalid &amp;&amp;
+          submitted"> Must not be blank. </span>
+      </em>
+    </label>
+
+    <input type="date" id="date" name="date" ng-model="date" class="form-control ng-pristine ng-untouched ng-invalid ng-invalid-required" required="">
+  </div>
+  <div class="form-group" ng-class="{ &#39;has-error&#39; :
+      createForm.techStack.$invalid &amp;&amp; submitted }">
+    <label for="techStack"> Tech Stack:
+      <img src="./presaleshuddle_files/required.gif" alt="Required" class="required-star">
+      <em class="error">
+        <span class="error ng-hide" ng-show="createForm.techStack.$invalid &amp;&amp;
+          submitted"> Must not be blank. </span>
+      </em>
+    </label>
+
+    <input type="text" id="techStack" name="techStack" ng-model="techStack" placeholder="e.g: C++, JavaScript, iOS" class="form-control ng-pristine ng-untouched ng-invalid ng-invalid-required" required="">
+  </div>
+  <div class="form-group" ng-class="{ &#39;has-error&#39; :
+      createForm.domain.$invalid &amp;&amp; submittted }">
+    <label for="domain"> Domain:
+      <img src="./presaleshuddle_files/required.gif" alt="Required" class="required-star">
+      <em class="error">
+        <span class="error ng-hide" ng-show="createForm.domain.$invalid &amp;&amp;
+          submitted"> Must not be blank. </span>
+      </em>
+    </label>
+
+    <input type="text" id="domain" name="domain" ng-model="domain" placeholder="e.g: Education, Finance" class="form-control ng-pristine ng-untouched ng-invalid ng-invalid-required" required="">
+  </div>
+  <div class="form-group" ng-class="{ &#39;has-error&#39; :
+      createForm.teamSize.$invalid &amp;&amp; submittted }">
+    <label for="teamSize"> Team Size:
+      <img src="./presaleshuddle_files/required.gif" alt="Required" class="required-star">
+      <em class="error">
+        <span class="error ng-hide" ng-show="createForm.teamSize.$invalid &amp;&amp;
+          submitted"> Must not be blank. </span>
+      </em>
+    </label>
+
+    <input type="number" id="teamSize" name="teamSize" ng-model="teamSize" class="form-control ng-pristine ng-untouched ng-invalid ng-invalid-required" required="">
+  </div>
+
+  <div class="form-group">
+    <label for="notes"> Notes:
+    </label>
+
+    <textarea id="notes" name="notes" ng-model="notes" class="form-control ng-pristine ng-untouched ng-valid" data-gramm="" data-txt_gramm_id="b6006a2f-ac44-ba6e-5ea8-cf7a9c76b7c8"></textarea>
+  <!--</div>-->
+  <!--<div class="form-group">-->
+    <!--<button class="col-sm-3 btn btn-primary" ng-click="go('prospects')"> Cancel </button>button>-->
+    <!--<button class="col-sm-3 btn btn-primary" ng-click='addProspect()' > Add </button>-->
+
+    <input type="button" value="Cancel" class="col-sm-1 btn btn-primary" ng-click="go(&#39;prospects&#39;)">
+
+    <button type="button" class="col-sm-1 btn btn-primary" ng-click="addProspect()"> Add </button>
+  </div>
+</form>
+</div>
+    </main>
+
+    <script>
+      function onSignIn(googleUser) {
+        // Useful data for your client-side scripts:
+        var profile = googleUser.getBasicProfile();
+        console.log("ID: " + profile.getId());
+        console.log("Name: " + profile.getName());
+        console.log("Image URL: " + profile.getImageUrl());
+        console.log("Email: " + profile.getEmail());
+
+        // The ID token you need to pass to your backend:
+        var id_token = googleUser.getAuthResponse().id_token;
+        console.log("ID Token: " + id_token);
+
+        window.location = '#/prospects';
+        // var signInButton = document.getElementById('g-signin');
+        // var signInButtonParent = document.getElementById('g-signinP');
+        // signInButtonParent.removeChild(signInButton);
+        document.getElementById('g-signin').style.visibility='hidden';
+        document.getElementById('g-signinP').style.height = '0px';
+        document.getElementById('sign-out').style.visibility='visible';
+        document.getElementById('home').style.visibility='visible';
+      };
+
+      function signOut() {
+        var auth2 = gapi.auth2.getAuthInstance();
+        auth2.signOut().then(function () {
+          console.log('User signed out.');
+        });
+        window.location = '#';
+        window.location.reload();
+        document.getElementById('g-signin').style.visibility='visible'
+        document.getElementById('g-signinP').style.removeProperty('height');
+        document.getElementById('sign-out').style.visibility='hidden';
+        document.getElementById('home').style.visibility='hidden';
+      }
+    </script>
+
+      <footer class="footer">
+        <p>Copyright @ Synerzip Inc. All Rights Reserved. </p>
+      </footer>
+    </div>
+
+     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
+    <script>
+      (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r;
+        i[r] = i[r] || function () {
+          (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date();
+        a = s.createElement(o),
+          m = s.getElementsByTagName(o)[0];
+        a.async = 1;
+        a.src = g;
+        m.parentNode.insertBefore(a, m)
+      })(window, document, 'script', '//www.google-analytics.com/analytics.js',
+        'ga');
+
+      ga('create', 'UA-XXXXX-X');
+      ga('send', 'pageview');
+    </script>
+
+    <script src="./presaleshuddle_files/angular.min.js">
+    </script>
+    <script src="./presaleshuddle_files/angular-route.min.js">
+    </script>
+    <script src="./presaleshuddle_files/angular-resource.js">
+    </script>
+    <script src="http://underscorejs.org/underscore.js"></script><iframe style="position: absolute; width: 1px; height: 1px; left: -9999px;" id="ssIFrame_google" sandbox="allow-scripts allow-same-origin" src="./presaleshuddle_files/iframe.html"></iframe>
+
+    <script src="./presaleshuddle_files/app.js"></script>
+    <script src="./presaleshuddle_files/controllers.js"></script>
+
+  
+
+</body><span class="gr__tooltip"><span class="gr__tooltip-content"></span><i class="gr__tooltip-logo"></i><span class="gr__triangle"></span></span><div><div class="gr_-editor" style="display:none;" data-grammarly-reactid=".0"><div class="gr_-editor_back" data-grammarly-reactid=".0.0"></div><iframe class="gr_-ifr gr-_dialog-content" data-grammarly-reactid=".0.1"></iframe></div></div><grammarly-card><div style="top:0;left:0;visibility:hidden;" class="gr-grammar-card" data-grammarly-reactid=".1"><span style="margin-left:0;" class="gr-grammar-card_triangle" data-grammarly-reactid=".1.0"></span><div class="gr-grammar-card_footer" data-grammarly-reactid=".1.4"><div class="gr-grammar-card_link" data-action="editor" data-grammarly-reactid=".1.4.0">Correct with Grammarly</div><div class="gr-grammar-card_btn-close gr-grammar-card_ignore" data-action="ignore" data-grammarly-reactid=".1.4.2">Ignore</div></div></div></grammarly-card></html>

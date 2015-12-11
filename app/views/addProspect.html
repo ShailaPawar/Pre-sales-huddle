@@ -1,6 +1,6 @@
 <h2>Add a Prospect </h2>
 <form name = "createForm" novalidate>
-    <div class = "container" style="background-color:whitesmoke">
+    <div class = "container" id = "form-container">
         <p>
             <span style = "font-size: 9pt;"> All fields marked with an
                 <img src = "../images/required.gif" alt = "asterisk" class = "required-star"> are required.
@@ -68,8 +68,8 @@
             <textarea id = "notes" name = "notes" ng-model = "notes" class = "form-control"></textarea>
         </div>
         <div class = "form-group" id = "lastDiv">
-            <input type="button" value="Cancel" class="col-sm-1 btn btn-primary" ng-click="go('prospects')">
-            <button type="button" class="col-sm-1 btn btn-primary" ng-click="addProspect()" style="margin-left:10px;"> Add </button>
+            <input type="button" value="Cancel" class="col-sm-2 btn btn-primary" ng-click="go('prospects')">
+            <button type="button" class="col-sm-2 btn btn-primary" ng-click="addProspect()" style="margin-left:10px;"> Add </button>
         </div>
     </div>
     <div class="form-group">

@@ -8,14 +8,9 @@
         <link rel = "stylesheet" href = "http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css"/>
         <link rel = "stylesheet" href = "https://cdn.datatables.net/1.10.10/css/dataTables.bootstrap.min.css">
         <link rel = "stylesheet" href = "styles/main.css">
-        <!-- <link rel = "icon" type = "image/png" href = "images/pre_sales_huddle.png"> -->
 
         <head profile = "http://www.w3.org/2005/10/profile">
         <meta name="google-signin-scope" content="profile email">
-
-        <meta name="google-signin-client_id" content = "726910394043-ptmnorekimlpkmruvlbq1neqvpoenk6k.apps.googleusercontent.com">
-
-        <script src="https://apis.google.com/js/platform.js" async defer></script>
 
         <style>
             body {
@@ -27,13 +22,9 @@
     </head>
 
     <body>
-        <!-- <body background = "images/syn_grp_pic.jpg" background-size = "cover"> -->
-        <div class = "container">
+        <div class = "container" >
             <header class = "header">
-                <!--<img src = "images/pre_sales_huddle.png" alt = "PreSales-Huddle"-->
-                <!--id = "app-logo">-->
                 <span style="font-family: calibri; font-size: 30pt"> Synerzip pre-sales huddle </span>
-
                 <nav id = "top-nav" class = "pull-right">
                     <ul class = "nav nav-pills">
                         <li ng-class = "{active: isActive('/prospects')}" id = "home" style="visibility:hidden;" disabled>
@@ -41,17 +32,24 @@
                                 <span class = "visuallyhidden" class="btn btn-primary pull-right"> - currently selected </span>
                             </a>
                         </li>
-                        <li class = "sign-out" id = "sign-out" style="visibility:hidden;" disabled>
-                            <a href = "#" onclick = "signOut();"> Sign Out
+                        <li class = "sign-out" id = "sign-out" ng-controller="SignOutCtrl" style="visibility:hidden;" disabled>
+                            <a ng-click = "signOut();"> Sign Out
                                 <span class = "visuallyhidden" class="btn btn-primary pull-right"> - currently selected </span>
                             </a>
                         </li>
                     </ul>
                 </nav>
             </header>
-            <div class = "google-button" id = "g-signinP">
-                <div class="g-signin2" data-onsuccess="onSignIn" data-theme="dark" id = "g-signin"></div>
-            </div>
+            <div class = "google-button" id = "g-signinP" ng-controller="GoogleSignInCtrl">
+                <!--<div class="g-signin2" ng-click="onSignIn()" data-theme="dark" id = "g-signin"></div>-->
+                <!--<div ng-click = "onSignIn()" id = "signin"> Sign In with Google </div>-->
+                <div id="gSignInWrapper">
+                    <div id="signin" class="customGPlusSignIn" ng-click = "onSignIn()">
+                        <span class="icon"></span>
+                        <span class="buttonText">Sign in</span>
+                    </div>
+                </div>
+            </div >
 
             <main class = "main" id = "main">
                 <div ng-view = ""></div>
@@ -61,40 +59,6 @@
                 <p><span style="background-color:whitesmoke">Copyright @ Synerzip Inc. All Rights Reserved. </span></p>
             </footer>
         </div>
-
-        <script>
-            function onSignIn(googleUser) {
-                // Useful data for your client-side scripts:
-                var profile = googleUser.getBasicProfile();
-                console.log("ID: " + profile.getId());
-                console.log("Name: " + profile.getName());
-                console.log("Image URL: " + profile.getImageUrl());
-                console.log("Email: " + profile.getEmail());
-
-                // The ID token you need to pass to your backend:
-                var id_token = googleUser.getAuthResponse().id_token;
-                console.log("ID Token: " + id_token);
-
-                window.location = '#/prospects';
-                document.getElementById('g-signin').style.visibility='hidden';
-                document.getElementById('g-signinP').style.height = '0px';
-                document.getElementById('sign-out').style.visibility='visible';
-                document.getElementById('home').style.visibility='visible';
-            };
-
-            function signOut() {
-                var auth2 = gapi.auth2.getAuthInstance();
-                auth2.signOut().then(function () {
-                    console.log('User signed out.');
-                });
-                window.location = '#';
-                window.location.reload();
-                document.getElementById('g-signin').style.visibility='visible';
-                document.getElementById('g-signinP').style.removeProperty('height');
-                document.getElementById('sign-out').style.visibility='hidden';
-                document.getElementById('home').style.visibility='hidden';
-            }
-        </script>
 
         <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
         <script>
