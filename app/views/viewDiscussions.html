@@ -1,35 +1,28 @@
 <section id="page-sub-header">
-    <a ng-href="#/addDiscussion" class="col-sm-2 btn btn-primary pull-right" id="addDiscussion" style="margin-left:10px;"> Ask a question </a>
-    <a ng-href="#/editProspect" class="col-sm-2  btn btn-primary pull-right" id="editProspect"> Back </a>
+
+            <a ng-href="#/addDiscussion" class="col-sm-2 btn btn-primary pull-right" id="addDiscussion"
+               style="margin-left:10px;"> Ask a question </a>
+            <a ng-href="#/editProspect" class="col-sm-2  btn btn-primary pull-right" id="editProspect"> Back </a>
+
 </section>
 
-<section id="discussions">
-        <!--<div id = "ansModal" class="container">-->
-            <!--<input type = "text" ng-model = "answer" id = "answer" name = "answer"-->
-                   <!--class = "form-control" required>-->
-            <!--<div class = "form-group">-->
-                <!--<input type="button" id="cancel-button" value="Cancel" class="col-sm-2 btn btn-primary" ng-click="go('discussions')">-->
-                <!--<button type="button" class="col-sm-2 btn btn-primary" ng-click="addAnswer()" style="margin-left:10px;"> Save </button>-->
-            <!--</div>-->
+<section id="discussions" >
 
-        <!--</div>-->
-
-
-        <h2 class = "pull-left"> Discussions </h2>
-
-        <table class = "table table-striped table-hover" style="background-color:whitesmoke">
-            <thead>
-                <!--<th> User </th>-->
-                <th> Question </th>
-                <th> Answer </th>
-            </thead>
-            <tbody>
-                <tr ng-repeat = "discussion in discussions">
-                    <!--<td> {{ discussion.UserID }} </td>-->
-                    <td> {{ discussion.Query }} </td>
-                    <td> {{ discussion.Answer }}</td>
-                    <!--<td> <button type="button" class="col-sm-1 btn btn-primary" ng-click="giveAnswer()"> Add an answer </button></td>-->
-                </tr>
-            </tbody>
-        </table>
+    <h2 class="pull-left" id="discussioon-text" style="margin-top: -1% !important" > Discussion for Prospect {{prospect.Name}}</h2>
+    <form name="viewDiscussion-form"  novalidate ng-submit="submitMyForm()">
+        <div class = "form-group" ng-model="prosepct.Name">
+        </div>
+    </form>
+                <table class="table table-striped table-hover" style="background-color:whitesmoke">
+                    <thead>
+                    <th> Question</th>
+                    <th> Answer</th>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="discussion in discussions">
+                        <td> {{ discussion.Query }}</td>
+                        <td> {{ discussion.Answer }}</td>
+                    </tr>
+                    </tbody>
+                </table>
 </section>
