@@ -1,12 +1,8 @@
 <section>
-    <h2>Ask a Question </h2>
-    <form name = "addDiscussionForm" novalidate>
+    <h2>Ask a Question for Prospect {{prospect.Name}}</h2>
+    <form name = "addDiscussionForm" novalidate ng-submit="submitMyForm()">
+        <div class = "form-group" ng-model="prosepct.Name"></div>
         <div class = "container" style="background-color:whitesmoke">
-            <p>
-                <span style = "font-size: 9pt;"> All fields marked with an
-                    <img src = "../images/required.gif" alt = "asterisk" class = "required-star"> are required.
-                </span>
-            </p>
             <div class = "form-group" ng-class = "{ 'has-error' : discussionForm.query.$invalid && submitted }">
                 <label for = "query"> Question:
                     <img src = "../images/required.gif" alt = "Required" class = "required-star">
@@ -17,8 +13,13 @@
 
                 <input type = "text" id = "query" name = "query" ng-model = "query" class = "form-control" required>
             </div>
-            <div class = "form-group" id = "lastDiv">
-                <input type="button" value="Cancel" class="col-sm-1 btn btn-primary" ng-click="go('discussions')">
+            <p>
+                <span style = "font-size: 9pt;"> All fields marked with an
+                    <img src = "../images/required.gif" alt = "asterisk" class = "required-star"> are required.
+                </span>
+            </p>
+            <div class = "form-group">
+                <input type="button" id="cancel-button" value="Cancel" class="col-sm-1 btn btn-primary" ng-click="go('discussions')">
                 <button type="button" class="col-sm-1 btn btn-primary" ng-click="addDiscussion()" style="margin-left:10px;"> Add </button>
             </div>
         </div>

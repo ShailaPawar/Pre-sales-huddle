@@ -1,83 +1,85 @@
 body {
-  padding-top: 20px;
-  padding-bottom: 20px;
+    padding-top: 20px;
+    padding-bottom: 20px;
 }
 
 a {
-  color: #397AB2;
+    color: #397AB2;
 }
 
 h2 {
-  font-family: calibri;
-  font-size: 250%;
+    font-family: calibri;
+    font-size: 250%;
     padding-top: -3%;
 }
 
-.google-button
-{
-  margin: auto;
-  width: 10%;
-  padding: 10px;
+.title {
+    font-family: saline;
+    font-size: 735%;
+    text-align: center;
+    margin-top: 10%;
+    color: red;
+    font-weight: bold;
+    font-style: italic;
 }
 
 .header,
 .footer {
-  padding-left: 15px;
-  padding-right: 15px;
-  font-family: calibri;
-}
 
-.header {
-  border-bottom: 1px solid #e5e5e5;
-  margin-bottom: 30px;
-  overflow: hidden;
+    padding-right: 0%;
+    font-family: calibri;
 }
 
 .header #app-logo {
-  width: 11em;
-  margin-bottom: 0.2em;
+    width: 11em;
+    margin-bottom: 0.2em;
+}
+
+#headerText {
+
+    border-bottom: 1px solid #e5e5e5;
+    margin-bottom: 8%;
+
 }
 
 #top-nav {
-  display: inline-block;
-  /*margin-top: 1.8em;*/
+    display: inline-block;
+
 }
 
 .footer {
-  /*padding-top: 19px;*/
-  color: #747474;
-  border-top: 1px solid #e5e5e5;
+
+    color: #747474;
+    border-top: 1px solid #e5e5e5;
 }
 
 .visuallyhidden {
-  border: 0;
-  clip: rect(0 0 0 0);
-  height: 1px;
-  width: 1px;
-  margin: -1px;
-  padding: 0;
-  overflow: hidden;
-  position: absolute !important;
+    border: 0;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    width: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    position: absolute !important;
 }
 
-.lastDiv {
-    padding-bottom: 10px;
-    background-color:whitesmoke;
-}
+
 
 label {
-  width: 100%;
-  margin-bottom: 0px;
-  font-family: calibri;
-  font-size: 125%;
+    width: 100%;
+    margin-bottom: 0px;
+    font-family: calibri;
+    font-size: 125%;
 }
 
 .form-control {
     width: 500px;
 }
+
 /* ========== Pill Nav Overrides ======== */
 
-.nav > li > a{
+.nav > li > a {
     margin-left: 4px;
     border: solid 1px #FFFFFF;
 }
@@ -86,12 +88,13 @@ label {
 .nav > li > a:focus {
     border: solid 1px #2C5E89;
 }
+
 .nav > li.active > a:hover,
 .nav > li.active > a:focus {
     text-decoration: none;
 }
 
-.nav-pills > li.active > a{
+.nav-pills > li.active > a {
     background-color: #397AB2;
 }
 
@@ -101,12 +104,11 @@ label {
     background-color: #2C5E89;
 }
 
-
-.nav > li .visuallyhidden{
+.nav > li .visuallyhidden {
     display: none;
 }
 
-.nav > li.active .visuallyhidden{
+.nav > li.active .visuallyhidden {
     display: inline;
 }
 
@@ -125,7 +127,6 @@ span.icon {
 span.buttonText {
     display: inline-block;
     vertical-align: middle;
-
     padding-left: 10px;
     font-size: 14px;
     font-weight: bold;
@@ -139,25 +140,28 @@ span.buttonText {
     color: white;
     width: 120px;
     white-space: nowrap;
+    margin-top: 45%;
+    margin-left: 45%;
 }
+
 #signin:hover {
     cursor: pointer;
 }
 
 .footer {
-   /*padding-top: 98%;*/
-   text-align: center;
-   width: 1150px;
-   color: #747474;
-   border-top: 1px solid #e5e5e5;
-   position: fixed;
-   bottom: 0;
+    text-align: center;
+    width: 1150px;
+    color: #747474;
+    border-top: 1px solid #e5e5e5;
+    position: fixed;
+    bottom: 0;
 }
 
 #form-container {
-   background-color: whitesmoke;
-   width: 46%;
-   height: 60% !important;
+    background-color: whitesmoke;
+    width: 46%;
+    height: 60% !important;
+
 }
 
 /* ========== Search Bar ======== */
@@ -167,24 +171,24 @@ span.buttonText {
 }
 
 #searchBar + #searchIcon {
-    opacity:.8;
-    height:100%;
-    width:25px;
-    display:-webkit-box;
-    -webkit-box-pack:center;
-    -webkit-box-align:center;
+    opacity: .8;
+    height: 100%;
+    width: 10%;
+    display: -webkit-box;
+    -webkit-box-pack: center;
+    -webkit-box-align: center;
     position: absolute;
-    content:"\e008";
+    content: "\e008";
     font-family: 'Glyphicons Halflings';
     font-style: normal;
     font-weight: 400;
     pointer-events: none;
     -webkit-font-smoothing: antialiased;
+
 }
 
-#cancel-button{
+#cancel-button {
     margin-bottom: 2%;
-
 }
 
 #message{
@@ -192,5 +196,4 @@ span.buttonText {
     font-weight: bold;
     font-style: italic;
     font-size: 250%;
-
 }

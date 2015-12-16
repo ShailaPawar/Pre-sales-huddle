@@ -1,11 +1,7 @@
 <h2>Add a Prospect </h2>
 <form name = "createForm" novalidate>
     <div class = "container" id = "form-container">
-        <p>
-            <span style = "font-size: 9pt;"> All fields marked with an
-                <img src = "../images/required.gif" alt = "asterisk" class = "required-star"> are required.
-            </span>
-        </p>
+
         <div class = "form-group" ng-class = "{ 'has-error' : createForm.prospectName.$invalid && submitted }">
             <label for = "prospectName"> Prospect Name:
                 <img src = "../images/required.gif" alt = "Required" class = "required-star">
@@ -67,6 +63,11 @@
             <label for = "notes"> Notes:</label>
             <textarea id = "notes" name = "notes" ng-model = "notes" class = "form-control"></textarea>
         </div>
+        <p>
+            <span style = "font-size: 9pt;"> All fields marked with an
+                <img src = "../images/required.gif" alt = "asterisk" class = "required-star"> are required.
+            </span>
+        </p>
         <div class = "form-group">
             <input type="button" id="cancel-button" value="Cancel" class="col-sm-2 btn btn-primary" ng-click="go('prospects')">
             <button type="button" class="col-sm-2 btn btn-primary" ng-click="addProspect()" style="margin-left:10px;"> Add </button>

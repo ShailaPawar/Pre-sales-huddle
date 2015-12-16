@@ -26,30 +26,34 @@
     <body>
         <div class = "container" >
             <header class = "header">
-                <span style="font-family: calibri; font-size: 30pt"> Synerzip pre-sales huddle </span>
+                <div id="headerText" style="visibility: hidden">
+                <span style="font-family: calibri; font-size: 30pt;"> Synerzip pre-sales huddle </span>
                 <nav id = "top-nav" class = "pull-right">
                     <ul class = "nav nav-pills">
 
-                        <li ng-class = "{active: isActive('/prospects')}" id = "prospectList" style="visibility:hidden;" disabled>
+                        <li ng-class = "{active: isActive('/prospects')}" id = "prospectList" disabled>
                             <a ng-href = "#/prospects"> Prospect List
                                 <span class = "visuallyhidden" class="btn btn-primary pull-right"> - currently selected </span>
                             </a>
                         </li>
-			<li id = "clientList" style="visibility:hidden;" disabled>
+			                <li id = "clientList" disabled>
                             <a ng-href = "#/clients"> Client List
                                 <span class = "visuallyhidden" class="btn btn-primary pull-right"> - currently selected </span>
                             </a>
                         </li>
-                        <li class = "sign-out" id = "sign-out" ng-controller="SignOutCtrl" style="visibility:hidden;" disabled>
-                            <a ng-click = "signOut();"> Sign Out                                <span class = "visuallyhidden" class="btn btn-primary pull-right"> - currently selected </span>
+                        <li class = "sign-out" id = "sign-out" ng-controller="SignOutCtrl" disabled>
+                            <a ng-click = "signOut();"> Sign Out <span class = "visuallyhidden" class="btn btn-primary pull-right"> - currently selected </span>
                             </a>
                         </li>
                     </ul>
                 </nav>
+                </div>
             </header>
+             <div class="title" id="titleText" disabled>Synerzip Pre-Sales Huddle</div>
+            <main class = "main" id = "main">
+                <div ng-view = ""></div>
+            </main>
             <div class = "google-button" id = "g-signinP" ng-controller="GoogleSignInCtrl">
-                <!--<div class="g-signin2" ng-click="onSignIn()" data-theme="dark" id = "g-signin"></div>-->
-                <!--<div ng-click = "onSignIn()" id = "signin"> Sign In with Google </div>-->
                 <div id="gSignInWrapper">
                     <div id="signin" class="customGPlusSignIn" ng-click = "onSignIn()">
                         <span class="icon"></span>
@@ -57,11 +61,6 @@
                     </div>
                 </div>
             </div >
-
-            <main class = "main" id = "main">
-                <div ng-view = ""></div>
-            </main>
-
             <footer class = "footer" >
                 <p><span style="background-color:whitesmoke">Copyright @ Synerzip Inc. All Rights Reserved. </span></p>
             </footer>
@@ -85,7 +84,7 @@
                 document.getElementById('g-signinP').style.height = '0px';
                 document.getElementById('sign-out').style.visibility='visible';
                 document.getElementById('home').style.visibility='visible';
-            };
+            }
 
             function signOut() {
                 var auth2 = gapi.auth2.getAuthInstance();

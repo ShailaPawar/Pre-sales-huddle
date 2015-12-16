@@ -34,6 +34,8 @@ angular.module('PreSales-Huddle')
                     document.getElementById('sign-out').style.visibility='visible';
                     document.getElementById('prospectList').style.visibility='visible';
                     document.getElementById('clientList').style.visibility='visible';
+		            document.getElementById('headerText').style.visibility='visible';
+                    document.getElementById('titleText').style.display='none';
                 }, function (err) {
                     console.log(err)
                 });
@@ -57,6 +59,8 @@ angular.module('PreSales-Huddle')
                     document.getElementById('sign-out').style.visibility = 'hidden';
                     document.getElementById('prospectList').style.visibility = 'hidden';
                     document.getElementById('clientList').style.visibility='hidden';
+		    document.getElementById('headerText').style.visibility='visible';
+                    document.getElementById('titleText').style.display='none';
                 });
         };
     })
@@ -67,6 +71,8 @@ angular.module('PreSales-Huddle')
         document.getElementById('sign-out').style.visibility='visible';
         document.getElementById('prospectList').style.visibility='visible';
         document.getElementById('clientList').style.visibility='visible';
+        document.getElementById('headerText').style.visibility='visible';
+                    document.getElementById('titleText').style.display='none';
 
         //  search keyword by  Technology stack and domain
         $scope.searchWord = function (prospectList) {
@@ -148,6 +154,8 @@ angular.module('PreSales-Huddle')
         document.getElementById('sign-out').style.visibility='visible';
         document.getElementById('prospectList').style.visibility='visible';
         document.getElementById('clientList').style.visibility='visible';
+	document.getElementById('headerText').style.visibility='visible';
+                    document.getElementById('titleText').style.display='none';
 
         $scope.maxDate = new Date();
         $scope.date = $scope.maxDate;
@@ -192,6 +200,8 @@ angular.module('PreSales-Huddle')
         document.getElementById('sign-out').style.visibility='visible';
         document.getElementById('prospectList').style.visibility='visible';
         document.getElementById('clientList').style.visibility='visible';
+	    document.getElementById('headerText').style.visibility='visible';
+        document.getElementById('titleText').style.display='none';
 
         $scope.maxDate = new Date();
         $scope.prospect = $rootScope.prospectToUpdate;
@@ -230,6 +240,10 @@ angular.module('PreSales-Huddle')
         document.getElementById('sign-out').style.visibility='visible';
         document.getElementById('prospectList').style.visibility='visible';
         document.getElementById('clientList').style.visibility='visible';
+	    document.getElementById('headerText').style.visibility='visible';
+        document.getElementById('titleText').style.display='none';
+        var prospect = $rootScope.prospectToUpdate;
+        $scope.prospect=prospect;
 
         console.log($rootScope.currentUser);
 
@@ -263,8 +277,12 @@ angular.module('PreSales-Huddle')
         document.getElementById('sign-out').style.visibility='visible';
         document.getElementById('prospectList').style.visibility='visible';
         document.getElementById('clientList').style.visibility='visible';
+        document.getElementById('headerText').style.visibility='visible';
+        document.getElementById('titleText').style.display='none';
 
         var prospect = $rootScope.prospectToUpdate;
+        $scope.prospect=prospect;
+
         $http.get(baseURL + 'discussion/prospectid/' + prospect.ProspectID).success(function(data, status, headers, config) {
             console.log(data);
             $scope.discussions = data;
@@ -298,6 +316,8 @@ angular.module('PreSales-Huddle')
         document.getElementById('sign-out').style.visibility='visible';
         document.getElementById('prospectList').style.visibility='visible';
         document.getElementById('clientList').style.visibility='visible';
+        document.getElementById('headerText').style.visibility='visible';
+        document.getElementById('titleText').style.display='none';
 
         $scope.maxDate = new Date();
         $scope.StartDate = $scope.maxDate;
@@ -342,6 +362,8 @@ angular.module('PreSales-Huddle')
         document.getElementById('sign-out').style.visibility='visible';
         document.getElementById('prospectList').style.visibility='visible';
         document.getElementById('clientList').style.visibility='visible';
+        document.getElementById('headerText').style.visibility='visible';
+        document.getElementById('titleText').style.display='none';
 
         var prospectFetched = $rootScope.prospectToUpdate;
         $scope.prospect = prospectFetched;
@@ -359,6 +381,8 @@ angular.module('PreSales-Huddle')
         document.getElementById('sign-out').style.visibility='visible';
         document.getElementById('prospectList').style.visibility='visible';
         document.getElementById('clientList').style.visibility='visible';
+        document.getElementById('headerText').style.visibility='visible';
+        document.getElementById('titleText').style.display='none';
 
         //  search keyword by  Prospect name
         $scope.searchWord = function (prospectList) {
