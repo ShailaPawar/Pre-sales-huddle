@@ -1,6 +1,14 @@
 <section>
+    <h2> Schedule Call </h2>
     <form name = "scheduleCallForm" novalidate ng-submit="submitMyForm()">
         <div class="container" style="background-color:whitesmoke" id = "form-container">
+            <div class = "dropdown form-group" >
+                <label for = "call"> Type of Call:
+                </label>
+
+                <select id="call" class="form-control" ng-model="call"  ng-change="typeOfCall()" ng-options="typeOfCall.value as typeOfCall.name for typeOfCall in typeOfCall">
+                </select>
+            </div>
             <div class = "form-group">
                 <label for = "fromTime"> From Time:
                     <img src = "../images/required.gif" alt = "Required" class = "required-star">
