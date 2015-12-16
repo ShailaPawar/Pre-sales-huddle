@@ -61,8 +61,9 @@
             </th>
         </thead>
         <tbody>
-            <tr ng-repeat = "prospect in prospects | orderBy:orderByField:reverseSort | filter:searchWord" >
-                <td> {{ prospect.Name }} </td>
+        <span ng-show="{{!prospect.BUHead}}">
+            <tr  ng-show="{{!prospect.BUHead}}" ng-repeat = "prospect in prospects | orderBy:orderByField:reverseSort | filter:searchWord" >
+                 <td> {{ prospect.Name }} </td>
                 <td> {{ prospect.CreateDate  | date: "yyyy-MM-dd"}} </td>
                 <td> {{ prospect.TechStack }} </td>
                 <td> {{ prospect.Domain }} </td>
@@ -70,17 +71,42 @@
                 <td> {{ prospect.Notes }} </td>
                 <td>
                     <a href = '#/editProspect' ng-click="saveData(prospect)" class = "edit-btn" data-toggle = "tooltip" title = "update prospect">
-                        <span  ng-show="{{!prospect.BUHead}}" class = "glyphicon glyphicon-edit" aria-hidden = "true"></span>
+                        <span  class = "glyphicon glyphicon-edit" aria-hidden = "true"></span>
                        <!-- <span class = "visuallyhidden"> Edit {{prospect.Name}} </span>-->
                     </a>
-                    <a href = '#/addToClient' ng-click="saveData(prospect)" class = "edit-btn" data-toggle = "tooltip" title = "Add to Client" >
-                        <span  ng-show="{{!prospect.BUHead}}" class = "glyphicon glyphicon-ok" aria-hidden = "true" style="margin-left: 10%" ></span>
+                    <a href = '#/addToClient' ng-click="saveData(prospect)" class = "edit-btn" data-toggle = "tooltip" title = "Convert Prospect to Client" >
+                        <span  class = "glyphicon glyphicon-usd" aria-hidden = "true" style="margin-left: 10%" ></span>
                     </a>
-                    <a href = '#/clientInfo' ng-click="saveData(prospect)" class = "edit-btn" data-toggle = "tooltip" title = "Client Information" >
-                        <span  ng-hide="{{!prospect.BUHead}}"class = "glyphicon glyphicon-user" aria-hidden = "true" style="margin-left: 10%" ></span>
+
+
+                    <a href = '' ng-click="" class = "edit-btn" data-toggle = "tooltip" title = "Discussion" >
+                        <span   class = "glyphicon glyphicon-comment" aria-hidden = "true" style="margin-left: 10%" ></span>
                     </a>
+                    <a href = '' ng-click="" class = "edit-btn" data-toggle = "tooltip" title = "Schedule Call" >
+                        <span  class = "glyphicon glyphicon-phone-alt" aria-hidden = "true" style="margin-left: 10%" ></span>
+                    </a>   <br>
+                    <a href = '' ng-click="" class = "edit-btn" data-toggle = "tooltip" title = "Set up Reminder" >
+                        <span  class = "glyphicon glyphicon-envelope" aria-hidden = "true" ></span>
+                    </a>
+                    <a href = '' ng-click="" class = "edit-btn" data-toggle = "tooltip" title = "Dead Prospect" >
+                        <span   class = "glyphicon glyphicon-trash" aria-hidden = "true" style="margin-left: 10%" ></span>
+                    </a>
+
+                    <a href = '' ng-click="" class = "edit-btn" data-toggle = "tooltip" title = "View Prospect" >
+                        <span   class = "glyphicon glyphicon-eye-open" aria-hidden = "true" style="margin-left: 10%" ></span>
+                    </a>
+
+                    <a href = '' ng-click="volunteerProspect(prospect)" class = "edit-btn" data-toggle = "tooltip" title = "Be a Volunteer" >
+                        <span   class = "glyphicon glyphicon-hand-up" aria-hidden = "true" style="margin-left: 10%" ></span>
+                    </a>
+
+
+                    <!--<a href = '#/clientInfo' ng-click="saveData(prospect)" class = "edit-btn" data-toggle = "tooltip" title = "Client Information" >
+                        <span  lass = "glyphicon glyphicon-usd" aria-hidden = "true" style="margin-left: 10%" ></span>
+                    </a>-->
                 </td>
             </tr>
+        </span>
         </tbody>
     </table>
 </section>

@@ -1,0 +1,36 @@
+
+<section>
+    <h2> Volunteer </h2>
+    <form name = "volunteerForm" novalidate ng-submit="submitMyForm()">
+        <div class="container" style="background-color:whitesmoke" id = "form-container">
+
+            <div class = "dropdown form-group" >
+                <label for = "role"> Role:
+                </label>
+
+                <select id="role" class="form-control" ng-model="Role"  ng-change="changeRole()" ng-options="volunteerRole.value as volunteerRole.name for volunteerRole in volunteerRole">
+                 </select>
+            </div>
+            <div class = "form-group" ng-show="showDate" ng-class = "{ 'has-error' : editForm.date.$invalid && submitted }">
+                <label for = "date"> Earliest Availability Date:
+                </label>
+
+                <input type = "date" ng-model = "CreateDate" id = "date" name = "date" class = "form-control" min = "{{ maxDate | date: 'yyyy-MM-dd'}}" required>
+            </div>
+            <div class = "form-group" >
+                <label for = "notes"> Notes:</label>
+
+                <textarea  ng-model = "Notes" id = "notes" name = "notes"class = "form-control"></textarea>
+            </div>
+            <modal visible="showModal">
+
+            </modal>
+
+            <div class = "form-group">
+                <input type="button"  id="cancel-button" value="Cancel" class="col-sm-2 btn btn-primary" ng-click="go('prospects')">
+                <button type="button"   class="col-sm-2 btn btn-primary" ng-click="addVolunteer()" style="margin-left:10px;"> Save </button>
+            </div>
+        </div>
+        <div class="form-group"></div>
+    </form>
+</section>

@@ -186,3 +186,11 @@ span.buttonText {
     margin-bottom: 2%;
 
 }
+
+#message{
+    text-align: center;
+    font-weight: bold;
+    font-style: italic;
+    font-size: 250%;
+
+}
