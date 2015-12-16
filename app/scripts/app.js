@@ -12,7 +12,6 @@ angular.module('PreSales-Huddle', ['ngResource', 'ngRoute'])
                 controller: 'EditProspectCtrl',
                 title: 'Edit Prospect'
             })
-
             .when('/createProspect', {
                 templateUrl: '../views/addProspect.html',
                 controller: 'AddProspectCtrl',
@@ -38,17 +37,20 @@ angular.module('PreSales-Huddle', ['ngResource', 'ngRoute'])
                 controller: 'AddClientCtrl',
                 title: 'Add To Client'
             })
-
             .when('/clientInfo', {
                 templateUrl: '../views/clientInfo.html',
                 controller: 'ClientInfoCtrl',
                 title: 'Client Information'
             })
-
             .when('/clients', {
                 templateUrl: '../views/viewClients.html',
                 controller: 'ClientCtrl',
                 title: 'All Clients'
+            })
+            .when('/scheduleCall', {
+                templateUrl: '../views/scheduleCall.html',
+                controller: 'ScheduleCallCtrl',
+                title: 'Schedule a call'
             })
     }).run(['$window', function ($window) {
         $window.GoogleAsyncInit = function () {

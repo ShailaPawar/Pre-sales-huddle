@@ -61,6 +61,12 @@ angular.module('PreSales-Huddle')
         // default sorting order is by Prospect Creation Date
         $scope.orderByField = 'CreateDate';
 
+        //  search keyword by  Technology stack and domain
+        $scope.searchWord = function (prospectList) {
+            return (angular.lowercase(prospectList.TechStack).indexOf(angular.lowercase($scope.search) || '') !== -1  ||
+            angular.lowercase(prospectList.Domain).indexOf(angular.lowercase($scope.search) || '') !== -1);
+        };
+
         $scope.saveData = function(prospect) {
             $rootScope.prospectToUpdate = prospect;
 
@@ -94,14 +100,12 @@ angular.module('PreSales-Huddle')
 
         $scope.maxDate = new Date();
         $scope.date = $scope.maxDate;
-        console.log($scope.maxDate);
+        var creationDate = $scope.date;
 
         $scope.addProspect = function() {
-
-            console.log("In AddProspectCtrl, Creation Date: ", $scope.date);
             var data = {
                 Name: $scope.prospectName,
-                CreateDate : $scope.date,
+                CreateDate : creationDate,
                 TechStack: $scope.techStack,
                 Domain: $scope.domain,
                 DesiredTeamSize: $scope.teamSize,
@@ -255,6 +259,7 @@ angular.module('PreSales-Huddle')
             var data = {
                 ProspectID: $rootScope.prospectToUpdate.ProspectID,
                 Name: $scope.prospect.Name,
+                CreateDate: $scope.CreateDate,
                 StartDate : $scope.StartDate,
                 TechStack: $scope.prospect.TechStack,
                 Domain: $scope.prospect.Domain,
@@ -320,7 +325,63 @@ angular.module('PreSales-Huddle')
             $scope.prospects = data;
         }).error(function(data, status, header, config) {
         });
+    })
+
+    .controller('ScheduleCallCtrl', function($scope, $http, $rootScope, $location) {
+        document.getElementById('signin').style.visibility='hidden';
+        document.getElementById('g-signinP').style.height = '0px';
+        document.getElementById('sign-out').style.visibility='visible';
+        document.getElementById('prospectList').style.visibility='visible';
+        document.getElementById('clientList').style.visibility='visible';
+
+        var currentProspect = $rootScope.prospectToUpdate;
+        console.log("current prospect:", currentProspect);
+
+        jQuery(function () {
+            jQuery('#fromTime').datetimepicker({language: 'en',
+                format: 'yyyy-MM-dd hh:mm' });
+            jQuery('#toTime').datetimepicker({language: 'en',
+                format: 'yyyy-MM-dd hh:mm' });
+            jQuery("#fromTime").on("dp.change",function (e) {
+                //jQuery('#toTime').data("DateTimePicker").setMinDate(e.date);
+                $rootScope.ConfDateStart = e.date;
+                console.log($rootScope.ConfDateStart);
+            });
+            jQuery("#toTime").on("dp.change",function (e) {
+                //jQuery('#fromTime').data("DateTimePicker").setMaxDate(e.date);
+                $rootScope.ConfDateEnd = e.date;
+                console.log($rootScope.ConfDateEnd);
+            });
+        });
+
+        $scope.scheduleCall = function() {
+            var data = {
+                ProspectID: $rootScope.prospectToUpdate.ProspectID,
+                Name: currentProspect.Name,
+                ConfDateStart: $rootScope.ConfDateStart,
+                ConfDateEnd: $rootScope.ConfDateEnd,
+                TechStack: currentProspect.TechStack,
+                Domain: currentProspect.Domain,
+                DesiredTeamSize: currentProspect.DesiredTeamSize,
+                Notes: currentProspect.Notes,
+                CreateDate: currentProspect.CreateDate,
+                SalesID: $rootScope.salesName
+            };
+
+            console.log("ConfDate:", data.ConfDateStart, data.ConfDateEnd);
+            console.log("Schedule call data:", JSON.stringify(data));
+
+            $http.put(baseURL + 'prospect/', data = data).success(function(data, status, headers, config) {
+                console.log('Call details added to Prospect.');
+                $location.path('/prospects');
+            }).error(function(data, status, headers, config) {
+                console.log('Error occurred.');
+            });
+        };
+
+        // Cancel button function
+        $scope.go = function(path) {
+            $rootScope.lastform = "createProspect";
+            $location.path(path);
+        }
     });
-
-
-

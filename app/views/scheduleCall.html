@@ -1,0 +1,39 @@
+<section>
+    <form name = "scheduleCallForm" novalidate ng-submit="submitMyForm()">
+        <div class="container" style="background-color:whitesmoke" id = "form-container">
+            <div class = "form-group">
+                <label for = "fromTime"> From Time:
+                    <img src = "../images/required.gif" alt = "Required" class = "required-star">
+                </label>
+
+                <div class='input-group date' id='fromTime'>
+                    <input type='text' class="form-control" name="fromTime"/>
+					<span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+					</span>
+                </div>
+            </div>
+            <div class = "form-group">
+                <label for = "toTime"> To Time:
+                    <img src = "../images/required.gif" alt = "Required" class = "required-star">
+                </label>
+
+                <div class='input-group date' id='toTime'>
+                    <input type='text' class="form-control" name="toTime"/>
+					<span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+					</span>
+                </div>
+            </div>
+            <p>
+                <span style = "font-size: 9pt;"> All fields marked with an
+                    <img src = "../images/required.gif" alt = "asterisk" class = "required-star"> are required.
+                </span>
+            </p>
+            <div class = "form-group">
+                <input type="button" id="cancel-button" value="Cancel" class="col-sm-2 btn btn-primary" ng-click="go('prospects')">
+                <button type="button" class="col-sm-2 btn btn-primary" ng-click="scheduleCall()" style="margin-left:10px;"> Save </button>
+            </div>
+        </div>
+    </form>
+</section>

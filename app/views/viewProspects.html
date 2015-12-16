@@ -63,7 +63,7 @@
         <tbody>
             <tr ng-repeat = "prospect in prospects | orderBy:orderByField:reverseSort | filter:searchWord" >
                 <td> {{ prospect.Name }} </td>
-                <td> {{ prospect.CreateDate  | date: "yyyy-MM-dd"}} </td>
+                <td> {{ prospect.CreateDate | date: "yyyy-MM-dd" }} </td>
                 <td> {{ prospect.TechStack }} </td>
                 <td> {{ prospect.Domain }} </td>
                 <td> {{ prospect.DesiredTeamSize }} </td>
@@ -78,6 +78,9 @@
                     </a>
                     <a href = '#/clientInfo' ng-click="saveData(prospect)" class = "edit-btn" data-toggle = "tooltip" title = "Client Information" >
                         <span  ng-hide="{{!prospect.BUHead}}"class = "glyphicon glyphicon-user" aria-hidden = "true" style="margin-left: 10%" ></span>
+                    </a>
+                    <a href = '#/scheduleCall' ng-click="saveData(prospect)" class = "edit-btn" data-toggle = "tooltip" title = "Schedule call" >
+                        <span  class = "glyphicon glyphicon-phone-alt" aria-hidden = "true" style="margin-left: 10%" ></span>
                     </a>
                 </td>
             </tr>
