@@ -84,7 +84,9 @@ angular.module('PreSales-Huddle')
         $scope.orderByField = 'CreateDate';
 
         $scope.saveData = function(prospect) {
+            console.log(prospect);
             $rootScope.prospectToUpdate = prospect;
+            console.log($rootScope.prospectToUpdate);
 
             // creation date
             $rootScope.createDate = $rootScope.prospectToUpdate.CreateDate.toString();
@@ -110,8 +112,8 @@ angular.module('PreSales-Huddle')
 
 
         $scope.volunteerProspect = function(prospect) {
-            flag=0;
-            numberOfVolunteer=0;
+            var flag=0;
+            var numberOfVolunteer=0;
             $http.get(baseURL + 'participant/prospectid/'+ prospect.ProspectID).success(function(data, status, headers, config) {
                 console.log (data);
                 var participantData=JSON.stringify(data);
@@ -277,8 +279,6 @@ angular.module('PreSales-Huddle')
         document.getElementById('titleText').style.display='none';
 
         var prospect = $rootScope.prospectToUpdate;
-        $scope.prospect=prospect;
-
         $http.get(baseURL + 'discussion/prospectid/' + prospect.ProspectID).success(function(data, status, headers, config) {
             console.log(data);
             $scope.discussions = data;
@@ -452,11 +452,45 @@ angular.module('PreSales-Huddle')
             $rootScope.lastform = "createProspect";
             $location.path(path);
         }
+    });
+
+    /*.filter("volunterNumber",function(){
+        return function(input){
+
+            var numberOfVolunteer=0;
+            $http.get(baseURL + 'participant/prospectid/'+ prospect.ProspectID).success(function(data, status, headers, config) {
+                console.log (data);
+                var participantData=JSON.stringify(data);
+                if(JSON.parse(participantData)== null){
+                    numberOfVolunteer  = 0;
+                }
+                else{
+                    numberOfVolunteer=JSON.parse(participantData).length;
+                }
+                var volunteersList=JSON.parse(participantData);
+                for(var i=0;i<numberOfVolunteer;i++){
+                    if(angular.equals($rootScope.salesName,volunteersList[i].UserID)){
+                        flag=1;
+                        alert(" Hi , you already participated in this prospect as a Volunteer.")
+
+                    }
+                }
+                if(angular.equals(flag,0)){
+                    console.log("flag"+flag)
+                    $location.path('/volunteer');
+                }
+
+
+            }).error(function(data, status, header, config) {
+                    console.log("not fecthed")
+                });
+            return output;
+        }
+
+
     })
 
-
-
 ;
-
+*/
 
 

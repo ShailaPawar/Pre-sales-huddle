@@ -1,28 +1,23 @@
 <section id="page-sub-header">
-
-            <a ng-href="#/addDiscussion" class="col-sm-2 btn btn-primary pull-right" id="addDiscussion"
-               style="margin-left:10px;"> Ask a question </a>
-            <a ng-href="#/editProspect" class="col-sm-2  btn btn-primary pull-right" id="editProspect"> Back </a>
-
+    <a ng-href="#/addDiscussion" class="col-sm-2 btn btn-primary pull-right" id="addDiscussion" style="margin-left:10px;"> Ask a question </a>
+    <a ng-href="#/viewProspect" class="col-sm-2  btn btn-primary pull-right" id="editProspect"> Back </a>
 </section>
 
-<section id="discussions" >
+<section id="discussions">
 
-    <h2 class="pull-left" id="discussioon-text" style="margin-top: -1% !important" > Discussion for Prospect {{prospect.Name}}</h2>
-    <form name="viewDiscussion-form"  novalidate ng-submit="submitMyForm()">
-        <div class = "form-group" ng-model="prosepct.Name">
-        </div>
-    </form>
-                <table class="table table-striped table-hover" style="background-color:whitesmoke">
-                    <thead>
-                    <th> Question</th>
-                    <th> Answer</th>
-                    </thead>
-                    <tbody>
-                    <tr ng-repeat="discussion in discussions">
-                        <td> {{ discussion.Query }}</td>
-                        <td> {{ discussion.Answer }}</td>
-                    </tr>
-                    </tbody>
-                </table>
+
+    <h2 class = "pull-left"> Discussions </h2>
+
+    <table class = "table table-striped table-hover" style="background-color:whitesmoke">
+        <thead>
+        <th> Question </th>
+        <th> Answer </th>
+        </thead>
+        <tbody>
+        <tr ng-repeat = "discussion in discussions">
+            <td> {{ discussion.Query }} </td>
+            <td> {{ discussion.Answer }}</td>
+        </tr>
+        </tbody>
+    </table>
 </section>
