@@ -107,7 +107,9 @@ angular.module('PreSales-Huddle')
         };
 
         $scope.saveData = function(prospect) {
+            console.log(prospect);
             $rootScope.prospectToUpdate = prospect;
+            console.log($rootScope.prospectToUpdate);
 
             // creation date
             $rootScope.createDate = $rootScope.prospectToUpdate.CreateDate.toString();
@@ -168,7 +170,7 @@ angular.module('PreSales-Huddle')
         document.getElementById('sign-out').style.visibility='visible';
         document.getElementById('prospectList').style.visibility='visible';
         document.getElementById('clientList').style.visibility='visible';
-	    document.getElementById('headerText').style.visibility='visible';
+	      document.getElementById('headerText').style.visibility='visible';
         document.getElementById('titleText').style.display='none';
 
         $scope.maxDate = new Date();
@@ -182,7 +184,7 @@ angular.module('PreSales-Huddle')
                 TechStack: $scope.techStack,
                 Domain: $scope.domain,
                 DesiredTeamSize: $scope.teamSize,
-                Notes: $scope.notes
+                ProspectNotes: $scope.notes
             };
 
             console.log(data);
@@ -198,7 +200,7 @@ angular.module('PreSales-Huddle')
             $scope.techStack = "";
             $scope.domain = "";
             $scope.teamSize = "";
-            $scope.notes = "";
+            $scope.ProspectNotes = "";
         };
 
         // Cancel button function
@@ -228,7 +230,8 @@ angular.module('PreSales-Huddle')
                 TechStack: $scope.prospect.TechStack,
                 Domain: $scope.prospect.Domain,
                 DesiredTeamSize: $scope.prospect.DesiredTeamSize,
-                Notes: $scope.prospect.Notes
+                ProspectNotes: $scope.prospect.ProspectNotes,
+                ConfCalls: $rootScope.prospectToUpdate.ConfCalls
             };
             console.log(data);
 
@@ -248,45 +251,7 @@ angular.module('PreSales-Huddle')
         }
     })
 
-    .controller('AddDiscussionCtrl', function($scope, $http, $rootScope, $location) {
-        document.getElementById('signin').style.visibility='hidden';
-        document.getElementById('g-signinP').style.height = '0px';
-        document.getElementById('sign-out').style.visibility='visible';
-        document.getElementById('prospectList').style.visibility='visible';
-        document.getElementById('clientList').style.visibility='visible';
-	    document.getElementById('headerText').style.visibility='visible';
-        document.getElementById('titleText').style.display='none';
-
-        var prospect = $rootScope.prospectToUpdate;
-        $scope.prospect=prospect;
-
-        console.log($rootScope.currentUser);
-
-        $scope.addDiscussion = function() {
-            var data = {
-                ProspectID: $rootScope.prospectToUpdate.ProspectID,
-                UserID: $rootScope.currentUser,
-                Query: $scope.query
-            };
-
-            $http.post(baseURL + 'discussion/', data = data).success(function(data, status, headers, config) {
-                console.log('Discussion added.');
-                $location.path('/discussions');
-            }).error(function(data, status, headers, config) {
-                console.log('Discussion not added.');
-            });
-
-            $scope.query = "";
-        };
-
-        // Cancel button function
-        $scope.go = function(path) {
-            $rootScope.lastform = "createProspect";
-            $location.path(path);
-        }
-    })
-
-    .controller('DiscussionsCtrl', function($scope, $http, $rootScope) {
+    .controller('DiscussionsCtrl', function($scope, $http, $rootScope,$location) {
         document.getElementById('signin').style.visibility='hidden';
         document.getElementById('g-signinP').style.height = '0px';
         document.getElementById('sign-out').style.visibility='visible';
@@ -296,32 +261,37 @@ angular.module('PreSales-Huddle')
         document.getElementById('titleText').style.display='none';
 
         var prospect = $rootScope.prospectToUpdate;
-        $scope.prospect=prospect;
-
-        $http.get(baseURL + 'discussion/prospectid/' + prospect.ProspectID).success(function(data, status, headers, config) {
-            console.log(data);
+        $http.get(baseURL + 'discussion/prospectid/'+prospect.ProspectID).success(function(data, status, headers, config) {
+            console.log("discussion/prospectid/", data);
             $scope.discussions = data;
         }).error(function(data, status, header, config) {});
 
-        //$scope.giveAnswer = function() {
-        //    document.getElementById('ansModal').dialog('open');
-        //}
-        //
-        //$scope.addAnswer = function() {
-        //    var data = {
-        //        ProspectID: $rootScope.prospectToUpdate.ProspectID,
-        //        UserID: $rootScope.currentUser,
-        //        Query: $scope.query,
-        //        Answer: $scope.answer
-        //    };
-        //
-        //    $http.post(baseURL + 'discussion/', data = data).success(function(data, status, headers, config) {
-        //        console.log('Discussion added.');
-        //        $location.path('/discussions');
-        //    }).error(function(data, status, headers, config) {
-        //        console.log('Discussion not added.');
-        //    });
-        //}
+        $scope.addDiscussion = function() {
+            var data = {
+                ProspectID: $rootScope.prospectToUpdate.ProspectID,
+                UserID: $rootScope.salesName,
+                Query: $scope.query
+            };
+            console.log("addDiscussion",data);
+            $http.post(baseURL + 'discussion/', data = data).success(function(data, status, headers, config) {
+                console.log('Discussion added.');
+                $location.path('/discussions');
+            }).error(function(data, status, headers, config) {
+                    console.log('Discussion not added.');
+                });
+
+            $scope.query = "";
+
+            javascript:history.go(-1);
+        }
+
+
+        $scope.showDiscussion = function(discussion) {
+            console.log("showdiscussion: ", discussion);
+            $rootScope.discussionToView = discussion;
+            console.log("$rootScope.discussionToView: ", $rootScope.discussionToView);
+        };
+
     })
 
     //addTOClientCtrl to add prospect to client
@@ -342,17 +312,19 @@ angular.module('PreSales-Huddle')
 
         $scope.addToClient = function() {
             var data = {
-                ProspectID: $rootScope.prospectToUpdate.ProspectID,
-                Name: $scope.prospect.Name,
-                CreateDate: $scope.CreateDate,
-                StartDate : $scope.StartDate,
-                TechStack: $scope.prospect.TechStack,
-                Domain: $scope.prospect.Domain,
-                DesiredTeamSize: $scope.prospect.DesiredTeamSize,
-                Notes: $scope.prospect.Notes ,
-                BUHead:$scope.Head,
-                TeamSize:$scope.TeamSize,
-                SalesID: $rootScope.salesName
+                ProspectID:     $rootScope.prospectToUpdate.ProspectID,
+                Name:           $scope.prospect.Name,
+                CreateDate:     $scope.CreateDate,
+                StartDate :     $scope.StartDate,
+                TechStack:      $scope.prospect.TechStack,
+                Domain:         $scope.prospect.Domain,
+                DesiredTeamSize:$scope.prospect.DesiredTeamSize,
+                ProspectNotes:  $scope.prospect.ProspectNotes ,
+                ClientNotes:    $scope.prospect.ClientNotes,
+                BUHead:         $scope.Head,
+                TeamSize:       $scope.TeamSize,
+                SalesID:        $rootScope.salesName,
+                ConfCalls:      $rootScope.prospectToUpdate.ConfCalls
             };
 
             $http.put(baseURL + 'prospect/', data = data).success(function(data, status, headers, config) {
@@ -476,6 +448,48 @@ angular.module('PreSales-Huddle')
         }
     })
 
+    //controller to show discussion on particular prospect
+    .controller('ProspectDiscussionCtrl', function($scope, $http, $rootScope, $location) {
+        document.getElementById('signin').style.visibility = 'hidden';
+        document.getElementById('g-signinP').style.height = '0px';
+        document.getElementById('sign-out').style.visibility = 'visible';
+        document.getElementById('prospectList').style.visibility = 'visible';
+        document.getElementById('clientList').style.visibility = 'visible';
+        document.getElementById('headerText').style.visibility = 'visible';
+        document.getElementById('titleText').style.display = 'none';
+
+        $scope.maxDate = new Date();
+        $scope.prospect = $rootScope.prospectToUpdate;
+        $scope.Role = 'Domain Advisor';
+        $scope.discussion = $rootScope.discussionToView;
+        console.log("$scope.discussion", $scope.discussion.Answers);
+
+        $scope.addAnswer = function () {
+            var data = {
+                DiscussionID: $rootScope.discussionToView.DiscussionID,
+                ProspectID: $rootScope.discussionToView.ProspectID,
+                UserID: $rootScope.discussionToView.UserID,
+                Query: $rootScope.discussionToView.Query,
+                Answers: [
+                    {
+                        AnswerStr: $scope.answer,
+                        UserID: $rootScope.salesName
+                    }
+                ]
+            };
+            console.log(data);
+            $http.put(baseURL + 'discussion/', data = data).success(function (data, status, headers, config) {
+                console.log('discussion updated.', data);
+                console.log('discussion updated.');
+                $location.path('/discussions');
+            }).error(function (data, status, headers, config) {
+                console.log(data, status, headers, config);
+                console.log('discussion not updated.');
+            });
+        };
+    })
+
+
     .controller('ScheduleCallCtrl', function($scope, $http, $rootScope, $location) {
         document.getElementById('signin').style.visibility='hidden';
         document.getElementById('g-signinP').style.height = '0px';
@@ -488,15 +502,16 @@ angular.module('PreSales-Huddle')
         var currentProspect = $rootScope.prospectToUpdate;
         console.log("current prospect:", currentProspect);
 
-        $scope.typeOfCall =
-            [{
+        $scope.typeOfCall = [
+            {
                 value: 'Internal Prep call',
                 name: 'Internal Prep call'
-            }, {
+            },
+            {
                 value: 'Client engg call',
                 name: 'Client engg call'
-            }]
-        ;
+            }
+        ];
         $scope.call = 'Internal Prep call';
 
         $scope.displayParticipants = function() {
