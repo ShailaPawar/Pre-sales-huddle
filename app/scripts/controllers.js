@@ -52,6 +52,7 @@ angular.module('PreSales-Huddle')
                     document.getElementById('prospectList').style.visibility='visible';
                     document.getElementById('clientList').style.visibility='visible';
 		            document.getElementById('headerText').style.visibility='visible';
+                    document.getElementById('reports').style.visibility='visible';
                     document.getElementById('titleText').style.display='none';
                 }, function (err) {
                     console.log(err)
@@ -76,7 +77,8 @@ angular.module('PreSales-Huddle')
                     document.getElementById('sign-out').style.visibility = 'hidden';
                     document.getElementById('prospectList').style.visibility = 'hidden';
                     document.getElementById('clientList').style.visibility='hidden';
-		    document.getElementById('headerText').style.visibility='visible';
+                    document.getElementById('reports').style.visibility='hidden';
+		            document.getElementById('headerText').style.visibility='visible';
                     document.getElementById('titleText').style.display='none';
                 });
         };
@@ -89,7 +91,8 @@ angular.module('PreSales-Huddle')
         document.getElementById('prospectList').style.visibility='visible';
         document.getElementById('clientList').style.visibility='visible';
         document.getElementById('headerText').style.visibility='visible';
-                    document.getElementById('titleText').style.display='none';
+        document.getElementById('reports').style.visibility='visible';
+        document.getElementById('titleText').style.display='none';
 
         //  search keyword by  Technology stack and domain
         $scope.searchWord = function (prospectList) {
@@ -170,8 +173,8 @@ angular.module('PreSales-Huddle')
         document.getElementById('sign-out').style.visibility='visible';
         document.getElementById('prospectList').style.visibility='visible';
         document.getElementById('clientList').style.visibility='visible';
-	      document.getElementById('headerText').style.visibility='visible';
-        document.getElementById('titleText').style.display='none';
+	document.getElementById('headerText').style.visibility='visible';
+                    document.getElementById('titleText').style.display='none';
 
         $scope.maxDate = new Date();
         $scope.date = $scope.maxDate;
@@ -217,6 +220,7 @@ angular.module('PreSales-Huddle')
         document.getElementById('prospectList').style.visibility='visible';
         document.getElementById('clientList').style.visibility='visible';
 	    document.getElementById('headerText').style.visibility='visible';
+        document.getElementById('reports').style.visibility='visible';
         document.getElementById('titleText').style.display='none';
 
         $scope.maxDate = new Date();
@@ -257,7 +261,7 @@ angular.module('PreSales-Huddle')
         document.getElementById('sign-out').style.visibility='visible';
         document.getElementById('prospectList').style.visibility='visible';
         document.getElementById('clientList').style.visibility='visible';
-        document.getElementById('headerText').style.visibility='visible';
+	    document.getElementById('headerText').style.visibility='visible';
         document.getElementById('titleText').style.display='none';
 
         var prospect = $rootScope.prospectToUpdate;
@@ -285,6 +289,14 @@ angular.module('PreSales-Huddle')
             javascript:history.go(-1);
         }
 
+    .controller('DiscussionsCtrl', function($scope, $http, $rootScope) {
+        document.getElementById('signin').style.visibility='hidden';
+        document.getElementById('g-signinP').style.height = '0px';
+        document.getElementById('sign-out').style.visibility='visible';
+        document.getElementById('prospectList').style.visibility='visible';
+        document.getElementById('clientList').style.visibility='visible';
+        document.getElementById('headerText').style.visibility='visible';
+        document.getElementById('titleText').style.display='none';
 
         $scope.showDiscussion = function(discussion) {
             console.log("showdiscussion: ", discussion);
@@ -302,6 +314,7 @@ angular.module('PreSales-Huddle')
         document.getElementById('prospectList').style.visibility='visible';
         document.getElementById('clientList').style.visibility='visible';
         document.getElementById('headerText').style.visibility='visible';
+        document.getElementById('reports').style.visibility='visible';
         document.getElementById('titleText').style.display='none';
 
         $scope.maxDate = new Date();
@@ -350,6 +363,7 @@ angular.module('PreSales-Huddle')
         document.getElementById('prospectList').style.visibility='visible';
         document.getElementById('clientList').style.visibility='visible';
         document.getElementById('headerText').style.visibility='visible';
+        document.getElementById('reports').style.visibility='visible';
         document.getElementById('titleText').style.display='none';
 
         var prospectFetched = $rootScope.prospectToUpdate;
@@ -369,6 +383,7 @@ angular.module('PreSales-Huddle')
         document.getElementById('prospectList').style.visibility='visible';
         document.getElementById('clientList').style.visibility='visible';
         document.getElementById('headerText').style.visibility='visible';
+        document.getElementById('reports').style.visibility='visible';
         document.getElementById('titleText').style.display='none';
 
         //  search keyword by  Prospect name
@@ -396,9 +411,6 @@ angular.module('PreSales-Huddle')
         document.getElementById('sign-out').style.visibility='visible';
         document.getElementById('prospectList').style.visibility='visible';
         document.getElementById('clientList').style.visibility='visible';
-        document.getElementById('headerText').style.visibility='visible';
-        document.getElementById('titleText').style.display='none';
-
         $scope.maxDate = new Date();
         $scope.prospect = $rootScope.prospectToUpdate;
         $scope.volunteerRole =
@@ -692,6 +704,139 @@ angular.module('PreSales-Huddle')
             $rootScope.lastform = "createProspect";
             $location.path(path);
         }
+    })
+
+    //controller for reports
+    .controller('ReportsCtrl',function($scope,$http,$rootScope,$location){
+        document.getElementById('signin').style.visibility='hidden';
+        document.getElementById('g-signinP').style.height = '0px';
+        document.getElementById('sign-out').style.visibility='visible';
+        document.getElementById('prospectList').style.visibility='visible';
+        document.getElementById('clientList').style.visibility='visible';
+        document.getElementById('headerText').style.visibility='visible';
+        document.getElementById('reports').style.visibility='visible';
+        document.getElementById('titleText').style.display='none';
+
+        var prospect_report=$rootScope.prospectToUpdate;
+        $scope.prospect=prospect_report;
+
+        $http.get(baseURL + 'prospect/all/').success(function(data, status, headers, config) {
+            $scope.TechStack = data;
+            var testArray = [];
+            var a = [], split_array = [],trimmed_array = [];
+            for(var i = 0; i < data.length; i++){
+                testArray[i] = data[i].TechStack;
+            }
+            for(var j = 0; j < testArray.length; j++){
+                a[j] = testArray[j];
+                if(a[j].indexOf(',') !== -1){
+                    split_array = a[j].split(',');
+                      for(var k = 0;k <  split_array.length;k++){
+                        testArray.push(split_array[k]);
+                      }
+                }
+            }
+            for(var l = 0; l < testArray.length; l++){
+                trimmed_array[l] = testArray[l];
+                if(trimmed_array[l].indexOf(',') !== -1){
+                    var index = testArray.indexOf(trimmed_array[l]);
+                    testArray.splice(index,1)
+                }
+            }
+            for( var m = 0; m < testArray.length; m++){
+                testArray[m] = angular.uppercase(testArray[m]);
+            }
+            console.log(testArray);
+
+            var newArray = countArray(testArray);
+            function countArray(original) {
+                var compressed = [];
+                // make a copy of the input array
+                var copy = original.slice(0);
+                // first loop goes over every element
+                for (var i = 0; i < original.length; i++) {
+                    var myCount = 0;
+                    // loop over every element in the copy and see if it's the same
+                    for (var w = 0; w < copy.length; w++) {
+                        if ( original[i] == copy[w] ) {
+                            // increase amount of times duplicate is found
+                            myCount++;
+                            // sets item to undefined
+                            delete copy[w];
+                        }
+                    }
+                    if (myCount > 0) {
+                        var a = {};
+                        a.value = original[i];
+                        a.count = myCount;
+                        compressed.push(a);
+                    }
+                }
+                return compressed;
+            }
+            $(document).ready(function () {
+
+                var parentArray = $.map(newArray[0], function(value, index) {
+                    return [value];
+                });
+                for (var i = 0; i < newArray.length; i++)
+                {
+                    var array = $.map(newArray[i], function(value, index) {
+                        return [value];
+                    });
+                    parentArray[i] = array;
+                }
+                var Array = $.map(parentArray, function(value, index) {
+                    return [value];
+                });
+                RenderPieChart('report-container',[
+                    Array
+                ]);
+                function RenderPieChart(elementId, dataList) {
+                    var colors = ["#2a8482","#64DECF","#BCCDF8",'#058DC7', '#50B432', '#ED561B', '#DDDF00', '#24CBE5', '#64E572',
+                    '#FF9655', '#FF0081', '#6AF9C4'];
+                    for (var i = 0 ; i < dataList.length; i++) {
+                        new Highcharts.Chart({
+                            chart: {
+                                renderTo: elementId,
+                                plotBackgroundColor: null,
+                                plotBorderWidth: null,
+                                plotShadow: false
+                            }, title: {
+                                text: 'Pie Chart for TechStack'
+                            },
+                            tooltip: {
+                                formatter: function () {
+                                    return '<b>' + this.point.name + '</b>: ' + this.percentage + ' %';
+                                }
+                            },
+                            plotOptions: {
+                                pie: {
+                                    allowPointSelect: true,
+                                    colors:colors,
+                                    cursor: 'pointer',
+                                    dataLabels: {
+                                        enabled: true,
+                                        distance:-30,
+                                        color: '#000000',
+                                        connectorColor: '#000000',
+                                        formatter: function () {
+                                            return '<b>' + this.point.name;
+                                        }
+                                    }
+                                }
+                            },
+                            series: [{
+                                type: 'pie',
+                                name: 'Browser share',
+                                data: dataList[0]
+                            }]
+                        });
+                    }
+                }
+            });
+
+        }).error(function(data, status, header, config) {});
     });
 
 
