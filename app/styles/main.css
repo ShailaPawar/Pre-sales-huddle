@@ -169,6 +169,7 @@ span.buttonText {
 
 #searchBar {
     padding-left: 10%;
+    width: 200%;
 }
 
 #searchBar + #searchIcon {

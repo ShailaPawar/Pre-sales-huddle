@@ -55,6 +55,11 @@ angular.module('PreSales-Huddle', ['ngResource', 'ngRoute'])
                 controller: 'VolunteerCtrl',
                 title: 'Volunteer'
             })
+            .when('/prospectDiscussion', {
+                templateUrl: '../views/prospectDiscussion.html',
+                controller: 'ProspectDiscussionCtrl',
+                title: 'Prospect Discussion'
+            })
     }).run(['$window', function ($window) {
         $window.GoogleAsyncInit = function () {
             // Executed when the SDK is loaded
