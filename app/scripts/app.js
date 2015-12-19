@@ -55,7 +55,7 @@ angular.module('PreSales-Huddle', ['ngResource', 'ngRoute'])
                 controller: 'VolunteerCtrl',
                 title: 'Volunteer'
             })
-						.when('/scheduleCall', {
+            .when('/scheduleCall', {
                 templateUrl: '../views/scheduleCall.html',
                 controller: 'ScheduleCallCtrl',
                 title: 'Schedule a call'

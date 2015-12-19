@@ -14,7 +14,7 @@ h2 {
 }
 
 .title {
-    font-family: saline;
+    font-family: calibri;
     font-size: 735%;
     text-align: center;
     margin-top: 10%;
@@ -168,6 +168,7 @@ span.buttonText {
 
 #searchBar {
     padding-left: 25px;
+    width:200%;
 }
 
 #searchBar + #searchIcon {

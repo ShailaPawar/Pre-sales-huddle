@@ -6,7 +6,7 @@
                 <label for = "call"> Type of Call:
                 </label>
 
-                <select id="call" class="form-control" ng-model="call"  ng-change="typeOfCall()" ng-options="typeOfCall.value as typeOfCall.name for typeOfCall in typeOfCall">
+                <select id="call" class="form-control" ng-model="call"  ng-change="displayParticipants()" ng-options="typeOfCall.value as typeOfCall.name for typeOfCall in typeOfCall">
                 </select>
             </div>
             <div class = "form-group">
@@ -26,12 +26,32 @@
                     <img src = "../images/required.gif" alt = "Required" class = "required-star">
                 </label>
 
-                <div class='input-group date' id='toTime'>
-                    <input type='text' class="form-control" name="toTime"/>
+                <div class='input-group date' id ='toTime'>
+                    <input type = 'text' class = "form-control" name = "toTime"/>
 					<span class="input-group-addon">
                         <span class="glyphicon glyphicon-calendar"></span>
 					</span>
                 </div>
+            </div>
+            <div class = "form-group" ng-show ="showParticipants">
+                <table class = "table table-striped table-hover" style="background-color:whitesmoke">
+                    <thead>
+                    <th> Action </th>
+                    <th> Volunteer Name </th>
+                    <th> Role </th>
+                    <th> Notes </th>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat = "participant in participants">
+                            <td>
+                                <input type="checkbox" name="name1" />&nbsp;
+                            </td>
+                            <td> {{ participant.UserID }} </td>
+                            <td> {{ participant.ParticipationRole }} </td>
+                            <td> {{ participant.Notes }} </td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
             <p>
                 <span style = "font-size: 9pt;"> All fields marked with an
