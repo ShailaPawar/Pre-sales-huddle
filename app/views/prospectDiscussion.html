@@ -1,0 +1,35 @@
+
+<section id="page-sub-header">
+    <a ng-href="#/discussions" class="col-sm-2  btn btn-primary pull-right" id="editProspect"> Back </a>
+</section>
+
+<section>
+    <h2>Discussions</h2>
+    <div class="container" id = "form-container">
+
+        <div class="list-group" style="margin-top: 3%">
+            <li class="list-group-item" >
+                <span class="label label-default label-pill pull-xs-right ">{{discussion.UserID}}</span> <br>
+                {{ discussion.Query }}
+            </li>
+            <li class="list-group-item" style="text-align:right">
+                <span class="label label-default label-pill pull-xs-left ">{{ discussion.Answers[0].UserID}}</span> <br>
+                {{discussion.Answers[0].AnswerStr}}
+            </li>
+
+            <li class="list-group-item">
+                <textarea id = "query" name = "query" ng-model = "answer" class = "form-control" placeholder="here">  </textarea>
+
+            </li>
+            <!--<li>
+                <button type="button" class="btn btn-default">Close</button>
+            </li>-->
+            <div class="btn-group pull-right" style="margin-top: 1%;margin-bottom: 3%">
+                <button type="button" class="btn btn-primary" ng-click="addAnswer()">
+                    Post
+                </button>
+            </div>
+        </div>
+    </div>
+</section>
+

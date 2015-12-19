@@ -10,7 +10,7 @@
 </script>
 <section id = "prospect-list">
     <div class="col-xs-6" >
-        <h2 class = "pull-left" style="margin-top: -1% !important ;margin-left: 0%"> Prospect List </h2>
+        <h2 class = "pull-left" style="margin-top: -1% !important ;margin-left: -3%"> Prospect List </h2>
         <!--<div class="right-inner-add-on" style="width: 70%;display: inline;position: relative;white-space: nowrap">-->
             <div class="col-xs-6">
 
@@ -68,31 +68,43 @@
                 <td> {{ prospect.DesiredTeamSize }} </td>
                 <td> {{ prospect.Notes }} </td>
                 <td>
+
+                    <a href = '' ng-click="" class = "edit-btn" data-toggle = "tooltip" title = "View Prospect" >
+                        <span   class = "glyphicon glyphicon-eye-open" aria-hidden = "true"  ></span>
+                    </a>
+
                     <a href = '#/editProspect' ng-click="saveData(prospect)" class = "edit-btn" data-toggle = "tooltip" title = "update prospect">
-                        <span  class = "glyphicon glyphicon-edit" aria-hidden = "true"></span>
-                       <!-- <span class = "visuallyhidden"> Edit {{prospect.Name}} </span>-->
+                        <span  class = "glyphicon glyphicon-edit" aria-hidden = "true" style="margin-left: 10%"></span>
+                        <!-- <span class = "visuallyhidden"> Edit {{prospect.Name}} </span>-->
                     </a>
-                    <a href = '#/addToClient' ng-click="saveData(prospect)" class = "edit-btn" data-toggle = "tooltip" title = "Convert Prospect to Client" >
-                        <span  class = "glyphicon glyphicon-usd" aria-hidden = "true" style="margin-left: 10%" ></span>
-                    </a>
-                    <a href = '' ng-click="" class = "edit-btn" data-toggle = "tooltip" title = "Discussion" >
+
+                    <a href = '#/discussions' ng-click="saveData(prospect)" class = "edit-btn" data-toggle = "tooltip" title = "Discussion" >
                         <span   class = "glyphicon glyphicon-comment" aria-hidden = "true" style="margin-left: 10%" ></span>
                     </a>
-                    <a href = '#/scheduleCall' ng-click="saveData(prospect)" class = "edit-btn" data-toggle = "tooltip" title = "Schedule call" >
+
+                    <a href = '#/scheduleCall' ng-click="saveData(prospect)" class = "edit-btn" data-toggle = "tooltip" title = "Schedule Call" >
                         <span  class = "glyphicon glyphicon-phone-alt" aria-hidden = "true" style="margin-left: 10%" ></span>
-                    </a> <br>
+                    </a>   <br>
+
+                    <a href = '#/addToClient' ng-click="saveData(prospect)" class = "edit-btn" data-toggle = "tooltip" title = "Convert Prospect to Client" >
+                        <span  class = "glyphicon glyphicon-usd" aria-hidden = "true" ></span>
+                    </a>
+
                     <a href = '' ng-click="" class = "edit-btn" data-toggle = "tooltip" title = "Set up Reminder" >
-                        <span  class = "glyphicon glyphicon-envelope" aria-hidden = "true" ></span>
+                        <span  class = "glyphicon glyphicon-envelope" aria-hidden = "true" style="margin-left: 10%"></span>
                     </a>
                     <a href = '' ng-click="" class = "edit-btn" data-toggle = "tooltip" title = "Dead Prospect" >
                         <span   class = "glyphicon glyphicon-trash" aria-hidden = "true" style="margin-left: 10%" ></span>
                     </a>
-                    <a href = '' ng-click="" class = "edit-btn" data-toggle = "tooltip" title = "View Prospect" >
-                        <span   class = "glyphicon glyphicon-eye-open" aria-hidden = "true" style="margin-left: 10%" ></span>
-                    </a>
+
                     <a href = '' ng-click="volunteerProspect(prospect)" class = "edit-btn" data-toggle = "tooltip" title = "Be a Volunteer" >
                         <span   class = "glyphicon glyphicon-hand-up" aria-hidden = "true" style="margin-left: 10%" ></span>
                     </a>
+
+
+                    <!--<a href = '#/clientInfo' ng-click="saveData(prospect)" class = "edit-btn" data-toggle = "tooltip" title = "Client Information" >
+                        <span  lass = "glyphicon glyphicon-usd" aria-hidden = "true" style="margin-left: 10%" ></span>
+                    </a>-->
                 </td>
             </tr>
         </span>
