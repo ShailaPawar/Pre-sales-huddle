@@ -21,7 +21,7 @@
     </div>
     <table class = "table table-striped table-hover" style="background-color:whitesmoke">
         <thead>
-        <th ng-click="orderByField='Name'; reverseSort = !reverseSort"> Prospect Name
+            <th ng-click="orderByField='Name'; reverseSort = !reverseSort"> Prospect Name
                 <span ng-show="orderByField == 'Name'">
                     <span ng-show="!reverseSort" class="glyphicon glyphicon-chevron-up"></span>
                     <span ng-show="reverseSort" class="glyphicon glyphicon-chevron-down"></span>
@@ -45,15 +45,29 @@
                     <span ng-show="reverseSort" class="glyphicon glyphicon-chevron-down"></span>
                 </span>
             </th>
-            <th ng-click="orderByField='DesiredTeamSize'; reverseSort = !reverseSort"> Probable Team Size
+            <!--<th ng-click="orderByField='DesiredTeamSize'; reverseSort = !reverseSort"> Probable Team Size
                 <span ng-show="orderByField == 'DesiredTeamSize'">
                     <span ng-show="!reverseSort" class="glyphicon glyphicon-chevron-up"></span>
                     <span ng-show="reverseSort" class="glyphicon glyphicon-chevron-down"></span>
                 </span>
+            </th>-->
+            <th ng-click="orderByField='noOfDiscussion'; reverseSort = !reverseSort"> Number Of Discussion
+                <span ng-show="orderByField == 'noOfDiscussion'">
+                    <span ng-show="!reverseSort" class="glyphicon glyphicon-chevron-up"></span>
+                    <span ng-show="reverseSort" class="glyphicon glyphicon-chevron-down"></span>
+                </span>
             </th>
-            <th> Status </th>
+            <th ng-click="orderByField='noOfVolunteers'; reverseSort = !reverseSort"> Number of Volunteers
+                <span ng-show="orderByField == 'noOfVolunteers'">
+                    <span ng-show="!reverseSort" class="glyphicon glyphicon-chevron-up"></span>
+                    <span ng-show="reverseSort" class="glyphicon glyphicon-chevron-down"></span>
+                </span>
+            </th>
+						<th> Status </th>
             <th> Prospect Notes </th>
-            <th> Action </th>
+            <th>
+                Action
+            </th>
         </thead>
         <tbody>
         <span ng-show="{{!prospect.BUHead}}">
@@ -62,40 +76,43 @@
                 <td> {{ prospect.CreateDate  | date: "MM/dd/yyyy" }} </td>
                 <td> {{ prospect.TechStack }} </td>
                 <td> {{ prospect.Domain }} </td>
-                <td> {{ prospect.DesiredTeamSize }} </td>
-                <td> {{ prospect.ProspectStatus }} </td>
+                <!--<td> {{ prospect.DesiredTeamSize }} </td>-->
+                <td> {{ prospect.noOfDiscussion }} </td>
+                <td> {{ prospect.noOfVolunteers }} </td>
+								<td> {{ prospect.ProspectStatus }} </td>
                 <td> {{ prospect.ProspectNotes }} </td>
+
                 <td>
 
-                    <a href = '' ng-click="" class = "edit-btn" data-toggle = "tooltip" title = "View prospect information" >
+                    <a href = '' ng-click=""  ng-show="!user" id="viewProspect" class = "edit-btn" data-toggle = "tooltip" title = "View prospect information" >
                         <span   class = "glyphicon glyphicon-eye-open" aria-hidden = "true"  ></span>
                     </a>
 
-                    <a href = '#/editProspect' ng-click="saveData(prospect)" class = "edit-btn" data-toggle = "tooltip" title = "Update prospect information">
-                        <span  class = "glyphicon glyphicon-edit" aria-hidden = "true" style="margin-left: 10%"></span>
+                    <a href = '#/editProspect' ng-show="user" id="updateProspect" ng-click="saveData(prospect)" class = "edit-btn" data-toggle = "tooltip" title = "update prospect information" >
+                        <span  class = "glyphicon glyphicon-edit" aria-hidden = "true" ></span>
                         <!-- <span class = "visuallyhidden"> Edit {{prospect.Name}} </span>-->
                     </a>
 
-                    <a href = '#/discussions' ng-click="saveData(prospect)" class = "edit-btn" data-toggle = "tooltip" title = "Discussion" >
+                    <a href = '#/discussions' ng-click="saveData(prospect)" id="discussion" class = "edit-btn" data-toggle = "tooltip" title = "Discussion" >
                         <span   class = "glyphicon glyphicon-comment" aria-hidden = "true" style="margin-left: 10%" ></span>
                     </a>
 
                     <a href = '#/scheduleCall' ng-click="saveData(prospect)" class = "edit-btn" data-toggle = "tooltip" title = "Schedule call" >
                         <span  class = "glyphicon glyphicon-phone-alt" aria-hidden = "true" style="margin-left: 10%" ></span>
-                    </a>   <br>
-
-                    <a href = '#/addToClient' ng-click="saveData(prospect)" class = "edit-btn" data-toggle = "tooltip" title = "Contract signed" >
-                        <span  class = "glyphicon glyphicon-usd" aria-hidden = "true" ></span>
                     </a>
 
-                    <a href = '' ng-click="" class = "edit-btn" data-toggle = "tooltip" title = "Set up follow-up reminder" >
+                    <a href = '#/addToClient' ng-show="user"  id="convertToClient" ng-click="saveData(prospect)" class = "edit-btn" data-toggle = "tooltip" title = "Contract signed" >
+                        <span  class = "glyphicon glyphicon-usd" aria-hidden = "true" style="margin-left: 10%" ></span>
+                    </a>
+
+                    <a href = '' ng-click="" class = "edit-btn" id="setReminder" data-toggle = "tooltip" title = "Set up Reminder" >
                         <span  class = "glyphicon glyphicon-envelope" aria-hidden = "true" style="margin-left: 10%"></span>
                     </a>
-                    <a href = '' ng-click="" class = "edit-btn" data-toggle = "tooltip" title = "Dead prospect" >
+                    <a href = '' ng-show="user" ng-click=""  id="deadProspect" class = "edit-btn" data-toggle = "tooltip" title = "Dead prospect" >
                         <span   class = "glyphicon glyphicon-trash" aria-hidden = "true" style="margin-left: 10%" ></span>
                     </a>
 
-                    <a href = '' ng-click="volunteerProspect(prospect)" class = "edit-btn" data-toggle = "tooltip" title = "Volunteer" >
+                    <a href = '' ng-show="!user" id="volunteer" ng-click="volunteerProspect(prospect)" class = "edit-btn" data-toggle = "tooltip" title = "Volunteer" >
                         <span   class = "glyphicon glyphicon-hand-up" aria-hidden = "true" style="margin-left: 10%" ></span>
                     </a>
 

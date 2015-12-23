@@ -3,8 +3,8 @@ var baseURL = "http://presaleshuddle:8080/";
 
 angular.module('PreSales-Huddle')
 
-    .controller('GoogleSignInCtrl', function($scope, $rootScope, $location) {
-        function googleLogin() {
+    .controller('GoogleSignInCtrl', function($scope, $rootScope, $http, $location) {
+        function googleLogin(){
             var auth2 = gapi.auth2.getAuthInstance();
             return auth2.signIn();
         }
@@ -12,27 +12,78 @@ angular.module('PreSales-Huddle')
         $scope.onSignIn = function() {
             googleLogin()
                 .then(function (data) {
-                    user="";
-
+                    user = "";
                     // The ID token you need to pass to your backend:
                     $rootScope.id_token = data.getAuthResponse().id_token;
                     console.log("ID Token: " + $rootScope.id_token);
 
                     var profile = data.getBasicProfile();
-
                     $rootScope.currentUser = profile.getEmail();
                     $rootScope.currentUserImage = profile.getImageUrl();
                     $rootScope.salesName = profile.getName();
 
-                    $rootScope.salesPerson=['shaila.pawar@synerzip.com'];
+                    var flag = 0;
 
-                    if(angular.equals(profile.getEmail(),$rootScope.salesPerson[0])){
-                        user = 1;
-                        console.log(user);
-                    } else {
-                        user = 0;
-                        console.log(user);
-                    }
+                    $http.get(baseURL + 'user/all/').success(function(data, status, headers, config) {
+                        console.log ("all user :" ,data);
+                        var allUsers=JSON.stringify(data);
+                        var allUserNumber= JSON.parse(allUsers).length;
+                        var allUsers=JSON.parse(allUsers);
+                        for(var i = 0;i < allUserNumber;i++){
+                            if(angular.equals($rootScope.currentUser,allUsers[i].Email)){
+                                flag = 1;
+                                $rootScope.role = allUsers[i].Role;
+                                console.log("user already exists",$rootScope.role);
+                                break;
+
+                            }
+                        }
+                        if(flag == 0){
+                            var data1 = {
+                                Email: $rootScope.currentUser,
+                                Role: "engineer"
+                            };
+                            $rootScope.role = "engineer";
+                            $http.post(baseURL + 'user/', data = data1).success(function(data, status, headers, config) {
+                                console.log('user added.');
+
+                            }).error(function(data, status, headers, config) {
+                                    console.log('user not added.');
+                                });
+                        }
+
+
+
+                            if($rootScope.role == "engineer")
+                                {
+                                $rootScope.user = 0;
+                                 console.log($rootScope.user);
+
+
+
+                                }
+                            else{
+                                $rootScope.user = 1;
+                                 console.log($rootScope.user);
+
+                            }
+
+
+
+
+
+                        }).error(function(data, status, headers, config) {
+                            console.log('problem in user.');
+                        });
+
+
+
+                    //user role code finish
+
+
+
+
+
 
                     window.location = '#/prospects';
                     document.getElementById('signin').style.visibility='hidden';
@@ -43,6 +94,12 @@ angular.module('PreSales-Huddle')
 		            document.getElementById('headerText').style.visibility='visible';
                     document.getElementById('reports').style.visibility='visible';
                     document.getElementById('titleText').style.display='none';
+
+
+
+
+
+
                 }, function (err) {
                     console.log(err)
                 });
@@ -120,7 +177,41 @@ angular.module('PreSales-Huddle')
         };
 
         $http.get(baseURL + 'prospect/all/').success(function(data, status, headers, config) {
-            $scope.prospects = data;
+            var prospectData = JSON.stringify(data);
+            var prospectList = JSON.parse(prospectData);
+            var numberOfProspects = prospectList.length;
+            for(var i = 0; i < numberOfProspects; i++){
+                (function (index) {
+                    $http.get(baseURL + 'participant/prospectid/'+prospectList[i].ProspectID)
+                        .success(function(participantData, status, headers, config){
+                            var participantData = JSON.stringify(participantData);
+                            if(JSON.parse(participantData) == null){
+                                prospectList[index].noOfVolunteers = 0;
+                            }
+                            else{
+                                prospectList[index].noOfVolunteers = JSON.parse(participantData).length;
+                            }
+                        }).error(function(data, status, header, config) {
+                            console.log("Not able to calculate volunteer count")
+                            });
+
+                    $http.get(baseURL + 'discussion/prospectid/'+prospectList[i].ProspectID)
+                        .success(function(discussionData, status, headers, config){
+                            var discussionData = JSON.stringify(discussionData);
+                            if(JSON.parse(discussionData) == null){
+                                prospectList[index].noOfDiscussion = 0;
+                            }
+                            else{
+                                prospectList[index].noOfDiscussion = JSON.parse(discussionData).length;
+                            }
+                        }).error(function(data, status, header, config) {
+                            console.log("Not able to calculate Discussion count")
+                        });
+                }(i));
+            }
+            $scope.prospects = prospectList;
+            console.log("prospectList",prospectList);
+            console.log("all $scope.prospects",$scope.prospects);
 
         }).error(function(data, status, header, config) {});
 
@@ -162,9 +253,8 @@ angular.module('PreSales-Huddle')
         document.getElementById('sign-out').style.visibility='visible';
         document.getElementById('prospectList').style.visibility='visible';
         document.getElementById('clientList').style.visibility='visible';
-	    document.getElementById('headerText').style.visibility='visible';
+	document.getElementById('headerText').style.visibility='visible';
         document.getElementById('titleText').style.display='none';
-
         $scope.maxDate = new Date();
         $scope.date = $scope.maxDate;
         var creationDate = $scope.date;
@@ -257,13 +347,12 @@ angular.module('PreSales-Huddle')
         document.getElementById('titleText').style.display = 'none';
 
         var prospect = $rootScope.prospectToUpdate;
-        console.log("prospect:", prospect);
-        $http.get(baseURL + 'discussion/prospectid/' + prospect.ProspectID).success(function (data, status, headers, config) {
+        $http.get(baseURL + 'discussion/prospectid/'+ prospect.ProspectID).success(function(data, status, headers, config) {
             console.log("discussion/prospectid/", data);
             $scope.discussions = data;
         }).error(function (data, status, header, config) {});
 
-        $scope.addDiscussion = function () {
+        $scope.addDiscussion = function() {
             var data = {
                 ProspectID: $rootScope.prospectToUpdate.ProspectID,
                 UserID: $rootScope.salesName,
@@ -309,20 +398,20 @@ angular.module('PreSales-Huddle')
 
         $scope.addToClient = function () {
             var data = {
-                ProspectID: $rootScope.prospectToUpdate.ProspectID,
-                Name: $scope.prospect.Name,
-                CreateDate: $scope.CreateDate,
-                StartDate: $scope.StartDate,
-                TechStack: $scope.prospect.TechStack,
-                Domain: $scope.prospect.Domain,
-                DesiredTeamSize: $scope.prospect.DesiredTeamSize,
-                ProspectNotes: $scope.prospect.ProspectNotes,
-                ClientNotes: $scope.prospect.ClientNotes,
-                BUHead: $scope.Head,
-                TeamSize: $scope.TeamSize,
-                SalesID: $rootScope.salesName,
-                ConfCalls: $rootScope.prospectToUpdate.ConfCalls,
-                ProspectStatus: $rootScope.prospectToUpdate.ProspectStatus
+                ProspectID:     $rootScope.prospectToUpdate.ProspectID,
+                Name:           $scope.prospect.Name,
+                CreateDate:     $scope.CreateDate,
+                StartDate :     $scope.StartDate,
+                TechStack:      $scope.prospect.TechStack,
+                Domain:         $scope.prospect.Domain,
+                DesiredTeamSize:$scope.prospect.DesiredTeamSize,
+                ProspectNotes:  $scope.prospect.ProspectNotes ,
+                ClientNotes:    $scope.prospect.ClientNotes,
+                BUHead:         $scope.Head,
+                TeamSize:       $scope.TeamSize,
+                SalesID:        $rootScope.salesName,
+                ConfCalls:      $rootScope.prospectToUpdate.ConfCalls
+								ProspectStatus: $rootScope.prospectToUpdate.ProspectStatus
             };
 
             $http.put(baseURL + 'prospect/', data = data).success(function (data, status, headers, config) {
@@ -640,8 +729,7 @@ angular.module('PreSales-Huddle')
                                 attendee = volunteersList[i].UserID;
                                 console.log("attendee: ", attendee);
                                 if (attendees == null) {
-                                    end = "}, ";
-                                    attendees = (start + qoute + attendee + qoute + end);
+																	  attendees = (start + qoute + attendee + qoute + end);
                                     $rootScope.attendees = attendees;
                                     console.log(" null attendees: ", attendees);
                                 } else {
@@ -700,15 +788,12 @@ angular.module('PreSales-Huddle')
 
             // Check if current user has authorized this application.
             function checkAuth() {
-                console.log("In check Auth.");
                 var api = gapi.auth2.getAuthInstance();
                 var user = api.currentUser.get();
-                console.log(user);
                 var options = new gapi.auth2.SigninOptionsBuilder(
                     {'scope': 'email https://www.googleapis.com/auth/calendar'});
                 user.grant(options).then(
-                    function (success) {
-                        console.log("In check Auth.Success.");
+                    function(success){
                         console.log(JSON.stringify({message: "success", value: success}));
                         loadCalendarApi();
                     },
