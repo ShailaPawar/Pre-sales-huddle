@@ -143,11 +143,13 @@ span.buttonText {
 
 .footer {
     text-align: center;
-    width: 65%;
+    width: inherit;
     color: #747474;
     border-top: 1px solid #e5e5e5;
     position: fixed;
     bottom: 0;
+    margin-right: 3%;
+
 }
 
 #form-container {
@@ -188,4 +190,12 @@ span.buttonText {
     font-weight: bold;
     font-style: italic;
     font-size: 250%;
+}
+
+#footer{
+     -webkit-box-sizing: inherit !important;
+    -moz-box-sizing: inherit !important;
+     box-sizing: content-box !important;
+    -webkit-box-pack: center;
+    -webkit-box-align: center;
 }
