@@ -25,25 +25,25 @@
                 <input type = "text" ng-model = "prospect.Domain" id = "domain" name = "domain" placeholder = "e.g: Education, Finance" class = "form-control" readonly>
             </div>
             <div class = "form-group" ng-class = "{ 'has-error' : editClient.Head.$invalid && submittted }">
-                <label for = "Head"> BU Head:
+                <label for = "Head"> BU:
                 </label>
 
                 <input type = "text" ng-model = "prospect.BUHead" id = "Head" name = "Head" placeholder = "" class = "form-control" readonly>
             </div>
             <div class = "form-group" ng-class = "{ 'has-error' : editClient.teamSize.$invalid && submittted }">
-                <label for = "teamSize">Team Size:
+                <label for = "teamSize"> Actual Team Size:
                 </label>
 
                 <input type = "number" ng-model = "prospect.TeamSize" id = "teamSize" name = "teamSize" class = "form-control" min="0" readonly>
             </div>
             <div class = "form-group" ng-class = "{ 'has-error' : editClient.salesHead.$invalid && submittted }">
-                <label for = "salesHead"> Sales:
+                <label for = "salesHead"> Sales Person:
                 </label>
 
                 <input type = "text" ng-model = "prospect.SalesID" id = "salesHead" name = "salesHead" placeholder = "" class = "form-control" readonly>
             </div>
             <div class = "form-group">
-                <label for = "notes"> Notes:
+                <label for = "notes"> Client Notes:
                 </label>
 
                 <textarea  ng-model = "prospect.ClientNotes" id = "notes" name = "notes"class ="form-control" readonly></textarea>

@@ -4,7 +4,7 @@ var baseURL = "http://presaleshuddle:8080/";
 angular.module('PreSales-Huddle')
 
     .controller('GoogleSignInCtrl', function($scope, $rootScope, $location) {
-        function googleLogin(){
+        function googleLogin() {
             var auth2 = gapi.auth2.getAuthInstance();
             return auth2.signIn();
         }
@@ -20,17 +20,6 @@ angular.module('PreSales-Huddle')
 
                     var profile = data.getBasicProfile();
 
-                   /* var options = new gapi.auth2.SigninOptionsBuilder(
-                        {'scope': 'email https://www.googleapis.com/auth/drive'});
-
-                    //googleUser = gapi.auth2.currentUser.get();
-                    data.grant(options).then(
-                        function(success){
-                            console.log(JSON.stringify({message: "success", value: success}));
-                        },
-                        function(fail){
-                            alert(JSON.stringify({message: "fail", value: fail}));
-                        });*/
                     $rootScope.currentUser = profile.getEmail();
                     $rootScope.currentUserImage = profile.getImageUrl();
                     $rootScope.salesName = profile.getName();
@@ -38,10 +27,10 @@ angular.module('PreSales-Huddle')
                     $rootScope.salesPerson=['shaila.pawar@synerzip.com'];
 
                     if(angular.equals(profile.getEmail(),$rootScope.salesPerson[0])){
-                        user=1;
+                        user = 1;
                         console.log(user);
-                    }    else{
-                        user=0;
+                    } else {
+                        user = 0;
                         console.log(user);
                     }
 
@@ -153,7 +142,7 @@ angular.module('PreSales-Huddle')
                 for(var i = 0; i < numberOfVolunteer; i++){
                     if(angular.equals($rootScope.currentUser, volunteersList[i].UserID)) {
                         flag = 1;
-                        alert(" Hi , you are volunteering this prospect.")
+                        alert("You have already volunteered for this prospect.")
                     }
                 }
                 if(angular.equals(flag, 0)){
@@ -173,21 +162,23 @@ angular.module('PreSales-Huddle')
         document.getElementById('sign-out').style.visibility='visible';
         document.getElementById('prospectList').style.visibility='visible';
         document.getElementById('clientList').style.visibility='visible';
-	document.getElementById('headerText').style.visibility='visible';
-                    document.getElementById('titleText').style.display='none';
+	    document.getElementById('headerText').style.visibility='visible';
+        document.getElementById('titleText').style.display='none';
 
         $scope.maxDate = new Date();
         $scope.date = $scope.maxDate;
         var creationDate = $scope.date;
 
         $scope.addProspect = function() {
+            var status = "Prospect created on " + creationDate.toLocaleString('en-US');
             var data = {
                 Name: $scope.prospectName,
                 CreateDate : creationDate,
                 TechStack: $scope.techStack,
                 Domain: $scope.domain,
                 DesiredTeamSize: $scope.teamSize,
-                ProspectNotes: $scope.notes
+                ProspectNotes: $scope.notes,
+                ProspectStatus: status
             };
 
             console.log(data);
@@ -235,7 +226,8 @@ angular.module('PreSales-Huddle')
                 Domain: $scope.prospect.Domain,
                 DesiredTeamSize: $scope.prospect.DesiredTeamSize,
                 ProspectNotes: $scope.prospect.ProspectNotes,
-                ConfCalls: $rootScope.prospectToUpdate.ConfCalls
+                ConfCalls: $rootScope.prospectToUpdate.ConfCalls,
+                ProspectStatus: $rootScope.prospectToUpdate.ProspectStatus
             };
             console.log(data);
 
@@ -256,49 +248,41 @@ angular.module('PreSales-Huddle')
     })
 
     .controller('DiscussionsCtrl', function($scope, $http, $rootScope,$location) {
-        document.getElementById('signin').style.visibility='hidden';
+        document.getElementById('signin').style.visibility = 'hidden';
         document.getElementById('g-signinP').style.height = '0px';
-        document.getElementById('sign-out').style.visibility='visible';
-        document.getElementById('prospectList').style.visibility='visible';
-        document.getElementById('clientList').style.visibility='visible';
-	    document.getElementById('headerText').style.visibility='visible';
-        document.getElementById('titleText').style.display='none';
+        document.getElementById('sign-out').style.visibility = 'visible';
+        document.getElementById('prospectList').style.visibility = 'visible';
+        document.getElementById('clientList').style.visibility = 'visible';
+        document.getElementById('headerText').style.visibility = 'visible';
+        document.getElementById('titleText').style.display = 'none';
 
         var prospect = $rootScope.prospectToUpdate;
-        $http.get(baseURL + 'discussion/prospectid/'+prospect.ProspectID).success(function(data, status, headers, config) {
+        console.log("prospect:", prospect);
+        $http.get(baseURL + 'discussion/prospectid/' + prospect.ProspectID).success(function (data, status, headers, config) {
             console.log("discussion/prospectid/", data);
             $scope.discussions = data;
-        }).error(function(data, status, header, config) {});
+        }).error(function (data, status, header, config) {});
 
-        $scope.addDiscussion = function() {
+        $scope.addDiscussion = function () {
             var data = {
                 ProspectID: $rootScope.prospectToUpdate.ProspectID,
                 UserID: $rootScope.salesName,
                 Query: $scope.query
             };
-            console.log("addDiscussion",data);
-            $http.post(baseURL + 'discussion/', data = data).success(function(data, status, headers, config) {
+            console.log("addDiscussion", data);
+            $http.post(baseURL + 'discussion/', data = data).success(function (data, status, headers, config) {
                 console.log('Discussion added.');
                 $location.path('/discussions');
-            }).error(function(data, status, headers, config) {
-                    console.log('Discussion not added.');
-                });
+            }).error(function (data, status, headers, config) {
+                console.log('Discussion not added.');
+            });
 
             $scope.query = "";
 
             javascript:history.go(-1);
         }
 
-    .controller('DiscussionsCtrl', function($scope, $http, $rootScope) {
-        document.getElementById('signin').style.visibility='hidden';
-        document.getElementById('g-signinP').style.height = '0px';
-        document.getElementById('sign-out').style.visibility='visible';
-        document.getElementById('prospectList').style.visibility='visible';
-        document.getElementById('clientList').style.visibility='visible';
-        document.getElementById('headerText').style.visibility='visible';
-        document.getElementById('titleText').style.display='none';
-
-        $scope.showDiscussion = function(discussion) {
+        $scope.showDiscussion = function (discussion) {
             console.log("showdiscussion: ", discussion);
             $rootScope.discussionToView = discussion;
             console.log("$rootScope.discussionToView: ", $rootScope.discussionToView);
@@ -306,16 +290,16 @@ angular.module('PreSales-Huddle')
 
     })
 
-    //addTOClientCtrl to add prospect to client
-    .controller('AddClientCtrl', function($scope, $http, $rootScope, $location) {
-        document.getElementById('signin').style.visibility='hidden';
+        //addTOClientCtrl to add prospect to client
+    .controller('AddClientCtrl', function ($scope, $http, $rootScope, $location) {
+        document.getElementById('signin').style.visibility = 'hidden';
         document.getElementById('g-signinP').style.height = '0px';
-        document.getElementById('sign-out').style.visibility='visible';
-        document.getElementById('prospectList').style.visibility='visible';
-        document.getElementById('clientList').style.visibility='visible';
-        document.getElementById('headerText').style.visibility='visible';
-        document.getElementById('reports').style.visibility='visible';
-        document.getElementById('titleText').style.display='none';
+        document.getElementById('sign-out').style.visibility = 'visible';
+        document.getElementById('prospectList').style.visibility = 'visible';
+        document.getElementById('clientList').style.visibility = 'visible';
+        document.getElementById('headerText').style.visibility = 'visible';
+        document.getElementById('reports').style.visibility = 'visible';
+        document.getElementById('titleText').style.display = 'none';
 
         $scope.maxDate = new Date();
         $scope.StartDate = $scope.maxDate;
@@ -323,68 +307,69 @@ angular.module('PreSales-Huddle')
         var prospectFetched = $rootScope.prospectToUpdate;
         $scope.prospect = prospectFetched;
 
-        $scope.addToClient = function() {
+        $scope.addToClient = function () {
             var data = {
-                ProspectID:     $rootScope.prospectToUpdate.ProspectID,
-                Name:           $scope.prospect.Name,
-                CreateDate:     $scope.CreateDate,
-                StartDate :     $scope.StartDate,
-                TechStack:      $scope.prospect.TechStack,
-                Domain:         $scope.prospect.Domain,
-                DesiredTeamSize:$scope.prospect.DesiredTeamSize,
-                ProspectNotes:  $scope.prospect.ProspectNotes ,
-                ClientNotes:    $scope.prospect.ClientNotes,
-                BUHead:         $scope.Head,
-                TeamSize:       $scope.TeamSize,
-                SalesID:        $rootScope.salesName,
-                ConfCalls:      $rootScope.prospectToUpdate.ConfCalls
+                ProspectID: $rootScope.prospectToUpdate.ProspectID,
+                Name: $scope.prospect.Name,
+                CreateDate: $scope.CreateDate,
+                StartDate: $scope.StartDate,
+                TechStack: $scope.prospect.TechStack,
+                Domain: $scope.prospect.Domain,
+                DesiredTeamSize: $scope.prospect.DesiredTeamSize,
+                ProspectNotes: $scope.prospect.ProspectNotes,
+                ClientNotes: $scope.prospect.ClientNotes,
+                BUHead: $scope.Head,
+                TeamSize: $scope.TeamSize,
+                SalesID: $rootScope.salesName,
+                ConfCalls: $rootScope.prospectToUpdate.ConfCalls,
+                ProspectStatus: $rootScope.prospectToUpdate.ProspectStatus
             };
 
-            $http.put(baseURL + 'prospect/', data = data).success(function(data, status, headers, config) {
+            $http.put(baseURL + 'prospect/', data = data).success(function (data, status, headers, config) {
                 console.log('Prospect added to Client.');
                 $location.path('/prospects');
-            }).error(function(data, status, headers, config) {
-                    console.log('Prospect Not added to Client.');
+            }).error(function (data, status, headers, config) {
+                console.log('Prospect Not added to Client.');
             });
         };
 
         // Cancel button function
-        $scope.go = function(path) {
+        $scope.go = function (path) {
             $rootScope.lastform = "createProspect";
             $location.path(path);
         }
     })
 
     //ClientInfoCtrl to view details of a particular client
-    .controller('ClientInfoCtrl', function($scope, $http, $rootScope, $location) {
-        document.getElementById('signin').style.visibility='hidden';
+    .controller('ClientInfoCtrl', function ($scope, $http, $rootScope, $location) {
+        document.getElementById('signin').style.visibility = 'hidden';
         document.getElementById('g-signinP').style.height = '0px';
-        document.getElementById('sign-out').style.visibility='visible';
-        document.getElementById('prospectList').style.visibility='visible';
-        document.getElementById('clientList').style.visibility='visible';
-        document.getElementById('headerText').style.visibility='visible';
-        document.getElementById('reports').style.visibility='visible';
-        document.getElementById('titleText').style.display='none';
+        document.getElementById('sign-out').style.visibility = 'visible';
+        document.getElementById('prospectList').style.visibility = 'visible';
+        document.getElementById('clientList').style.visibility = 'visible';
+        document.getElementById('headerText').style.visibility = 'visible';
+        document.getElementById('reports').style.visibility = 'visible';
+        document.getElementById('titleText').style.display = 'none';
 
         var prospectFetched = $rootScope.prospectToUpdate;
         $scope.prospect = prospectFetched;
 
         // back button function
-        $scope.go = function(path) {
+        $scope.go = function (path) {
             javascript:history.go(-1);
         }
     })
 
     //clientCtrl  to show client list
-    .controller('ClientCtrl', function($scope, $http, $rootScope) {
-        document.getElementById('signin').style.visibility='hidden';
+    .controller('ClientCtrl', function ($scope, $http, $rootScope) {
+        document.getElementById('signin').style.visibility = 'hidden';
         document.getElementById('g-signinP').style.height = '0px';
-        document.getElementById('sign-out').style.visibility='visible';
-        document.getElementById('prospectList').style.visibility='visible';
-        document.getElementById('clientList').style.visibility='visible';
-        document.getElementById('headerText').style.visibility='visible';
-        document.getElementById('reports').style.visibility='visible';
-        document.getElementById('titleText').style.display='none';
+        document.getElementById('sign-out').style.visibility = 'visible';
+        document.getElementById('prospectList').style.visibility = 'visible';
+        document.getElementById('clientList').style.visibility = 'visible';
+        document.getElementById('headerText').style.visibility = 'visible';
+        document.getElementById('reports').style.visibility = 'visible';
+        document.getElementById('titleText').style.display = 'none';
 
         //  search keyword by  Prospect name
         $scope.searchWord = function (prospectList) {
@@ -394,23 +379,25 @@ angular.module('PreSales-Huddle')
         // default sorting order is by Prospect start Date
         $scope.orderByField = 'StartDate';
 
-        $scope.showClientInfo = function(prospect) {
+        $scope.showClientInfo = function (prospect) {
             $rootScope.prospectToUpdate = prospect;
         };
 
-        $http.get(baseURL + 'prospect/all/').success(function(data, status, headers, config) {
+        $http.get(baseURL + 'prospect/all/').success(function (data, status, headers, config) {
             $scope.prospects = data;
-        }).error(function(data, status, header, config) {
+        }).error(function (data, status, header, config) {
         });
     })
 
     //  VolunteerCtrl to add Volunteer
-    .controller('VolunteerCtrl', function($scope, $http, $rootScope, $location) {
-        document.getElementById('signin').style.visibility='hidden';
+    .controller('VolunteerCtrl', function ($scope, $http, $rootScope, $location) {
+        document.getElementById('signin').style.visibility = 'hidden';
         document.getElementById('g-signinP').style.height = '0px';
-        document.getElementById('sign-out').style.visibility='visible';
-        document.getElementById('prospectList').style.visibility='visible';
-        document.getElementById('clientList').style.visibility='visible';
+        document.getElementById('sign-out').style.visibility = 'visible';
+        document.getElementById('prospectList').style.visibility = 'visible';
+        document.getElementById('reports').style.visibility='visible';
+        document.getElementById('clientList').style.visibility = 'visible';
+
         $scope.maxDate = new Date();
         $scope.prospect = $rootScope.prospectToUpdate;
         $scope.volunteerRole =
@@ -420,54 +407,55 @@ angular.module('PreSales-Huddle')
             }, {
                 value: 'Technical Advisor',
                 name: 'Technical Advisor'
-            },{
+            }, {
 
                 value: 'Probable Team Member',
                 name: 'Probable Team Member'
             }]
         ;
         $scope.Role = 'Domain Advisor';
-        $scope.changeRole = function() {
+        $scope.changeRole = function () {
             console.log($scope.volunteerRole[2].value);
-            if(angular.equals( $scope.Role, $scope.volunteerRole[2].value)){
-                $scope.showDate=true;
-            } else{
-                $scope.showDate=false;
+            if (angular.equals($scope.Role, $scope.volunteerRole[2].value)) {
+                $scope.showDate = true;
+            } else {
+                $scope.showDate = false;
             }
         };
 
-        $scope.addVolunteer = function() {
+        $scope.addVolunteer = function () {
             var data = {
                 ProspectID: $rootScope.prospectToUpdate.ProspectID,
                 UserID: $rootScope.currentUser,
-                ParticipationRole :$scope.Role,
+                ParticipationRole: $scope.Role,
                 AvailableDate: $scope.CreateDate,
                 Notes: $scope.Notes
             };
-            $http.post(baseURL + 'participant/', data = data).success(function(data, status, headers, config) {
+            $http.post(baseURL + 'participant/', data = data).success(function (data, status, headers, config) {
                 console.log('volunteer added.');
                 $location.path('/prospects');
-            }).error(function(data, status, headers, config) {
+            }).error(function (data, status, headers, config) {
                 console.log(data, status, headers, config);
                 console.log('volunteer not added.');
             });
         };
 
         // Cancel button function
-        $scope.go = function(path) {
+        $scope.go = function (path) {
             $rootScope.lastform = "createProspect";
             $location.path(path);
         }
     })
 
     //controller to show discussion on particular prospect
-    .controller('ProspectDiscussionCtrl', function($scope, $http, $rootScope, $location) {
+    .controller('ProspectDiscussionCtrl', function ($scope, $http, $rootScope, $location) {
         document.getElementById('signin').style.visibility = 'hidden';
         document.getElementById('g-signinP').style.height = '0px';
         document.getElementById('sign-out').style.visibility = 'visible';
         document.getElementById('prospectList').style.visibility = 'visible';
         document.getElementById('clientList').style.visibility = 'visible';
         document.getElementById('headerText').style.visibility = 'visible';
+        document.getElementById('reports').style.visibility='visible';
         document.getElementById('titleText').style.display = 'none';
 
         $scope.maxDate = new Date();
@@ -502,14 +490,15 @@ angular.module('PreSales-Huddle')
     })
 
 
-    .controller('ScheduleCallCtrl', function($scope, $http, $rootScope, $location) {
-        document.getElementById('signin').style.visibility='hidden';
+    .controller('ScheduleCallCtrl', function ($scope, $http, $rootScope, $location) {
+        document.getElementById('signin').style.visibility = 'hidden';
         document.getElementById('g-signinP').style.height = '0px';
-        document.getElementById('sign-out').style.visibility='visible';
-        document.getElementById('prospectList').style.visibility='visible';
-        document.getElementById('clientList').style.visibility='visible';
-        document.getElementById('headerText').style.visibility='visible';
-        document.getElementById('titleText').style.display='none';
+        document.getElementById('sign-out').style.visibility = 'visible';
+        document.getElementById('prospectList').style.visibility = 'visible';
+        document.getElementById('clientList').style.visibility = 'visible';
+        document.getElementById('headerText').style.visibility = 'visible';
+        document.getElementById('reports').style.visibility='visible';
+        document.getElementById('titleText').style.display = 'none';
 
         var currentProspect = $rootScope.prospectToUpdate;
         console.log("current prospect:", currentProspect);
@@ -526,118 +515,152 @@ angular.module('PreSales-Huddle')
         ];
         $scope.call = 'Internal Prep call';
 
-        $scope.displayParticipants = function() {
-            console.log($scope.typeOfCall[1].value);
-            if(angular.equals( $scope.call, $scope.typeOfCall[1].value)){
-                $scope.showParticipants = true;
+        // display volunteer table
+        $http.get(baseURL + 'participant/prospectid/' + currentProspect.ProspectID)
+            .success(function (data, status, headers, config) {
+                $rootScope.participants = data;
+                $scope.participants = $rootScope.participants;
+                console.log("participants: ", $scope.participants);
+            }).error(function (data, status, header, config) {});
 
-                $http.get(baseURL + 'participant/prospectid/' + currentProspect.ProspectID)
-                    .success(function(data, status, headers, config) {
-                        console.log("participants: ", data);
-                        $rootScope.participants = data;
-                        console.log("$rootScope.participants: ", $rootScope.participants);
-                        $scope.participants = $rootScope.participants;
-                        console.log("$scope.participants: ", $scope.participants);
-                    }).error(function(data, status, header, config) {});
-            }
-            else{
-                $scope.showParticipants = false;
-            }
-        };
-
-        console.log("$rootScope.participants.ParticipationRole: ", $rootScope.participants);
-
+        // set call time
         jQuery(function () {
             jQuery('#fromTime').datetimepicker();
             jQuery('#toTime').datetimepicker();
-            jQuery("#fromTime").on("dp.change",function (e) {
+            jQuery("#fromTime").on("dp.change", function (e) {
                 //jQuery('#toTime').data("DateTimePicker").setMinDate(e.date);
                 $rootScope.ConfDateStart = e.date;
                 console.log($rootScope.ConfDateStart);
             });
-            jQuery("#toTime").on("dp.change",function (e) {
+            jQuery("#toTime").on("dp.change", function (e) {
                 //jQuery('#fromTime').data("DateTimePicker").setMaxDate(e.date);
                 $rootScope.ConfDateEnd = e.date;
                 console.log($rootScope.ConfDateEnd);
             });
         });
 
+        // checkbox handling
+        $scope.checkState = function($event, participant) {
+            console.log("Participant:", $event);
+            console.log("Participant Object:", participant);
+
+            var status;
+            if($event == true) {
+                console.log("yes", $event);
+                status = "Yes";
+            } else {
+                status = "No";
+            }
+            var participantData = {
+                ProspectID: participant.ProspectID,
+                UserID: participant.UserID,
+                Included: status,
+                ParticipationRole: participant.ParticipationRole,
+                AvailableDate: participant.AvailableDate,
+                Notes: participant.Notes
+            };
+
+            $http.put(baseURL + 'participant/', data = participantData)
+                .success(function (data, status, headers, config) {
+                    console.log('participant updated.');
+                }).error(function (participantData, status, headers, config) {
+                    console.log(participantData, status, headers, config);
+                    console.log('participant not added.');
+                });
+        };
+
         var numberOfVolunteer = 0;
         var attendee_array;
         var attendees;
-        var start = "{'email': ";
+        var start = '{ "email" : ';
         var end;
         var attendee;
-        var qoute = "'";
+        var qoute = '"';
 
-        $scope.scheduleCall = function() {
+        $scope.scheduleCall = function () {
+            console.log("$scope.call: ", $scope.call);
+            var status;
+
+            if(angular.equals($scope.call, "Internal Prep call")) {
+                console.log("ConfDateStart: ", $rootScope.ConfDateStart);
+                status = "Prep call scheduled for " + (new Date($rootScope.ConfDateStart)).toLocaleString('en-US');
+            } else {
+                status = "Client call scheduled for " + (new Date($rootScope.ConfDateStart)).toLocaleString('en-US');
+            }
             var prospectData = {
                 ProspectID: $rootScope.prospectToUpdate.ProspectID,
                 Name: currentProspect.Name,
-                ConfCalls:[
-                {
-                    ConfDateStart: $rootScope.ConfDateStart,
-                    ConfDateEnd: $rootScope.ConfDateEnd,
-                    ConfType: $scope.call
-                }],
+                ConfCalls: [
+                    {
+                        ConfDateStart: $rootScope.ConfDateStart,
+                        ConfDateEnd: $rootScope.ConfDateEnd,
+                        ConfType: $scope.call
+                    }
+                ],
                 TechStack: currentProspect.TechStack,
                 Domain: currentProspect.Domain,
                 DesiredTeamSize: currentProspect.DesiredTeamSize,
-                Notes: currentProspect.Notes,
+                ProspectNotes: currentProspect.ProspectNotes,
                 CreateDate: currentProspect.CreateDate,
-                SalesID: $rootScope.salesName
+                SalesID: $rootScope.salesName,
+                ProspectStatus: status
             };
 
-            //console.log("ConfDate:", prospectData.ConfDateStart, prospectData.ConfDateEnd);
-            console.log("Schedule call data:", JSON.stringify(prospectData));
-
-
-            $http.put(baseURL + 'prospect/', data = prospectData).success(function (data, status, headers, config) {
+            $http.put(baseURL + 'prospect/', data = prospectData)
+                .success(function (data, status, headers, config) {
                 console.log('Call details added to Prospect.');
-                checkAuth();
+                //checkAuth();
                 $location.path('/prospects');
             }).error(function (data, status, headers, config) {
                 console.log(data, status, headers, config);
                 console.log('Error occurred.');
             });
 
-            $http.get(baseURL + 'participant/prospectid/'+ currentProspect.ProspectID)
-                .success(function(data, status, headers, config) {
+            $http.get(baseURL + 'participant/prospectid/' + currentProspect.ProspectID)
+                .success(function (data, status, headers, config) {
+
                     console.log (data);
                     var participantData = JSON.stringify(data);
                     console.log("participantData: ", participantData);
-                    if(JSON.parse(participantData) == null){
-                        numberOfVolunteer  = 0;
+                    if (JSON.parse(participantData) == null) {
+                        numberOfVolunteer = 0;
                     }
-                    else{
+                    else {
                         numberOfVolunteer = JSON.parse(participantData).length;
-                    }
-                    var volunteersList = JSON.parse(participantData);
-                    console.log("volunteersList: ", volunteersList);
+                        var volunteersList = JSON.parse(participantData);
+                        console.log("volunteersList: ", volunteersList);
 
-                    for(var i = 0; i < numberOfVolunteer; i++) {
-                        if (i == numberOfVolunteer - 1) {
-                            end = "} ";
-                        } else {
-                            end = "}, "
+                        for (var i = 0; i < numberOfVolunteer; i++) {
+                            if (volunteersList[i].Included == "Yes") {
+                                if (i == numberOfVolunteer - 1) {
+                                    end = '} ';
+                                } else {
+                                    end = "}, ";
+                                }
+                                attendee = volunteersList[i].UserID;
+                                console.log("attendee: ", attendee);
+                                if (attendees == null) {
+                                    end = "}, ";
+                                    attendees = (start + qoute + attendee + qoute + end);
+                                    $rootScope.attendees = attendees;
+                                    console.log(" null attendees: ", attendees);
+                                } else {
+                                    attendees += (start + qoute + attendee + qoute + end);
+                                    $rootScope.attendees += attendees;
+                                    console.log(" not nul attendees: ", attendees);
+                                }
+                            }
                         }
-                        attendee = volunteersList[i].UserID;
-                        console.log("attendee: ", attendee);
-                        if (attendees == null) {
-                            attendees = (start + qoute + attendee + qoute + end);
-                            $rootScope.attendees = attendees;
-                            console.log(" null attendees: ", attendees);
-                        } else {
-                            attendees += (start + qoute + attendee + qoute + end);
-                            $rootScope.attendees += attendees;
-                            console.log(" not nul attendees: ", attendees);
+                        if (attendees) {
+                            attendee_array = '[ ' + attendees + ' ]';
+                            console.log("attendee_array: ", attendee_array);
+                            checkAuth();
                         }
                     }
-                    attendee_array = "[ " + attendees + " ]";
 
-                }).error(function(data, status, header, config) {
-                    console.log("Participants not fecthed.")
-                });
+                }).error(function (data, status, header, config) {
+                console.log("Participants not fecthed.")
+            });
 
             //send calender invite
             function sendCalendarInvite() {
@@ -651,14 +674,7 @@ angular.module('PreSales-Huddle')
                         'dateTime': $rootScope.ConfDateEnd,
                         'timeZone': 'GMT+5:30'
                     },
-                    'attendees': [
-                        {
-                            'email': 'shaila.pawar@synerzip.com'
-                        },
-                        {
-                            'email': 'avnish.kumar@synerzip.com'
-                        }
-                    ],
+                    'attendees': jQuery.parseJSON(attendee_array),
                     'reminders': {
                         'useDefault': false,
                         'overrides': [
@@ -682,73 +698,77 @@ angular.module('PreSales-Huddle')
                 gapi.client.load('calendar', 'v3', sendCalendarInvite);
             }
 
-          // Check if current user has authorized this application.
+            // Check if current user has authorized this application.
             function checkAuth() {
+                console.log("In check Auth.");
                 var api = gapi.auth2.getAuthInstance();
                 var user = api.currentUser.get();
+                console.log(user);
                 var options = new gapi.auth2.SigninOptionsBuilder(
                     {'scope': 'email https://www.googleapis.com/auth/calendar'});
                 user.grant(options).then(
-                    function(success){
+                    function (success) {
+                        console.log("In check Auth.Success.");
                         console.log(JSON.stringify({message: "success", value: success}));
                         loadCalendarApi();
                     },
-                    function(fail){
+                    function (fail) {
                         alert(JSON.stringify({message: "fail", value: fail}));
                     });
             };
         };
 
         // Cancel button function
-        $scope.go = function(path) {
+        $scope.go = function (path) {
             $rootScope.lastform = "createProspect";
             $location.path(path);
         }
     })
 
     //controller for reports
-    .controller('ReportsCtrl',function($scope,$http,$rootScope,$location){
-        document.getElementById('signin').style.visibility='hidden';
+    .controller('ReportsCtrl', function ($scope, $http, $rootScope, $location) {
+        document.getElementById('signin').style.visibility = 'hidden';
         document.getElementById('g-signinP').style.height = '0px';
-        document.getElementById('sign-out').style.visibility='visible';
-        document.getElementById('prospectList').style.visibility='visible';
-        document.getElementById('clientList').style.visibility='visible';
-        document.getElementById('headerText').style.visibility='visible';
-        document.getElementById('reports').style.visibility='visible';
-        document.getElementById('titleText').style.display='none';
+        document.getElementById('sign-out').style.visibility = 'visible';
+        document.getElementById('prospectList').style.visibility = 'visible';
+        document.getElementById('clientList').style.visibility = 'visible';
+        document.getElementById('headerText').style.visibility = 'visible';
+        document.getElementById('reports').style.visibility = 'visible';
+        document.getElementById('titleText').style.display = 'none';
 
-        var prospect_report=$rootScope.prospectToUpdate;
-        $scope.prospect=prospect_report;
+        var prospect_report = $rootScope.prospectToUpdate;
+        $scope.prospect = prospect_report;
 
-        $http.get(baseURL + 'prospect/all/').success(function(data, status, headers, config) {
+        $http.get(baseURL + 'prospect/all/').success(function (data, status, headers, config) {
             $scope.TechStack = data;
             var testArray = [];
-            var a = [], split_array = [],trimmed_array = [];
-            for(var i = 0; i < data.length; i++){
+            var a = [], split_array = [], trimmed_array = [];
+            for (var i = 0; i < data.length; i++) {
                 testArray[i] = data[i].TechStack;
             }
-            for(var j = 0; j < testArray.length; j++){
+            for (var j = 0; j < testArray.length; j++) {
                 a[j] = testArray[j];
-                if(a[j].indexOf(',') !== -1){
+                if (a[j].indexOf(',') !== -1) {
                     split_array = a[j].split(',');
-                      for(var k = 0;k <  split_array.length;k++){
+                    for (var k = 0; k < split_array.length; k++) {
                         testArray.push(split_array[k]);
-                      }
+                    }
                 }
             }
-            for(var l = 0; l < testArray.length; l++){
+            for (var l = 0; l < testArray.length; l++) {
                 trimmed_array[l] = testArray[l];
-                if(trimmed_array[l].indexOf(',') !== -1){
+                if (trimmed_array[l].indexOf(',') !== -1) {
                     var index = testArray.indexOf(trimmed_array[l]);
-                    testArray.splice(index,1)
+                    testArray.splice(index, 1)
                 }
             }
-            for( var m = 0; m < testArray.length; m++){
+            for (var m = 0; m < testArray.length; m++) {
                 testArray[m] = angular.uppercase(testArray[m]);
             }
             console.log(testArray);
 
             var newArray = countArray(testArray);
+
             function countArray(original) {
                 var compressed = [];
                 // make a copy of the input array
@@ -758,7 +778,7 @@ angular.module('PreSales-Huddle')
                     var myCount = 0;
                     // loop over every element in the copy and see if it's the same
                     for (var w = 0; w < copy.length; w++) {
-                        if ( original[i] == copy[w] ) {
+                        if (original[i] == copy[w]) {
                             // increase amount of times duplicate is found
                             myCount++;
                             // sets item to undefined
@@ -774,28 +794,28 @@ angular.module('PreSales-Huddle')
                 }
                 return compressed;
             }
+
             $(document).ready(function () {
 
-                var parentArray = $.map(newArray[0], function(value, index) {
+                var parentArray = $.map(newArray[0], function (value, index) {
                     return [value];
                 });
-                for (var i = 0; i < newArray.length; i++)
-                {
-                    var array = $.map(newArray[i], function(value, index) {
+                for (var i = 0; i < newArray.length; i++) {
+                    var array = $.map(newArray[i], function (value, index) {
                         return [value];
                     });
                     parentArray[i] = array;
                 }
-                var Array = $.map(parentArray, function(value, index) {
+                var Array = $.map(parentArray, function (value, index) {
                     return [value];
                 });
-                RenderPieChart('report-container',[
+                RenderPieChart('report-container', [
                     Array
                 ]);
                 function RenderPieChart(elementId, dataList) {
-                    var colors = ["#2a8482","#64DECF","#BCCDF8",'#058DC7', '#50B432', '#ED561B', '#DDDF00', '#24CBE5', '#64E572',
-                    '#FF9655', '#FF0081', '#6AF9C4'];
-                    for (var i = 0 ; i < dataList.length; i++) {
+                    var colors = ["#2a8482", "#64DECF", "#BCCDF8", '#058DC7', '#50B432', '#ED561B', '#DDDF00', '#24CBE5', '#64E572',
+                        '#FF9655', '#FF0081', '#6AF9C4'];
+                    for (var i = 0; i < dataList.length; i++) {
                         new Highcharts.Chart({
                             chart: {
                                 renderTo: elementId,
@@ -813,11 +833,11 @@ angular.module('PreSales-Huddle')
                             plotOptions: {
                                 pie: {
                                     allowPointSelect: true,
-                                    colors:colors,
+                                    colors: colors,
                                     cursor: 'pointer',
                                     dataLabels: {
                                         enabled: true,
-                                        distance:-30,
+                                        distance: -30,
                                         color: '#000000',
                                         connectorColor: '#000000',
                                         formatter: function () {
@@ -836,7 +856,7 @@ angular.module('PreSales-Huddle')
                 }
             });
 
-        }).error(function(data, status, header, config) {});
+        }).error(function (data, status, header, config) {});
     });
 
 

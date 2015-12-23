@@ -29,11 +29,6 @@ h2 {
     font-family: calibri;
 }
 
-.header #app-logo {
-    width: 11em;
-    margin-bottom: 0.2em;
-}
-
 #headerText {
     border-bottom: 1px solid #e5e5e5;
     margin-bottom: 6%;
@@ -133,7 +128,7 @@ span.buttonText {
     color: white;
     width: 10%;
     white-space: nowrap;
-    margin-top: 30%;
+    /*margin-top: 30%;*/
     margin-left: 47%;
 }
 
@@ -143,7 +138,7 @@ span.buttonText {
 
 .footer {
     text-align: center;
-    width: 65%;
+    width: inherit;
     color: #747474;
     border-top: 1px solid #e5e5e5;
     position: fixed;
