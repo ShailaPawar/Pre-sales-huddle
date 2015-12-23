@@ -144,7 +144,8 @@ span.buttonText {
     position: fixed;
     bottom: 0;
     margin-right: 3%;
-
+    margin-top: auto;
+    z-index: 10;
 }
 
 #form-container {
@@ -187,10 +188,11 @@ span.buttonText {
     font-size: 250%;
 }
 
-#footer{
-     -webkit-box-sizing: inherit !important;
-    -moz-box-sizing: inherit !important;
-     box-sizing: content-box !important;
-    -webkit-box-pack: center;
-    -webkit-box-align: center;
+#pageTitle{
+    margin-top: -1% !important ;
+    font-family: calibri;
+    font-size: 27pt;
 }
+
+
+
