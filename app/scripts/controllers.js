@@ -828,6 +828,52 @@ angular.module('PreSales-Huddle')
         }
     })
 
+    // controller for view Prospect
+    .controller('ViewProspectCtrl', function($scope, $http, $rootScope, $location) {
+        document.getElementById('signin').style.visibility='hidden';
+        document.getElementById('g-signinP').style.height = '0px';
+        document.getElementById('sign-out').style.visibility='visible';
+        document.getElementById('prospectList').style.visibility='visible';
+        document.getElementById('clientList').style.visibility='visible';
+        document.getElementById('headerText').style.visibility='visible';
+        document.getElementById('reports').style.visibility='visible';
+        document.getElementById('titleText').style.display='none';
+
+        $scope.maxDate = new Date();
+        $scope.prospect = $rootScope.prospectToUpdate;
+
+        /*$scope.editProspect = function() {
+            var data = {
+                ProspectID: $rootScope.prospectToUpdate.ProspectID,
+                Name: $scope.prospect.Name,
+                CreateDate : $scope.prospect.CreateDate,
+                TechStack: $scope.prospect.TechStack,
+                Domain: $scope.prospect.Domain,
+                DesiredTeamSize: $scope.prospect.DesiredTeamSize,
+                ProspectNotes: $scope.prospect.ProspectNotes,
+                ConfCalls: $rootScope.prospectToUpdate.ConfCalls,
+                ProspectStatus: $rootScope.prospectToUpdate.ProspectStatus
+            };
+            console.log(data);
+
+            $http.put(baseURL + 'prospect/', data = data).success(function(data, status, headers, config) {
+                console.log('Prospect updated.');
+                $location.path('/prospects');
+            }).error(function(data, status, headers, config) {
+                    console.log(data, status, headers, config);
+                    console.log('Prospect not updated.');
+                });
+        };*/
+
+        // Cancel button function
+        $scope.go = function(path) {
+            $rootScope.lastform = "createProspect";
+            $location.path(path);
+        }
+    })
+
+
+
     //controller for reports
     .controller('ReportsCtrl', function ($scope, $http, $rootScope, $location) {
         document.getElementById('signin').style.visibility = 'hidden';

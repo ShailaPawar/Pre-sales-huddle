@@ -1,9 +1,9 @@
 <section id="page-sub-header">
-    <a ng-href="#/discussions" class="col-sm-2 btn btn-primary pull-right" id="discussions"> Discussions </a>
+    <a ng-href="" class="col-sm-2 btn btn-primary pull-right" id="cancel-button" value="Cancel"  ng-click="go('prospects')"> Cancel </a>
 </section>
 
 <section>
-    <span id="pageTitle"> Update Prospect </span>
+    <span id="pageTitle"> Prospect </span>
     <form name = "editForm" novalidate ng-submit="submitMyForm()">
         <div class="container" style="background-color:whitesmoke" id = "form-container">
 
@@ -11,46 +11,44 @@
                 <label for = "prospectName"> Prospect Name:
                 </label>
 
-                <input type = "text" ng-model = "prospect.Name" id = "prospectName" name = "prospectName" class = "form-control" required>
+                <input type = "text" ng-model = "prospect.Name" id = "prospectName" name = "prospectName" class = "form-control" readonly>
             </div>
             <div class = "form-group" ng-class = "{ 'has-error' : editForm.date.$invalid && submitted }">
                 <label for = "date"> Creation Date:
                 </label>
 
-                <input type = "date" ng-model = "prospect.CreateDate" id = "date" name = "date" class = "form-control" max = "{{ maxDate | date: 'yyyy-MM-dd'}}" required>
+                <input type = "date" ng-model = "prospect.CreateDate" id = "date" name = "date" class = "form-control" max = "{{ maxDate | date: 'yyyy-MM-dd'}}" readonly>
             </div>
             <div class = "form-group" ng-class = "{ 'has-error' : editForm.techStack.$invalid && submitted }">
                 <label for = "techStack"> Tech Stack:
                 </label>
 
-                <input type = "text" ng-model = "prospect.TechStack" id = "techStack" name = "techStack"
-                       placeholder = "e.g: C++, JavaScript, iOS" class = "form-control" required>
+                <input type = "text" ng-model = "prospect.TechStack" id = "techStack" name = "techStack"class = "form-control" readonly>
             </div>
             <div class = "form-group" ng-class = "{ 'has-error' : editForm.domain.$invalid && submittted }">
                 <label for = "domain"> Domain:
                 </label>
 
-                <input type = "text" ng-model = "prospect.Domain" id = "domain" name = "domain"
-                       placeholder = "e.g: Education, Finance" class = "form-control" required>
+                <input type = "text" ng-model = "prospect.Domain" id = "domain" name = "domain" class = "form-control" readonly>
             </div>
             <div class = "form-group" ng-class = "{ 'has-error' : editForm.teamSize.$invalid && submittted }">
                 <label for = "teamSize"> Probable Team Size:
                 </label>
 
-                <input type = "number" ng-model = "prospect.DesiredTeamSize" id = "teamSize" name = "teamSize"
-                       class = "form-control" min="0" required>
+                <input type = "number" ng-model = "prospect.DesiredTeamSize" id = "teamSize" name = "teamSize" class = "form-control" readonly>
             </div>
+            <div class = "form-group" ng-class = "{ 'has-error' : editForm.techStack.$invalid && submitted }">
+                <label for = "status"> Prospect Status:
+                </label>
 
+                <input type = "text" ng-model = "prospect.ProspectStatus" id = "status" name = "techStack"class = "form-control" readonly>
+            </div>
             <div class = "form-group">
-                <label for = "notes"> Notes:</label>
+                <label for = "notes"> Prospect Notes:</label>
 
-                <textarea  ng-model = "prospect.Notes" id = "notes" name = "notes"class = "form-control"></textarea>
+                <textarea  ng-model = "prospect.Notes" id = "notes" name = "notes"class = "form-control" readonly></textarea>
             </div>
 
-            <div class = "form-group">
-                <input type="button" id="cancel-button" value="Cancel" class="col-sm-2 btn btn-primary" ng-click="go('prospects')">
-                <button type="button" class="col-sm-2 btn btn-primary" ng-click="editProspect()" style="margin-left:10px;"> Save </button>
-            </div>
         </div>
         <div class="form-group"></div>
     </form>

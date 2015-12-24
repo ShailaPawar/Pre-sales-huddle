@@ -86,11 +86,11 @@
 
                 <td>
 
-                    <a href = '' ng-click=""  ng-show="!user" id="viewProspect" class = "edit-btn" data-toggle = "tooltip" title = "View prospect information" >
+                    <a href = '#/viewParticularProspect' ng-click="saveData(prospect)"  ng-show="!user" id="viewProspect" class = "edit-btn" data-toggle = "tooltip" title = "View prospect information" >
                         <span   class = "glyphicon glyphicon-eye-open" aria-hidden = "true"  ></span>
                     </a>
 
-                    <a href = '#/editProspect' ng-show="user" id="updateProspect" ng-click="saveData(prospect)" class = "edit-btn" data-toggle = "tooltip" title = "update prospect information" >
+                    <a href = '#/editProspect' ng-show="user" id="updateProspect" ng-click="saveData(prospect)" class = "edit-btn" data-toggle = "tooltip" title = "view and update prospect information" >
                         <span  class = "glyphicon glyphicon-edit" aria-hidden = "true" ></span>
                         <!-- <span class = "visuallyhidden"> Edit {{prospect.Name}} </span>-->
                     </a>
