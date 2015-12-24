@@ -18,7 +18,7 @@ h2 {
     font-size: 735%;
     text-align: center;
     margin-top: 5%;
-    color: red;
+    color: black;
     font-weight: bold;
     font-style: italic;
 }
@@ -39,8 +39,12 @@ h2 {
 }
 
 .footer {
+    text-align: center;
+    width: 65%;
     color: #747474;
     border-top: 1px solid #e5e5e5;
+    position: fixed;
+    bottom: 0;
 }
 
 .visuallyhidden {
@@ -193,6 +197,17 @@ span.buttonText {
     font-family: calibri;
     font-size: 27pt;
 }
+#name,#date,#techstack,#domain,#teamsize,#notes{
 
+    vertical-align: middle;
+}
+#dropdown-report{
+
+    margin-top: 5%;
+    height:50px;
+    width :100%;
+    margin-bottom: 5%;
+
+}
 
 
