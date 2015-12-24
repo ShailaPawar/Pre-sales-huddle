@@ -12,18 +12,17 @@
                 <span class="label label-default label-pill pull-xs-right ">{{discussion.UserID}}</span> <br>
                 {{ discussion.Query }}
             </li>
-            <li class="list-group-item" style="text-align:right">
-                <span class="label label-default label-pill pull-xs-left ">{{ discussion.Answers[0].UserID}}</span> <br>
-                {{discussion.Answers[0].AnswerStr}}
-            </li>
+            <ul class="list-group-item" ng-repeat = "answer in answers">
+                <li class="list-group-item" style="text-align:right">
+                    <span class="label label-default label-pill pull-xs-right ">{{answer.UserID}}</span> <br>
+                    {{ answer.AnswerStr }}
+                </li>
 
+            </ul>
             <li class="list-group-item">
                 <textarea id = "query" name = "query" ng-model = "answer" class = "form-control" placeholder="here">  </textarea>
 
             </li>
-            <!--<li>-->
-                <!--<button type="button" class="btn btn-default">Close</button>-->
-            <!--</li>-->
             <div class="btn-group pull-right" style="margin-top: 1%;margin-bottom: 3%">
                 <button type="button" class="btn btn-primary" ng-click="addAnswer()">
                     Post

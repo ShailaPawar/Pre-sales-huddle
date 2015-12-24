@@ -52,7 +52,7 @@ angular.module('PreSales-Huddle', ['ngResource', 'ngRoute'])
             })
  	    .when('/prospectDiscussion', {
                 templateUrl: '../views/prospectDiscussion.html',
-                controller: 'ProspectDiscussionCtrl',
+                    controller: 'ProspectDiscussionCtrl',
                 title: 'Prospect Discussion'
             })
             .when('/scheduleCall', {

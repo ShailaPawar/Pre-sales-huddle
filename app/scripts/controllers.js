@@ -334,19 +334,19 @@ angular.module('PreSales-Huddle')
         document.getElementById('titleText').style.display = 'none';
 
         var prospect = $rootScope.prospectToUpdate;
-        $http.get(baseURL + 'discussion/prospectid/'+prospect.ProspectID).success(function(data, status, headers, config) {
+        $http.get(baseURL + 'discussion/prospectid/'+ prospect.ProspectID).success(function(data, status, headers, config) {
             console.log("discussion/prospectid/", data);
             $scope.discussions = data;
-        }).error(function(data, status, header, config) {});
+        }).error(function (data, status, header, config) {});
 
-        $scope.addDiscussion = function () {
+        $scope.addDiscussion = function() {
             var data = {
                 ProspectID: $rootScope.prospectToUpdate.ProspectID,
                 UserID: $rootScope.salesName,
                 Query: $scope.query
             };
-            console.log("addDiscussion",data);
-            $http.post(baseURL + 'discussion/', data = data).success(function(data, status, headers, config) {
+            console.log("addDiscussion", data);
+            $http.post(baseURL + 'discussion/', data = data).success(function (data, status, headers, config) {
                 console.log('Discussion added.');
                 $location.path('/discussions');
             }).error(function (data, status, headers, config) {
@@ -561,11 +561,13 @@ angular.module('PreSales-Huddle')
         document.getElementById('reports').style.visibility='visible';
         document.getElementById('titleText').style.display = 'none';
 
-                $scope.maxDate = new Date();
-                $scope.prospect = $rootScope.prospectToUpdate;
-                $scope.Role = 'Domain Advisor';
-                $scope.discussion = $rootScope.discussionToView;
-                console.log("$scope.discussion", $scope.discussion.Answers);
+        $scope.maxDate = new Date();
+        $scope.prospect = $rootScope.prospectToUpdate;
+        $scope.Role = 'Domain Advisor';
+
+        $scope.discussion = $rootScope.discussionToView;
+        console.log("$scope.discussion", $scope.discussion.Answers);
+        $scope.answers = $rootScope.discussionToView.Answers;
 
         $scope.addAnswer = function () {
             var data = {
