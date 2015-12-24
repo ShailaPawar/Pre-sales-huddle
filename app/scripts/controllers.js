@@ -713,15 +713,15 @@ angular.module('PreSales-Huddle')
                 ProspectStatus: status
             };
 
-            $http.put(baseURL + 'prospect/', data = prospectData)
+            $http.post(baseURL + 'prospect/confcall', data = prospectData)
                 .success(function (data, status, headers, config) {
-                console.log('Call details added to Prospect.');
-                //checkAuth();
-                $location.path('/prospects');
-            }).error(function (data, status, headers, config) {
-                console.log(data, status, headers, config);
-                console.log('Error occurred.');
-            });
+                    console.log('Call details added to Prospect.');
+                    //checkAuth();
+                    $location.path('/prospects');
+                }).error(function (data, status, headers, config) {
+                    console.log(data, status, headers, config);
+                    console.log('Error occurred.');
+                });
 
             $http.get(baseURL + 'participant/prospectid/' + currentProspect.ProspectID)
                 .success(function (data, status, headers, config) {
@@ -841,29 +841,6 @@ angular.module('PreSales-Huddle')
 
         $scope.maxDate = new Date();
         $scope.prospect = $rootScope.prospectToUpdate;
-
-        /*$scope.editProspect = function() {
-            var data = {
-                ProspectID: $rootScope.prospectToUpdate.ProspectID,
-                Name: $scope.prospect.Name,
-                CreateDate : $scope.prospect.CreateDate,
-                TechStack: $scope.prospect.TechStack,
-                Domain: $scope.prospect.Domain,
-                DesiredTeamSize: $scope.prospect.DesiredTeamSize,
-                ProspectNotes: $scope.prospect.ProspectNotes,
-                ConfCalls: $rootScope.prospectToUpdate.ConfCalls,
-                ProspectStatus: $rootScope.prospectToUpdate.ProspectStatus
-            };
-            console.log(data);
-
-            $http.put(baseURL + 'prospect/', data = data).success(function(data, status, headers, config) {
-                console.log('Prospect updated.');
-                $location.path('/prospects');
-            }).error(function(data, status, headers, config) {
-                    console.log(data, status, headers, config);
-                    console.log('Prospect not updated.');
-                });
-        };*/
 
         // Cancel button function
         $scope.go = function(path) {
