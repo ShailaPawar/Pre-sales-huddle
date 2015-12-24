@@ -14,7 +14,7 @@
                 <input type = "text" ng-model = "prospect.Name" id = "prospectName" name = "prospectName" class = "form-control" required>
             </div>
             <div class = "form-group" ng-class = "{ 'has-error' : addclient.startdate.$invalid && submitted }">
-                <label for = "date"> Start Date:
+                <label for = "date"> Project Start Date:
                     <img src = "../images/required.gif" alt = "Required" class = "required-star">
                     <em class = "error">
                     <span class = "error" ng-show = "addclient.startdate.$invalid && submitted"> Must not be blank.
@@ -25,7 +25,7 @@
                 <input type = "date" id = "date" name = "date" ng-model = "StartDate" class = "form-control" min = "{{ maxDate | date: 'yyyy-MM-dd'}}" required>
             </div>
             <div class = "form-group" ng-class = "{ 'has-error' : addclient.Head.$invalid && submitted }">
-                <label for = "Head"> BU Head:
+                <label for = "Head"> BU:
                     <img src = "../images/required.gif" alt = "Required" class = "required-star">
                     <em class = "error">
                     <span class = "error" ng-show = "createForm.Head.$invalid && submitted"> Must not be blank.
@@ -33,11 +33,14 @@
                     </em>
                 </label>
 
-                <input type = "text" id = "Head" name = "Head" ng-model = "Head" placeholder = ""class = "form-control" required>
+                <select id="Head" class="form-control" ng-model="Head" ng-options="BUHead.value as BUHead.name for BUHead in BUHead">
+                </select>
+
+                <!--<input type = "text" id = "Head" name = "Head" ng-model = "Head" placeholder = ""class = "form-control" required>-->
             </div>
 
             <div class = "form-group" ng-class = "{ 'has-error' : addclient.teamSize.$invalid && submittted }">
-                <label for = "teamSize"> Team Size:
+                <label for = "teamSize"> Actual Team Size:
                     <img src = "../images/required.gif" alt = "Required" class = "required-star">
                     <em class = "error">
                     <span class = "error" ng-show = "addclient.teamSize.$invalid && submitted"> Must not be blank.
@@ -48,7 +51,7 @@
                 <input type = "number" id = "teamSize" name = "teamSize" ng-model = "TeamSize" class = "form-control" min="0" required>
             </div>
             <div class = "form-group" ng-class = "{ 'has-error' : addclient.notes.$invalid && submitted }">
-                <label for = "notes"> Notes:
+                <label for = "notes"> Client Notes:
                 </label>
 
                 <textarea id = "notes" name = "notes" ng-model = "prospect.Notes" class = "form-control"></textarea>

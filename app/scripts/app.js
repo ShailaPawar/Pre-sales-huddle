@@ -18,15 +18,10 @@ angular.module('PreSales-Huddle', ['ngResource', 'ngRoute'])
                 controller: 'AddProspectCtrl',
                 title: 'Add Prospect'
             })
-            .when('/discussions', {
+            .when('/discussions', { // view all discussions
                 templateUrl: '../views/viewDiscussions.html',
                 controller: 'DiscussionsCtrl',
                 title: 'Discussions'
-            })
-            .when('/addDiscussion', {
-                templateUrl: '../views/addDiscussion.html',
-                controller: 'AddDiscussionCtrl',
-                title: 'Add Discussion'
             })
             .when('/create', {
                 templateUrl: '../views/addProspect.html',

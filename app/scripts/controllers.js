@@ -12,7 +12,17 @@ angular.module('PreSales-Huddle')
         $scope.onSignIn = function() {
             googleLogin()
                 .then(function (data) {
-                    user = "";
+                    window.location = '#/prospects';
+                    document.getElementById('signin').style.visibility='hidden';
+                    document.getElementById('g-signinP').style.height = '0px';
+                    document.getElementById('sign-out').style.visibility='visible';
+                    document.getElementById('prospectList').style.visibility='visible';
+                    document.getElementById('clientList').style.visibility='visible';
+                    document.getElementById('headerText').style.visibility='visible';
+                    document.getElementById('reports').style.visibility='visible';
+                    document.getElementById('titleText').style.display='none';
+
+                    //$rootScope.user;
                     // The ID token you need to pass to your backend:
                     $rootScope.id_token = data.getAuthResponse().id_token;
                     console.log("ID Token: " + $rootScope.id_token);
@@ -22,84 +32,61 @@ angular.module('PreSales-Huddle')
                     $rootScope.currentUserImage = profile.getImageUrl();
                     $rootScope.salesName = profile.getName();
 
-                    var flag = 0;
+
+                    var assignRole;
+                    var salesPersons = ["shaila.pawar@synerzip.com"];
+                    for (i = 0; i < salesPersons.length; i++) {
+                        if (angular.equals($rootScope.currentUser, salesPersons[i])) {
+                            assignRole = "Sales";
+                        } else {
+                            assignRole = "Engineer";
+                        }
+                    }
+
+                    function addUser() {
+                        var data = {
+                            Email: $rootScope.currentUser,
+                            Role: assignRole
+                        };
+                        $http.post(baseURL + 'user/', data = data).success(function(data, status, headers, config) {
+                            console.log('user added.');
+                        }).error(function(data, status, headers, config) {
+                            console.log('user not added.');
+                        });
+                    }
 
                     $http.get(baseURL + 'user/all/').success(function(data, status, headers, config) {
                         console.log ("all user :" ,data);
-                        var allUsers=JSON.stringify(data);
-                        var allUserNumber= JSON.parse(allUsers).length;
-                        var allUsers=JSON.parse(allUsers);
-                        for(var i = 0;i < allUserNumber;i++){
-                            if(angular.equals($rootScope.currentUser,allUsers[i].Email)){
-                                flag = 1;
-                                $rootScope.role = allUsers[i].Role;
-                                console.log("user already exists",$rootScope.role);
-                                break;
-
-                            }
-                        }
-                        if(flag == 0){
-                            var data1 = {
-                                Email: $rootScope.currentUser,
-                                Role: "engineer"
-                            };
-                            $rootScope.role = "engineer";
-                            $http.post(baseURL + 'user/', data = data1).success(function(data, status, headers, config) {
-                                console.log('user added.');
-
-                            }).error(function(data, status, headers, config) {
-                                    console.log('user not added.');
-                                });
-                        }
-
-
-
-                            if($rootScope.role == "engineer")
-                                {
-                                $rootScope.user = 0;
-                                 console.log($rootScope.user);
-
-
-
+                        if (data != undefined) {
+                            var allUsers = JSON.stringify(data);
+                            var totalUsers = JSON.parse(allUsers).length;
+                            allUsers = JSON.parse(allUsers);
+                            for (var i = 0; i < totalUsers; i++) {
+                                if (angular.equals($rootScope.currentUser, allUsers[i].Email)) {
+                                    //flag = 1;
+                                    $rootScope.role = allUsers[i].Role;
+                                    console.log("user already exists", $rootScope.currentUser, $rootScope.role);
+                                    //break;
+                                } else {
+                                    addUser();
                                 }
-                            else{
-                                $rootScope.user = 1;
-                                 console.log($rootScope.user);
-
                             }
+                        } else {
+                            addUser();
+                        }
 
-
-
-
-
-                        }).error(function(data, status, headers, config) {
-                            console.log('problem in user.');
-                        });
-
-
+                        if (angular.equals("Engineer", $rootScope.role)) {
+                            $rootScope.user = 0;
+                            console.log($rootScope.user);
+                        } else {
+                            $rootScope.user = 1;
+                            console.log($rootScope.user);
+                        }
+                    }).error(function(data, status, headers, config) {
+                        console.log('problem in user.');
+                    });
 
                     //user role code finish
-
-
-
-
-
-
-                    window.location = '#/prospects';
-                    document.getElementById('signin').style.visibility='hidden';
-                    document.getElementById('g-signinP').style.height = '0px';
-                    document.getElementById('sign-out').style.visibility='visible';
-                    document.getElementById('prospectList').style.visibility='visible';
-                    document.getElementById('clientList').style.visibility='visible';
-		            document.getElementById('headerText').style.visibility='visible';
-                    document.getElementById('reports').style.visibility='visible';
-                    document.getElementById('titleText').style.display='none';
-
-
-
-
-
-
                 }, function (err) {
                     console.log(err)
                 });
@@ -396,6 +383,33 @@ angular.module('PreSales-Huddle')
         var prospectFetched = $rootScope.prospectToUpdate;
         $scope.prospect = prospectFetched;
 
+        $scope.BUHead = [
+                            {
+                                value: 'BU2 (Salil)',
+                                name: 'BU2 (Salil)'
+                            }, {
+                                value: 'BU3 (Amit)',
+                                name: 'BU3 (Amit)'
+                            }, {
+
+                                value: 'BU4 (Preshit)',
+                                name: 'BU4 (Preshit)'
+                            },
+                            {
+                                value: 'BU5 (Vrinda)',
+                                name: 'BU5 (Vrinda)'
+                            }, {
+                                value: 'BU6 (Ashutosh)',
+                                name: 'BU6 (Ashutosh)'
+                            }, {
+
+                                value: 'BU7 (Mukund)',
+                                name: 'BU7 (Mukund)'
+                            }
+                        ];
+
+        $scope.Head = 'BU2 (Salil)';
+
         $scope.addToClient = function () {
             var data = {
                 ProspectID:     $rootScope.prospectToUpdate.ProspectID,
@@ -410,8 +424,8 @@ angular.module('PreSales-Huddle')
                 BUHead:         $scope.Head,
                 TeamSize:       $scope.TeamSize,
                 SalesID:        $rootScope.salesName,
-                ConfCalls:      $rootScope.prospectToUpdate.ConfCalls
-								ProspectStatus: $rootScope.prospectToUpdate.ProspectStatus
+                ConfCalls:      $rootScope.prospectToUpdate.ConfCalls,
+                ProspectStatus: $rootScope.prospectToUpdate.ProspectStatus
             };
 
             $http.put(baseURL + 'prospect/', data = data).success(function (data, status, headers, config) {
@@ -616,13 +630,17 @@ angular.module('PreSales-Huddle')
         jQuery(function () {
             jQuery('#fromTime').datetimepicker();
             jQuery('#toTime').datetimepicker();
+
             jQuery("#fromTime").on("dp.change", function (e) {
-                //jQuery('#toTime').data("DateTimePicker").setMinDate(e.date);
+                jQuery('#toTime').data("DateTimePicker").setMaxDate(e.date);
+
                 $rootScope.ConfDateStart = e.date;
                 console.log($rootScope.ConfDateStart);
             });
+
             jQuery("#toTime").on("dp.change", function (e) {
                 //jQuery('#fromTime').data("DateTimePicker").setMaxDate(e.date);
+
                 $rootScope.ConfDateEnd = e.date;
                 console.log($rootScope.ConfDateEnd);
             });
@@ -720,7 +738,7 @@ angular.module('PreSales-Huddle')
                         console.log("volunteersList: ", volunteersList);
 
                         for (var i = 0; i < numberOfVolunteer; i++) {
-                            if (volunteersList[i].Included == "Yes") {
+                            if (volunteersList[i].Included == "Yes" && volunteersList[i].UserID != "") {
                                 if (i == numberOfVolunteer - 1) {
                                     end = '} ';
                                 } else {
