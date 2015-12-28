@@ -1,0 +1,19 @@
+<section>
+    <h2> Reports </h2>
+    <form name = "reportsForm" novalidate ng-submit="submitMyForm()">
+        <div class="container" style="background-color:whitesmoke" id = "form-container">
+
+            <div class = "dropdown form-group" >
+                <label for = "reportType"> Select Report for:
+                </label>
+                <select id="reportType" class="form-control" ng-model="reportType"  ng-change="changeReport()" ng-options="reportTypes.value as reportTypes.name for reportTypes in reportTypes">
+                </select>
+            </div>
+        </div>
+       <br>
+        <div  class="container" ng-show="flag" id="report-container" style="margin-left: -1%;width: 99.99%;height:200%">
+        </div>
+
+
+    </form>
+</section>
