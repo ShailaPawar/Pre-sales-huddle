@@ -334,6 +334,7 @@ angular.module('PreSales-Huddle')
         document.getElementById('titleText').style.display = 'none';
 
         var prospect = $rootScope.prospectToUpdate;
+        $rootScope.prospect = prospect;
         $http.get(baseURL + 'discussion/prospectid/'+ prospect.ProspectID).success(function(data, status, headers, config) {
             console.log("discussion/prospectid/", data);
             $scope.discussions = data;
@@ -525,14 +526,14 @@ angular.module('PreSales-Huddle')
                 $scope.showDate = false;
             }
         };
-
         $scope.addVolunteer = function () {
             var data = {
                 ProspectID: $rootScope.prospectToUpdate.ProspectID,
                 UserID: $rootScope.currentUser,
                 ParticipationRole: $scope.Role,
                 AvailableDate: $scope.CreateDate,
-                Notes: $scope.Notes
+                Notes: $scope.Notes,
+                Included: "Yes"
             };
             $http.post(baseURL + 'participant/', data = data).success(function (data, status, headers, config) {
                 console.log('volunteer added.');
@@ -583,7 +584,7 @@ angular.module('PreSales-Huddle')
                 ]
             };
             console.log(data);
-            $http.put(baseURL + 'discussion/', data = data).success(function (data, status, headers, config) {
+            $http.post(baseURL + 'discussion/answer', data = data).success(function (data, status, headers, config) {
                 console.log('discussion updated.', data);
                 console.log('discussion updated.');
                 $location.path('/discussions');
@@ -653,7 +654,7 @@ angular.module('PreSales-Huddle')
             console.log("Participant:", $event);
             console.log("Participant Object:", participant);
 
-            var status;
+            var status = "Yes";
             if($event == true) {
                 console.log("yes", $event);
                 status = "Yes";
@@ -688,13 +689,13 @@ angular.module('PreSales-Huddle')
 
         $scope.scheduleCall = function () {
             console.log("$scope.call: ", $scope.call);
-            var status;
+            var prospectStatus;
 
             if(angular.equals($scope.call, "Internal Prep call")) {
                 console.log("ConfDateStart: ", $rootScope.ConfDateStart);
-                status = "Prep call scheduled for " + (new Date($rootScope.ConfDateStart)).toLocaleString('en-US');
+                prospectStatus = "Prep call scheduled for " + (new Date($rootScope.ConfDateStart)).toLocaleString('en-US');
             } else {
-                status = "Client call scheduled for " + (new Date($rootScope.ConfDateStart)).toLocaleString('en-US');
+                prospectStatus = "Client call scheduled for " + (new Date($rootScope.ConfDateStart)).toLocaleString('en-US');
             }
             var prospectData = {
                 ProspectID: $rootScope.prospectToUpdate.ProspectID,
@@ -712,7 +713,7 @@ angular.module('PreSales-Huddle')
                 ProspectNotes: currentProspect.ProspectNotes,
                 CreateDate: currentProspect.CreateDate,
                 SalesID: $rootScope.salesName,
-                ProspectStatus: status
+                ProspectStatus: prospectStatus
             };
 
             $http.post(baseURL + 'prospect/confcall', data = prospectData)
@@ -1043,61 +1044,6 @@ angular.module('PreSales-Huddle')
                                 ]);
                             });
                         }
-                        /*else {
-
-                            for ( i = 0; i < data.length; i++ ) {
-
-                                testArray[i] = data[i].CreateDate;
-                                a[i] = testArray[i].split('-');
-                                testArray[i] = a[i][1];
-
-                                if(testArray[i] === '1'){
-                                    countJan++;
-                                }else if(testArray[i] === '2')
-                                {
-                                    countFeb++;
-                                }else if(testArray[i] === '3')
-                                {
-                                    countMar++;
-                                }else if(testArray[i] === '4')
-                                {
-                                    countApr++;
-                                }else if(testArray[i] === '5')
-                                {
-                                    countMay++;
-                                }else if(testArray[i] === '6')
-                                {
-                                    countJun++;
-                                }else if(testArray[i] === '7')
-                                {
-                                    countJul++;
-                                }else if(testArray[i] === '8')
-                                {
-                                    countAug++;
-                                }else if(testArray[i] === '9')
-                                {
-                                    countSept++;
-                                }else if(testArray[i] === '10')
-                                {
-                                    countOct++;
-                                }else if(testArray[i] === '11')
-                                {
-                                    countNov++;
-                                }else if(testArray[i] === '12')
-                                {
-                                    countDec++;
-                                }
-
-                            }
-                            $(document).ready(function () {
-
-                                RenderLineChart('report-container', [
-                                    [countJan],[countFeb],[countMar],[countApr],[countMay],[countJun],[countJul],[countAug],
-                                    [countSept],[countOct],[countNov],[countDec]
-                                ]);
-                            });
-
-                        }*/
                     };
 
         }).error(function (data, status, header, config) {});
