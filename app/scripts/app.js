@@ -49,7 +49,7 @@ angular.module('PreSales-Huddle', ['ngResource', 'ngRoute'])
                 controller: 'VolunteerCtrl',
                 title: 'Volunteer'
             })
- 	        .when('/prospectDiscussion', {
+ 	    .when('/prospectDiscussion', {
                 templateUrl: '../views/prospectDiscussion.html',
                     controller: 'ProspectDiscussionCtrl',
                 title: 'Prospect Discussion'
@@ -59,16 +59,16 @@ angular.module('PreSales-Huddle', ['ngResource', 'ngRoute'])
                 controller: 'ScheduleCallCtrl',
                 title: 'Schedule a call'
             })
-	        .when('/reports', {
-                templateUrl: '../views/reportsList.html',
+	    .when('/viewParticularProspect', {
+                templateUrl: '../views/viewParticularProspect.html',
                 controller: 'ReportsListCtrl',
                 title: 'ReportsList'
-            })
-            .when('/viewParticularProspect', {
-                templateUrl: '../views/viewParticularProspect.html',
-                controller: 'ViewProspectCtrl',
-                title: 'ViewProspect'
-            })
+        })
+        .when('/reports', {
+            templateUrl: '../views/reportsList.html',
+            controller: 'ViewProspectCtrl',
+            title: 'prospect'
+        })
     }).run(['$window', function ($window) {
         $window.GoogleAsyncInit = function () {
             // Executed when the SDK is loaded
