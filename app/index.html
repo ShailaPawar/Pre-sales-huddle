@@ -19,7 +19,7 @@
                 background-position: top center;
             }
         </style>
-    </head>
+            </head>
 
     <body>
         <div class = "container" >
@@ -28,7 +28,6 @@
                 <span style="font-family: calibri; font-size: 30pt;"> Synerzip pre-sales huddle </span>
                 <nav id = "top-nav" class = "pull-right">
                     <ul class = "nav nav-pills">
-
                         <li ng-class = "{active: isActive('/prospects')}" id = "prospectList" disabled>
                             <a ng-href = "#/prospects"> Prospect List
                                 <span class = "visuallyhidden" class="btn btn-primary pull-right"> - currently selected </span>
@@ -43,12 +42,24 @@
                             <a ng-href = "#/reports"> Reports
                                 <span class = "visuallyhidden" class="btn btn-primary pull-right"> - currently selected </span>
                             </a>
-                        </li>
-                        <li class = "sign-out" id = "sign-out" ng-controller="SignOutCtrl" disabled>
-                            <a ng-click = "signOut();"> Sign Out <span class = "visuallyhidden" class="btn btn-primary pull-right"> - currently selected </span>
-                            </a>
-                        </li>
 
+                        </li>
+                        <li class="dropdown" class = "sign-out nav navbar-nav navbar-right" id = "sign-out"  ng-controller="SignOutCtrl" disabled>
+                            <a ng-click="drop()" class="dropdown-toggle" data-toggle="dropdown">{{firstName}} ({{role}})
+                                <span class = "visuallyhidden" class="btn btn-primary pull-right" > - currently selected</span>
+                                <span class="caret"></span>
+                            </a>
+                                <ul class="dropdown-menu">
+                                    <li style="text-align: center;font-family: calibri"> Signed in as <span style=" font-weight: bold;">{{currentUser}}</span>
+                                    </li>
+                                    <li class="divider">
+                                    </li>
+                                    <li style="text-align: center" class = "sign-out"  ng-controller="SignOutCtrl" data-toggle="dropdown" disabled >
+                                        <a ng-click = "signOut();"> </span>Sign Out <span class = "visuallyhidden" class="btn btn-primary pull-right"> - currently selected </span>
+                                        </a>
+                                     </li>
+                                </ul>
+                        </li>
                     </ul>
                 </nav>
                 </div>

@@ -31,6 +31,8 @@ angular.module('PreSales-Huddle')
                     $rootScope.currentUserImage = profile.getImageUrl();
                     $rootScope.salesName = profile.getName();
 
+                    $rootScope.firstName = $rootScope.salesName.substring(0, $rootScope.salesName.indexOf(' '));
+                    console.log("fistname",$rootScope.firstName)
 
                     var assignRole;
                     var salesPersons = ["shaila.pawar@synerzip.com"];
@@ -43,6 +45,8 @@ angular.module('PreSales-Huddle')
                             }
                         }(i))
                     }
+
+
 
                     function addUser() {
                         var data = {
@@ -98,6 +102,13 @@ angular.module('PreSales-Huddle')
     })
 
     .controller('SignOutCtrl', function($scope, $rootScope, $location) {
+        $(document).ready(function(){
+            $('ul.nav li.dropdown').hover(function() {
+                $(this).find('.dropdown-menu').stop(true, true).delay(200).fadeIn(200);
+            }, function() {
+                $(this).find('.dropdown-menu').stop(true, true).delay(200).fadeOut(200);
+            });
+        });
         function LogOut() {
             var auth2 = gapi.auth2.getAuthInstance();
             return auth2.signOut();
@@ -131,6 +142,9 @@ angular.module('PreSales-Huddle')
         document.getElementById('headerText').style.visibility='visible';
         document.getElementById('reports').style.visibility='visible';
         document.getElementById('titleText').style.display='none';
+
+
+
 
         //  search keyword by  Technology stack and domain
         $scope.searchWord = function (prospectList) {

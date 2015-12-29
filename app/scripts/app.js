@@ -1,5 +1,4 @@
 'use strict';
-
 angular.module('PreSales-Huddle', ['ngResource', 'ngRoute'])
     .config(function ($routeProvider, $httpProvider) {
         $routeProvider.when('/prospects', {
@@ -61,12 +60,12 @@ angular.module('PreSales-Huddle', ['ngResource', 'ngRoute'])
             })
 	    .when('/viewParticularProspect', {
                 templateUrl: '../views/viewParticularProspect.html',
-                controller: 'ReportsListCtrl',
+                controller: 'ViewProspectCtrl',
                 title: 'ReportsList'
         })
         .when('/reports', {
             templateUrl: '../views/reportsList.html',
-            controller: 'ViewProspectCtrl',
+            controller: 'ReportsListCtrl',
             title: 'prospect'
         })
     }).run(['$window', function ($window) {
