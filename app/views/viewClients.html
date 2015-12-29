@@ -48,7 +48,7 @@
             <span ng-hide="{{!prospect.BUHead}}">
                 <tr ng-hide="{{!prospect.BUHead}}" ng-repeat = "prospect in prospects | orderBy:orderByField:reverseSort | filter:searchWord" >
                     <td> {{ prospect.Name }} </td>
-                    <td> {{ prospect.StartDate  | date: "yyyy-MM-dd"}} </td>
+                    <td> {{ prospect.StartDate  | date: "dd-MMM-yyyy" }} </td>
                     <td> {{ prospect.BUHead }} </td>
                     <td> {{ prospect.SalesID }} </td>
                     <td>

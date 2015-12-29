@@ -29,30 +29,30 @@
                     <span ng-show="reverseSort" class="glyphicon glyphicon-chevron-down"></span>
                 </span>
             </th>
-            <!--<th ng-click="orderByField='CreateDate'; reverseSort = !reverseSort"> Creation Date-->
-                <!--<span ng-show="orderByField == 'CreateDate'">-->
-                    <!--<span ng-show="!reverseSort" class="glyphicon glyphicon-chevron-up"></span>-->
-                    <!--<span ng-show="reverseSort" class="glyphicon glyphicon-chevron-down"></span>-->
-                <!--</span>-->
-            <!--</th>-->
-            <!--<th ng-click="orderByField='TechStack'; reverseSort = !reverseSort"> Tech Stack-->
-                <!--<span ng-show="orderByField == 'TechStack'">-->
-                    <!--<span ng-show="!reverseSort" class="glyphicon glyphicon-chevron-up"></span>-->
-                    <!--<span ng-show="reverseSort" class="glyphicon glyphicon-chevron-down"></span>-->
-                <!--</span>-->
-            <!--</th>-->
-            <!--<th ng-click="orderByField='Domain'; reverseSort = !reverseSort"> Domain-->
-                <!--<span ng-show="orderByField == 'Domain'">-->
-                    <!--<span ng-show="!reverseSort" class="glyphicon glyphicon-chevron-up"></span>-->
-                    <!--<span ng-show="reverseSort" class="glyphicon glyphicon-chevron-down"></span>-->
-                <!--</span>-->
-            <!--</th>-->
-            <!--<th ng-click="orderByField='DesiredTeamSize'; reverseSort = !reverseSort"> Probable Team Size
+            <th ng-click="orderByField='CreateDate'; reverseSort = !reverseSort"> Creation Date
+                <span ng-show="orderByField == 'CreateDate'">
+                    <span ng-show="!reverseSort" class="glyphicon glyphicon-chevron-up"></span>
+                    <span ng-show="reverseSort" class="glyphicon glyphicon-chevron-down"></span>
+                </span>
+            </th>
+            <th ng-click="orderByField='TechStack'; reverseSort = !reverseSort"> Tech Stack
+                <span ng-show="orderByField == 'TechStack'">
+                    <span ng-show="!reverseSort" class="glyphicon glyphicon-chevron-up"></span>
+                    <span ng-show="reverseSort" class="glyphicon glyphicon-chevron-down"></span>
+                </span>
+            </th>
+            <th ng-click="orderByField='Domain'; reverseSort = !reverseSort"> Domain
+                <span ng-show="orderByField == 'Domain'">
+                    <span ng-show="!reverseSort" class="glyphicon glyphicon-chevron-up"></span>
+                    <span ng-show="reverseSort" class="glyphicon glyphicon-chevron-down"></span>
+                </span>
+            </th>
+            <th ng-click="orderByField='DesiredTeamSize'; reverseSort = !reverseSort"> Probable Team Size
                 <span ng-show="orderByField == 'DesiredTeamSize'">
                     <span ng-show="!reverseSort" class="glyphicon glyphicon-chevron-up"></span>
                     <span ng-show="reverseSort" class="glyphicon glyphicon-chevron-down"></span>
                 </span>
-            </th>-->
+            </th>
             <th ng-click="orderByField='noOfDiscussion'; reverseSort = !reverseSort"> No of Discussions
                 <span ng-show="orderByField == 'noOfDiscussion'">
                     <span ng-show="!reverseSort" class="glyphicon glyphicon-chevron-up"></span>
@@ -75,10 +75,10 @@
         <span ng-show="{{!prospect.BUHead}}">
             <tr  ng-show="{{!prospect.BUHead}}" ng-repeat = "prospect in prospects | orderBy:orderByField:reverseSort | filter:searchWord" >
                  <td> {{ prospect.Name }} </td>
-                <!--<td> {{ prospect.CreateDate  | date: "MM/dd/yyyy" }} </td>-->
-                <!--<td> {{ prospect.TechStack }} </td>-->
-                <!--<td> {{ prospect.Domain }} </td>-->
-                <!--<td> {{ prospect.DesiredTeamSize }} </td>-->
+                <td> {{ prospect.CreateDate  | date: "dd-MMM-yyyy" }} </td>
+                <td> {{ prospect.TechStack }} </td>
+                <td> {{ prospect.Domain }} </td>
+                <td> {{ prospect.DesiredTeamSize }} </td>
                 <td> {{ prospect.noOfDiscussion }} </td>
                 <td> {{ prospect.noOfVolunteers }} </td>
                 <td> {{ prospect.ProspectStatus }} </td>
@@ -96,26 +96,26 @@
                     </a>
 
                     <a href = '#/discussions' ng-click="saveData(prospect)" id="discussion" class = "edit-btn" data-toggle = "tooltip" title = "Discussion" >
-                        <span   class = "glyphicon glyphicon-comment" aria-hidden = "true" style="margin-left: 5%" ></span>
+                        <span   class = "glyphicon glyphicon-comment" aria-hidden = "true" ></span>
                     </a>
 
                     <a href = '#/scheduleCall' ng-show="user" ng-click="saveData(prospect)" class = "edit-btn" data-toggle = "tooltip" title = "Schedule call" >
-                        <span  class = "glyphicon glyphicon-phone-alt" aria-hidden = "true" style="margin-left: 5%" ></span>
+                        <span  class = "glyphicon glyphicon-phone-alt" aria-hidden = "true" ></span>
                     </a>
 
-                    <a href = '#/addToClient' ng-show="user"  id="convertToClient" ng-click="saveData(prospect)" class = "edit-btn" data-toggle = "tooltip" title = "Contract signed" >
-                        <span  class = "glyphicon glyphicon-usd" aria-hidden = "true" style="margin-left: 5%" ></span>
+                    <a href = '#/addToClient' ng-show="user"  id="convertToClient" ng-click="saveData(prospect)" class = "edit-btn" data-toggle = "tooltip" title = "Convert to client" >
+                        <span  class = "glyphicon glyphicon-usd" aria-hidden = "true" ></span>
                     </a>
 
-                    <a href = '' ng-click="" class = "edit-btn" id="setReminder" data-toggle = "tooltip" title = "Set up reminder" >
-                        <span  class = "glyphicon glyphicon-envelope" aria-hidden = "true" style="margin-left: 5%"></span>
+                    <a href = '' ng-show="user" ng-click="" class = "edit-btn" id="setReminder" data-toggle = "tooltip" title = "Set up reminder" >
+                        <span  class = "glyphicon glyphicon-envelope" aria-hidden = "true" ></span>
                     </a>
                     <a href = '' ng-show="user" ng-click=""  id="deadProspect" class = "edit-btn" data-toggle = "tooltip" title = "Dead prospect" >
-                        <span   class = "glyphicon glyphicon-trash" aria-hidden = "true" style="margin-left: 5%" ></span>
+                        <span   class = "glyphicon glyphicon-trash" aria-hidden = "true" ></span>
                     </a>
 
                     <a href = '' ng-show="!user" id="volunteer" ng-click="volunteerProspect(prospect)" class = "edit-btn" data-toggle = "tooltip" title = "Volunteer" >
-                        <span   class = "glyphicon glyphicon-hand-up" aria-hidden = "true" style="margin-left: 5%" ></span>
+                        <span   class = "glyphicon glyphicon-hand-up" aria-hidden = "true" ></span>
                     </a>
 
 

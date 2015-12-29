@@ -22,7 +22,6 @@ angular.module('PreSales-Huddle')
                     document.getElementById('reports').style.visibility='visible';
                     document.getElementById('titleText').style.display='none';
 
-                    //$rootScope.user;
                     // The ID token you need to pass to your backend:
                     $rootScope.id_token = data.getAuthResponse().id_token;
                     console.log("ID Token: " + $rootScope.id_token);
@@ -36,11 +35,13 @@ angular.module('PreSales-Huddle')
                     var assignRole;
                     var salesPersons = ["shaila.pawar@synerzip.com"];
                     for (i = 0; i < salesPersons.length; i++) {
-                        if (angular.equals($rootScope.currentUser, salesPersons[i])) {
-                            assignRole = "Sales";
-                        } else {
-                            assignRole = "Engineer";
-                        }
+                        (function (index) {
+                            if (angular.equals($rootScope.currentUser, salesPersons[i])) {
+                                assignRole = "Sales";
+                            } else {
+                                assignRole = "Engineer";
+                            }
+                        }(i))
                     }
 
                     function addUser() {
@@ -62,20 +63,23 @@ angular.module('PreSales-Huddle')
                             var totalUsers = JSON.parse(allUsers).length;
                             allUsers = JSON.parse(allUsers);
                             for (var i = 0; i < totalUsers; i++) {
+                                console.log("Current Logged In User: ", $rootScope.currentUser);
+                                console.log("allUsers[", i, "].Email: ", allUsers[i].Email);
                                 if (angular.equals($rootScope.currentUser, allUsers[i].Email)) {
-                                    //flag = 1;
-                                    $rootScope.role = allUsers[i].Role;
-                                    console.log("user already exists", $rootScope.currentUser, $rootScope.role);
-                                    //break;
-                                } else {
+                                    assignRole = allUsers[i].Role;
+                                    console.log("user already exists", $rootScope.currentUser, assignRole);
+                                    break;
+                                }
+                                else {
                                     addUser();
+                                    break;
                                 }
                             }
                         } else {
                             addUser();
                         }
 
-                        if (angular.equals("Engineer", $rootScope.role)) {
+                        if (angular.equals("Engineer", assignRole)) {
                             $rootScope.user = 0;
                             console.log($rootScope.user);
                         } else {
@@ -247,7 +251,11 @@ angular.module('PreSales-Huddle')
         var creationDate = $scope.date;
 
         $scope.addProspect = function() {
-            var status = "Prospect created on " + creationDate.toLocaleString('en-US');
+            var date = new Date(creationDate);
+            var n = date.toDateString();
+            var time = date.toLocaleTimeString();
+            var status = "Prospect created on " + n + ' ' + time;
+                // creationDate.toLocaleString('en-US');
             var data = {
                 Name: $scope.prospectName,
                 CreateDate : creationDate,
@@ -603,7 +611,7 @@ angular.module('PreSales-Huddle')
         document.getElementById('prospectList').style.visibility = 'visible';
         document.getElementById('clientList').style.visibility = 'visible';
         document.getElementById('headerText').style.visibility = 'visible';
-        document.getElementById('reports').style.visibility='visible';
+        document.getElementById('reports').style.visibility = 'visible';
         document.getElementById('titleText').style.display = 'none';
 
         var currentProspect = $rootScope.prospectToUpdate;
@@ -627,7 +635,8 @@ angular.module('PreSales-Huddle')
                 $rootScope.participants = data;
                 $scope.participants = $rootScope.participants;
                 console.log("participants: ", $scope.participants);
-            }).error(function (data, status, header, config) {});
+            }).error(function (data, status, header, config) {
+        });
 
         // set call time
         jQuery(function () {
@@ -650,21 +659,21 @@ angular.module('PreSales-Huddle')
         });
 
         // checkbox handling
-        $scope.checkState = function($event, participant) {
+        $scope.checkState = function ($event, participant) {
             console.log("Participant:", $event);
             console.log("Participant Object:", participant);
 
-            var status = "Yes";
-            if($event == true) {
+            var pStatus;
+            if ($event == true) {
                 console.log("yes", $event);
-                status = "Yes";
-            } else {
-                status = "No";
+                pStatus = "Yes";
+            } else if ($event == false) {
+                pStatus = "No";
             }
             var participantData = {
                 ProspectID: participant.ProspectID,
                 UserID: participant.UserID,
-                Included: status,
+                Included: pStatus,
                 ParticipationRole: participant.ParticipationRole,
                 AvailableDate: participant.AvailableDate,
                 Notes: participant.Notes
@@ -674,10 +683,53 @@ angular.module('PreSales-Huddle')
                 .success(function (data, status, headers, config) {
                     console.log('participant updated.');
                 }).error(function (participantData, status, headers, config) {
-                    console.log(participantData, status, headers, config);
-                    console.log('participant not added.');
-                });
+                console.log(participantData, status, headers, config);
+                console.log('participant not added.');
+            });
         };
+
+        function updateParticipant(callAttendees) {
+            if (callAttendees != undefined) {
+
+            } else {
+                console.log("Call attendees not updated... Coz all are included.");
+            }
+        };
+
+        // set Default call participation status of all volunteers to "Yes"
+        $http.get(baseURL + 'participant/prospectid/' + currentProspect.ProspectID)
+            .success(function (data, status, headers, config) {
+                console.log (data);
+                if (data != undefined) {
+                    var callParticipants = JSON.stringify(data);
+                    console.log("callParticipants", callParticipants);
+
+                    if (JSON.parse(callParticipants) != null) {
+                        var volunteersList = JSON.parse(callParticipants);
+                        numberOfVolunteer = volunteersList.length;
+
+                        console.log("volunteersList: ", volunteersList);
+
+                        for (var i = 0; i < numberOfVolunteer; i++) {
+                            volunteersList[i].Included = "Yes";
+                            (function (index) {
+                                $http.put(baseURL + 'participant/', data = volunteersList[i])
+                                    .success(function (data, status, headers, config) {
+                                        console.log('participant updated.');
+                                    }).error(function (participantData, status, headers, config) {
+                                    console.log(participantData, status, headers, config);
+                                    console.log('participant not added.');
+                                });
+                            }(i));
+                        }
+                    } else {
+                        console.log("Empty Volunteer List.");
+                    }
+                }
+            }).error(function (data, status, headers, config) {
+                console.log(data, status, headers, config);
+            });
+
 
         var numberOfVolunteer = 0;
         var attendee_array;
@@ -691,12 +743,20 @@ angular.module('PreSales-Huddle')
             console.log("$scope.call: ", $scope.call);
             var prospectStatus;
 
+            var date = new Date($rootScope.ConfDateStart);
+            var n = date.toDateString();
+            var time = date.toLocaleTimeString();
+
             if(angular.equals($scope.call, "Internal Prep call")) {
                 console.log("ConfDateStart: ", $rootScope.ConfDateStart);
-                prospectStatus = "Prep call scheduled for " + (new Date($rootScope.ConfDateStart)).toLocaleString('en-US');
+                prospectStatus = "Prep call scheduled for " + n + ' ' + time;
+                    // (new Date($rootScope.ConfDateStart)).toLocaleString('en-US');
             } else {
-                prospectStatus = "Client call scheduled for " + (new Date($rootScope.ConfDateStart)).toLocaleString('en-US');
+                prospectStatus = "Client call scheduled for " + n + ' ' + time;
+                    // (new Date($rootScope.ConfDateStart)).toLocaleString('en-US');
             }
+            console.log("Prospect Status: ", prospectStatus);
+
             var prospectData = {
                 ProspectID: $rootScope.prospectToUpdate.ProspectID,
                 Name: currentProspect.Name,
@@ -716,45 +776,42 @@ angular.module('PreSales-Huddle')
                 ProspectStatus: prospectStatus
             };
 
-            $http.post(baseURL + 'prospect/confcall', data = prospectData)
+            // update prospect after scheduling call
+            $http.put(baseURL + 'prospect/', data = prospectData)
                 .success(function (data, status, headers, config) {
                     console.log('Call details added to Prospect.');
-                    //checkAuth();
                     $location.path('/prospects');
                 }).error(function (data, status, headers, config) {
                     console.log(data, status, headers, config);
                     console.log('Error occurred.');
                 });
 
+            // select participants before sending calender invite
             $http.get(baseURL + 'participant/prospectid/' + currentProspect.ProspectID)
                 .success(function (data, status, headers, config) {
 
                     console.log (data);
-                    var participantData = JSON.stringify(data);
-                    console.log("participantData: ", participantData);
-                    if (JSON.parse(participantData) == null) {
+                    var participants = JSON.stringify(data);
+                    console.log("participants: ", participants);
+                    if (JSON.parse(participants) == null) {
                         numberOfVolunteer = 0;
                     }
                     else {
-                        numberOfVolunteer = JSON.parse(participantData).length;
-                        var volunteersList = JSON.parse(participantData);
+                        numberOfVolunteer = JSON.parse(participants).length;
+                        var volunteersList = JSON.parse(participants);
                         console.log("volunteersList: ", volunteersList);
 
                         for (var i = 0; i < numberOfVolunteer; i++) {
                             if (volunteersList[i].Included == "Yes" && volunteersList[i].UserID != "") {
-                                if (i == numberOfVolunteer - 1) {
-                                    end = '} ';
-                                } else {
-                                    end = "}, ";
-                                }
+                                end = ' }';
                                 attendee = volunteersList[i].UserID;
                                 console.log("attendee: ", attendee);
                                 if (attendees == null) {
-																	  attendees = (start + qoute + attendee + qoute + end);
+                                    attendees = (start + qoute + attendee + qoute + end);
                                     $rootScope.attendees = attendees;
                                     console.log(" null attendees: ", attendees);
                                 } else {
-                                    attendees += (start + qoute + attendee + qoute + end);
+                                    attendees += (', ' + start + qoute + attendee + qoute + end);
                                     $rootScope.attendees += attendees;
                                     console.log(" not nul attendees: ", attendees);
                                 }
