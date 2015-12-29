@@ -85,7 +85,6 @@
                 <!--<td> {{ prospect.ProspectNotes }} </td>-->
 
                 <td>
-
                     <a href = '#/viewParticularProspect' ng-click="saveData(prospect)"  ng-show="!user" id="viewProspect" class = "edit-btn" data-toggle = "tooltip" title = "View prospect information" >
                         <span   class = "glyphicon glyphicon-eye-open" aria-hidden = "true"  ></span>
                     </a>
@@ -95,7 +94,7 @@
                         <!-- <span class = "visuallyhidden"> Edit {{prospect.Name}} </span>-->
                     </a>
 
-                    <a href = '#/discussions' ng-click="saveData(prospect)" id="discussion" class = "edit-btn" data-toggle = "tooltip" title = "Discussion" >
+                    <a href = '#/discussions' ng-click="saveData(prospect)" id="discussion" class = "edit-btn" data-toggle = "tooltip" title = "Discussions" >
                         <span   class = "glyphicon glyphicon-comment" aria-hidden = "true" ></span>
                     </a>
 
@@ -117,11 +116,6 @@
                     <a href = '' ng-show="!user" id="volunteer" ng-click="volunteerProspect(prospect)" class = "edit-btn" data-toggle = "tooltip" title = "Volunteer" >
                         <span   class = "glyphicon glyphicon-hand-up" aria-hidden = "true" ></span>
                     </a>
-
-
-                    <!--<a href = '#/clientInfo' ng-click="saveData(prospect)" class = "edit-btn" data-toggle = "tooltip" title = "Client Information" >
-                        <span  lass = "glyphicon glyphicon-usd" aria-hidden = "true" style="margin-left: 10%" ></span>
-                    </a>-->
                 </td>
             </tr>
         </span>

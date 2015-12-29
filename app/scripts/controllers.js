@@ -109,14 +109,15 @@ angular.module('PreSales-Huddle')
                     console.log('User signed out.');
                     window.location = '#';
                     window.location.reload();
-                    document.getElementById('signin').style.visibility = 'visible';
-                    document.getElementById('g-signinP').style.removeProperty('height');
-                    document.getElementById('sign-out').style.visibility = 'hidden';
-                    document.getElementById('prospectList').style.visibility = 'hidden';
-                    document.getElementById('clientList').style.visibility='hidden';
-                    document.getElementById('reports').style.visibility='hidden';
-		            document.getElementById('headerText').style.visibility='visible';
-                    document.getElementById('titleText').style.display='none';
+
+                    //document.getElementById('sign-out').style.visibility = 'hidden';
+                    //document.getElementById('prospectList').style.visibility = 'hidden';
+                    //document.getElementById('clientList').style.visibility='hidden';
+                    //document.getElementById('reports').style.visibility='hidden';
+                    //document.getElementById('headerText').style.visibility='visible';
+                    //document.getElementById('titleText').style.display='none';
+                    //document.getElementById('signin').style.visibility = 'visible';
+                    //document.getElementById('g-signinP').style.removeProperty('height');
                 });
         };
     })
