@@ -651,6 +651,32 @@ angular.module('PreSales-Huddle')
         document.getElementById('reports').style.visibility = 'visible';
         document.getElementById('titleText').style.display = 'none';
 
+        $('.dropdown').hover(function() {
+            $(this).find('.dropdown-menu').stop(true, true).delay(200).fadeIn(200);
+        }, function() {
+            $(this).find('.dropdown-menu').stop(true, true).delay(200).fadeOut(200);
+        });
+
+
+        /*$( "td" ).delegate( ".dropdown", "click", function() {
+            $(this).find('.dropdown-menu').stop(true, true).delay(200).fadeIn(200);
+        });
+*/
+
+
+
+    /*    $().ready(function(){
+            ch = $('#participantTable').width();
+            alert(ch);
+            $('#scheduleCallContainer').css({
+                width : ch +'px'
+            })
+
+        });*/
+
+
+
+
         var currentProspect = $rootScope.prospectToUpdate;
         console.log("current prospect:", currentProspect);
 
