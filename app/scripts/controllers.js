@@ -32,16 +32,18 @@ angular.module('PreSales-Huddle')
                     $rootScope.salesName = profile.getName();
 
                     $rootScope.firstName = $rootScope.salesName.substring(0, $rootScope.salesName.indexOf(' '));
-                    console.log("fistname",$rootScope.firstName)
+                    console.log("firstname",$rootScope.firstName);
 
-                    var assignRole;
-                    var salesPersons = ["shaila.pawar@synerzip.com"];
+                    $rootScope.userId = $rootScope.currentUser;
+
+                    $rootScope.assignRole;
+                    var salesPersons = ["salil.khedkar@synerzip.com", "shaila.pawar@synerzip.com"];
                     for (i = 0; i < salesPersons.length; i++) {
                         (function (index) {
                             if (angular.equals($rootScope.currentUser, salesPersons[i])) {
-                                assignRole = "Sales";
+                                $rootScope.assignRole = "Sales";
                             } else {
-                                assignRole = "Engineer";
+                                $rootScope.assignRole = "Engineer";
                             }
                         }(i))
                     }
@@ -51,7 +53,7 @@ angular.module('PreSales-Huddle')
                     function addUser() {
                         var data = {
                             Email: $rootScope.currentUser,
-                            Role: assignRole
+                            Role: $rootScope.assignRole
                         };
                         $http.post(baseURL + 'user/', data = data).success(function(data, status, headers, config) {
                             console.log('user added.');
@@ -83,7 +85,7 @@ angular.module('PreSales-Huddle')
                             addUser();
                         }
 
-                        if (angular.equals("Engineer", assignRole)) {
+                        if (angular.equals("Engineer", $rootScope.assignRole)) {
                             $rootScope.user = 0;
                             console.log($rootScope.user);
                         } else {

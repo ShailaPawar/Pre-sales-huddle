@@ -2,79 +2,79 @@
 angular.module('PreSales-Huddle', ['ngResource', 'ngRoute'])
     .config(function ($routeProvider, $httpProvider) {
         $routeProvider.when('/prospects', {
-                templateUrl: '../views/viewProspects.html',
+                templateUrl: 'views/viewProspects.html',
                 controller: 'ProspectsCtrl',
                 title: 'All Prospects'
             })
             .when('/editProspect', {
-                templateUrl: '../views/editProspect.html',
+                templateUrl: 'views/editProspect.html',
                 controller: 'EditProspectCtrl',
                 title: 'Edit Prospect'
             })
             .when('/createProspect', {
-                templateUrl: '../views/addProspect.html',
+                templateUrl: 'views/addProspect.html',
                 controller: 'AddProspectCtrl',
                 title: 'Add Prospect'
             })
             .when('/discussions', { // view all discussions
-                templateUrl: '../views/viewDiscussions.html',
+                templateUrl: 'views/viewDiscussions.html',
                 controller: 'DiscussionsCtrl',
                 title: 'Discussions'
             })
             .when('/create', {
-                templateUrl: '../views/addProspect.html',
+                templateUrl: 'views/addProspect.html',
                 controller: 'AddProspectCtrl',
                 title: 'Add Prospect'
             })
             .when('/addToClient', {
-                templateUrl: '../views/addToClient.html',
+                templateUrl: 'views/addToClient.html',
                 controller: 'AddClientCtrl',
                 title: 'Add To Client'
             })
 
             .when('/clientInfo', {
-                templateUrl: '../views/clientInfo.html',
+                templateUrl: 'views/clientInfo.html',
                 controller: 'ClientInfoCtrl',
                 title: 'Client Information'
             })
 
             .when('/clients', {
-                templateUrl: '../views/viewClients.html',
+                templateUrl: 'views/viewClients.html',
                 controller: 'ClientCtrl',
                 title: 'All Clients'
             })
             .when('/volunteer', {
-                templateUrl: '../views/volunteer.html',
+                templateUrl: 'views/volunteer.html',
                 controller: 'VolunteerCtrl',
                 title: 'Volunteer'
             })
- 	    .when('/prospectDiscussion', {
-                templateUrl: '../views/prospectDiscussion.html',
-                    controller: 'ProspectDiscussionCtrl',
-                title: 'Prospect Discussion'
+            .when('/prospectDiscussion', {
+                    templateUrl: 'views/prospectDiscussion.html',
+                        controller: 'ProspectDiscussionCtrl',
+                    title: 'Prospect Discussion'
+                })
+                .when('/scheduleCall', {
+                    templateUrl: 'views/scheduleCall.html',
+                    controller: 'ScheduleCallCtrl',
+                    title: 'Schedule a call'
+                })
+            .when('/viewParticularProspect', {
+                    templateUrl: 'views/viewParticularProspect.html',
+                    controller: 'ViewProspectCtrl',
+                    title: 'ReportsList'
             })
-            .when('/scheduleCall', {
-                templateUrl: '../views/scheduleCall.html',
-                controller: 'ScheduleCallCtrl',
-                title: 'Schedule a call'
+            .when('/reports', {
+                templateUrl: 'views/reportsList.html',
+                controller: 'ReportsListCtrl',
+                title: 'prospect'
             })
-	    .when('/viewParticularProspect', {
-                templateUrl: '../views/viewParticularProspect.html',
-                controller: 'ViewProspectCtrl',
-                title: 'ReportsList'
-        })
-        .when('/reports', {
-            templateUrl: '../views/reportsList.html',
-            controller: 'ReportsListCtrl',
-            title: 'prospect'
-        })
-    }).run(['$window', function ($window) {
-        $window.GoogleAsyncInit = function () {
-            // Executed when the SDK is loaded
-            gapi.load('auth2', function () {
-                gapi.auth2.init();
-            });
-        };
+        }).run(['$window', function ($window) {
+            $window.GoogleAsyncInit = function () {
+                // Executed when the SDK is loaded
+                gapi.load('auth2', function () {
+                    gapi.auth2.init();
+                });
+            };
 
         //Load Google SDK asynchronously
         (function (d, s, id) {
