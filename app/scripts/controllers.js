@@ -651,32 +651,21 @@ angular.module('PreSales-Huddle')
         document.getElementById('reports').style.visibility = 'visible';
         document.getElementById('titleText').style.display = 'none';
 
-        $('.dropdown').hover(function() {
+       // code to show full notes on mouse hover
+        $('.dropdown').hover( function () {
             $(this).find('.dropdown-menu').stop(true, true).delay(200).fadeIn(200);
         }, function() {
             $(this).find('.dropdown-menu').stop(true, true).delay(200).fadeOut(200);
         });
 
-
-        /*$( "td" ).delegate( ".dropdown", "click", function() {
-            $(this).find('.dropdown-menu').stop(true, true).delay(200).fadeIn(200);
-        });
-*/
-
-
-
-    /*    $().ready(function(){
+        /* reffer for fix footer height
+             $().ready(function(){
             ch = $('#participantTable').width();
             alert(ch);
             $('#scheduleCallContainer').css({
                 width : ch +'px'
             })
-
-        });*/
-
-
-
-
+            });*/
         var currentProspect = $rootScope.prospectToUpdate;
         console.log("current prospect:", currentProspect);
 
@@ -713,11 +702,18 @@ angular.module('PreSales-Huddle')
                         volunteersList[i].UserID = volunteerFirstName.charAt(0).toUpperCase() +
                             volunteerFirstName.substr(1) + ' ' + volunteerLastName.charAt(0).toUpperCase() +
                             volunteerLastName.substr(1);
+                        var notesLength = volunteersList[i].Notes.length;
+                        if(notesLength > 50){
+                            volunteersList[i].flag = 1;
+                        }
+                        else{
+                            volunteersList[i].flag = 0;
+                        }
                     }
                 } else {
                     console.log("Empty Volunteer List.");
                 }
-
+                console.log("volunteersList after flag: ", volunteersList);
                 $scope.participants = volunteersList;
                 console.log("participants: ", $scope.participants);
             }).error(function (data, status, header, config) {
