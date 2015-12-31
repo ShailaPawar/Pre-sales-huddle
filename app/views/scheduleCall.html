@@ -1,7 +1,7 @@
 <section>
     <span id="pageTitle"> Schedule Call </span>
     <form name = "scheduleCallForm" novalidate ng-submit="submitMyForm()">
-        <div class="container" style="background-color:whitesmoke" id = "form-container">
+        <div class="container" style="background-color:whitesmoke; width: 55%" id = "form-container1">
             <div class = "dropdown form-group" >
                 <label for = "call"> Type of Call:
                 </label>
@@ -51,7 +51,14 @@
                             <td> {{ participant.UserID }} </td>
                             <td> {{ participant.ParticipationRole }} </td>
                             <td> {{ participant.AvailableDate | date: "dd-MMM-yyyy" }} </td>
-                            <td> {{ participant.Notes }} </td>
+                            <td  class ="dropdown" ng-controller = "ScheduleCallCtrl" disabled style = "word-wrap: break-word">
+                                <span class ="dropdown-toggle" data-toggle = "dropdown" style = "word-wrap: break-word">
+                                    {{ participant.Notes | limitTo: 50 }} {{participant.Notes.length < 50 ? '' : '...'}}
+                                </span>
+                                <ul ng-show = "participant.flag" class = "dropdown-menu">
+                                    <li> {{ participant.Notes }} </li>
+                                </ul>
+                            </td>
                         </tr>
                     </tbody>
                 </table>

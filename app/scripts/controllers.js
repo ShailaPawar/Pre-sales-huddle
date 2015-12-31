@@ -37,20 +37,9 @@ angular.module('PreSales-Huddle')
                     $rootScope.userId = $rootScope.currentUser;
 
                     $rootScope.assignRole = "";
-                    var salesPersons = ["salil.khedkar@synerzip.com", "shaila.pawar@synerzip.com"];
-                    for (i = 0; i < salesPersons.length; i++) {
-                        (function (index) {
-                            if (angular.equals($rootScope.currentUser, salesPersons[i])) {
-                                $rootScope.assignRole = "Sales";
-                            } else {
-                                $rootScope.assignRole = "Engineer";
-                            }
-                        }(i))
-                    }
-
-
 
                     function addUser() {
+                        $rootScope.assignRole = "Engineer";
                         var data = {
                             Email: $rootScope.currentUser,
                             Role: $rootScope.assignRole
@@ -66,21 +55,23 @@ angular.module('PreSales-Huddle')
                         console.log ("all user :" ,data);
                         if (data != undefined) {
                             var allUsers = JSON.stringify(data);
-                            var totalUsers = JSON.parse(allUsers).length;
                             allUsers = JSON.parse(allUsers);
+                            var totalUsers = allUsers.length;
+
+                            $rootScope.userExists = 0;
                             for (var i = 0; i < totalUsers; i++) {
-                                console.log("Current Logged In User: ", $rootScope.currentUser);
-                                console.log("allUsers[", i, "].Email: ", allUsers[i].Email);
+                                console.log(allUsers[i].Email);
+                                console.log("$rootScope.currentUser", $rootScope.currentUser);
                                 if (angular.equals($rootScope.currentUser, allUsers[i].Email)) {
-                                    assignRole = allUsers[i].Role;
-                                    console.log("user already exists", $rootScope.currentUser, assignRole);
-                                    break;
-                                }
-                                else {
-                                    addUser();
+                                    console.log("Already exists.");
+                                    $rootScope.userExists = 1;
+                                    $rootScope.assignRole = allUsers[i].Role;
                                     break;
                                 }
                             }
+                             if ($rootScope.userExists == 0) {
+                                 addUser();
+                             }
                         } else {
                             addUser();
                         }
@@ -687,6 +678,14 @@ angular.module('PreSales-Huddle')
                         volunteersList[i].UserID = volunteerFirstName.charAt(0).toUpperCase() +
                             volunteerFirstName.substr(1) + ' ' + volunteerLastName.charAt(0).toUpperCase() +
                             volunteerLastName.substr(1);
+
+                        var notesLength = volunteersList[i].Notes.length;
+                        if(notesLength > 50) {
+                            volunteersList[i].flag = 1;
+                        }
+                        else {
+                            volunteersList[i].flag = 0;
+                        }
                     }
                 } else {
                     console.log("Empty Volunteer List.");
@@ -1158,6 +1157,7 @@ angular.module('PreSales-Huddle')
                     console.log(testArray);
                     for ( m = 0; m < testArray.length; m++ ) {
                         testArray[m] = angular.uppercase(testArray[m]);
+                        testArray[m] = testArray[m].replace(/^[\s,]+|[\s,]+$/g, '');
                     }
 
                     var newArray = countArrayTechstack(testArray);
@@ -1214,6 +1214,7 @@ angular.module('PreSales-Huddle')
                     console.log(testArray);
                     for ( m = 0; m < testArray.length; m++ ) {
                         testArray[m] = angular.uppercase(testArray[m]);
+                        testArray[m] = testArray[m].replace(/^[\s,]+|[\s,]+$/g, '');
                     }
                     console.log(testArray);
                     var newArray = countArrayDomain(testArray);
