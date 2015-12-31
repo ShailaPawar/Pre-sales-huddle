@@ -36,7 +36,7 @@ angular.module('PreSales-Huddle')
 
                     $rootScope.userId = $rootScope.currentUser;
 
-                    $rootScope.assignRole;
+                    $rootScope.assignRole = "";
                     var salesPersons = ["salil.khedkar@synerzip.com", "shaila.pawar@synerzip.com"];
                     for (i = 0; i < salesPersons.length; i++) {
                         (function (index) {
@@ -190,13 +190,13 @@ angular.module('PreSales-Huddle')
             var numberOfProspects = prospectList.length;
             for(var i = 0; i < numberOfProspects; i++){
                 (function (index) {
-                    $http.get(baseURL + 'participant/prospectid/'+prospectList[i].ProspectID)
+                    $http.get(baseURL + 'participant/prospectid/' + prospectList[i].ProspectID)
                         .success(function(participantData, status, headers, config){
                             var participantData = JSON.stringify(participantData);
-                            if(JSON.parse(participantData) == null){
+                            if (JSON.parse(participantData) == null) {
                                 prospectList[index].noOfVolunteers = 0;
                             }
-                            else{
+                            else {
                                 prospectList[index].noOfVolunteers = JSON.parse(participantData).length;
                             }
                         }).error(function(data, status, header, config) {
@@ -649,8 +649,30 @@ angular.module('PreSales-Huddle')
         // display volunteer table
         $http.get(baseURL + 'participant/prospectid/' + currentProspect.ProspectID)
             .success(function (data, status, headers, config) {
-                $rootScope.participants = data;
-                $scope.participants = $rootScope.participants;
+                //$rootScope.participants = data;
+
+                var displayParticipants = JSON.stringify(data);
+                console.log("displayParticipants", displayParticipants);
+
+                if (JSON.parse(displayParticipants) != null) {
+                    var volunteersList = JSON.parse(displayParticipants);
+                    numberOfVolunteer = volunteersList.length;
+
+                    console.log("volunteersList: ", volunteersList);
+
+                    for (var i = 0; i < numberOfVolunteer; i++) {
+                        var volunteerName = volunteersList[i].UserID.substring(0, volunteersList[i].UserID.indexOf('@'));
+                        var volunteerFirstName = volunteerName.split('.')[0];
+                        var volunteerLastName = volunteerName.split('.')[1];
+                        volunteersList[i].UserID = volunteerFirstName.charAt(0).toUpperCase() +
+                            volunteerFirstName.substr(1) + ' ' + volunteerLastName.charAt(0).toUpperCase() +
+                            volunteerLastName.substr(1);
+                    }
+                } else {
+                    console.log("Empty Volunteer List.");
+                }
+
+                $scope.participants = volunteersList;
                 console.log("participants: ", $scope.participants);
             }).error(function (data, status, header, config) {
         });
