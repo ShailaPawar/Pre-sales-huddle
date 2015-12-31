@@ -1,6 +1,6 @@
 <section>
     <h2> Reports </h2>
-    <form name = "reportsForm" novalidate ng-submit="submitMyForm()">
+    <form name = "reportsFormList" novalidate ng-submit="submitMyForm()">
         <div class="container" style="background-color:whitesmoke" id = "form-container">
 
             <div class = "dropdown form-group" >
@@ -10,10 +10,12 @@
                 </select>
             </div>
         </div>
+    </form>
        <br>
+    <form name = "reportsForm" novalidate ng-submit="submitMyForm()">
         <div  class="container" ng-show="flag" id="report-container" style="margin-left: -1%;width: 99.99%;height:200%">
         </div>
-
-
     </form>
+
+
 </section>

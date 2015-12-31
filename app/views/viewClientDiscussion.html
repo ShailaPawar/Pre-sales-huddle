@@ -1,0 +1,17 @@
+<section id="page-sub-header">
+    <a ng-href="#/clients" class="col-sm-2  btn btn-primary pull-right" id="editProspect"> Back </a>
+</section>
+
+<section>
+    <span id="pageTitle">Discussions for client '{{client.Name }}'</span>
+    <div class="container" id = "form-container">
+
+        <div class="list-group" ng-repeat = "discussion in discussions" style="margin-top: 3%">
+
+            <a href="#/clientDiscussion" ng-click="showDiscussion(discussion)" class="list-group-item" >
+                <span class="label label-default label-pill pull-xs-right">{{discussion.UserID}}</span> <br>
+                {{ discussion.Query }}
+            </a>
+        </div>
+    </div>
+</section>

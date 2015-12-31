@@ -49,25 +49,36 @@ angular.module('PreSales-Huddle', ['ngResource', 'ngRoute'])
                 title: 'Volunteer'
             })
             .when('/prospectDiscussion', {
-                    templateUrl: 'views/prospectDiscussion.html',
-                        controller: 'ProspectDiscussionCtrl',
-                    title: 'Prospect Discussion'
-                })
-                .when('/scheduleCall', {
-                    templateUrl: 'views/scheduleCall.html',
-                    controller: 'ScheduleCallCtrl',
-                    title: 'Schedule a call'
-                })
+                templateUrl: 'views/prospectDiscussion.html',
+                controller: 'ProspectDiscussionCtrl',
+                title: 'Prospect Discussion'
+            })
+            .when('/scheduleCall', {
+                templateUrl: 'views/scheduleCall.html',
+                controller: 'ScheduleCallCtrl',
+                title: 'Schedule a call'
+            })
             .when('/viewParticularProspect', {
-                    templateUrl: 'views/viewParticularProspect.html',
-                    controller: 'ViewProspectCtrl',
-                    title: 'ReportsList'
+                templateUrl: 'views/viewParticularProspect.html',
+                controller: 'ViewProspectCtrl',
+                title: 'ReportsList'
             })
             .when('/reports', {
                 templateUrl: 'views/reportsList.html',
                 controller: 'ReportsListCtrl',
                 title: 'prospect'
             })
+            .when('/viewclientDiscussion', {
+                templateUrl: '../views/viewClientDiscussion.html',
+                controller: 'viewClientDiscussionCtrl',
+                title: 'clientDiscussion'
+            })
+            .when('/clientDiscussion', {
+                templateUrl: '../views/clientDiscussion.html',
+                controller: 'clientDiscussionCtrl',
+                title: 'clientDiscussion'
+            })
+
         }).run(['$window', function ($window) {
             $window.GoogleAsyncInit = function () {
                 // Executed when the SDK is loaded

@@ -261,7 +261,7 @@ angular.module('PreSales-Huddle')
         document.getElementById('sign-out').style.visibility='visible';
         document.getElementById('prospectList').style.visibility='visible';
         document.getElementById('clientList').style.visibility='visible';
-	document.getElementById('headerText').style.visibility='visible';
+	    document.getElementById('headerText').style.visibility='visible';
         document.getElementById('titleText').style.display='none';
         $scope.maxDate = new Date();
         $scope.date = $scope.maxDate;
@@ -512,6 +512,27 @@ angular.module('PreSales-Huddle')
             $rootScope.prospectToUpdate = prospect;
         };
 
+        $scope.saveData = function(prospect) {
+            console.log(prospect);
+            $rootScope.prospectToUpdate = prospect;
+            console.log($rootScope.prospectToUpdate);
+
+            // creation date
+            $rootScope.createDate = $rootScope.prospectToUpdate.CreateDate.toString();
+            $rootScope.createDate = $rootScope.createDate.split('T')[0];
+            $rootScope.createDate = new Date($rootScope.createDate);
+
+            $rootScope.prospectToUpdate.CreateDate = $rootScope.createDate;
+
+            // start date
+            $rootScope.startDate = $rootScope.prospectToUpdate.StartDate.toString();
+            $rootScope.startDate = $rootScope.startDate.split('T')[0];
+            $rootScope.startDate = new Date($rootScope.startDate);
+
+            $rootScope.prospectToUpdate.StartDate = $rootScope.startDate;
+
+        };
+
         $http.get(baseURL + 'prospect/all/').success(function (data, status, headers, config) {
             $scope.prospects = data;
         }).error(function (data, status, header, config) {
@@ -619,7 +640,6 @@ angular.module('PreSales-Huddle')
             });
         };
     })
-
 
     .controller('ScheduleCallCtrl', function ($scope, $http, $rootScope, $location) {
         document.getElementById('signin').style.visibility = 'hidden';
@@ -948,199 +968,353 @@ angular.module('PreSales-Huddle')
         }
     })
 
-
-
     //controller for reports
     .controller('ReportsListCtrl',function($scope, $http, $rootScope, $location){
 
-                document.getElementById('signin').style.visibility = 'hidden';
-                document.getElementById('g-signinP').style.height = '0px';
-                document.getElementById('sign-out').style.visibility = 'visible';
-                document.getElementById('prospectList').style.visibility = 'visible';
-                document.getElementById('clientList').style.visibility = 'visible';
-                document.getElementById('headerText').style.visibility = 'visible';
-                document.getElementById('reports').style.visibility = 'visible';
-                document.getElementById('titleText').style.display = 'none';
+        document.getElementById('signin').style.visibility = 'hidden';
+        document.getElementById('g-signinP').style.height = '0px';
+        document.getElementById('sign-out').style.visibility = 'visible';
+        document.getElementById('prospectList').style.visibility = 'visible';
+        document.getElementById('clientList').style.visibility = 'visible';
+        document.getElementById('headerText').style.visibility = 'visible';
+        document.getElementById('reports').style.visibility = 'visible';
+        document.getElementById('titleText').style.display = 'none';
 
-                $scope.prospect = $rootScope.prospectToUpdate;
-                $http.get(baseURL + 'prospect/all/').success(function (data, status, headers, config) {
-                    $scope.prospect = data;
-                    $scope.reportTypes =
-                        [{
-                            value: 'Prospects by Month',
-                            name: 'Prospects by Month'
+        $scope.prospect = $rootScope.prospectToUpdate;
+        $http.get(baseURL + 'prospect/all/').success(function (data, status, headers, config) {
+            $scope.prospect = data;
+            console.log(data.length);
+            $rootScope.flag = 1;
+            var testArray = [],a = [], i,split_array = [], trimmed_array = [], j, k, l, m,index;
+            var countJan = 0, countFeb = 0, countMar = 0, countApr = 0, countMay = 0, countJun = 0,
+                countJul = 0, countAug = 0, countSept = 0, countOct = 0, countNov = 0, countDec = 0;
+            for ( i = 0; i < data.length; i++ ) {
 
-                        }, {
-                            value: 'Techstack',
-                            name: 'Techstack'
-                        }, {
+                testArray[i] = data[i].CreateDate;
+                a[i] = testArray[i].split('-');
+                testArray[i] = a[i][1];
 
-                            value: 'Domain',
-                            name: 'Domain'
-                        }]
-                    ;
-                   /* $scope.reportType = 'Prospects by Month';*/
+                if(testArray[i] === '1'){
+                    countJan++;
+                }else if(testArray[i] === '2')
+                {
+                    countFeb++;
+                }else if(testArray[i] === '3')
+                {
+                    countMar++;
+                }else if(testArray[i] === '4')
+                {
+                    countApr++;
+                }else if(testArray[i] === '5')
+                {
+                    countMay++;
+                }else if(testArray[i] === '6')
+                {
+                    countJun++;
+                }else if(testArray[i] === '7')
+                {
+                    countJul++;
+                }else if(testArray[i] === '8')
+                {
+                    countAug++;
+                }else if(testArray[i] === '9')
+                {
+                    countSept++;
+                }else if(testArray[i] === '10')
+                {
+                    countOct++;
+                }else if(testArray[i] === '11')
+                {
+                    countNov++;
+                }else if(testArray[i] === '12')
+                {
+                    countDec++;
+                }
 
-                    $scope.changeReport = function () {
-                        var countJan = 0, countFeb = 0, countMar = 0, countApr = 0, countMay = 0, countJun = 0,
-                            countJul = 0, countAug = 0, countSept = 0, countOct = 0, countNov = 0, countDec = 0;
+            }
+            $(document).ready(function () {
 
+                RenderLineChart('report-container', [
+                    [countJan],[countFeb],[countMar],[countApr],[countMay],[countJun],[countJul],[countAug],
+                    [countSept],[countOct],[countNov],[countDec]
+                ]);
+            });
 
-                        $rootScope.flag = 1;
-                        var testArray = [],a = [], i,split_array = [], trimmed_array = [], j, k, l, m,index;
+            $scope.reportTypes =
+                [{
+                    value: 'Prospects by Month',
+                    name: 'Prospects by Month'
 
-                        if (angular.equals($scope.reportType, $scope.reportTypes[0].value)) {
+                }, {
+                    value: 'Techstack',
+                    name: 'Techstack'
+                }, {
+                    value: 'Domain',
+                    name: 'Domain'
+                }, {
+                    value: 'TeamSize',
+                    name: 'TeamSize'
+                }, {
+                    value: 'SalesPerson',
+                    name: 'Sales Person Performance'
+                },{
+                    value: 'Prospect Vs Client',
+                    name: 'Prospect Vs Client'
+                }]
+            ;
+            $scope.reportType = 'Prospects by Month';
 
-                            for ( i = 0; i < data.length; i++ ) {
+            $scope.changeReport = function () {
 
-                                testArray[i] = data[i].CreateDate;
-                                a[i] = testArray[i].split('-');
-                                testArray[i] = a[i][1];
+                $rootScope.flag = 1;
+                var testArray = [],a = [], i,split_array = [], trimmed_array = [], j, k, l, m,index,prospectCount = 0, clientsCount = 0;
+                var countJan = 0, countFeb = 0, countMar = 0, countApr = 0, countMay = 0, countJun = 0,
+                    countJul = 0, countAug = 0, countSept = 0, countOct = 0, countNov = 0, countDec = 0;
 
-                                if(testArray[i] === '1'){
-                                    countJan++;
-                                }else if(testArray[i] === '2')
-                                {
-                                    countFeb++;
-                                }else if(testArray[i] === '3')
-                                {
-                                    countMar++;
-                                }else if(testArray[i] === '4')
-                                {
-                                    countApr++;
-                                }else if(testArray[i] === '5')
-                                {
-                                    countMay++;
-                                }else if(testArray[i] === '6')
-                                {
-                                    countJun++;
-                                }else if(testArray[i] === '7')
-                                {
-                                    countJul++;
-                                }else if(testArray[i] === '8')
-                                {
-                                    countAug++;
-                                }else if(testArray[i] === '9')
-                                {
-                                    countSept++;
-                                }else if(testArray[i] === '10')
-                                {
-                                    countOct++;
-                                }else if(testArray[i] === '11')
-                                {
-                                    countNov++;
-                                }else if(testArray[i] === '12')
-                                {
-                                    countDec++;
-                                }
+                if (angular.equals($scope.reportType, $scope.reportTypes[0].value)) {
 
-                            }
-                            $(document).ready(function () {
+                    for ( i = 0; i < data.length; i++ ) {
 
-                                RenderLineChart('report-container', [
-                                    [countJan],[countFeb],[countMar],[countApr],[countMay],[countJun],[countJul],[countAug],
-                                    [countSept],[countOct],[countNov],[countDec]
-                                ]);
-                            });
+                        testArray[i] = data[i].CreateDate;
+                        a[i] = testArray[i].split('-');
+                        testArray[i] = a[i][1];
+
+                        if(testArray[i] === '1'){
+                            countJan++;
+                        }else if(testArray[i] === '2')
+                        {
+                            countFeb++;
+                        }else if(testArray[i] === '3')
+                        {
+                            countMar++;
+                        }else if(testArray[i] === '4')
+                        {
+                            countApr++;
+                        }else if(testArray[i] === '5')
+                        {
+                            countMay++;
+                        }else if(testArray[i] === '6')
+                        {
+                            countJun++;
+                        }else if(testArray[i] === '7')
+                        {
+                            countJul++;
+                        }else if(testArray[i] === '8')
+                        {
+                            countAug++;
+                        }else if(testArray[i] === '9')
+                        {
+                            countSept++;
+                        }else if(testArray[i] === '10')
+                        {
+                            countOct++;
+                        }else if(testArray[i] === '11')
+                        {
+                            countNov++;
+                        }else if(testArray[i] === '12')
+                        {
+                            countDec++;
                         }
 
-                        else if (angular.equals($scope.reportType, $scope.reportTypes[1].value)){
+                    }
+                    $(document).ready(function () {
 
-                            for ( i = 0; i < data.length; i++ ) {
-                                testArray[i] = data[i].TechStack;
-                            }
-                            for ( j = 0; j < testArray.length; j++ ) {
-                                a[j] = testArray[j];
-                                if (a[j].indexOf(',') !== -1) {
-                                    split_array = a[j].split(',');
-                                    for ( k = 0; k < split_array.length; k++) {
-                                        testArray.push(split_array[k]);
-                                    }
-                                }
-                            }
-                            for ( l = 0; l < testArray.length; l++) {
-                                trimmed_array[l] = testArray[l];
-                                if (trimmed_array[l].indexOf(',') !== -1) {
-                                     index = testArray.indexOf(trimmed_array[l]);
-                                     testArray.splice(index, 1)
-                                }
-                            }
-                            for ( m = 0; m < testArray.length; m++ ) {
-                                testArray[m] = angular.uppercase(testArray[m]);
-                            }
+                        RenderLineChart('report-container', [
+                            [countJan],[countFeb],[countMar],[countApr],[countMay],[countJun],[countJul],[countAug],
+                            [countSept],[countOct],[countNov],[countDec]
+                        ]);
+                    });
+                }
 
-                            testArray.length = 10;
-                            var newArray = countArrayTechstack(testArray);
+                else if (angular.equals($scope.reportType, $scope.reportTypes[1].value)){
 
-                            $(document).ready(function () {
+                    var propsectData = data;
+                    console.log(propsectData);
 
-                                var parentArray = $.map(newArray[0], function (value, index) {
-                                    return [value];
-                                });
-                                for ( i = 0; i < newArray.length; i++ ) {
-                                    var array = $.map(newArray[i], function (value, index) {
-                                        return [value];
-                                    });
-                                    parentArray[i] = array;
-                                }
-                                var Array = $.map(parentArray, function (value, index) {
-                                    return [value];
-                                });
-                                RenderPieChartTechstack('report-container', [
-                                    Array
-                                ]);
-                            });
+                    if(propsectData.length > 10){
+                        propsectData.length = 10;
+                    }
+                    console.log(propsectData.length);
+                    for ( i = 0; i < propsectData.length; i++ ) {
+                        testArray[i] = propsectData[i].TechStack;
+                    }
+                    console.log(testArray);
+                    for ( j = 0; j < testArray.length; j++ ) {
+                        a[j] = testArray[j];
+                        if (a[j].indexOf(',') !== -1) {
+                            split_array = a[j].split(',');
+                            for ( k = 0; k < split_array.length; k++) {
+                                testArray.push(split_array[k]);
+                            }
                         }
-
-                        else if (angular.equals($scope.reportType, $scope.reportTypes[2].value)){
-
-                            for ( i = 0; i < data.length; i++ ) {
-                                testArray[i] = data[i].Domain;
-                            }
-                            for ( j = 0; j < testArray.length; j++ ) {
-                                a[j] = testArray[j];
-                                if (a[j].indexOf(',') !== -1) {
-                                    split_array = a[j].split(',');
-                                    for ( k = 0; k < split_array.length; k++ ) {
-                                        testArray.push(split_array[k]);
-                                    }
-                                }
-                            }
-                            for ( l = 0; l < testArray.length; l++ ) {
-                                trimmed_array[l] = testArray[l];
-                                if (trimmed_array[l].indexOf(',') !== -1) {
-                                     index = testArray.indexOf(trimmed_array[l]);
-                                    testArray.splice(index, 1)
-                                }
-                            }
-                            for ( m = 0; m < testArray.length; m++ ) {
-                                testArray[m] = angular.uppercase(testArray[m]);
-                            }
-
-                            testArray.length = 10;
-                            var newArray = countArrayDomain(testArray);
-
-                            $(document).ready(function () {
-
-                                var parentArray = $.map(newArray[0], function (value, index) {
-                                    return [value];
-                                });
-                                for (var i = 0; i < newArray.length; i++) {
-                                    var array = $.map(newArray[i], function (value, index) {
-                                        return [value];
-                                    });
-                                    parentArray[i] = array;
-                                }
-                                var Array = $.map(parentArray, function (value, index) {
-                                    return [value];
-                                });
-
-                                RenderPieChartDomain('report-container', [
-                                    Array
-                                ]);
-                            });
+                    }
+                    console.log(testArray);
+                    for ( l = 0; l < testArray.length; l++) {
+                        if (testArray[l].indexOf(',') == -1) {
+                            trimmed_array.push(testArray[l]);
                         }
-                    };
+                    }
+                    testArray = trimmed_array;
+                    console.log(testArray);
+                    for ( m = 0; m < testArray.length; m++ ) {
+                        testArray[m] = angular.uppercase(testArray[m]);
+                    }
+
+                    var newArray = countArrayTechstack(testArray);
+
+                    $(document).ready(function () {
+
+                        var parentArray = $.map(newArray[0], function (value, index) {
+                            return [value];
+                        });
+                        for ( i = 0; i < newArray.length; i++ ) {
+                            var array = $.map(newArray[i], function (value, index) {
+                                return [value];
+                            });
+                            parentArray[i] = array;
+                        }
+                        var Array = $.map(parentArray, function (value, index) {
+                            return [value];
+                        });
+                        RenderPieChartTechstack('report-container', [
+                            Array
+                        ]);
+                        console.log(typeof (Array));
+                    });
+                }
+
+                else if (angular.equals($scope.reportType, $scope.reportTypes[2].value)){
+
+                    var propsectData = data;
+
+                    if(propsectData.length > 10){
+                        propsectData.length = 10;
+                    }
+                    for ( i = 0; i < propsectData.length; i++ ) {
+                        testArray[i] = propsectData[i].Domain;
+                    }
+                    console.log(testArray);
+                    for ( j = 0; j < testArray.length; j++ ) {
+                        a[j] = testArray[j];
+                        if (a[j].indexOf(',') !== -1) {
+                            split_array = a[j].split(',');
+                            for ( k = 0; k < split_array.length; k++ ) {
+                                testArray.push(split_array[k]);
+                            }
+                        }
+                    }
+                    console.log(testArray);
+                    for ( l = 0; l < testArray.length; l++ ) {
+                        trimmed_array[l] = testArray[l];
+                        if (trimmed_array[l].indexOf(',') !== -1) {
+                            index = testArray.indexOf(trimmed_array[l]);
+                            testArray.splice(index, 1)
+                        }
+                    }
+                    console.log(testArray);
+                    for ( m = 0; m < testArray.length; m++ ) {
+                        testArray[m] = angular.uppercase(testArray[m]);
+                    }
+                    console.log(testArray);
+                    var newArray = countArrayDomain(testArray);
+
+                    $(document).ready(function () {
+
+                        var parentArray = $.map(newArray[0], function (value, index) {
+                            return [value];
+                        });
+                        for (var i = 0; i < newArray.length; i++) {
+                            var array = $.map(newArray[i], function (value, index) {
+                                return [value];
+                            });
+                            parentArray[i] = array;
+                        }
+                        var Array = $.map(parentArray, function (value, index) {
+                            return [value];
+                        });
+
+                        RenderPieChartDomain('report-container', [
+                            Array
+                        ]);
+                    });
+                }
+
+                else if (angular.equals($scope.reportType, $scope.reportTypes[3].value)){
+
+                    for ( i = 0; i < data.length; i++ ) {
+                        testArray[i] = data[i].TeamSize.toString();
+                    }
+
+                    var newArray = countArrayTeamSize(testArray);
+
+                    $(document).ready(function () {
+                        var parentArray = $.map(newArray[0], function (value, index) {
+                            return [value];
+                        });
+                        for ( i = 0; i < newArray.length; i++ ) {
+                            var array = $.map(newArray[i], function (value, index) {
+                                return [value];
+                            });
+                            parentArray[i] = array;
+                        }
+                        var Array = $.map(parentArray, function (value, index) {
+                            return [value];
+                        });
+                        RenderPieChartTeamSize('report-container', [
+                            Array
+                        ]);
+                    });
+                }
+
+                else if (angular.equals($scope.reportType, $scope.reportTypes[4].value)){
+
+                    for( i = 0; i < data.length; i++ ){
+                        testArray[i] = data[i].SalesID;
+                    }
+
+                    var newArray = countArraySalesPerson(testArray);
+
+                    $(document).ready(function () {
+
+                        var parentArray = $.map(newArray[0], function (value, index) {
+                            return [value];
+                        });
+                        for ( i = 0; i < newArray.length; i++ ) {
+                            var array = $.map(newArray[i], function (value, index) {
+                                return [value];
+                            });
+                            parentArray[i] = array;
+                        }
+                        var Array = $.map(parentArray, function (value, index) {
+                            return [value];
+                        });
+                        RenderBarChartSalesPerson('report-container', [
+                            Array
+                        ]);
+                    });
+                }
+
+                else if( angular.equals($scope.reportType, $scope.reportTypes[5].value) ) {
+
+                    for ( i = 0; i < data.length; i++ ) {
+                        testArray[i] = data[i].BUHead;
+
+                        if (testArray[i].length === 0 ) {
+                            prospectCount++;
+                        }
+                        else {
+                            clientsCount++;
+                        }
+                    }
+                    $(document).ready(function () {
+
+                        RenderPieChartPropsectvsClient('report-container', [
+                            ['Propsects',prospectCount],
+                            ['Clients',clientsCount]
+                        ]);
+                    });
+                }
+            };
 
         }).error(function (data, status, header, config) {});
         function RenderLineChart(elementId,dataList) {
@@ -1193,7 +1367,7 @@ angular.module('PreSales-Huddle')
                     },
                     tooltip: {
                         formatter: function () {
-                            return '<b>' + this.point.name + '</b>: ' + this.percentage + ' %';
+                            return '<b>' + this.point.name + '</b>: ' + this.point.y;
                         }
                     },
                     plotOptions: {
@@ -1220,9 +1394,56 @@ angular.module('PreSales-Huddle')
             }
         }
         function RenderPieChartDomain(elementId, dataList) {
-            var colors = ["#2a8482", "#64DECF", "#BCCDF8", '#058DC7', '#50B432', '#ED561B', '#DDDF00', '#24CBE5', '#64E572',
-                '#FF9655', '#FF0081', '#6AF9C4'];
-            for (var i = 0; i < dataList.length; i++) {
+
+            for (var i = 0; i < dataList.length; i++ ) {
+                new Highcharts.Chart({
+
+                    chart: {
+                        type: 'pie',
+                        options3d: {
+                            enabled: true,
+                            alpha: 45,
+                            beta: 0
+                        },
+                        renderTo: elementId,
+                        plotBackgroundColor: null,
+                        plotBorderWidth: null,
+                        plotShadow: false,
+                        height:600,
+                        width:1140
+                    }, title: {
+                        text: 'Pie Chart for Domain'
+                    },
+                    tooltip: {
+                        formatter: function () {
+                            return '<b>' + this.point.name + '</b>: ' + this.point.y;
+                        }
+                    },
+                    plotOptions: {
+                        pie: {
+                            allowPointSelect: true,
+                            size:400,
+                            center:[550,200],
+                            cursor: 'pointer',
+                            depth:55,
+                            dataLabels:{
+                                formatter: function () {
+                                    return '<b>' + this.point.name + '</b>: '+ Highcharts.numberFormat(this.percentage, 2) + '%';
+                                }
+                            }
+                        }
+                    },
+                    series: [{
+                        type: 'pie',
+                        name: 'Browser share',
+                        data: dataList[0]
+                    }]
+                });
+            }
+        }
+        function RenderPieChartTeamSize(elementId, dataList) {
+
+            for (var i = 0; i < dataList.length; i++ ) {
                 new Highcharts.Chart({
 
                     chart: {
@@ -1241,18 +1462,18 @@ angular.module('PreSales-Huddle')
                         height:600,
                         width:1140
                     }, title: {
-                        text: 'Pie Chart for Domain'
+                        text: 'Pie Chart for TeamSize'
                     },
                     tooltip: {
                         formatter: function () {
-                            return '<b>' + this.point.name + '</b>: ' + this.percentage + ' %';
+                            return '<b>' + this.point.name + '</b>: ' + this.point.y;
                         }
                     },
                     plotOptions: {
                         pie: {
 
                             allowPointSelect: true,
-                            colors: colors,
+                            innerSize: 170,
                             size:400,
                             center:[550,200],
                             cursor: 'pointer',
@@ -1262,15 +1483,71 @@ angular.module('PreSales-Huddle')
                                 formatter: function () {
                                     return '<b>' + this.point.name + '</b>: '+ Highcharts.numberFormat(this.percentage, 2) + '%';
                                 }
-
                             }
-
-
                         }
                     },
                     series: [{
                         type: 'pie',
                         name: 'Browser share',
+                        data: dataList[0]
+                    }]
+                });
+            }
+        }
+        function RenderBarChartSalesPerson(elementId, dataList) {
+
+            for (var i = 0; i < dataList.length; i++ ) {
+                new Highcharts.Chart({
+
+                    chart: {
+                        margin: 75,
+                        options3d: {
+                            enabled: true,
+                            alpha: 15,
+                            beta: 15,
+                            depth: 50,
+                            viewDistance: 25
+                        },
+                        type: 'column',
+                        renderTo: elementId,
+                        plotBackgroundColor: null,
+                        plotBorderWidth: null,
+                        plotShadow: false,
+                        height:600,
+                        width:1140
+                    }, title: {
+                        text:'Sales Person Performance'
+                    },
+                    xAxis: {
+                        categories: [
+
+                        ],
+                        crosshair: true
+                    },
+                    yAxis: {
+                        min: 0,
+                        title: {
+                            text:' <b>No. of Propsects added by Sales Person</b>'
+                        }
+                    },
+                    tooltip: {
+                        headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+                        pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                        '<td style="padding:0"><b>{point.y}</b></td></tr>',
+                        footerFormat: '</table>',
+                        shared: true,
+                        useHTML: true
+                    },
+                    plotOptions: {
+                        column: {
+                            pointPadding: 0.2,
+                            borderWidth: 0,
+                            depth:25
+                        }
+                    },
+                    series: [{
+
+                        name: 'Sales Person Performance',
                         data: dataList[0]
                     }]
                 });
@@ -1326,5 +1603,147 @@ angular.module('PreSales-Huddle')
             }
             return compressed;
         }
+        function countArrayTeamSize(original) {
+            var compressed = [];
+            // make a copy of the input array
+            var copy = original.slice(0);
+            // first loop goes over every element
+            for (var i = 0; i < original.length; i++) {
+                var myCount = 0;
+                // loop over every element in the copy and see if it's the same
+                for (var w = 0; w < copy.length; w++) {
+                    if (original[i] == copy[w]) {
+                        // increase amount of times duplicate is found
+                        myCount++;
+                        // sets item to undefined
+                        delete copy[w];
+                    }
+                }
+                if (myCount > 0) {
+                    var a = {};
+                    a.value = original[i];
+                    a.count = myCount;
+                    compressed.push(a);
+                }
+            }
+            return compressed;
+        }
+        function countArraySalesPerson(original) {
+            var compressed = [];
+            // make a copy of the input array
+            var copy = original.slice(0);
+            // first loop goes over every element
+            for (var i = 0; i < original.length; i++) {
+                var myCount = 0;
+                // loop over every element in the copy and see if it's the same
+                for (var w = 0; w < copy.length; w++) {
+                    if (original[i] == copy[w]) {
+                        // increase amount of times duplicate is found
+                        myCount++;
+                        // sets item to undefined
+                        delete copy[w];
+                    }
+                }
+                if (myCount > 0) {
+                    var a = {};
+                    a.value = original[i];
+                    a.count = myCount;
+                    compressed.push(a);
+                }
+            }
+            return compressed;
+        }
+        function RenderPieChartPropsectvsClient(elementId, dataList) {
 
-    });
+            new Highcharts.Chart({
+
+                chart: {
+                    type: 'pie',
+                    options3d: {
+                        enabled: true,
+                        alpha: 45,
+                        beta: 0
+                    },
+                    renderTo: elementId,
+                    plotBackgroundColor: null,
+                    plotBorderWidth: null,
+                    plotShadow: false,
+                    height:600,
+                    width:1140
+                }, title: {
+                    text: 'Pie Chart for Domain'
+                },
+                tooltip: {
+                    formatter: function () {
+                        return '<b>' + this.point.name + '</b>: ' + this.point.y ;
+                    }
+                },
+                plotOptions: {
+                    pie: {
+                        allowPointSelect: true,
+                        size:400,
+                        center:[550,200],
+                        cursor: 'pointer',
+                        depth:55,
+                        dataLabels:{
+                            formatter: function () {
+                                return '<b>' + this.point.name + '</b>: '+ Highcharts.numberFormat(this.percentage, 2) + '%';
+                            }
+                        }
+                    }
+                },
+                series: [{
+                    type: 'pie',
+                    name: 'Browser share',
+                    data: dataList
+                }]
+            });
+        }
+
+    })
+
+       // controller for client discussion
+    .controller('viewClientDiscussionCtrl', function($scope, $http, $rootScope, $location){
+        document.getElementById('signin').style.visibility = 'hidden';
+        document.getElementById('g-signinP').style.height = '0px';
+        document.getElementById('sign-out').style.visibility = 'visible';
+        document.getElementById('prospectList').style.visibility = 'visible';
+        document.getElementById('clientList').style.visibility = 'visible';
+        document.getElementById('headerText').style.visibility = 'visible';
+        document.getElementById('reports').style.visibility = 'visible';
+        document.getElementById('titleText').style.display = 'none';
+
+        console.log("in viewClientDiscussionCtrl ", $rootScope.prospectToUpdate);
+
+        $rootScope.client = $rootScope.prospectToUpdate;
+        console.log("in prospect")
+
+        $http.get(baseURL + 'discussion/prospectid/'+ $rootScope.client.ProspectID).success(function(data, status, headers, config) {
+            console.log("discussion/prospectid/", data);
+            $scope.discussions = data;
+        }).error(function (data, status, header, config) {});
+
+        $scope.showDiscussion = function (discussion) {
+            console.log("showdiscussion: ", discussion);
+            $rootScope.discussionToView = discussion;
+            console.log("$rootScope.discussionToView: ", $rootScope.discussionToView);
+        };
+    })
+
+    .controller('clientDiscussionCtrl', function($scope, $http, $rootScope, $location){
+        document.getElementById('signin').style.visibility = 'hidden';
+        document.getElementById('g-signinP').style.height = '0px';
+        document.getElementById('sign-out').style.visibility = 'visible';
+        document.getElementById('prospectList').style.visibility = 'visible';
+        document.getElementById('clientList').style.visibility = 'visible';
+        document.getElementById('headerText').style.visibility = 'visible';
+        document.getElementById('reports').style.visibility='visible';
+        document.getElementById('titleText').style.display = 'none';
+
+        $rootScope.client = $rootScope.prospectToUpdate;
+        $scope.discussion = $rootScope.discussionToView;
+        console.log("$scope.discussion", $scope.discussion.Answers);
+        $scope.answers = $rootScope.discussionToView.Answers;
+
+    })
+;

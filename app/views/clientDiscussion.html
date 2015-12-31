@@ -1,6 +1,5 @@
-
 <section id="page-sub-header">
-    <a ng-href="#/discussions" class="col-sm-2  btn btn-primary pull-right" id="editProspect"> Back </a>
+    <a ng-href="#/viewclientDiscussion" class="col-sm-2  btn btn-primary pull-right" id="editProspect"> Back </a>
 </section>
 
 <section>
@@ -18,15 +17,7 @@
                     {{ answer.AnswerStr }}
                 </li>
             </ul>
-            <li class="list-group-item">
-                <textarea id = "query" name = "query" ng-model = "answer" class = "form-control" placeholder="Type your answer here...">  </textarea>
 
-            </li>
-            <div class="form-group " style="margin-top: 1%;margin-bottom: 3%">
-                <a ng-href="#/discussions" class="col-sm-2  btn btn-primary " id="cancel-button-discussion" > Cancel </a>
-                <button type="button" id="post-button" class="col-sm-2 btn btn-primary pull-right " ng-click="addAnswer()">Post</button>
-
-            </div>
         </div>
     </div>
 </section>

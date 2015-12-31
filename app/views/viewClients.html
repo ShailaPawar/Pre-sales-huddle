@@ -52,9 +52,12 @@
                     <td> {{ prospect.BUHead }} </td>
                     <td> {{ prospect.SalesID }} </td>
                     <td>
-                        <a href = '#/clientInfo' ng-click="showClientInfo(prospect)" class = "edit-btn" data-toggle = "tooltip" title = "Client Information" >
-                            <span  class = "glyphicon glyphicon-usd" aria-hidden = "true" style="margin-left: 10%" ></span>
+                        <a href = '#/clientInfo' ng-click="showClientInfo(prospect)" class = "edit-btn" data-toggle = "tooltip" title = "View Client Information" >
+                            <span  class = "glyphicon glyphicon-eye-open" aria-hidden = "true" style="margin-left: 10%" ></span>
                             <span class = "visuallyhidden"> Edit {{prospect.Name}} </span>
+                        </a>
+                        <a href = '#/viewclientDiscussion' ng-click="saveData(prospect)" id="clientDiscussion" class = "edit-btn" data-toggle = "tooltip" title = "Discussion" >
+                            <span   class = "glyphicon glyphicon-comment" aria-hidden = "true" style="margin-left: 5%" ></span>
                         </a>
                     </td>
                 </tr>
