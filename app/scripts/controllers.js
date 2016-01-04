@@ -983,7 +983,6 @@ angular.module('PreSales-Huddle')
 
     //controller for reports
     .controller('ReportsListCtrl',function($scope, $http, $rootScope, $location){
-
         document.getElementById('signin').style.visibility = 'hidden';
         document.getElementById('g-signinP').style.height = '0px';
         document.getElementById('sign-out').style.visibility = 'visible';
@@ -996,7 +995,7 @@ angular.module('PreSales-Huddle')
         $scope.prospect = $rootScope.prospectToUpdate;
         $http.get(baseURL + 'prospect/all/').success(function (data, status, headers, config) {
             $scope.prospect = data;
-            console.log(data.length);
+
             $rootScope.flag = 1;
             var testArray = [],a = [], i,split_array = [], trimmed_array = [], j, k, l, m,index;
             var countJan = 0, countFeb = 0, countMar = 0, countApr = 0, countMay = 0, countJun = 0,
@@ -1007,30 +1006,30 @@ angular.module('PreSales-Huddle')
                 a[i] = testArray[i].split('-');
                 testArray[i] = a[i][1];
 
-                if(testArray[i] === '1'){
+                if(testArray[i] === '01'){
                     countJan++;
-                }else if(testArray[i] === '2')
+                }else if(testArray[i] === '02')
                 {
                     countFeb++;
-                }else if(testArray[i] === '3')
+                }else if(testArray[i] === '03')
                 {
                     countMar++;
-                }else if(testArray[i] === '4')
+                }else if(testArray[i] === '04')
                 {
                     countApr++;
-                }else if(testArray[i] === '5')
+                }else if(testArray[i] === '05')
                 {
                     countMay++;
-                }else if(testArray[i] === '6')
+                }else if(testArray[i] === '06')
                 {
                     countJun++;
-                }else if(testArray[i] === '7')
+                }else if(testArray[i] === '07')
                 {
                     countJul++;
-                }else if(testArray[i] === '8')
+                }else if(testArray[i] === '08')
                 {
                     countAug++;
-                }else if(testArray[i] === '9')
+                }else if(testArray[i] === '09')
                 {
                     countSept++;
                 }else if(testArray[i] === '10')
@@ -1043,8 +1042,8 @@ angular.module('PreSales-Huddle')
                 {
                     countDec++;
                 }
-
             }
+
             $(document).ready(function () {
 
                 RenderLineChart('report-container', [
@@ -1055,32 +1054,31 @@ angular.module('PreSales-Huddle')
 
             $scope.reportTypes =
                 [{
-                    value: 'Prospects by Month',
-                    name: 'Prospects by Month'
+                    value: 'Prospect addition per month',
+                    name: 'Prospect addition per month'
 
                 }, {
-                    value: 'Techstack',
-                    name: 'Techstack'
+                    value: 'Demand for various technologies',
+                    name: 'Demand for various technologies'
                 }, {
-                    value: 'Domain',
-                    name: 'Domain'
+                    value: 'Prospects aggregation by domain',
+                    name: 'Prospects aggregation by domain'
                 }, {
-                    value: 'TeamSize',
-                    name: 'TeamSize'
+                    value: 'Probable teamsize',
+                    name: 'Probable teamsize'
                 }, {
-                    value: 'SalesPerson',
-                    name: 'Sales Person Performance'
+                    value: 'No. of prospects by each Sales Person',
+                    name: 'No. of prospects by each Sales Person'
                 },{
-                    value: 'Prospect Vs Client',
-                    name: 'Prospect Vs Client'
+                    value: 'Ratio of prospect vs client',
+                    name: 'Ratio of prospect vs client'
                 }]
             ;
-            $scope.reportType = 'Prospects by Month';
-
+            $scope.reportType = 'Prospect addition per month';
             $scope.changeReport = function () {
 
                 $rootScope.flag = 1;
-                var testArray = [],a = [], i,split_array = [], trimmed_array = [], j, k, l, m,index,prospectCount = 0, clientsCount = 0;
+                var testArray = [],a = [], i,split_array = [], trimmed_array = [], j, k, l, m,index,prospectCount = 0, clientsCount = 0,countAfterTen=0;
                 var countJan = 0, countFeb = 0, countMar = 0, countApr = 0, countMay = 0, countJun = 0,
                     countJul = 0, countAug = 0, countSept = 0, countOct = 0, countNov = 0, countDec = 0;
 
@@ -1092,30 +1090,30 @@ angular.module('PreSales-Huddle')
                         a[i] = testArray[i].split('-');
                         testArray[i] = a[i][1];
 
-                        if(testArray[i] === '1'){
+                        if(testArray[i] === '01'){
                             countJan++;
-                        }else if(testArray[i] === '2')
+                        }else if(testArray[i] === '02')
                         {
                             countFeb++;
-                        }else if(testArray[i] === '3')
+                        }else if(testArray[i] === '03')
                         {
                             countMar++;
-                        }else if(testArray[i] === '4')
+                        }else if(testArray[i] === '04')
                         {
                             countApr++;
-                        }else if(testArray[i] === '5')
+                        }else if(testArray[i] === '05')
                         {
                             countMay++;
-                        }else if(testArray[i] === '6')
+                        }else if(testArray[i] === '06')
                         {
                             countJun++;
-                        }else if(testArray[i] === '7')
+                        }else if(testArray[i] === '07')
                         {
                             countJul++;
-                        }else if(testArray[i] === '8')
+                        }else if(testArray[i] === '08')
                         {
                             countAug++;
-                        }else if(testArray[i] === '9')
+                        }else if(testArray[i] === '09')
                         {
                             countSept++;
                         }else if(testArray[i] === '10')
@@ -1128,7 +1126,6 @@ angular.module('PreSales-Huddle')
                         {
                             countDec++;
                         }
-
                     }
                     $(document).ready(function () {
 
@@ -1141,17 +1138,9 @@ angular.module('PreSales-Huddle')
 
                 else if (angular.equals($scope.reportType, $scope.reportTypes[1].value)){
 
-                    var propsectData = data;
-                    console.log(propsectData);
-
-                    if(propsectData.length > 10){
-                        propsectData.length = 10;
+                    for ( i = 0; i < data.length; i++ ) {
+                        testArray[i] = data[i].TechStack;
                     }
-                    console.log(propsectData.length);
-                    for ( i = 0; i < propsectData.length; i++ ) {
-                        testArray[i] = propsectData[i].TechStack;
-                    }
-                    console.log(testArray);
                     for ( j = 0; j < testArray.length; j++ ) {
                         a[j] = testArray[j];
                         if (a[j].indexOf(',') !== -1) {
@@ -1161,15 +1150,15 @@ angular.module('PreSales-Huddle')
                             }
                         }
                     }
-                    console.log(testArray);
                     for ( l = 0; l < testArray.length; l++) {
                         if (testArray[l].indexOf(',') == -1) {
                             trimmed_array.push(testArray[l]);
                         }
                     }
                     testArray = trimmed_array;
-                    console.log(testArray);
+
                     for ( m = 0; m < testArray.length; m++ ) {
+
                         testArray[m] = angular.uppercase(testArray[m]);
                         testArray[m] = testArray[m].replace(/^[\s,]+|[\s,]+$/g, '');
                     }
@@ -1178,36 +1167,34 @@ angular.module('PreSales-Huddle')
 
                     $(document).ready(function () {
 
-                        var parentArray = $.map(newArray[0], function (value, index) {
+                        var parentArray = $.map(newArray[0], function (value) {
                             return [value];
                         });
+                       console.log(parentArray);
                         for ( i = 0; i < newArray.length; i++ ) {
-                            var array = $.map(newArray[i], function (value, index) {
+                            var array = $.map(newArray[i], function (value) {
                                 return [value];
                             });
                             parentArray[i] = array;
                         }
-                        var Array = $.map(parentArray, function (value, index) {
+                        if(newArray.length == 1 && parentArray.length == 2){
+
+                            parentArray.length = 1;
+                        }
+                        var Array = $.map(parentArray, function (value) {
                             return [value];
                         });
-                        RenderPieChartTechstack('report-container', [
-                            Array
-                        ]);
-                        console.log(typeof (Array));
+                            RenderPieChartTechstack('report-container', [
+                              Array
+                            ]);
                     });
                 }
 
                 else if (angular.equals($scope.reportType, $scope.reportTypes[2].value)){
 
-                    var propsectData = data;
-
-                    if(propsectData.length > 10){
-                        propsectData.length = 10;
+                    for ( i = 0; i < data.length; i++ ) {
+                        testArray[i] = data[i].Domain;
                     }
-                    for ( i = 0; i < propsectData.length; i++ ) {
-                        testArray[i] = propsectData[i].Domain;
-                    }
-                    console.log(testArray);
                     for ( j = 0; j < testArray.length; j++ ) {
                         a[j] = testArray[j];
                         if (a[j].indexOf(',') !== -1) {
@@ -1217,7 +1204,6 @@ angular.module('PreSales-Huddle')
                             }
                         }
                     }
-                    console.log(testArray);
                     for ( l = 0; l < testArray.length; l++ ) {
                         trimmed_array[l] = testArray[l];
                         if (trimmed_array[l].indexOf(',') !== -1) {
@@ -1225,12 +1211,11 @@ angular.module('PreSales-Huddle')
                             testArray.splice(index, 1)
                         }
                     }
-                    console.log(testArray);
                     for ( m = 0; m < testArray.length; m++ ) {
                         testArray[m] = angular.uppercase(testArray[m]);
                         testArray[m] = testArray[m].replace(/^[\s,]+|[\s,]+$/g, '');
                     }
-                    console.log(testArray);
+
                     var newArray = countArrayDomain(testArray);
 
                     $(document).ready(function () {
@@ -1244,12 +1229,17 @@ angular.module('PreSales-Huddle')
                             });
                             parentArray[i] = array;
                         }
+                        if(newArray.length == 1 && parentArray.length == 2){
+
+                            parentArray.length = 1;
+                        }
                         var Array = $.map(parentArray, function (value, index) {
                             return [value];
                         });
 
                         RenderPieChartDomain('report-container', [
-                            Array
+                            Array,['OTHER',countAfterTen]
+
                         ]);
                     });
                 }
@@ -1257,7 +1247,7 @@ angular.module('PreSales-Huddle')
                 else if (angular.equals($scope.reportType, $scope.reportTypes[3].value)){
 
                     for ( i = 0; i < data.length; i++ ) {
-                        testArray[i] = data[i].TeamSize.toString();
+                        testArray[i] = data[i].DesiredTeamSize.toString();
                     }
 
                     var newArray = countArrayTeamSize(testArray);
@@ -1271,6 +1261,10 @@ angular.module('PreSales-Huddle')
                                 return [value];
                             });
                             parentArray[i] = array;
+                        }
+                        if(newArray.length == 1 && parentArray.length == 2){
+
+                            parentArray.length = 1;
                         }
                         var Array = $.map(parentArray, function (value, index) {
                             return [value];
@@ -1286,7 +1280,10 @@ angular.module('PreSales-Huddle')
                     for( i = 0; i < data.length; i++ ){
                         testArray[i] = data[i].SalesID;
                     }
+                    for ( j = 0; j < testArray.length; j++ ) {
 
+                        testArray[j] = angular.uppercase(testArray[j]);
+                    }
                     var newArray = countArraySalesPerson(testArray);
 
                     $(document).ready(function () {
@@ -1300,9 +1297,18 @@ angular.module('PreSales-Huddle')
                             });
                             parentArray[i] = array;
                         }
+                        console.log(parentArray);
+                        console.log(parentArray[0]);
+                        console.log(newArray.length);
+                        if(newArray.length == 1 && parentArray.length == 2){
+
+                            parentArray.length = 1;
+                        }
+                        console.log(parentArray.length);
                         var Array = $.map(parentArray, function (value, index) {
                             return [value];
                         });
+
                         RenderBarChartSalesPerson('report-container', [
                             Array
                         ]);
@@ -1335,7 +1341,7 @@ angular.module('PreSales-Huddle')
         function RenderLineChart(elementId,dataList) {
             new Highcharts.Chart({
                 title: {
-                    text: 'Monthly Addition of Prospects',
+                    text: 'Prospect addition per month',
                     x: -20 //center
                 },
                 chart: {
@@ -1378,7 +1384,7 @@ angular.module('PreSales-Huddle')
                         height:600,
                         width:1140
                     }, title: {
-                        text: 'Pie Chart for TechStack'
+                        text: 'Demand for various technologies'
                     },
                     tooltip: {
                         formatter: function () {
@@ -1427,7 +1433,8 @@ angular.module('PreSales-Huddle')
                         height:600,
                         width:1140
                     }, title: {
-                        text: 'Pie Chart for Domain'
+                        text: 'Prospects aggregation by domain',
+                        name: 'Prospects aggregation by domain'
                     },
                     tooltip: {
                         formatter: function () {
@@ -1437,7 +1444,7 @@ angular.module('PreSales-Huddle')
                     plotOptions: {
                         pie: {
                             allowPointSelect: true,
-                            size:400,
+                            size:'100%',
                             center:[550,200],
                             cursor: 'pointer',
                             depth:55,
@@ -1449,6 +1456,7 @@ angular.module('PreSales-Huddle')
                         }
                     },
                     series: [{
+
                         type: 'pie',
                         name: 'Browser share',
                         data: dataList[0]
@@ -1477,7 +1485,7 @@ angular.module('PreSales-Huddle')
                         height:600,
                         width:1140
                     }, title: {
-                        text: 'Pie Chart for TeamSize'
+                        text: 'Probable teamsize'
                     },
                     tooltip: {
                         formatter: function () {
@@ -1531,7 +1539,7 @@ angular.module('PreSales-Huddle')
                         height:600,
                         width:1140
                     }, title: {
-                        text:'Sales Person Performance'
+                        text:'No. of prospects by each Sales Person'
                     },
                     xAxis: {
                         categories: [
@@ -1567,6 +1575,52 @@ angular.module('PreSales-Huddle')
                     }]
                 });
             }
+        }
+        function RenderPieChartPropsectvsClient(elementId, dataList) {
+
+            new Highcharts.Chart({
+
+                chart: {
+                    type: 'pie',
+                    options3d: {
+                        enabled: true,
+                        alpha: 45,
+                        beta: 0
+                    },
+                    renderTo: elementId,
+                    plotBackgroundColor: null,
+                    plotBorderWidth: null,
+                    plotShadow: false,
+                    height:600,
+                    width:1140
+                }, title: {
+                    text: 'Ratio of prospect vs client'
+                },
+                tooltip: {
+                    formatter: function () {
+                        return '<b>' + this.point.name + '</b>: ' + this.point.y ;
+                    }
+                },
+                plotOptions: {
+                    pie: {
+                        allowPointSelect: true,
+                        size:400,
+                        center:[550,200],
+                        cursor: 'pointer',
+                        depth:55,
+                        dataLabels:{
+                            formatter: function () {
+                                return '<b>' + this.point.name + '</b>: '+ Highcharts.numberFormat(this.percentage, 2) + '%';
+                            }
+                        }
+                    }
+                },
+                series: [{
+                    type: 'pie',
+                    name: 'Browser share',
+                    data: dataList
+                }]
+            });
         }
         function countArrayDomain(original) {
             var compressed = [];
@@ -1668,52 +1722,7 @@ angular.module('PreSales-Huddle')
             }
             return compressed;
         }
-        function RenderPieChartPropsectvsClient(elementId, dataList) {
 
-            new Highcharts.Chart({
-
-                chart: {
-                    type: 'pie',
-                    options3d: {
-                        enabled: true,
-                        alpha: 45,
-                        beta: 0
-                    },
-                    renderTo: elementId,
-                    plotBackgroundColor: null,
-                    plotBorderWidth: null,
-                    plotShadow: false,
-                    height:600,
-                    width:1140
-                }, title: {
-                    text: 'Pie Chart for Domain'
-                },
-                tooltip: {
-                    formatter: function () {
-                        return '<b>' + this.point.name + '</b>: ' + this.point.y ;
-                    }
-                },
-                plotOptions: {
-                    pie: {
-                        allowPointSelect: true,
-                        size:400,
-                        center:[550,200],
-                        cursor: 'pointer',
-                        depth:55,
-                        dataLabels:{
-                            formatter: function () {
-                                return '<b>' + this.point.name + '</b>: '+ Highcharts.numberFormat(this.percentage, 2) + '%';
-                            }
-                        }
-                    }
-                },
-                series: [{
-                    type: 'pie',
-                    name: 'Browser share',
-                    data: dataList
-                }]
-            });
-        }
 
     })
 
@@ -1761,4 +1770,247 @@ angular.module('PreSales-Huddle')
         $scope.answers = $rootScope.discussionToView.Answers;
 
     })
+
+    .controller('ReportTeamsizeCtrl' , function($scope, $http, $rootScope, $location){
+        document.getElementById('signin').style.visibility = 'hidden';
+        document.getElementById('g-signinP').style.height = '0px';
+        document.getElementById('sign-out').style.visibility = 'visible';
+        document.getElementById('prospectList').style.visibility = 'visible';
+        document.getElementById('clientList').style.visibility = 'visible';
+        document.getElementById('headerText').style.visibility = 'visible';
+        document.getElementById('reports').style.visibility = 'visible';
+        document.getElementById('titleText').style.display = 'none';
+
+        $(function () {
+            $scope.prospect = $rootScope.prospectToUpdate;
+            $http.get(baseURL + 'prospect/all/').success(function (data, status, headers, config) {
+                $scope.prospect = data;
+                var testArray = [];
+                for (var i = 0; i < data.length; i++) {
+                    testArray[i] = data[i].StartDate;
+                }
+                console.log(testArray);
+                var detailChart;
+                $(document).ready(function () {
+                    // create the detail chart
+                    console.log(testArray);
+                    function createDetail(masterChart) {
+                        // prepare the detail chart
+                        var detailData = [],
+                            detailStart = testArray[0][0];
+                        console.log(detailStart);
+                        $.each(masterChart.series[0].data, function () {
+                            if (this.x >= detailStart) {
+                                detailData.push(this.y);
+                            }
+                        });
+                        console.log(detailData);
+                        // create a detail chart referenced by a global variable
+                        detailChart = $('#detail-container').highcharts({
+                            chart: {
+                                marginBottom: 120,
+                                reflow: false,
+                                marginLeft: 50,
+                                marginRight: 20,
+                                style: {
+                                    position: 'absolute'
+                                }
+                            },
+                            credits: {
+                                enabled: false
+                            },
+                            title: {
+                                text: ''
+                            },
+                            subtitle: {
+                                text: ''
+                            },
+                            xAxis: {
+                                type: 'datetime'
+                            },
+                            yAxis: {
+                                title: {
+                                    text: null
+                                },
+                                maxZoom: 0.1
+                            },
+                            tooltip: {
+                                formatter: function () {
+                                    var point = this.points[0];
+                                    return '<b>' + point.series.name + '</b><br/>' + Highcharts.dateFormat('%A %B %e %Y', this.x) + ':<br/>' +
+                                        '1 USD = ' + Highcharts.numberFormat(point.y, 2) + ' EUR';
+                                },
+                                shared: true
+                            },
+                            legend: {
+                                enabled: false
+                            },
+                            plotOptions: {
+                                series: {
+                                    marker: {
+                                        enabled: false,
+                                        states: {
+                                            hover: {
+                                                enabled: true,
+                                                radius: 3
+                                            }
+                                        }
+                                    }
+                                }
+                            },
+                            series: [{
+                                name: 'USD to EUR',
+                                pointStart: detailStart,
+                                pointInterval: 24 * 3600 * 1000,
+                                data: detailData
+                            }],
+                            exporting: {
+                                enabled: false
+                            }
+                        }).highcharts(); // return chart
+                    }
+
+                    // create the master chart
+                    function createMaster() {
+                        $('#master-container').highcharts({
+                                chart: {
+                                    reflow: false,
+                                    borderWidth: 0,
+                                    backgroundColor: null,
+                                    marginLeft: 50,
+                                    marginRight: 20,
+                                    zoomType: 'x',
+                                    events: {
+                                        // listen to the selection event on the master chart to update the
+                                        // extremes of the detail chart
+                                        selection: function (event) {
+                                            var extremesObject = event.xAxis[0],
+                                                min = extremesObject.min,
+                                                max = extremesObject.max,
+                                                detailData = [],
+                                                xAxis = this.xAxis[0];
+                                            // reverse engineer the last part of the data
+                                            $.each(this.series[0].data, function () {
+                                                if (this.x > min && this.x < max) {
+                                                    detailData.push([this.x, this.y]);
+                                                }
+                                            });
+                                            // move the plot bands to reflect the new detail span
+                                            xAxis.removePlotBand('mask-before');
+                                            xAxis.addPlotBand({
+                                                id: 'mask-before',
+                                                from: data[0][0],
+                                                to: min,
+                                                color: 'rgba(0, 0, 0, 0.2)'
+                                            });
+                                            xAxis.removePlotBand('mask-after');
+                                            xAxis.addPlotBand({
+                                                id: 'mask-after',
+                                                from: max,
+                                                to: data[data.length - 1][0],
+                                                color: 'rgba(0, 0, 0, 0.2)'
+                                            });
+                                            detailChart.series[0].setData(detailData);
+                                            return false;
+                                        }
+                                    }
+                                },
+                                title: {
+                                    text: null
+                                },
+                                xAxis: {
+                                    type: 'datetime',
+                                    showLastTickLabel: true,
+                                    maxZoom: 14 * 24 * 3600000, // fourteen days
+                                    plotBands: [{
+                                        id: 'mask-before',
+                                        from: data[0][0],
+                                        to: data[data.length - 1][0],
+                                        color: 'rgba(0, 0, 0, 0.2)'
+                                    }],
+                                    title: {
+                                        text: null
+                                    }
+                                },
+                                yAxis: {
+                                    gridLineWidth: 0,
+                                    labels: {
+                                        enabled: false
+                                    },
+                                    title: {
+                                        text: null
+                                    },
+                                    min: 0.6,
+                                    showFirstLabel: false
+                                },
+                                tooltip: {
+                                    formatter: function () {
+                                        return false;
+                                    }
+                                },
+                                legend: {
+                                    enabled: false
+                                },
+                                credits: {
+                                    enabled: false
+                                },
+                                plotOptions: {
+                                    series: {
+                                        fillColor: {
+                                            linearGradient: [0, 0, 0, 70],
+                                            stops: [
+                                                [0, Highcharts.getOptions().colors[0]],
+                                                [1, 'rgba(255,255,255,0)']
+                                            ]
+                                        },
+                                        lineWidth: 1,
+                                        marker: {
+                                            enabled: false
+                                        },
+                                        shadow: false,
+                                        states: {
+                                            hover: {
+                                                lineWidth: 1
+                                            }
+                                        },
+                                        enableMouseTracking: false
+                                    }
+                                },
+                                series: [{
+                                    type: 'area',
+                                    name: 'USD to EUR',
+                                    pointInterval: 24 * 3600 * 1000,
+                                    pointStart: data[0][0],
+                                    data: data
+                                }],
+                                exporting: {
+                                    enabled: false
+                                }
+                            }, function (masterChart) {
+                                createDetail(masterChart);
+                            })
+                            .highcharts(); // return chart instance
+                    }
+
+                    // make the container smaller and add a second container for the master chart
+                    var $container = $('#pie-teamsize-container')
+                        .css('position', 'relative');
+                    $('<div id="detail-container">')
+                        .appendTo($container);
+                    $('<div id="master-container">')
+                        .css({
+                            position: 'absolute',
+                            top: 300,
+                            height: 100,
+                            width: '100%'
+                        })
+                        .appendTo($container);
+                    // create master and in its callback, create the detail chart
+                    createMaster();
+                });
+            }).error(function (data, status, header, config) {});
+        });
+    })
 ;
+
+
