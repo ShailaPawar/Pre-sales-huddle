@@ -37,6 +37,18 @@ angular.module('PreSales-Huddle')
                     $rootScope.userId = $rootScope.currentUser;
 
                     $rootScope.assignRole = "";
+                    var salesPersons = ["salil.khedkar@synerzip.com", "shaila.pawar@synerzip.com"];
+                    for (i = 0; i < salesPersons.length; i++) {
+                        (function (index) {
+                            if (angular.equals($rootScope.currentUser, salesPersons[i])) {
+                                $rootScope.assignRole = "Sales";
+                            } else {
+                                $rootScope.assignRole = "Engineer";
+                            }
+                        }(i))
+                    }
+
+
 
                     function addUser() {
                         $rootScope.assignRole = "Engineer";
