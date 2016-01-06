@@ -68,7 +68,7 @@
             <th> Status </th>
             <!--<th> Prospect Notes </th>-->
             <th>
-                Action
+                Actions
             </th>
         </thead>
         <tbody>
@@ -98,7 +98,7 @@
                         <span   class = "glyphicon glyphicon-comment" aria-hidden = "true" ></span>
                     </a>
 
-                    <a href = '#/scheduleCall' ng-show="!user" ng-click="saveData(prospect)" class = "edit-btn" data-toggle = "tooltip" title = "Schedule call" >
+                    <a href = '#/scheduleCall' ng-show="user" ng-click="saveData(prospect)" class = "edit-btn" data-toggle = "tooltip" title = "Schedule call" >
                         <span  class = "glyphicon glyphicon-phone-alt" aria-hidden = "true" ></span>
                     </a>
 
@@ -113,7 +113,7 @@
                         <span   class = "glyphicon glyphicon-trash" aria-hidden = "true" ></span>
                     </a>
 
-                    <a href = '' ng-show="!user" id="volunteer" ng-click="volunteerProspect(prospect)" class = "edit-btn" data-toggle = "tooltip" title = "Volunteer" >
+                    <a ng-show="!user" id="volunteer" ng-click="volunteerProspect(prospect)" class = "edit-btn" data-toggle = "tooltip" title = "Volunteer" >
                         <span   class = "glyphicon glyphicon-hand-up" aria-hidden = "true" ></span>
                     </a>
                 </td>

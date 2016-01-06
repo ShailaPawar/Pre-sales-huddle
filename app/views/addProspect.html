@@ -1,62 +1,46 @@
 <span id="pageTitle">Add a Prospect </span>
 <form name = "createForm" novalidate>
     <div class = "container" id = "form-container">
-        <div class = "form-group" ng-class = "{ 'has-error' : createForm.prospectName.$invalid && submitted }">
+        <div class = "form-group">
             <label for = "prospectName"> Prospect Name:
                 <img src = "images/required.gif" alt = "Required" class = "required-star">
-                <em class = "error">
-                    <span class = "error" ng-show = "createForm.prospectName.$invalid && submitted"> Must not be blank.
-                    </span>
-                </em>
             </label>
 
-            <input type = "text" id = "prospectName" name = "prospectName" ng-model = "prospectName" class = "form-control" required>
+            <input type = "text" id = "prospectName" name = "prospectName" ng-model = "prospectName"
+                   class = "form-control" required>
         </div>
-        <div class = "form-group" ng-class = "{ 'has-error' : createForm.date.$invalid && submitted }">
+        <div class = "form-group">
             <label for = "date"> Creation Date:
                 <img src = "images/required.gif" alt = "Required" class = "required-star">
-                <em class = "error">
-                    <span class = "error" ng-show = "createForm.date.$invalid && submitted"> Must not be blank.
-                    </span>
-                </em>
             </label>
 
-            <input type = "date" id = "date" name = "date" ng-model = "date" class = "form-control" max = "{{ maxDate | date: 'yyyy-MM-dd'}}" required>
+            <input type = "date" id = "date" name = "date" ng-model = "date" class = "form-control"
+                   max = "{{maxDate | date: 'yyyy-MM-dd'}}" required>
+
         </div>
-        <div class = "form-group" ng-class = "{ 'has-error' : createForm.techStack.$invalid && submitted }">
+        <div class = "form-group">
             <label for = "techStack"> Tech Stack:
                 <img src = "images/required.gif" alt = "Required" class = "required-star">
-                <em class = "error">
-                    <span class = "error" ng-show = "createForm.techStack.$invalid && submitted"> Must not be blank.
-                    </span>
-                </em>
             </label>
 
-            <input type = "text" id = "techStack" name = "techStack" ng-model = "techStack" placeholder = "e.g: C++, JavaScript, iOS"
-                   class = "form-control" required>
+            <input type = "text" id = "techStack" name = "techStack" ng-model = "techStack"
+                   placeholder = "e.g: C++, JavaScript, iOS" class = "form-control" required>
         </div>
-        <div class = "form-group" ng-class = "{ 'has-error' : createForm.domain.$invalid && submittted }">
+        <div class = "form-group">
             <label for = "domain"> Domain:
                 <img src = "images/required.gif" alt = "Required" class = "required-star">
-                <em class = "error">
-                    <span class = "error" ng-show = "createForm.domain.$invalid && submitted"> Must not be blank.
-                    </span>
-                </em>
             </label>
 
-            <input type = "text" id = "domain" name = "domain" ng-model = "domain" placeholder = "e.g: Education, Finance"
-                   class = "form-control" required>
+            <input type = "text" id = "domain" name = "domain" ng-model = "domain"
+                   placeholder = "e.g: Education, Finance" class = "form-control" required>
         </div>
-        <div class = "form-group" ng-class = "{ 'has-error' : createForm.teamSize.$invalid && submittted }">
+        <div class = "form-group">
             <label for = "teamSize"> Probable Team Size:
                 <img src = "images/required.gif" alt = "Required" class = "required-star">
-                <em class = "error">
-                    <span class = "error" ng-show = "createForm.teamSize.$invalid && submitted"> Must not be blank.
-                    </span>
-                </em>
             </label>
 
-            <input type = "number" id = "teamSize" name = "teamSize" ng-model = "teamSize" class = "form-control" min="0" required>
+            <input type = "number" id = "teamSize" name = "teamSize" ng-model = "teamSize"
+                   class = "form-control" min="0" required>
         </div>
         <div class = "form-group">
             <label for = "notes"> Notes:</label>
@@ -68,8 +52,10 @@
             </span>
         </p>
         <div class = "form-group">
-            <input type="button" id="cancel-button" value="Cancel" class="col-sm-2 btn btn-primary" ng-click="go('prospects')">
-            <button type="submit" class="col-sm-2 btn btn-primary" ng-click="addProspect()" style="margin-left:10px;"> Add </button>
+            <input type="button" id="cancel-button" value="Cancel" class="col-sm-2 btn btn-primary"
+                   ng-click="go('prospects')">
+            <button type="submit" class="col-sm-2 btn btn-primary" ng-click="addProspect()"
+                    style="margin-left:10px;"> Add </button>
         </div>
     </div>
     <div class="form-group">

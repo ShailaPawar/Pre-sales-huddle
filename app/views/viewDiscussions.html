@@ -15,7 +15,7 @@
 
         <div class="list-group" ng-repeat = "discussion in discussions" style="margin-top: 3%">
 
-            <a href="#/prospectDiscussion" ng-click="showDiscussion(discussion)" class="list-group-item" >
+            <a href="#/prospectDiscussion" ng-click = "showDiscussion(discussion)" class = "list-group-item" >
                 <span class="label label-default label-pill pull-xs-right">{{discussion.UserID}}</span> <br>
                 {{ discussion.Query }}
             </a>

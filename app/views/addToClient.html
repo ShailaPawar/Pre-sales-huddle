@@ -3,58 +3,44 @@
     <form name = "addclient" novalidate ng-submit="submitMyForm()">
         <div class="container" id = "form-container">
 
-            <div class = "form-group" ng-class = "{ 'has-error' : addclient.prospectName.$invalid && submitted }">
+            <div class = "form-group">
                 <label for = "prospectName"> Prospect Name:
                     <img src = "images/required.gif" alt = "Required" class = "required-star">
-                    <em class = "error">
-                        <span class = "error" ng-show = "addclient.prospectName.$invalid && submitted"> Must not be blank. </span>
-                    </em>
                 </label>
 
-                <input type = "text" ng-model = "prospect.Name" id = "prospectName" name = "prospectName" class = "form-control" required>
+                <input type = "text" ng-model = "prospect.Name" id = "prospectName" name = "prospectName"
+                       class = "form-control" required>
             </div>
-            <div class = "form-group" ng-class = "{ 'has-error' : addclient.startdate.$invalid && submitted }">
+            <div class = "form-group">
                 <label for = "date"> Project Start Date:
                     <img src = "images/required.gif" alt = "Required" class = "required-star">
-                    <em class = "error">
-                    <span class = "error" ng-show = "addclient.startdate.$invalid && submitted"> Must not be blank.
-                    </span>
-                    </em>
                 </label>
 
-                <input type = "date" id = "date" name = "date" ng-model = "StartDate" class = "form-control" min = "{{ maxDate | date: 'yyyy-MM-dd'}}" required>
+                <input type = "date" id = "date" name = "date" ng-model = "StartDate"
+                       class = "form-control" required>
             </div>
-            <div class = "form-group" ng-class = "{ 'has-error' : addclient.Head.$invalid && submitted }">
+            <div class = "form-group">
                 <label for = "Head"> BU:
                     <img src = "images/required.gif" alt = "Required" class = "required-star">
-                    <em class = "error">
-                    <span class = "error" ng-show = "createForm.Head.$invalid && submitted"> Must not be blank.
-                    </span>
-                    </em>
                 </label>
 
-                <select id="Head" class="form-control" ng-model="Head" ng-options="BUHead.value as BUHead.name for BUHead in BUHead">
+                <select id="Head" class="form-control" ng-model = "Head"
+                        ng-options="BUHead.value as BUHead.name for BUHead in BUHead">
                 </select>
-
-                <!--<input type = "text" id = "Head" name = "Head" ng-model = "Head" placeholder = ""class = "form-control" required>-->
             </div>
 
-            <div class = "form-group" ng-class = "{ 'has-error' : addclient.teamSize.$invalid && submittted }">
+            <div class = "form-group">
                 <label for = "teamSize"> Actual Team Size:
                     <img src = "images/required.gif" alt = "Required" class = "required-star">
-                    <em class = "error">
-                    <span class = "error" ng-show = "addclient.teamSize.$invalid && submitted"> Must not be blank.
-                    </span>
-                    </em>
                 </label>
 
-                <input type = "number" id = "teamSize" name = "teamSize" ng-model = "TeamSize" class = "form-control" min="0" required>
+                <input type = "number" id = "teamSize" name = "teamSize" ng-model = "TeamSize" class = "form-control"
+                       min="0" required>
             </div>
-            <div class = "form-group" ng-class = "{ 'has-error' : addclient.notes.$invalid && submitted }">
-                <label for = "notes"> Client Notes:
-                </label>
-
-                <textarea id = "notes" name = "notes" ng-model = "prospect.Notes" class = "form-control"></textarea>
+            <div class = "form-group">
+                <label for = "notes"> Client Notes: </label>
+                <textarea id = "notes" name = "notes" ng-model = "notes" class = "form-control">
+                    </textarea>
             </div>
             <p>
             <span style = "font-size: 9pt;"> All fields marked with an
@@ -62,8 +48,10 @@
             </span>
             </p>
             <div class = "form-group">
-                <input type="button" id="cancel-button" value="Cancel" class="col-sm-2 btn btn-primary" ng-click="go('prospects')">
-                <button type="button" class="col-sm-2 btn btn-primary" ng-click="addToClient()" style="margin-left:10px;"> Save </button>
+                <input type="button" id="cancel-button" value="Cancel" class="col-sm-2 btn btn-primary"
+                       ng-click="go('prospects')">
+                <button type="button" class="col-sm-2 btn btn-primary" ng-click="addToClient()"
+                        style="margin-left:10px;"> Save </button>
             </div>
         </div>
         <div class="form-group">

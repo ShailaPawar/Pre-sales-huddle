@@ -26,7 +26,7 @@ angular.module('PreSales-Huddle', ['ngResource', 'ngRoute'])
                 controller: 'AddProspectCtrl',
                 title: 'Add Prospect'
             })
-            .when('/addToClient', {
+            .when('/addToClient', { // convertToClient
                 templateUrl: 'views/addToClient.html',
                 controller: 'AddClientCtrl',
                 title: 'Add To Client'
