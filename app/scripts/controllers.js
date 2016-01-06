@@ -154,7 +154,7 @@ angular.module('PreSales-Huddle')
         $scope.saveData = function(prospect) {
             console.log(prospect);
             $rootScope.prospectToUpdate = prospect;
-            console.log($rootScope.prospectToUpdate);
+            console.log("$rootScope.prospectToUpdate:",$rootScope.prospectToUpdate);
 
             // creation date
             $rootScope.createDate = $rootScope.prospectToUpdate.CreateDate.toString();
@@ -304,10 +304,18 @@ angular.module('PreSales-Huddle')
         $rootScope.prospect = prospect;
         $http.get(baseURL + 'discussion/prospectid/'+ prospect.ProspectID).success(function(data, status, headers, config) {
             console.log("discussion/prospectid/", data);
+            var displayDiscussion = JSON.stringify( data);
+            console.log("displayDiscussion", displayDiscussion);
+            if (JSON.parse(displayDiscussion) != null) {
+                $rootScope.msg = 0;
+            }
+            else{
+                $rootScope.msg = 1;
+            }
             $scope.discussions = data;
         }).error(function (data, status, header, config) {});
 
-        $scope.addDiscussion = function() {
+              $scope.addDiscussion = function() {
             var data = {
                 ProspectID: $rootScope.prospectToUpdate.ProspectID,
                 UserID: $rootScope.salesName,
@@ -482,6 +490,7 @@ angular.module('PreSales-Huddle')
 
         $http.get(baseURL + 'prospect/all/').success(function (data, status, headers, config) {
             $scope.prospects = data;
+            console.log("client list",$scope.prospects);
         }).error(function (data, status, header, config) {
         });
     })
@@ -625,7 +634,7 @@ angular.module('PreSales-Huddle')
         $scope.prospect = $rootScope.prospectToUpdate;
         $http.get(baseURL + 'prospect/all/').success(function (data, status, headers, config) {
             $scope.prospect = data;
-            console.log(data.length);
+
             $rootScope.flag = 1;
             var testArray = [],a = [], i,split_array = [], trimmed_array = [], j, k, l, m,index;
             var countJan = 0, countFeb = 0, countMar = 0, countApr = 0, countMay = 0, countJun = 0,
@@ -636,30 +645,30 @@ angular.module('PreSales-Huddle')
                 a[i] = testArray[i].split('-');
                 testArray[i] = a[i][1];
 
-                if(testArray[i] === '1'){
+                if(testArray[i] === '01'){
                     countJan++;
-                }else if(testArray[i] === '2')
+                }else if(testArray[i] === '02')
                 {
                     countFeb++;
-                }else if(testArray[i] === '3')
+                }else if(testArray[i] === '03')
                 {
                     countMar++;
-                }else if(testArray[i] === '4')
+                }else if(testArray[i] === '04')
                 {
                     countApr++;
-                }else if(testArray[i] === '5')
+                }else if(testArray[i] === '05')
                 {
                     countMay++;
-                }else if(testArray[i] === '6')
+                }else if(testArray[i] === '06')
                 {
                     countJun++;
-                }else if(testArray[i] === '7')
+                }else if(testArray[i] === '07')
                 {
                     countJul++;
-                }else if(testArray[i] === '8')
+                }else if(testArray[i] === '08')
                 {
                     countAug++;
-                }else if(testArray[i] === '9')
+                }else if(testArray[i] === '09')
                 {
                     countSept++;
                 }else if(testArray[i] === '10')
@@ -672,8 +681,8 @@ angular.module('PreSales-Huddle')
                 {
                     countDec++;
                 }
-
             }
+
             $(document).ready(function () {
 
                 RenderLineChart('report-container', [
@@ -684,36 +693,39 @@ angular.module('PreSales-Huddle')
 
             $scope.reportTypes =
                 [{
-                    value: 'Prospects by Month',
-                    name: 'Prospects by Month'
+                    value: 'Prospect addition per month',
+                    name: 'Prospect addition per month'
 
                 }, {
-                    value: 'Techstack',
-                    name: 'Techstack'
+                    value: 'Demand for various technologies',
+                    name: 'Demand for various technologies'
                 }, {
-                    value: 'Domain',
-                    name: 'Domain'
+                    value: 'Prospects aggregation by domain',
+                    name: 'Prospects aggregation by domain'
                 }, {
-                    value: 'TeamSize',
-                    name: 'TeamSize'
+                    value: 'Probable teamsize',
+                    name: 'Probable teamsize'
                 }, {
-                    value: 'SalesPerson',
-                    name: 'Sales Person Performance'
+                    value: 'No. of prospects by each Sales Person',
+                    name: 'No. of prospects by each Sales Person'
                 },{
-                    value: 'Prospect Vs Client',
-                    name: 'Prospect Vs Client'
+                    value: 'Ratio of prospect vs client',
+                    name: 'Ratio of prospect vs client'
+                },{
+                    value: 'Prospects aggregation by status',
+                    name: 'Prospects aggregation by status'
                 }]
             ;
-            $scope.reportType = 'Prospects by Month';
-
+            $scope.reportType = 'Prospect addition per month';
             $scope.changeReport = function () {
 
                 $rootScope.flag = 1;
-                var testArray = [],a = [], i,split_array = [], trimmed_array = [], j, k, l, m,index,prospectCount = 0, clientsCount = 0;
+                var testArray = [],a = [], i,split_array = [], trimmed_array = [], j, k, l, m, p,index,prospectCount = 0, clientsCount = 0;
                 var countJan = 0, countFeb = 0, countMar = 0, countApr = 0, countMay = 0, countJun = 0,
-                    countJul = 0, countAug = 0, countSept = 0, countOct = 0, countNov = 0, countDec = 0;
+                    countJul = 0, countAug = 0, countSept = 0, countOct = 0, countNov = 0, countDec = 0,countOne = 0,countTwo = 0,
+                    countThreeToFive = 0,countFiveToTen = 0,countTenPlus = 0,countCreated = 0,countPrep = 0,countClient = 0;
 
-                if (angular.equals($scope.reportType, $scope.reportTypes[0].value)) {
+                if ( angular.equals($scope.reportType, $scope.reportTypes[0].value) ) {
 
                     for ( i = 0; i < data.length; i++ ) {
 
@@ -721,30 +733,30 @@ angular.module('PreSales-Huddle')
                         a[i] = testArray[i].split('-');
                         testArray[i] = a[i][1];
 
-                        if(testArray[i] === '1'){
+                        if(testArray[i] === '01'){
                             countJan++;
-                        }else if(testArray[i] === '2')
+                        }else if(testArray[i] === '02')
                         {
                             countFeb++;
-                        }else if(testArray[i] === '3')
+                        }else if(testArray[i] === '03')
                         {
                             countMar++;
-                        }else if(testArray[i] === '4')
+                        }else if(testArray[i] === '04')
                         {
                             countApr++;
-                        }else if(testArray[i] === '5')
+                        }else if(testArray[i] === '05')
                         {
                             countMay++;
-                        }else if(testArray[i] === '6')
+                        }else if(testArray[i] === '06')
                         {
                             countJun++;
-                        }else if(testArray[i] === '7')
+                        }else if(testArray[i] === '07')
                         {
                             countJul++;
-                        }else if(testArray[i] === '8')
+                        }else if(testArray[i] === '08')
                         {
                             countAug++;
-                        }else if(testArray[i] === '9')
+                        }else if(testArray[i] === '09')
                         {
                             countSept++;
                         }else if(testArray[i] === '10')
@@ -757,7 +769,6 @@ angular.module('PreSales-Huddle')
                         {
                             countDec++;
                         }
-
                     }
                     $(document).ready(function () {
 
@@ -768,19 +779,11 @@ angular.module('PreSales-Huddle')
                     });
                 }
 
-                else if (angular.equals($scope.reportType, $scope.reportTypes[1].value)){
+                else if ( angular.equals($scope.reportType, $scope.reportTypes[1].value) ) {
 
-                    var propsectData = data;
-                    console.log(propsectData);
-
-                    if(propsectData.length > 10){
-                        propsectData.length = 10;
+                    for ( i = 0; i < data.length; i++ ) {
+                        testArray[i] = data[i].TechStack;
                     }
-                    console.log(propsectData.length);
-                    for ( i = 0; i < propsectData.length; i++ ) {
-                        testArray[i] = propsectData[i].TechStack;
-                    }
-                    console.log(testArray);
                     for ( j = 0; j < testArray.length; j++ ) {
                         a[j] = testArray[j];
                         if (a[j].indexOf(',') !== -1) {
@@ -790,53 +793,56 @@ angular.module('PreSales-Huddle')
                             }
                         }
                     }
-                    console.log(testArray);
                     for ( l = 0; l < testArray.length; l++) {
                         if (testArray[l].indexOf(',') == -1) {
                             trimmed_array.push(testArray[l]);
                         }
                     }
                     testArray = trimmed_array;
-                    console.log(testArray);
+
                     for ( m = 0; m < testArray.length; m++ ) {
+
                         testArray[m] = angular.uppercase(testArray[m]);
                         testArray[m] = testArray[m].replace(/^[\s,]+|[\s,]+$/g, '');
                     }
-
+                    console.log(testArray);
+                    for(  p = 10; p < testArray.length; p++){
+                        index = testArray.indexOf(testArray[p]);
+                        testArray.splice(index,1,"OTHER");
+                    }
+                   console.log(testArray);
                     var newArray = countArrayTechstack(testArray);
 
                     $(document).ready(function () {
 
-                        var parentArray = $.map(newArray[0], function (value, index) {
+                        var parentArray = $.map(newArray[0], function (value) {
                             return [value];
                         });
+                       console.log(parentArray);
                         for ( i = 0; i < newArray.length; i++ ) {
-                            var array = $.map(newArray[i], function (value, index) {
+                            var array = $.map(newArray[i], function (value) {
                                 return [value];
                             });
                             parentArray[i] = array;
                         }
-                        var Array = $.map(parentArray, function (value, index) {
+                        if(newArray.length == 1 && parentArray.length == 2){
+
+                            parentArray.length = 1;
+                        }
+                        var Array = $.map(parentArray, function (value) {
                             return [value];
                         });
-                        RenderPieChartTechstack('report-container', [
-                            Array
-                        ]);
-                        console.log(typeof (Array));
+                            RenderPieChartTechstack('report-container', [
+                              Array
+                            ]);
                     });
                 }
 
-                else if (angular.equals($scope.reportType, $scope.reportTypes[2].value)){
+                else if ( angular.equals($scope.reportType, $scope.reportTypes[2].value) ) {
 
-                    var propsectData = data;
-
-                    if(propsectData.length > 10){
-                        propsectData.length = 10;
+                    for ( i = 0; i < data.length; i++ ) {
+                        testArray[i] = data[i].Domain;
                     }
-                    for ( i = 0; i < propsectData.length; i++ ) {
-                        testArray[i] = propsectData[i].Domain;
-                    }
-                    console.log(testArray);
                     for ( j = 0; j < testArray.length; j++ ) {
                         a[j] = testArray[j];
                         if (a[j].indexOf(',') !== -1) {
@@ -846,20 +852,27 @@ angular.module('PreSales-Huddle')
                             }
                         }
                     }
-                    console.log(testArray);
                     for ( l = 0; l < testArray.length; l++ ) {
-                        trimmed_array[l] = testArray[l];
+                        /*trimmed_array[l] = testArray[l];
                         if (trimmed_array[l].indexOf(',') !== -1) {
                             index = testArray.indexOf(trimmed_array[l]);
                             testArray.splice(index, 1)
+                        }*/
+                        if (testArray[l].indexOf(',') == -1) {
+                            trimmed_array.push(testArray[l]);
                         }
                     }
-                    console.log(testArray);
+                    testArray = trimmed_array;
+
                     for ( m = 0; m < testArray.length; m++ ) {
                         testArray[m] = angular.uppercase(testArray[m]);
                         testArray[m] = testArray[m].replace(/^[\s,]+|[\s,]+$/g, '');
                     }
-                    console.log(testArray);
+
+                    for(  p = 10; p < testArray.length; p++){
+                        index = testArray.indexOf(testArray[p]);
+                        testArray.splice(index,1,"OTHER");
+                    }
                     var newArray = countArrayDomain(testArray);
 
                     $(document).ready(function () {
@@ -873,26 +886,50 @@ angular.module('PreSales-Huddle')
                             });
                             parentArray[i] = array;
                         }
+                        if(newArray.length == 1 && parentArray.length == 2){
+
+                            parentArray.length = 1;
+                        }
                         var Array = $.map(parentArray, function (value, index) {
                             return [value];
                         });
 
                         RenderPieChartDomain('report-container', [
                             Array
+
                         ]);
                     });
                 }
 
-                else if (angular.equals($scope.reportType, $scope.reportTypes[3].value)){
+                else if ( angular.equals($scope.reportType, $scope.reportTypes[3].value) ) {
 
                     for ( i = 0; i < data.length; i++ ) {
-                        testArray[i] = data[i].TeamSize.toString();
+                        testArray[i] = data[i].DesiredTeamSize.toString();
+
+                        if(testArray[i] == 1){
+
+                            countOne++;
+                        }
+                        else if(testArray[i] == 2){
+                            countTwo++;
+                        }
+                        else if(testArray[i] >= 3 && testArray[i] <= 5){
+                            countThreeToFive++;
+                        }
+                        else if(testArray[i] >= 5 && testArray[i] <= 10){
+
+                            countFiveToTen++;
+                        }
+                        else if(testArray[i] > 10){
+                            countTenPlus++;
+                        }
+
                     }
-
-                    var newArray = countArrayTeamSize(testArray);
-
+                   console.log(countThreeToFive);
+                    /*var newArray = countArrayTeamSize(testArray);
+                    console.log(newArray);*/
                     $(document).ready(function () {
-                        var parentArray = $.map(newArray[0], function (value, index) {
+                        /*var parentArray = $.map(newArray[0], function (value, index) {
                             return [value];
                         });
                         for ( i = 0; i < newArray.length; i++ ) {
@@ -901,22 +938,29 @@ angular.module('PreSales-Huddle')
                             });
                             parentArray[i] = array;
                         }
+                        if(newArray.length == 1 && parentArray.length == 2){
+
+                            parentArray.length = 1;
+                        }
                         var Array = $.map(parentArray, function (value, index) {
                             return [value];
-                        });
+                        });*/
                         RenderPieChartTeamSize('report-container', [
-                            Array
+                            ['1' ,countOne],['2',countTwo],['3 - 5',countThreeToFive],
+                            ['5 - 10',countFiveToTen],['10+',countTenPlus]
                         ]);
                     });
+
                 }
 
-                else if (angular.equals($scope.reportType, $scope.reportTypes[4].value)){
+                else if ( angular.equals($scope.reportType, $scope.reportTypes[4].value) ) {
 
                     for( i = 0; i < data.length; i++ ){
                         testArray[i] = data[i].SalesID;
                     }
-                    console.log("testArray for sales performance: ", testArray);
-
+                    for (j = 0; j < testArray.length; j++) {
+                        testArray[j] = angular.uppercase(testArray[j]);
+                    }
                     var newArray = countArraySalesPerson(testArray);
 
                     $(document).ready(function () {
@@ -930,16 +974,25 @@ angular.module('PreSales-Huddle')
                             });
                             parentArray[i] = array;
                         }
+                        console.log(parentArray);
+                        console.log(parentArray[0]);
+                        console.log(newArray.length);
+                        if(newArray.length == 1 && parentArray.length == 2){
+
+                            parentArray.length = 1;
+                        }
+                        console.log(parentArray.length);
                         var Array = $.map(parentArray, function (value, index) {
                             return [value];
                         });
+
                         RenderBarChartSalesPerson('report-container', [
                             Array
                         ]);
                     });
                 }
 
-                else if( angular.equals($scope.reportType, $scope.reportTypes[5].value) ) {
+                else if ( angular.equals($scope.reportType, $scope.reportTypes[5].value) ) {
 
                     for ( i = 0; i < data.length; i++ ) {
                         testArray[i] = data[i].BUHead;
@@ -959,13 +1012,41 @@ angular.module('PreSales-Huddle')
                         ]);
                     });
                 }
+
+                else if ( angular.equals($scope.reportType, $scope.reportTypes[6].value) ) {
+
+                    for(  i = 0;i < data.length; i++ ){
+
+                        testArray[i] = data[i].ProspectStatus;
+                    }
+                    console.log(testArray);
+                    for( j = 0; j < testArray.length; j++){
+
+                        if(testArray[j].indexOf('created') !== -1){
+                            countCreated++;
+                        }else if(testArray[j].indexOf('Prep') !== -1){
+
+                            countPrep++;
+                        }else if(testArray[j].indexOf('Client') !== -1){
+
+                            countClient++;
+                        }
+                    }
+                    $(document).ready(function () {
+
+                        RenderPieChartProspectStatus('report-container', [
+                            ['Propsect Created',countCreated],['Prep call scheduled',countPrep],
+                            ['Client call scheduled',countClient]
+                        ]);
+                    });
+                }
             };
 
         }).error(function (data, status, header, config) {});
         function RenderLineChart(elementId,dataList) {
             new Highcharts.Chart({
                 title: {
-                    text: 'Monthly Addition of Prospects',
+                    text: 'Prospect addition per month',
                     x: -20 //center
                 },
                 chart: {
@@ -1007,8 +1088,11 @@ angular.module('PreSales-Huddle')
                         plotShadow: false,
                         height:600,
                         width:1140
-                    }, title: {
-                        text: 'Pie Chart for TechStack'
+                    },
+                    colors: ['#7cb5ec', '#434348', '#90ed7d', '#f7a35c', '#8085e9',
+                        '#f15c80', '#e4d354', '#2b908f', '#f45b5b', '#91e8e1','#8c8c8c'],
+                    title: {
+                        text: 'Demand for various technologies'
                     },
                     tooltip: {
                         formatter: function () {
@@ -1021,6 +1105,7 @@ angular.module('PreSales-Huddle')
                             size:400,
                             center:[550,200],
                             cursor: 'pointer',
+                            borderColor: null,
                             dataLabels: {
                                 enabled: true,
                                 color: '#000000',
@@ -1057,7 +1142,8 @@ angular.module('PreSales-Huddle')
                         height:600,
                         width:1140
                     }, title: {
-                        text: 'Pie Chart for Domain'
+                        text: 'Prospects aggregation by domain',
+                        name: 'Prospects aggregation by domain'
                     },
                     tooltip: {
                         formatter: function () {
@@ -1067,7 +1153,7 @@ angular.module('PreSales-Huddle')
                     plotOptions: {
                         pie: {
                             allowPointSelect: true,
-                            size:400,
+                            size:'100%',
                             center:[550,200],
                             cursor: 'pointer',
                             depth:55,
@@ -1079,6 +1165,7 @@ angular.module('PreSales-Huddle')
                         }
                     },
                     series: [{
+
                         type: 'pie',
                         name: 'Browser share',
                         data: dataList[0]
@@ -1088,7 +1175,7 @@ angular.module('PreSales-Huddle')
         }
         function RenderPieChartTeamSize(elementId, dataList) {
 
-            for (var i = 0; i < dataList.length; i++ ) {
+
                 new Highcharts.Chart({
 
                     chart: {
@@ -1106,13 +1193,29 @@ angular.module('PreSales-Huddle')
                         plotShadow: false,
                         height:600,
                         width:1140
-                    }, title: {
-                        text: 'Pie Chart for TeamSize'
+                    },
+                    colors: ['#7cb5ec', '#434348', '#90ed7d', '#f7a35c', '#8085e9',
+                        '#f15c80', '#e4d354', '#2b908f', '#f45b5b', '#91e8e1','#E5005A'],
+                    title: {
+                        text: 'Probable teamsize'
                     },
                     tooltip: {
                         formatter: function () {
-                            return '<b>' + this.point.name + '</b>: ' + this.point.y;
+                            return  'No. of people = <b>' + this.point.name + '</b>: ' + 'No. of teams = <b>'+ this.point.y ;
                         }
+                    },
+                    legend: {
+                        align: 'right',
+                        verticalAlign: 'bottom',
+                        layout: 'vertical',
+                        borderColor:'black',
+                        width:100,
+                        itemStyle: {
+                            fontSize:15
+                        },
+                        itemWidth:100,
+                        borderWidth:1
+
                     },
                     plotOptions: {
                         pie: {
@@ -1123,10 +1226,16 @@ angular.module('PreSales-Huddle')
                             center:[550,200],
                             cursor: 'pointer',
                             depth:55,
+                            showInLegend: true,
                             dataLabels:{
 
                                 formatter: function () {
-                                    return '<b>' + this.point.name + '</b>: '+ Highcharts.numberFormat(this.percentage, 2) + '%';
+                                    if (this.y != 0){
+                                        return '<b>' + this.point.name + '</b>: '+ Highcharts.numberFormat(this.percentage, 2) + '%';
+                                    }
+                                    else{
+                                        return null;
+                                    }
                                 }
                             }
                         }
@@ -1134,10 +1243,10 @@ angular.module('PreSales-Huddle')
                     series: [{
                         type: 'pie',
                         name: 'Browser share',
-                        data: dataList[0]
+                        data: dataList
                     }]
                 });
-            }
+
         }
         function RenderBarChartSalesPerson(elementId, dataList) {
 
@@ -1161,7 +1270,7 @@ angular.module('PreSales-Huddle')
                         height:600,
                         width:1140
                     }, title: {
-                        text:'Sales Person Performance'
+                        text:'No. of prospects by each Sales Person'
                     },
                     xAxis: {
                         categories: [
@@ -1191,12 +1300,110 @@ angular.module('PreSales-Huddle')
                         }
                     },
                     series: [{
-
-                        name: 'Sales Person Performance',
+                        showInLegend: false,
+                       name:'No. of Prospects',
                         data: dataList[0]
                     }]
                 });
             }
+        }
+        function RenderPieChartPropsectvsClient(elementId, dataList) {
+
+            new Highcharts.Chart({
+
+                chart: {
+                    type: 'pie',
+                    options3d: {
+                        enabled: true,
+                        alpha: 45,
+                        beta: 0
+                    },
+                    renderTo: elementId,
+                    plotBackgroundColor: null,
+                    plotBorderWidth: null,
+                    plotShadow: false,
+                    height:600,
+                    width:1140
+                },
+                colors: ['#FFA500','#008000'],
+                title: {
+                    text: 'Ratio of prospect vs client'
+                },
+                tooltip: {
+                    formatter: function () {
+                        return '<b>' + this.point.name + '</b>: ' + this.point.y ;
+                    }
+                },
+                plotOptions: {
+                    pie: {
+                        allowPointSelect: true,
+                        size:400,
+                        center:[550,200],
+                        cursor: 'pointer',
+                        depth:55,
+                        dataLabels:{
+                            formatter: function () {
+
+                                if (this.y != 0){
+                                    return '<b>' + this.point.name + '</b>: '+ Highcharts.numberFormat(this.percentage, 2) + '%';
+                                }
+                                else{
+                                    return null;
+                                }
+                            }
+                        }
+                    }
+                },
+                series: [{
+                    type: 'pie',
+                    name: 'Browser share',
+                    data: dataList
+                }]
+            });
+        }
+        function RenderPieChartProspectStatus(elementId, dataList) {
+            new Highcharts.Chart({
+
+                chart: {
+                    renderTo: elementId,
+                    plotBackgroundColor: null,
+                    plotBorderWidth: null,
+                    plotShadow: false,
+                    height:600,
+                    width:1140
+                },
+                colors: ['#7cb5ec', '#434348', '#90ed7d', '#f7a35c', '#8085e9',
+                    '#f15c80', '#e4d354', '#2b908f', '#f45b5b', '#91e8e1','#8c8c8c'],
+                title: {
+                    text: 'Prospects aggregation by status'
+                },
+                tooltip: {
+                    formatter: function () {
+                        return '<b>' + this.point.name + '</b>: ' + this.point.y;
+                    }
+                },
+                plotOptions: {
+                    pie: {
+                        allowPointSelect: true,
+                        size:400,
+                        center:[550,200],
+                        cursor: 'pointer',
+                        borderColor: null,
+                        dataLabels: {
+                            enabled: true,
+                            color: '#000000',
+                            formatter: function () {
+                                return '<b>' + this.point.name + '</b>: ' + Highcharts.numberFormat(this.percentage, 2) + '%';
+                            }
+                        }
+                    }
+                },
+                series: [{
+                    type: 'pie',
+                    name: 'Browser share',
+                    data: dataList
+                }]
+            });
         }
         function countArrayDomain(original) {
             var compressed = [];
@@ -1248,31 +1455,6 @@ angular.module('PreSales-Huddle')
             }
             return compressed;
         }
-        function countArrayTeamSize(original) {
-            var compressed = [];
-            // make a copy of the input array
-            var copy = original.slice(0);
-            // first loop goes over every element
-            for (var i = 0; i < original.length; i++) {
-                var myCount = 0;
-                // loop over every element in the copy and see if it's the same
-                for (var w = 0; w < copy.length; w++) {
-                    if (original[i] == copy[w]) {
-                        // increase amount of times duplicate is found
-                        myCount++;
-                        // sets item to undefined
-                        delete copy[w];
-                    }
-                }
-                if (myCount > 0) {
-                    var a = {};
-                    a.value = original[i];
-                    a.count = myCount;
-                    compressed.push(a);
-                }
-            }
-            return compressed;
-        }
         function countArraySalesPerson(original) {
             var compressed = [];
             // make a copy of the input array
@@ -1298,56 +1480,9 @@ angular.module('PreSales-Huddle')
             }
             return compressed;
         }
-        function RenderPieChartPropsectvsClient(elementId, dataList) {
-
-            new Highcharts.Chart({
-
-                chart: {
-                    type: 'pie',
-                    options3d: {
-                        enabled: true,
-                        alpha: 45,
-                        beta: 0
-                    },
-                    renderTo: elementId,
-                    plotBackgroundColor: null,
-                    plotBorderWidth: null,
-                    plotShadow: false,
-                    height:600,
-                    width:1140
-                }, title: {
-                    text: 'Pie Chart for Domain'
-                },
-                tooltip: {
-                    formatter: function () {
-                        return '<b>' + this.point.name + '</b>: ' + this.point.y ;
-                    }
-                },
-                plotOptions: {
-                    pie: {
-                        allowPointSelect: true,
-                        size:400,
-                        center:[550,200],
-                        cursor: 'pointer',
-                        depth:55,
-                        dataLabels:{
-                            formatter: function () {
-                                return '<b>' + this.point.name + '</b>: '+ Highcharts.numberFormat(this.percentage, 2) + '%';
-                            }
-                        }
-                    }
-                },
-                series: [{
-                    type: 'pie',
-                    name: 'Browser share',
-                    data: dataList
-                }]
-            });
-        }
-
     })
 
-       // controller for client discussion
+    // controller for client discussion
     .controller('viewClientDiscussionCtrl', function($scope, $http, $rootScope, $location){
         document.getElementById('signin').style.visibility = 'hidden';
         document.getElementById('g-signinP').style.height = '0px';
@@ -1391,4 +1526,53 @@ angular.module('PreSales-Huddle')
         $scope.answers = $rootScope.discussionToView.Answers;
 
     })
+
+    .controller('ReportTeamsizeCtrl' , function($scope, $http, $rootScope, $location){
+        document.getElementById('signin').style.visibility = 'hidden';
+        document.getElementById('g-signinP').style.height = '0px';
+        document.getElementById('sign-out').style.visibility = 'visible';
+        document.getElementById('prospectList').style.visibility = 'visible';
+        document.getElementById('clientList').style.visibility = 'visible';
+        document.getElementById('headerText').style.visibility = 'visible';
+        document.getElementById('reports').style.visibility = 'visible';
+        document.getElementById('titleText').style.display = 'none';
+
+        $scope.prospect = $rootScope.prospectToUpdate;
+
+        $http.get(baseURL + 'prospect/all/').success(function(data, status, headers, config) {
+            var prospectData = JSON.stringify(data);
+            var prospectList = JSON.parse(prospectData);
+            var numberOfProspects = prospectList.length;
+            for(var i = 0; i < numberOfProspects; i++){
+                (function (index) {
+                    $http.get(baseURL + 'participant/prospectid/' + prospectList[i].ProspectID)
+                        .success(function(participantData, status, headers, config){
+                            var participantData = JSON.stringify(participantData);
+                            if (JSON.parse(participantData) == null) {
+                                prospectList[index].noOfVolunteers = 0;
+                            }
+                            else {
+                                prospectList[index].noOfVolunteers = JSON.parse(participantData).length;
+                            }
+                        }).error(function(data, status, header, config) {
+                        console.log("Not able to calculate volunteer count")
+                    });
+                }(i));
+            }
+            $scope.prospects = prospectList;
+            console.log("prospectList",prospectList);
+            console.log("all $scope.prospects",$scope.prospects);
+            var testArray = [];
+            for( var j = 0; j < prospectList.length; j++ ){
+                testArray[j] = prospectList[j].noOfVolunteers;
+
+            }
+            console.log(testArray);
+
+        }).error(function(data, status, header, config) {});
+
+
+    })
 ;
+
+
