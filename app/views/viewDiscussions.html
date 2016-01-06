@@ -11,13 +11,15 @@
 
 <section>
     <span id="pageTitle">Discussions for prospect '{{prospect.Name }}'</span>
-    <div class="container" id = "form-container">
-
+    <div ng-show = "msg" id="noDiscussion">
+        No discussions to view
+    </div>
+    <div class="container" id = "form-container" style="width: 65%">
         <div class="list-group" ng-repeat = "discussion in discussions" style="margin-top: 3%">
 
-            <a href="#/prospectDiscussion" ng-click = "showDiscussion(discussion)" class = "list-group-item" >
+            <a href="#/prospectDiscussion" ng-click="showDiscussion(discussion)" class="list-group-item" >
                 <span class="label label-default label-pill pull-xs-right">{{discussion.UserID}}</span> <br>
-                {{ discussion.Query }}
+                <pre style="font-family: helvetica;font-size: 14px;">{{discussion.Query}} </pre>
             </a>
             <!--<button type="button" class="btn btn-info btn-lg" data-toggle="modal" ng-click="#myModal" data-target="#myModal">Open Modal</button>-->
         </div>

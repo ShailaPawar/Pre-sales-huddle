@@ -42,15 +42,14 @@
                             <a ng-href = "#/reports"> Reports
                                 <span class = "visuallyhidden" class="btn btn-primary pull-right"> - currently selected </span>
                             </a>
-
                         </li>
                         <li class="dropdown" class = "sign-out nav navbar-nav navbar-right" id = "sign-out"  ng-controller="SignOutCtrl" disabled>
                             <a ng-click="drop()" class="dropdown-toggle" data-toggle="dropdown">{{firstName}} ({{assignRole}})
                                 <span class = "visuallyhidden" class="btn btn-primary pull-right" > - currently selected</span>
                                 <span class="caret"></span>
                             </a>
-                                <ul class="dropdown-menu">
-                                    <li style="text-align: center;font-family: calibri"> Signed in as <span style=" font-weight: bold;">{{currentUser}}</span>
+                                <ul class="dropdown-menu" style="margin-left: 2%;margin-right: 2%">
+                                    <li style="text-align: center;font-family: calibri;padding: 0px 10px 0px 10px;"> Signed in as <span style=" font-weight: bold;">{{currentUser}}</span>
                                     </li>
                                     <li class="divider">
                                     </li>
@@ -64,7 +63,7 @@
                 </nav>
                 </div>
             </header>
-             <div class="title" id="titleText" disabled>Synerzip Pre-Sales Huddle</div>
+            <div class="title" id="titleText" disabled>Synerzip Pre-Sales Huddle</div>
             <main class = "main" id = "main">
                 <div ng-view = ""></div>
             </main>
@@ -80,8 +79,6 @@
                 <p><span style="background-color:whitesmoke">Copyright @ Synerzip Inc. All Rights Reserved. </span></p>
             </footer>
         </div>
-
-
 
         <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
         <script>
