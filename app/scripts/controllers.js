@@ -37,6 +37,18 @@ angular.module('PreSales-Huddle')
                     $rootScope.userId = $rootScope.currentUser;
 
                     $rootScope.assignRole = "";
+                    var salesPersons = ["salil.khedkar@synerzip.com", "shaila.pawar@synerzip.com"];
+                    for (i = 0; i < salesPersons.length; i++) {
+                        (function (index) {
+                            if (angular.equals($rootScope.currentUser, salesPersons[i])) {
+                                $rootScope.assignRole = "Sales";
+                            } else {
+                                $rootScope.assignRole = "Engineer";
+                            }
+                        }(i))
+                    }
+
+
 
                     function addUser() {
                         $rootScope.assignRole = "Engineer";
@@ -157,7 +169,7 @@ angular.module('PreSales-Huddle')
         $scope.saveData = function(prospect) {
             console.log(prospect);
             $rootScope.prospectToUpdate = prospect;
-            console.log($rootScope.prospectToUpdate);
+            console.log("$rootScope.prospectToUpdate:",$rootScope.prospectToUpdate);
 
             // creation date
             $rootScope.createDate = $rootScope.prospectToUpdate.CreateDate.toString();
@@ -172,8 +184,7 @@ angular.module('PreSales-Huddle')
             $rootScope.startDate = new Date($rootScope.startDate);
 
             $rootScope.prospectToUpdate.StartDate = $rootScope.startDate;
-
-        };
+            };
 
         $http.get(baseURL + 'prospect/all/').success(function(data, status, headers, config) {
             var prospectData = JSON.stringify(data);
@@ -254,19 +265,25 @@ angular.module('PreSales-Huddle')
         document.getElementById('clientList').style.visibility='visible';
 	    document.getElementById('headerText').style.visibility='visible';
         document.getElementById('titleText').style.display='none';
+
         $scope.maxDate = new Date();
         $scope.date = $scope.maxDate;
-        var creationDate = $scope.date;
+//        var creationDate = $scope.date;
 
         $scope.addProspect = function() {
-            var date = new Date(creationDate);
-            var n = date.toDateString();
-            var time = date.toLocaleTimeString();
-            var status = "Prospect created on " + n + ' ' + time;
+            if ($scope.date == undefined) {
+                console.log("undefined $scope.createDate: ", $scope.date);
+                $scope.date = new Date();
+            }
+//            var date = new Date(creationDate);
+            var n = $scope.date.toDateString();
+            var time = $scope.date.toLocaleTimeString();
+            var status = "Prospect created on " + n
+//                + ' ' + time;
                 // creationDate.toLocaleString('en-US');
             var data = {
                 Name: $scope.prospectName,
-                CreateDate : creationDate,
+                CreateDate : $scope.date,
                 TechStack: $scope.techStack,
                 Domain: $scope.domain,
                 DesiredTeamSize: $scope.teamSize,
@@ -353,10 +370,18 @@ angular.module('PreSales-Huddle')
         $rootScope.prospect = prospect;
         $http.get(baseURL + 'discussion/prospectid/'+ prospect.ProspectID).success(function(data, status, headers, config) {
             console.log("discussion/prospectid/", data);
+            var displayDiscussion = JSON.stringify( data);
+            console.log("displayDiscussion", displayDiscussion);
+            if (JSON.parse(displayDiscussion) != null) {
+                $rootScope.msg = 0;
+            }
+            else{
+                $rootScope.msg = 1;
+            }
             $scope.discussions = data;
         }).error(function (data, status, header, config) {});
 
-        $scope.addDiscussion = function() {
+              $scope.addDiscussion = function() {
             var data = {
                 ProspectID: $rootScope.prospectToUpdate.ProspectID,
                 UserID: $rootScope.salesName,
@@ -431,20 +456,21 @@ angular.module('PreSales-Huddle')
             var data = {
                 ProspectID:     $rootScope.prospectToUpdate.ProspectID,
                 Name:           $scope.prospect.Name,
-                CreateDate:     $scope.CreateDate,
+                //CreateDate:     $scope.CreateDate,
+                CreateDate:     $rootScope.prospectToUpdate.CreateDate,
                 StartDate :     $scope.StartDate,
                 TechStack:      $scope.prospect.TechStack,
                 Domain:         $scope.prospect.Domain,
                 DesiredTeamSize:$scope.prospect.DesiredTeamSize,
                 ProspectNotes:  $scope.prospect.ProspectNotes ,
-                ClientNotes:    $scope.prospect.ClientNotes,
+                ClientNotes:    $scope.ClientNotes,
                 BUHead:         $scope.Head,
                 TeamSize:       $scope.TeamSize,
                 SalesID:        $rootScope.salesName,
                 ConfCalls:      $rootScope.prospectToUpdate.ConfCalls,
                 ProspectStatus: $rootScope.prospectToUpdate.ProspectStatus
             };
-
+            console.log("add to client data",data) ;
             $http.put(baseURL + 'prospect/', data = data).success(function (data, status, headers, config) {
                 console.log('Prospect added to Client.');
                 $location.path('/prospects');
@@ -526,6 +552,7 @@ angular.module('PreSales-Huddle')
 
         $http.get(baseURL + 'prospect/all/').success(function (data, status, headers, config) {
             $scope.prospects = data;
+            console.log("client list",$scope.prospects);
         }).error(function (data, status, header, config) {
         });
     })
@@ -694,7 +721,7 @@ angular.module('PreSales-Huddle')
                             volunteerFirstName.substr(1) + ' ' + volunteerLastName.charAt(0).toUpperCase() +
                             volunteerLastName.substr(1);
                         var notesLength = volunteersList[i].Notes.length;
-                        if(notesLength > 50){
+                        if(notesLength > 200){
                             volunteersList[i].flag = 1;
                         }
                         else{
@@ -818,7 +845,6 @@ angular.module('PreSales-Huddle')
             var date = new Date($rootScope.ConfDateStart);
             var n = date.toDateString();
             var time = date.toLocaleTimeString();
-
             if(angular.equals($scope.call, "Internal Prep call")) {
                 console.log("ConfDateStart: ", $rootScope.ConfDateStart);
                 prospectStatus = "Prep call scheduled for " + n + ' ' + time;

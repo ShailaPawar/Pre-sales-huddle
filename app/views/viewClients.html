@@ -22,6 +22,12 @@
                     <span ng-show="reverseSort" class="glyphicon glyphicon-chevron-down"></span>
                 </span>
             </th>
+            <th ng-click="orderByField='CreateDate'; reverseSort = !reverseSort"> Prospect Creation Date
+                <span ng-show="orderByField == 'CreateDate'">
+                    <span ng-show="!reverseSort" class="glyphicon glyphicon-chevron-up"></span>
+                    <span ng-show="reverseSort" class="glyphicon glyphicon-chevron-down"></span>
+                </span>
+            </th>
             <th ng-click="orderByField='StartDate'; reverseSort = !reverseSort"> Project Start Date
                 <span ng-show="orderByField == 'StartDate'">
                     <span ng-show="!reverseSort" class="glyphicon glyphicon-chevron-up"></span>
@@ -34,23 +40,31 @@
                     <span ng-show="reverseSort" class="glyphicon glyphicon-chevron-down"></span>
                 </span>
             </th>
-            <th ng-click="orderByField='Domain'; reverseSort = !reverseSort"> Sales
-                <span ng-show="orderByField == 'Domain'">
+            <th ng-click="orderByField='SalesID'; reverseSort = !reverseSort"> Sales Person
+                <span ng-show="orderByField == 'SalesID'">
+                    <span ng-show="!reverseSort" class="glyphicon glyphicon-chevron-up"></span>
+                    <span ng-show="reverseSort" class="glyphicon glyphicon-chevron-down"></span>
+                </span>
+            </th>
+            <th ng-click="orderByField='TechStack'; reverseSort = !reverseSort"> TechStack
+                <span ng-show="orderByField == 'TechStack'">
                     <span ng-show="!reverseSort" class="glyphicon glyphicon-chevron-up"></span>
                     <span ng-show="reverseSort" class="glyphicon glyphicon-chevron-down"></span>
                 </span>
             </th>
             <th>
-                Action
+                Actions
             </th>
         </thead>
         <tbody>
             <span ng-hide="{{!prospect.BUHead}}">
                 <tr ng-hide="{{!prospect.BUHead}}" ng-repeat = "prospect in prospects | orderBy:orderByField:reverseSort | filter:searchWord" >
                     <td> {{ prospect.Name }} </td>
+                    <td> {{ prospect.CreateDate  | date: "dd-MMM-yyyy" }} </td>
                     <td> {{ prospect.StartDate  | date: "dd-MMM-yyyy" }} </td>
                     <td> {{ prospect.BUHead }} </td>
                     <td> {{ prospect.SalesID }} </td>
+                    <td> {{ prospect.TechStack }} </td>
                     <td>
                         <a href = '#/clientInfo' ng-click="showClientInfo(prospect)" class = "edit-btn" data-toggle = "tooltip" title = "View Client Information" >
                             <span  class = "glyphicon glyphicon-eye-open" aria-hidden = "true" style="margin-left: 10%" ></span>

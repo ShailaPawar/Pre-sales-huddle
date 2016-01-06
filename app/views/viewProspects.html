@@ -1,5 +1,5 @@
 <section id="page-sub-header">
-    <a ng-href="#/createProspect" class="col-sm-2 btn btn-primary pull-right" id="add-new-prospect" ng-show="user" > Add new prospect </a>
+    <a ng-href="#/createProspect" class="col-sm-2 btn btn-primary pull-right" id="add-new-prospect" ng-show="!user" > Add new prospect </a>
 </section>
 
 <script>
@@ -102,7 +102,7 @@
                         <span  class = "glyphicon glyphicon-phone-alt" aria-hidden = "true" ></span>
                     </a>
 
-                    <a href = '#/addToClient' ng-show="user"  id="convertToClient" ng-click="saveData(prospect)" class = "edit-btn" data-toggle = "tooltip" title = "Convert to client" >
+                    <a href = '#/addToClient' ng-show="!user"  id="convertToClient" ng-click="saveData(prospect)" class = "edit-btn" data-toggle = "tooltip" title = "Convert to client" >
                         <span  class = "glyphicon glyphicon-usd" aria-hidden = "true" ></span>
                     </a>
 

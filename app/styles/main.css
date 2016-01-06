@@ -213,6 +213,16 @@ span.buttonText {
     margin-left: 64%;
 }
 
+#noDiscussion{
+    margin-top: 12% !important ;
+    font-family: calibri;
+    font-size: 27pt;
+    text-align: center;
+    color: #f5f5f5;
+}
 
-
-
+pre {
+    word-break: keep-all !important;
+    white-space: pre;
+    white-space: pre-wrap;
+}
