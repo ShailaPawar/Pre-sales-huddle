@@ -37,18 +37,6 @@ angular.module('PreSales-Huddle')
                     $rootScope.userId = $rootScope.currentUser;
 
                     $rootScope.assignRole = "";
-                    var salesPersons = ["salil.khedkar@synerzip.com", "shaila.pawar@synerzip.com"];
-                    for (i = 0; i < salesPersons.length; i++) {
-                        (function (index) {
-                            if (angular.equals($rootScope.currentUser, salesPersons[i])) {
-                                $rootScope.assignRole = "Sales";
-                            } else {
-                                $rootScope.assignRole = "Engineer";
-                            }
-                        }(i))
-                    }
-
-
 
                     function addUser() {
                         $rootScope.assignRole = "Engineer";
@@ -268,9 +256,9 @@ angular.module('PreSales-Huddle')
         $scope.prospect = $rootScope.prospectToUpdate;
 
         $scope.editProspect = function() {
-            var n = $scope.prospect.CreateDate.toDateString();
-            var time = $scope.prospect.CreateDate.toLocaleTimeString();
-            var status = "Prospect created on " + n;
+            //var n = $scope.prospect.CreateDate.toDateString();
+            //var time = $scope.prospect.CreateDate.toLocaleTimeString();
+            //var status = "Prospect created on " + n;
 
             var data = {
                 ProspectID:         $rootScope.prospectToUpdate.ProspectID,
@@ -281,7 +269,7 @@ angular.module('PreSales-Huddle')
                 DesiredTeamSize:    $scope.prospect.DesiredTeamSize,
                 ProspectNotes:      $scope.prospect.ProspectNotes,
                 ConfCalls:          $rootScope.prospectToUpdate.ConfCalls,
-                ProspectStatus:     status,
+                ProspectStatus:     $rootScope.prospectToUpdate,
                 SalesID:            $rootScope.salesName,
                 StartDate:          $rootScope.prospectToUpdate.StartDate
             };

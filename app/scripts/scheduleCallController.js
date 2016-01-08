@@ -119,16 +119,34 @@ angular.module('PreSales-Huddle')
     // set call time
     jQuery(function () {
         jQuery('#fromTime').datetimepicker();
-        jQuery('#toTime').datetimepicker();
-
         jQuery("#fromTime").on("dp.change", function (e) {
-            jQuery('#toTime').data("DateTimePicker").setMaxDate(e.date);
+            //jQuery('#toTime').data("DateTimePicker").setMaxDate(e.date);
 
             $rootScope.ConfDateStart = e.date;
             console.log($rootScope.ConfDateStart);
+            $rootScope.defaultToTime = new Date($rootScope.ConfDateStart);
+            $rootScope.defaultToTime.setMinutes($rootScope.defaultToTime.getMinutes() + 45);
+
+            //var d = new Date($rootScope.defaultToTime);
+            //var month = d.getMonth() + 1;
+            //var day = d.getDate();
+            //
+            //var time = d.toLocaleTimeString();
+            //var s = time.split(':');
+            //console.log("s:  s[2].substr(3)", s, s[2].substr(3));
+            //var hr = d.getHours();
+            //var minute = d.getMinutes();
+            //t = hr + ':' + minute;
+            //var output = (month < 10 ? '0' : '') +month+ '/' + (day < 10 ? '0': '')+ day + '/' + d.getFullYear();
+            //var time_obj = s[0] + ':' + s[1] + " " + s[2].substr(3);
+            //console.log("Output: ", output + " " + time_obj);
+
+            jQuery("#toTime").data("DateTimePicker").setDate(new Date($rootScope.defaultToTime));
         });
 
+        jQuery('#toTime').datetimepicker();
         jQuery("#toTime").on("dp.change", function (e) {
+
             //jQuery('#fromTime').data("DateTimePicker").setMaxDate(e.date);
 
             $rootScope.ConfDateEnd = e.date;
@@ -182,14 +200,26 @@ angular.module('PreSales-Huddle')
         var date = new Date($rootScope.ConfDateStart);
         var n = date.toDateString();
         var time = date.toLocaleTimeString();
+        var date_time = n + " " + time;
+        //var date = new Date($rootScope.ConfDateStart);
+
+        console.log("length: ", date.toTimeString(), date.toTimeString().length);
+
+        //var n = date.toDateString();
+        //var time = date.toLocaleTimeString();
+        //console.log("day & Time: ", n, time);
+        //var date_time_str = n + ' ' + time;
+        //var date_time = new Date(date_time_str);
 
         if(angular.equals($scope.call, "Internal Prep call")) {
             console.log("ConfDateStart: ", $rootScope.ConfDateStart);
-            prospectStatus = "Prep call scheduled for " + new Date($rootScope.ConfDateStart);
+            prospectStatus = "Prep call scheduled for " + date_time;
+                //new Date($rootScope.ConfDateStart);
                 //n + ' ' + time;
              //(new Date($rootScope.ConfDateStart)).toLocaleString('en-US');
         } else {
-            prospectStatus = "Client call scheduled for " + new Date($rootScope.ConfDateStart);
+            prospectStatus = "Client call scheduled for " + date_time;
+                 //new Date($rootScope.ConfDateStart);
                 //n + ' ' + time;
              //(new Date($rootScope.ConfDateStart)).toLocaleString('en-US');
         }
@@ -273,18 +303,34 @@ angular.module('PreSales-Huddle')
 
             console.log("length: ", date.toTimeString(), date.toTimeString().length);
 
-            var n = date.toDateString();
-            var time = date.toLocaleTimeString();
-            console.log("day & Time: ", n, time);
+            var timeString = date.toTimeString();
+            var timeZone = timeString.split(" ")[1];
+            var GMTString = timeZone.substr(0, 4);
+            if (angular.equals('0', timeZone.charAt(4))) {
+                $rootScope.timeZoneValue = GMTString + timeZone.charAt(5) + ':' + timeZone.substr(6);
+            } else {
+                $rootScope.timeZoneValue = GMTString + timeZone.substr(4, 6) + ':' + timeZone.substr(6);
+            }
+
+            console.log("$rootScope.timeZoneValue: ", $rootScope.timeZoneValue);
+
+            //var n = date.toDateString();
+            //var time = date.toLocaleTimeString();
+            //console.log("day & Time: ", n, time);
+            //var date_time_str = n + ' ' + time;
+            //var date_time = new Date(date_time_str);
+            //console.log("date_time: ", date_time);
             var event = {
                 'summary': 'Prospect: ' + currentProspect.Name + ' ' + $scope.call,
                 'start': {
                     'dateTime': $rootScope.ConfDateStart,
-                    'timeZone': 'GMT+5:30'
+                    'timeZone': $rootScope.timeZoneValue
+                    //'timeZone': 'GMT+5:30'
                 },
                 'end': {
                     'dateTime': $rootScope.ConfDateEnd,
-                    'timeZone': 'GMT+5:30'
+                    'timeZone': $rootScope.timeZoneValue
+                    //'timeZone': 'GMT+5:30'
                 },
                 'attendees': jQuery.parseJSON(attendee_array),
                 'reminders': {

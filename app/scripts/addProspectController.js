@@ -15,6 +15,15 @@ angular.module('PreSales-Huddle')
         $scope.date = $scope.maxDate;
 
         $scope.addProspect = function() {
+            if (angular.equals(undefined, $scope.techStack)) {
+                $scope.techStack = "Unknown";
+            }
+            if (angular.equals(undefined, $scope.domain)) {
+                $scope.domain = "Unknown";
+            }
+            if (angular.equals(undefined, $scope.teamSize)) {
+                $scope.teamSize = 1;
+            }
             if ($scope.date == undefined) {
                 console.log("undefined $scope.createDate: ", $scope.date);
                 $scope.date = new Date();
@@ -56,4 +65,4 @@ angular.module('PreSales-Huddle')
             $rootScope.lastform = "create";
             $location.path(path);
         }
-    })
+    });

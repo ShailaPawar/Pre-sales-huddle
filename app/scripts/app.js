@@ -83,6 +83,11 @@ angular.module('PreSales-Huddle', ['ngResource', 'ngRoute'])
                 controller: 'ReportTeamsizeCtrl',
                 title: 'reportTeamSize'
             })
+            .when('/notifications', {
+                templateUrl: 'views/notifications.html',
+                controller: 'NotificationsCtrl',
+                title: 'notifications'
+            })
 
         }).run(['$window', function ($window) {
             $window.GoogleAsyncInit = function () {

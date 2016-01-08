@@ -1,0 +1,33 @@
+<section>
+    <span id="pageTitle"> Notifications </span>
+    <form name = "notifications" novalidate ng-submit="submitMyForm()">
+        <div class="container" style="background-color:whitesmoke;width: 35%;" id = "form-container2" >
+            <div class = "form-group" style = "margin-left:15%; margin-top:3%;">
+                <label> Send me a notification emails for: </label>
+                <div style = "margin-left:10%;">
+                    <input type = "radio" name = "SelectOne" value="everyProspect" checked> Every prospect<br>
+                    <input type = "radio" name = "SelectOne" value="starredProspect"> Only starred prospects<br>
+                </div>
+            </div>
+            <div class = "form-group" style = "margin-left:15%;">
+                <label> Notify me for: </label>
+                <div style = "margin-left:10%;">
+                    <input type = "checkbox" > Prospect created<br>
+                    <input type = "checkbox"> Prospect updated<br>
+                    <input type = "checkbox"> Question posted<br>
+                    <input type = "checkbox"> Question answered<br>
+                    <input type = "checkbox"> Someone volunteered<br>
+                    <input type = "checkbox"> Call scheduled<br>
+                    <input type = "checkbox"> Prospect went dead<br>
+                    <input type = "checkbox"> Prospect converted to client<br>
+                </div>
+            </div>
+            <div class = "form-group" style = "margin-left:15%;">
+                <input type = "button" id = "cancel-button" value = "Cancel" class = "col-sm-3 btn btn-primary"
+                       ng-click = "go('prospects')">
+                <button type = "submit" class = "col-sm-3 btn btn-primary"
+                        style = "margin-left:3%;"> Save </button>
+            </div>
+        </div>
+    </form>
+</section>
