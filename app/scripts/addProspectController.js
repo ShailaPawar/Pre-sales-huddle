@@ -45,20 +45,26 @@ angular.module('PreSales-Huddle')
             };
 
             console.log(data);
+            /*$("#myModal3").modal({backdrop: false})*/;
             $http.post(baseURL + 'prospect/', data = data).success(function(data, status, headers, config) {
                 console.log('Prospect added.');
-                $location.path('/prospects');
+                $("#myModal").modal({backdrop: "static"});
+
             }).error(function(data, status, headers, config) {
                 console.log('Prospect not added.');
             });
-
+           /* $location.path('/prospects');*/
             $scope.prospectName = "";
             $scope.date = "";
             $scope.techStack = "";
             $scope.domain = "";
             $scope.teamSize = "";
             $scope.ProspectNotes = "";
+
         };
+        $scope.goBack = function() {
+            $location.path('/prospects');
+        }
 
         // Cancel button function
         $scope.go = function(path) {

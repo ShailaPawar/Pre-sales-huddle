@@ -277,12 +277,17 @@ angular.module('PreSales-Huddle')
 
             $http.put(baseURL + 'prospect/', data = data).success(function(data, status, headers, config) {
                 console.log('Prospect updated.');
-                $location.path('/prospects');
+                $("#myModal").modal({backdrop: "static"});
+               /* $location.path('/prospects');*/
             }).error(function(data, status, headers, config) {
                 console.log(data, status, headers, config);
                 console.log('Prospect not updated.');
             });
         };
+
+        $scope.goBack = function() {
+            $location.path('/prospects');
+        }
 
         // Cancel button function
         $scope.go = function(path) {
@@ -410,11 +415,16 @@ angular.module('PreSales-Huddle')
 
             $http.put(baseURL + 'prospect/', data = data).success(function (data, status, headers, config) {
                 console.log('Prospect converted to Client.');
-                $location.path('/prospects');
+                $("#myModal").modal({backdrop: "static"});
+                /*$location.path('/prospects');*/
             }).error(function (data, status, headers, config) {
                 console.log('Prospect not converted to Client.');
             });
         };
+
+        $scope.goBack = function() {
+            $location.path('/clients');
+        }
 
         // Cancel button function
         $scope.go = function (path) {
@@ -528,6 +538,8 @@ angular.module('PreSales-Huddle')
                 $scope.showDate = false;
             }
         };
+
+
         $scope.addVolunteer = function () {
             var data = {
                 ProspectID: $rootScope.prospectToUpdate.ProspectID,
@@ -537,14 +549,20 @@ angular.module('PreSales-Huddle')
                 Notes: $scope.Notes,
                 Included: "Yes"
             };
+
             $http.post(baseURL + 'participant/', data = data).success(function (data, status, headers, config) {
                 console.log('volunteer added.');
-                $location.path('/prospects');
+                $("#myModal").modal({backdrop: "static"});
+              /*  $location.path('/prospects');*/
             }).error(function (data, status, headers, config) {
                 console.log(data, status, headers, config);
                 console.log('volunteer not added.');
             });
         };
+
+        $scope.goBack = function() {
+            $location.path('/prospects');
+        }
 
         // Cancel button function
         $scope.go = function (path) {
@@ -586,15 +604,21 @@ angular.module('PreSales-Huddle')
                 ]
             };
             console.log(data);
+           /* $("#myModal11").modal("show");*/
             $http.post(baseURL + 'discussion/answer', data = data).success(function (data, status, headers, config) {
                 console.log('discussion updated.', data);
                 console.log('discussion updated.');
-                $location.path('/discussions');
+                $("#myModal").modal("show");
+                /*$location.path('/discussions');*/
             }).error(function (data, status, headers, config) {
                 console.log(data, status, headers, config);
                 console.log('discussion not updated.');
             });
         };
+
+        $scope.goBack = function() {
+            $location.path('/discussions');
+        }
     })
 
 

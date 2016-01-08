@@ -16,12 +16,25 @@
                 <span class="label label-default label-pill pull-xs-right " style="float: right">{{answer.UserID}}</span><br>
                 <pre style="font-family: helvetica;font-size: 14px;text-align: left ">{{answer.AnswerStr }}</pre>
             </li>
-            <li class="list-group-item">
+            <li ng-show="{{!prospect.BUHead}}" class="list-group-item">
                 <textarea id = "query" name = "query" ng-model = "answer" class = "form-control" placeholder="Type your answer here...">  </textarea>
             </li>
-            <div class="form-group " style="margin-top: 1%;margin-bottom: 3%">
+            <div ng-show="{{!prospect.BUHead}}" class="form-group " style="margin-top: 1%;margin-bottom: 3%">
                 <a ng-href="#/discussions" class="col-sm-2  btn btn-primary " id="cancel-button-discussion" > Cancel </a>
                 <button type="button" id="post-button" class="col-sm-2 btn btn-primary pull-right " ng-click="addAnswer()">Post</button>
+            </div>
+            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                <div class="vertical-alignment-helper">
+                    <div class="modal-dialog vertical-align-center">
+                        <div class="modal-content" style="width: 20% !important;">
+                            <div class="modal-body">
+                                <h4 style="text-align: center">Answer successfully added</h4>
+                                <br>
+                                <button ng-click="goBack()" type="button" class="btn btn-primary" data-dismiss="modal" style="margin-left: 40%">OK</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
