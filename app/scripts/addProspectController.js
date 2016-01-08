@@ -9,6 +9,7 @@ angular.module('PreSales-Huddle')
         document.getElementById('prospectList').style.visibility='visible';
         document.getElementById('clientList').style.visibility='visible';
         document.getElementById('headerText').style.visibility='visible';
+        document.getElementById('notifications').style.visibility='visible';
         document.getElementById('titleText').style.display='none';
 
         $scope.maxDate = new Date();

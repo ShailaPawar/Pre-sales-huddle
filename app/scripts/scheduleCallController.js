@@ -10,6 +10,7 @@ angular.module('PreSales-Huddle')
     document.getElementById('clientList').style.visibility = 'visible';
     document.getElementById('headerText').style.visibility = 'visible';
     document.getElementById('reports').style.visibility = 'visible';
+    document.getElementById('notifications').style.visibility='visible';
     document.getElementById('titleText').style.display = 'none';
 
     // code to show full notes on mouse hover
