@@ -5,12 +5,15 @@
  </head>
 
 <section id="page-sub-header">
-    <a ng-href="" data-toggle="modal" ng-click="#myModal" data-target="#myModal" class="col-sm-2 btn btn-primary pull-right" id="addDiscussion" style="margin-left:10px;"> Ask a question </a>
-    <a ng-href="#/prospects" class="col-sm-2  btn btn-primary pull-right" id="editProspect"> Back </a>
+    <a ng-show="{{!prospect.BUHead}}" data-toggle="modal" ng-click="#myModal" data-target="#myModal" class="col-sm-2 btn btn-primary pull-right" id="addDiscussion" style="margin-left:10px;"> Ask a question </a>
+    <a ng-show="{{!prospect.BUHead}}" ng-href="#/prospects" class="col-sm-2  btn btn-primary pull-right"> Back </a>
+    <a ng-hide="{{!prospect.BUHead}}" ng-href="#/clients" class="col-sm-2  btn btn-primary pull-right"> Back </a>
 </section>
 
 <section>
-    <span id="pageTitle">Discussions for prospect '{{prospect.Name }}'</span>
+    <span ng-show="{{!prospect.BUHead}}" id="pageTitle">Discussions for prospect '{{prospect.Name }}'</span>
+    <span ng-hide="{{!prospect.BUHead}}" id="pageTitle1">Discussions for client '{{prospect.Name }}'</span>
+
     <div ng-show = "msg" id="noDiscussion">
         No discussions to view
     </div>
@@ -18,7 +21,7 @@
         <div class="list-group" ng-repeat = "discussion in discussions" style="margin-top: 3%">
 
             <a href="#/prospectDiscussion" ng-click="showDiscussion(discussion)" class="list-group-item" >
-                <span class="label label-default label-pill pull-xs-right">{{discussion.UserID}}</span> <br>
+                <span class="label label-default label-pill pull-xs-right " style="float: left">{{ discussion.UserID }}</span> <br>
                 <pre style="font-family: helvetica;font-size: 14px;">{{discussion.Query}} </pre>
             </a>
             <!--<button type="button" class="btn btn-info btn-lg" data-toggle="modal" ng-click="#myModal" data-target="#myModal">Open Modal</button>-->

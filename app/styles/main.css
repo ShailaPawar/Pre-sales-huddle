@@ -226,3 +226,33 @@ pre {
     white-space: pre;
     white-space: pre-wrap;
 }
+
+#pageTitle1{
+    margin-top: -1% !important ;
+    font-family: calibri;
+    font-size: 27pt;
+}
+
+
+/**/
+
+.vertical-alignment-helper {
+    display:table;
+    height: 100%;
+    width: 100%;
+    pointer-events:none;
+}
+.vertical-align-center {
+    /* To center vertically */
+    display: table-cell;
+    vertical-align: middle;
+    pointer-events:none;
+}
+.modal-content {
+    /* Bootstrap sets the size of the modal in the modal-dialog class, we need to inherit it */
+   /* width:20%;*/
+    height:inherit;
+    /* To center horizontally */
+    margin: 0 auto;
+    pointer-events:all;
+}

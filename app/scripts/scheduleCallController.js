@@ -218,7 +218,7 @@ angular.module('PreSales-Huddle')
         $http.put(baseURL + 'prospect/', data = prospectData)
             .success(function (data, status, headers, config) {
                 console.log('Call details added to Prospect.');
-                $location.path('/prospects');
+                /*$location.path('/prospects');*/
             }).error(function (data, status, headers, config) {
             console.log(data, status, headers, config);
             console.log('Error occurred.');
@@ -303,11 +303,21 @@ angular.module('PreSales-Huddle')
 
             request.execute(function (event) {
                 console.log('Event created: ' + event.htmlLink);
+                $rootScope.scheduleCallLink =  event.htmlLink;
+                console.log("$rootScope.scheduleCalLink",$rootScope.scheduleCallLink);
+                $rootScope.scheduleCallLink = ""+$rootScope.scheduleCallLink+"";
+                console.log("$rootScope.scheduleCalLink new:-",$rootScope.scheduleCallLink);
+                document.getElementById("message").innerHTML = '<a href="' + $rootScope.scheduleCallLink + '"target="_blank">here</a>';
+                showPopup();
             });
         };
 
         function loadCalendarApi() {
             gapi.client.load('calendar', 'v3', sendCalendarInvite);
+        }
+
+        function showPopup() {
+            $("#myModal").modal({backdrop: "static"});
         }
 
         // Check if current user has authorized this application.
@@ -327,6 +337,9 @@ angular.module('PreSales-Huddle')
         };
     };
 
+    $scope.goBack = function() {
+        $location.path('/prospects');
+    }
     // Cancel button function
     $scope.go = function (path) {
         $rootScope.lastform = "createProspect";

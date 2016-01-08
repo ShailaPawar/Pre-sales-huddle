@@ -74,6 +74,21 @@
                 <input type="button" id="cancel-button" value="Cancel" class="col-sm-2 btn btn-primary" ng-click="go('prospects')">
                 <button type="button" class="col-sm-2 btn btn-primary" ng-click="scheduleCall()" style="margin-left:10px;"> Save </button>
             </div>
+            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                <div class="vertical-alignment-helper">
+                    <div class="modal-dialog vertical-align-center">
+                        <div class="modal-content" style="width: 20% !important;">
+                            <div class="modal-body">
+                                <h4 style="text-align: center">Call scheduled. Click
+                                    <span id="message"></span> to see it in Google Calendar.
+                                </h4>
+                                <br>
+                                <button ng-click="goBack()" type="button" class="btn btn-primary" data-dismiss="modal" style="margin-left: 40%" >OK</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </form>
 </section>
