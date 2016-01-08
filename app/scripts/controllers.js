@@ -269,7 +269,7 @@ angular.module('PreSales-Huddle')
                 DesiredTeamSize:    $scope.prospect.DesiredTeamSize,
                 ProspectNotes:      $scope.prospect.ProspectNotes,
                 ConfCalls:          $rootScope.prospectToUpdate.ConfCalls,
-                ProspectStatus:     $rootScope.prospectToUpdate,
+                ProspectStatus:     $rootScope.prospectToUpdate.ProspectStatus,
                 SalesID:            $rootScope.salesName,
                 StartDate:          $rootScope.prospectToUpdate.StartDate
             };
