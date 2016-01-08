@@ -106,7 +106,7 @@
                         <span  class = "glyphicon glyphicon-usd" aria-hidden = "true" ></span>
                     </a>
 
-                    <a href = '' ng-show="user" ng-click="" class = "edit-btn" id="setReminder" data-toggle = "tooltip" title = "Set up reminder" >
+                    <a href = '' ng-show="user" data-toggle="modal" ng-click="#myModal" data-target="#myModal" class = "edit-btn" id="setReminder" data-toggle = "tooltip" title = "Set up reminder" >
                         <span  class = "glyphicon glyphicon-envelope" aria-hidden = "true" ></span>
                     </a>
                     <a href = '' ng-show="user" ng-click=""  id="deadProspect" class = "edit-btn" data-toggle = "tooltip" title = "Dead prospect" >
@@ -121,4 +121,27 @@
         </span>
         </tbody>
     </table>
+    <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Set up Reminder</h4>
+                </div>
+                <div class="modal-body">
+                         Remind me after:
+
+                    <input type = "number" id = "teamSize" name = "teamSize"
+                           class = "form-control" min="0" required>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-default" ng-click="" data-dismiss="modal"> Add </button>
+                </div>
+            </div>
+
+        </div>
+    </div>
 </section>
