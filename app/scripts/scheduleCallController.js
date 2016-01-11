@@ -385,6 +385,7 @@ angular.module('PreSales-Huddle')
     };
 
     $scope.goBack = function() {
+        $('body').removeClass('modal-open');
         $location.path('/prospects');
     }
     // Cancel button function

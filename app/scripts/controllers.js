@@ -242,6 +242,12 @@ angular.module('PreSales-Huddle')
                     console.log("not fecthed")
             });
         };
+
+        //  set up reminder cancel button
+        $scope.prospectPage = function() {
+            document.getElementById("numberOfDays").innerHTML = '';
+            $location.path('/prospects');
+        }
     })
 
     .controller('EditProspectCtrl', function($scope, $http, $rootScope, $location) {
@@ -289,6 +295,7 @@ angular.module('PreSales-Huddle')
         };
 
         $scope.goBack = function() {
+            $('body').removeClass('modal-open');
             $location.path('/prospects');
         }
 
@@ -428,6 +435,7 @@ angular.module('PreSales-Huddle')
         };
 
         $scope.goBack = function() {
+            $('body').removeClass('modal-open');
             $location.path('/clients');
         }
 
@@ -576,6 +584,7 @@ angular.module('PreSales-Huddle')
         };
 
         $scope.goBack = function() {
+            $('body').removeClass('modal-open');
             $location.path('/prospects');
         }
 
@@ -633,6 +642,7 @@ angular.module('PreSales-Huddle')
         };
 
         $scope.goBack = function() {
+            $('body').removeClass('modal-open');
             $location.path('/discussions');
         }
     })
