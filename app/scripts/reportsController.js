@@ -201,7 +201,7 @@ angular.module('PreSales-Huddle')
                         newArray.splice(index,1,"OTHER");
                     }
                     var sortArray = sortArrayTechstack(newArray);
-                    if(sortArray.length > 10){
+                    if(newArray.length > 10){
                         newArray.length = 10;
                     }
                     var finalArray = newArray.concat(sortArray);
