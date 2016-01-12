@@ -340,6 +340,7 @@ angular.module('PreSales-Huddle')
         $scope.maxDate = new Date();
         console.log("In EditCtrl $rootScope.prospectToUpdate: ", $rootScope.prospectToUpdate);
         $scope.prospect = $rootScope.prospectToUpdate;
+        $rootScope.editProspectNotes = 0;
 
         $scope.editProspect = function() {
             //var n = $scope.prospect.CreateDate.toDateString();
@@ -368,12 +369,21 @@ angular.module('PreSales-Huddle')
             $http.put(baseURL + 'prospect/', data = data).success(function(data, status, headers, config) {
                 console.log('Prospect updated.');
                 $("#myModal").modal({backdrop: "static"});
-               /* $location.path('/prospects');*/
             }).error(function(data, status, headers, config) {
                 console.log(data, status, headers, config);
                 console.log('Prospect not updated.');
             });
         };
+
+
+        $scope.editProspectNote = function() {
+            $rootScope.nameOfProspect = $scope.prospect.Name;
+            $rootScope.editProspectNotes = 1;
+        };
+
+        $scope.goEditForm = function() {
+            $rootScope.editProspectNotes = 0;
+        }
 
         $scope.goBack = function() {
             $('body').removeClass('modal-open');

@@ -257,3 +257,12 @@ pre {
     pointer-events:all;
 }
 
+#notes-container {
+    background-color: whitesmoke;
+    width: 46%;
+    height: 60% !important;
+}
+
+#notesBack-button {
+    margin-bottom: 2%;
+}

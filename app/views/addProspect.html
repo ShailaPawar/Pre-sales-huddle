@@ -1,6 +1,6 @@
 <span id="pageTitle">Add a Prospect </span>
-<form name = "createForm" novalidate>
-    <div class = "container" id = "form-container">
+<form  name = "createForm" novalidate>
+    <div ng-show="!showProspectNote" class = "container" id = "form-container">
         <div class = "form-group">
             <label for = "prospectName"> Prospect Name:
                 <img src = "images/required.gif" alt = "Required" class = "required-star">
@@ -18,6 +18,7 @@
                    max = "{{maxDate | date: 'yyyy-MM-dd'}}" >
 
         </div>
+
         <div class = "form-group">
             <label for = "techStack"> Tech Stack: </label>
 
@@ -36,10 +37,6 @@
             <input type = "number" id = "teamSize" name = "teamSize" ng-model = "teamSize"
                    class = "form-control" min="0" >
         </div>
-        <div class = "form-group">
-            <label for = "notes"> Notes:</label>
-            <textarea id = "notes" name = "notes" ng-model = "notes" class = "form-control"></textarea>
-        </div>
         <p>
             <span style = "font-size: 9pt;"> All fields marked with an
                 <img src = "images/required.gif" alt = "asterisk" class = "required-star"> are required.
@@ -48,12 +45,27 @@
         <div class = "form-group">
             <input type="button" id="cancel-button" value="Cancel" class="col-sm-2 btn btn-primary"
                    ng-click="go('prospects')">
+            <button type="submit" class="col-sm-2 btn btn-primary" ng-click="notesPage()"
+                    style="margin-left:10px;"> Next </button>
+        </div>
+    </div>
+    <div class="form-group"></div>
+</form>
+<form  name = "createForm" novalidate>
+    <div ng-show="showProspectNote" class = "container" id = "notes-container">
+        <div class = "form-group">
+            <label for = "notes"> Notes for Prospect {{nameOfProspect}}</label>
+            <textarea rows="20" id = "notes" name = "notes" ng-model = "notes" class = "form-control"></textarea>
+        </div>
+
+        <div class = "form-group">
+            <input type="button" id="notesBack-button" value="Back" class="col-sm-2 btn btn-primary"
+                   ng-click="addProspectForm()">
             <button type="submit" class="col-sm-2 btn btn-primary" ng-click="addProspect()"
                     style="margin-left:10px;"> Add </button>
         </div>
     </div>
-    <div class="form-group">
-    </div>
+    <div class="form-group"></div>
 
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
         <div class="vertical-alignment-helper">
@@ -69,4 +81,5 @@
         </div>
     </div>
 </form>
+
 

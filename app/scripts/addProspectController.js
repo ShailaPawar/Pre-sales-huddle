@@ -14,6 +14,8 @@ angular.module('PreSales-Huddle')
 
         $scope.maxDate = new Date();
         $scope.date = $scope.maxDate;
+        $rootScope.showProspectNote = 0;
+
 
         $scope.addProspect = function() {
             if (angular.equals(undefined, $scope.techStack)) {
@@ -34,7 +36,7 @@ angular.module('PreSales-Huddle')
             var n = $scope.date.toDateString();
             var time = $scope.date.toLocaleTimeString();
             var status = "Prospect created on " + n;
-                //+ ' ' + time;
+            //+ ' ' + time;
             // creationDate.toLocaleString('en-US');
             var data = {
                 Name:               $scope.prospectName,
@@ -54,9 +56,9 @@ angular.module('PreSales-Huddle')
                 $("#myModal").modal({backdrop: "static"});
 
             }).error(function(data, status, headers, config) {
-                console.log('Prospect not added.');
-            });
-           /* $location.path('/prospects');*/
+                    console.log('Prospect not added.');
+                });
+            /* $location.path('/prospects');*/
             $scope.prospectName = "";
             $scope.date = "";
             $scope.techStack = "";
@@ -65,6 +67,16 @@ angular.module('PreSales-Huddle')
             $scope.ProspectNotes = "";
 
         };
+
+        $scope.notesPage = function() {
+            $rootScope.nameOfProspect = $scope.prospectName;
+            $rootScope.showProspectNote = 1;
+        };
+
+        $scope.addProspectForm = function() {
+            $rootScope.showProspectNote= 0 ;
+        }
+
         $scope.goBack = function() {
             $('body').removeClass('modal-open');
             $location.path('/prospects');
@@ -72,7 +84,11 @@ angular.module('PreSales-Huddle')
 
         // Cancel button function
         $scope.go = function(path) {
+            console.log("path: ", path);
             $rootScope.lastform = "create";
             $location.path(path);
+
         }
-    });
+    }) ;
+
+
