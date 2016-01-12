@@ -17,8 +17,9 @@
                     <img src = "images/required.gif" alt = "Required" class = "required-star">
                 </label>
 
-                <input type = "date" ng-model = "prospect.CreateDate" id = "date" name = "date" class = "form-control"
-                       max = "{{ maxDate | date: 'yyyy-MM-dd'}}" required>
+                <input type = "date" ng-model = "creationDate"
+                       ng-model-options = "creationDate = setCreateDate(prospect.CreateDate)" id = "date" name = "date" class = "form-control"
+                       max = "{{maxDate | date: 'yyyy-MM-dd'}}" >
             </div>
             <div class = "form-group">
                 <label for = "techStack"> Tech Stack: </label>

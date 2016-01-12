@@ -202,24 +202,22 @@ angular.module('PreSales-Huddle')
         var n = date.toDateString();
         var time = date.toLocaleTimeString();
         var date_time = n + " " + time;
-        //var date = new Date($rootScope.ConfDateStart);
 
-        console.log("length: ", date.toTimeString(), date.toTimeString().length);
+        //console.log("length: ", date.toTimeString(), date.toTimeString().length);
 
-        //var n = date.toDateString();
-        //var time = date.toLocaleTimeString();
-        //console.log("day & Time: ", n, time);
-        //var date_time_str = n + ' ' + time;
-        //var date_time = new Date(date_time_str);
+        var timeString = date.toTimeString();
+        var timeZone = timeString.split(" ");
+        var timeZoneStr = timeZone[1] + " " + timeZone[2];
+        //console.log("timeZoneStr: ", timeZoneStr);
 
         if(angular.equals($scope.call, "Internal Prep call")) {
             console.log("ConfDateStart: ", $rootScope.ConfDateStart);
-            prospectStatus = "Prep call scheduled for " + date_time;
+            prospectStatus = "Prep call scheduled for " + date_time + " " + timeZoneStr;
                 //new Date($rootScope.ConfDateStart);
                 //n + ' ' + time;
              //(new Date($rootScope.ConfDateStart)).toLocaleString('en-US');
         } else {
-            prospectStatus = "Client call scheduled for " + date_time;
+            prospectStatus = "Client call scheduled for " + date_time + " " + timeZoneStr;
                  //new Date($rootScope.ConfDateStart);
                 //n + ' ' + time;
              //(new Date($rootScope.ConfDateStart)).toLocaleString('en-US');

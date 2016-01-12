@@ -28,7 +28,9 @@ angular.module('PreSales-Huddle')
             if ($scope.date == undefined) {
                 console.log("undefined $scope.createDate: ", $scope.date);
                 $scope.date = new Date();
+                console.log("$scope.date: ", $scope.date);
             }
+            console.log("$scope.date: ", $scope.date);
             var n = $scope.date.toDateString();
             var time = $scope.date.toLocaleTimeString();
             var status = "Prospect created on " + n;
@@ -36,7 +38,7 @@ angular.module('PreSales-Huddle')
             // creationDate.toLocaleString('en-US');
             var data = {
                 Name:               $scope.prospectName,
-                CreateDate :        $scope.date,
+                CreateDate :        new Date($scope.date),
                 TechStack:          $scope.techStack,
                 Domain:             $scope.domain,
                 DesiredTeamSize:    $scope.teamSize,

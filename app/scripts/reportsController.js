@@ -109,6 +109,10 @@ angular.module('PreSales-Huddle')
             $scope.changeReport = function () {
 
                 $rootScope.flag = 1;
+                var testArray = [],a = [], i,split_array = [], trimmed_array = [], j, k, l, m, p, q,index,prospectCount = 0, clientsCount = 0;
+                var countJan = 0, countFeb = 0, countMar = 0, countApr = 0, countMay = 0, countJun = 0,
+                    countJul = 0, countAug = 0, countSept = 0, countOct = 0, countNov = 0, countDec = 0,countOne = 0,countTwo = 0,
+                    countThreeToFive = 0,countFiveToTen = 0,countTenPlus = 0,countCreated = 0,countPrep = 0,countClient = 0,countOther = 0;
 
                 if ( angular.equals($scope.reportType, $scope.reportTypes[0].value) ) {
 
@@ -197,7 +201,9 @@ angular.module('PreSales-Huddle')
                         newArray.splice(index,1,"OTHER");
                     }
                     var sortArray = sortArrayTechstack(newArray);
-                    newArray.length = 10;
+                    if(sortArray.length > 10){
+                        newArray.length = 10;
+                    }
                     var finalArray = newArray.concat(sortArray);
 
                     $(document).ready(function () {

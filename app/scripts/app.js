@@ -88,6 +88,11 @@ angular.module('PreSales-Huddle', ['ngResource', 'ngRoute'])
                 controller: 'NotificationsCtrl',
                 title: 'notifications'
             })
+            .when('/deadProspect', {
+                templateUrl: 'views/deadProspect.html',
+                controller: 'DeadProspectCtrl',
+                title: 'Dead prospect'
+            })
 
         }).run(['$window', function ($window) {
             $window.GoogleAsyncInit = function () {

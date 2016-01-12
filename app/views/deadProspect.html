@@ -1,0 +1,35 @@
+<span id="pageTitle">Dead Prospect </span>
+<form name = "deadForm" novalidate>
+    <div class = "container" id = "form-container">
+
+        <div class = "form-group">
+            <label for = "notes"> Notes:
+                <img src = "images/required.gif" alt = "Required" class = "required-star">
+            </label>
+            <textarea rows="20" id = "notes" name = "notes" ng-model = "notes" class = "form-control"></textarea>
+        </div>
+
+        <div class = "form-group">
+            <input type="button" id="cancel-button" value="Cancel" class="col-sm-2 btn btn-primary"
+                   ng-click="go('prospects')">
+            <button type="submit" class="col-sm-2 btn btn-primary" ng-click="deadProspect()"
+                    style="margin-left:10px;"> Save </button>
+        </div>
+    </div>
+    <div class="form-group">
+    </div>
+
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="vertical-alignment-helper">
+            <div class="modal-dialog vertical-align-center">
+                <div class="modal-content" style="width: 20% !important;">
+                    <div class="modal-body">
+                        <div style="text-align: center">Prospect is dead. </div>
+                        <br>
+                        <button ng-click="goBack()" type="button" class="btn btn-primary" data-dismiss="modal" style="margin-left: 40%">OK</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
