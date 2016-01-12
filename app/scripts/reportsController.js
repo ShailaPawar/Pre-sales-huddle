@@ -112,7 +112,8 @@ angular.module('PreSales-Huddle')
                 var testArray = [],a = [], i,split_array = [], trimmed_array = [], j, k, l, m, p, q,index,prospectCount = 0, clientsCount = 0;
                 var countJan = 0, countFeb = 0, countMar = 0, countApr = 0, countMay = 0, countJun = 0,
                     countJul = 0, countAug = 0, countSept = 0, countOct = 0, countNov = 0, countDec = 0,countOne = 0,countTwo = 0,
-                    countThreeToFive = 0,countFiveToTen = 0,countTenPlus = 0,countCreated = 0,countPrep = 0,countClient = 0,countOther = 0;
+                    countThreeToFive = 0,countFiveToTen = 0,countTenPlus = 0,countCreated = 0,countPrep = 0,countClient = 0,countDead = 0,
+                    countClientCreated = 0,countFollowUP = 0 ;
 
                 if ( angular.equals($scope.reportType, $scope.reportTypes[0].value) ) {
 
@@ -194,7 +195,8 @@ angular.module('PreSales-Huddle')
                         testArray[m] = angular.uppercase(testArray[m]);
                         testArray[m] = testArray[m].replace(/^[\s,]+|[\s,]+$/g,'');
                     }
-                    var newArray = countArrayTechstack(testArray);
+                    var newArray = countArray(testArray);
+
                     newArray.sort(function(a, b){return b.count - a.count});
                     for(  p = 10; p < newArray.length; p++) {
                         index = newArray.indexOf(newArray[p]);
@@ -203,8 +205,12 @@ angular.module('PreSales-Huddle')
                     var sortArray = sortArrayTechstack(newArray);
                     if(newArray.length > 10){
                         newArray.length = 10;
+
                     }
+
+                    console.log(newArray);
                     var finalArray = newArray.concat(sortArray);
+                    console.log(finalArray);
 
                     $(document).ready(function () {
 
@@ -260,7 +266,7 @@ angular.module('PreSales-Huddle')
                         index = testArray.indexOf(testArray[p]);
                         testArray.splice(index,1,"OTHER");
                     }
-                    var newArray = countArrayDomain(testArray);
+                    var newArray = countArray(testArray);
 
                     $(document).ready(function () {
 
@@ -350,7 +356,7 @@ angular.module('PreSales-Huddle')
                         testArray[j] = angular.uppercase(testArray[j]);
                     }
                     console.log(testArray);
-                    var newArray = countArraySalesPerson(testArray);
+                    var newArray = countArray(testArray);
 
                     $(document).ready(function () {
 
@@ -420,13 +426,25 @@ angular.module('PreSales-Huddle')
 
                             countClient++;
                         }
+                        else if(testArray[j].indexOf('Dead') !== -1){
+                            countDead++
+
+                        }else if(testArray.indexOf('client') !== -1){
+
+                            countClientCreated++;
+                        }
+                        else if(testArray.indexOf('Following up') !== -1){
+                            countFollowUP++;
+
+                        }
                     }
                     $(document).ready(function () {
 
                         RenderPieChartProspectStatus('report-container', [
                             ['Propsect Created',countCreated],['Prep call scheduled',countPrep],
-                            ['Client call scheduled',countClient]
-                        ]);
+                            ['Client call scheduled',countClient],['Dead Prospect',countDead],
+                            ['Prospect converted to client',countClientCreated],['Reminder set up',countFollowUP]
+                        ])
                     });
                 }
 
@@ -925,32 +943,7 @@ angular.module('PreSales-Huddle')
                 });
             }
         }
-        function countArrayDomain(original) {
-            var compressed = [];
-            // make a copy of the input array
-            var copy = original.slice(0);
-            // first loop goes over every element
-            for (var i = 0; i < original.length; i++) {
-                var myCount = 0;
-                // loop over every element in the copy and see if it's the same
-                for (var w = 0; w < copy.length; w++) {
-                    if (original[i] == copy[w]) {
-                        // increase amount of times duplicate is found
-                        myCount++;
-                        // sets item to undefined
-                        delete copy[w];
-                    }
-                }
-                if (myCount > 0) {
-                    var a = {};
-                    a.value = original[i];
-                    a.count = myCount;
-                    compressed.push(a);
-                }
-            }
-            return compressed;
-        }
-        function countArrayTechstack(original) {
+        function countArray(original) {
             var compressed = [];
             // make a copy of the input array
             var copy = original.slice(0);
@@ -981,31 +974,6 @@ angular.module('PreSales-Huddle')
             var copy = original.slice(0);
             // first loop goes over every element
             for (var i = 10; i < original.length; i++) {
-                var myCount = 0;
-                // loop over every element in the copy and see if it's the same
-                for (var w = 0; w < copy.length; w++) {
-                    if (original[i] == copy[w]) {
-                        // increase amount of times duplicate is found
-                        myCount++;
-                        // sets item to undefined
-                        delete copy[w];
-                    }
-                }
-                if (myCount > 0) {
-                    var a = {};
-                    a.value = original[i];
-                    a.count = myCount;
-                    compressed.push(a);
-                }
-            }
-            return compressed;
-        }
-        function countArraySalesPerson(original) {
-            var compressed = [];
-            // make a copy of the input array
-            var copy = original.slice(0);
-            // first loop goes over every element
-            for (var i = 0; i < original.length; i++) {
                 var myCount = 0;
                 // loop over every element in the copy and see if it's the same
                 for (var w = 0; w < copy.length; w++) {
