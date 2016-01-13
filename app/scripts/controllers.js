@@ -584,26 +584,26 @@ angular.module('PreSales-Huddle')
             $rootScope.prospectToUpdate = prospect;
         };
 
-        //$scope.saveData = function(prospect) {
-        //    console.log(prospect);
-        //    $rootScope.prospectToUpdate = prospect;
-        //    console.log($rootScope.prospectToUpdate);
-        //
-        //    // creation date
-        //    $rootScope.createDate = $rootScope.prospectToUpdate.CreateDate.toString();
-        //    $rootScope.createDate = $rootScope.createDate.split('T')[0];
-        //    $rootScope.createDate = new Date($rootScope.createDate);
-        //
-        //    $rootScope.prospectToUpdate.CreateDate = $rootScope.createDate;
-        //
-        //    // start date
-        //    $rootScope.startDate = $rootScope.prospectToUpdate.StartDate.toString();
-        //    $rootScope.startDate = $rootScope.startDate.split('T')[0];
-        //    $rootScope.startDate = new Date($rootScope.startDate);
-        //
-        //    $rootScope.prospectToUpdate.StartDate = $rootScope.startDate;
-        //
-        //};
+        $scope.saveData = function(prospect) {
+            console.log(prospect);
+            $rootScope.prospectToUpdate = prospect;
+            console.log($rootScope.prospectToUpdate);
+
+            // creation date
+            $rootScope.createDate = $rootScope.prospectToUpdate.CreateDate.toString();
+            $rootScope.createDate = $rootScope.createDate.split('T')[0];
+            $rootScope.createDate = new Date($rootScope.createDate);
+
+            $rootScope.prospectToUpdate.CreateDate = $rootScope.createDate;
+
+            // start date
+            $rootScope.startDate = $rootScope.prospectToUpdate.StartDate.toString();
+            $rootScope.startDate = $rootScope.startDate.split('T')[0];
+            $rootScope.startDate = new Date($rootScope.startDate);
+
+            $rootScope.prospectToUpdate.StartDate = $rootScope.startDate;
+
+        };
 
         $http.get(baseURL + 'prospect/all/').success(function (data, status, headers, config) {
             $scope.prospects = data;

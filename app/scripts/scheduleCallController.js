@@ -93,6 +93,9 @@ angular.module('PreSales-Huddle')
 
                 for (var i = 0; i < numberOfVolunteer; i++) {
                     var volunteerName = volunteersList[i];
+                    if (angular.equals(undefined, volunteerName)) {
+                        continue;
+                    }
                     volunteerName = volunteerName.UserID.substring(0, volunteerName.UserID.indexOf('@'));
                     var volunteerFirstName = volunteerName.split('.')[0];
                     var volunteerLastName = volunteerName.split('.')[1];
