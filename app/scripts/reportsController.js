@@ -35,62 +35,239 @@ angular.module('PreSales-Huddle')
         $http.get(baseURL + 'prospect/all/').success(function (data, status, headers, config) {
             $scope.prospect = data;
 
-            $rootScope.flag = 1;
-            var testArray = [],a = [], i,split_array = [], trimmed_array = [], j, k, l, m, p, q,index,prospectCount = 0, clientsCount = 0;
-            var countJan = 0, countFeb = 0, countMar = 0, countApr = 0, countMay = 0, countJun = 0,
-                countJul = 0, countAug = 0, countSept = 0, countOct = 0, countNov = 0, countDec = 0,countOne = 0,countTwo = 0,
-                countThreeToFive = 0,countFiveToTen = 0,countTenPlus = 0,countCreated = 0,countPrep = 0,countClient = 0,countOther = 0;
+               $rootScope.flag = 1;
+            var testArray = [],a = [],b=[], i, countCurrentJan = 0, countCurrentFeb = 0, countCurrentMar = 0, countCurrentApr = 0,
+                countCurrentMay = 0, countCurrentJun = 0,countCurrentJul = 0, countCurrentAug = 0, countCurrentSept = 0, countCurrentOct = 0,
+                countCurrentNov = 0, countCurrentDec = 0,countPrevJan = 0,countPrevFeb = 0,countPrevMar = 0,countPrevApr = 0,countPrevMay = 0,
+                countPrevJun= 0,countPrevJul = 0,countPrevAug = 0, countPrevSept = 0,countPrevOct = 0,countPrevNov = 0,countPrevDec =0;
 
             for ( i = 0; i < data.length; i++ ) {
 
-                testArray[i] = data[i].CreateDate;
-                a[i] = testArray[i].split('-');
-                testArray[i] = a[i][1];
+                testArray[i] = new Date(data[i].CreateDate).toString();
+                $rootScope.prospectArray = testArray;
+                $rootScope.prospectArray[i] = new Date( $rootScope.prospectArray[i]);
+                a[i] = $rootScope.prospectArray[i].getMonth();
+                $rootScope.month = a;
+                b[i] = $rootScope.prospectArray[i].getFullYear();
+                $rootScope.year = b;
 
-                if(testArray[i] === '01'){
-                    countJan++;
-                }else if(testArray[i] === '02')
-                {
-                    countFeb++;
-                }else if(testArray[i] === '03')
-                {
-                    countMar++;
-                }else if(testArray[i] === '04')
-                {
-                    countApr++;
-                }else if(testArray[i] === '05')
-                {
-                    countMay++;
-                }else if(testArray[i] === '06')
-                {
-                    countJun++;
-                }else if(testArray[i] === '07')
-                {
-                    countJul++;
-                }else if(testArray[i] === '08')
-                {
-                    countAug++;
-                }else if(testArray[i] === '09')
-                {
-                    countSept++;
-                }else if(testArray[i] === '10')
-                {
-                    countOct++;
-                }else if(testArray[i] === '11')
-                {
-                    countNov++;
-                }else if(testArray[i] === '12')
-                {
-                    countDec++;
-                }
             }
 
-            $(document).ready(function () {
+            for( j = 0;j < $rootScope.prospectArray.length; j++){
 
-                RenderLineChart('report-container', [
-                    [countJan],[countFeb],[countMar],[countApr],[countMay],[countJun],[countJul],[countAug],
-                    [countSept],[countOct],[countNov],[countDec]
-                ]);
+                if(angular.equals($rootScope.currentYear,$rootScope.year[j]) || angular.equals($rootScope.previousYear,$rootScope.year[j])){
+
+                    if(angular.equals($rootScope.currentYear,$rootScope.year[j])){
+
+                        if($rootScope.month[j] <= $rootScope.currentMonth){
+                            if($rootScope.month[j] === 0){
+
+                                countCurrentJan++;
+                            }
+                            else if($rootScope.month[j] === 1){
+
+                                countCurrentFeb++;
+                            }
+                            else if($rootScope.month[j] === 2){
+
+                                countCurrentMar++;
+                            }
+                            else if($rootScope.month[j] === 3){
+
+                                countCurrentApr++;
+                            }
+                            else if($rootScope.month[j] === 4){
+
+                                countCurrentMay++;
+                            }
+                            else if($rootScope.month[j] === 5){
+
+                                countCurrentJun++;
+                            }
+                            else if($rootScope.month[j] === 6){
+
+                                countCurrentJul++;
+                            }
+                            else if($rootScope.month[j] === 7){
+
+                                countCurrentAug++;
+                            }
+                            else if($rootScope.month[j] === 8){
+
+                                countCurrentSept++;
+                            }
+                            else if($rootScope.month[j] === 9){
+
+                                countCurrentOct++;
+                            }
+                            else if($rootScope.month[j] === 10){
+
+                                countCurrentNov++;
+                            }
+                            else if($rootScope.month[j] === 11){
+
+                                countCurrentDec++;
+                            }
+                        }
+
+                    }
+                    else if(angular.equals($rootScope.previousYear,$rootScope.year[j])){
+
+                        if($rootScope.month[j] >= $rootScope.previoustMonth){
+                            if($rootScope.month[j] === 0){
+
+                                countPrevJan++;
+                            }
+                            else if($rootScope.month[j] === 1){
+
+                                countPrevFeb++;
+                            }
+                            else if($rootScope.month[j] === 2){
+
+                                countPrevMar++;
+                            }
+                            else if($rootScope.month[j] === 3){
+
+                                countPrevApr++;
+                            }
+                            else if($rootScope.month[j] === 4){
+
+                                countPrevMay++;
+                            }
+                            else if($rootScope.month[j] === 5){
+
+                                countPrevJun++;
+                            }
+                            else if($rootScope.month[j] === 6){
+
+                                countPrevJul++;
+                            }
+                            else if($rootScope.month[j] === 7){
+
+                                countPrevAug++;
+                            }
+                            else if($rootScope.month[j] === 8){
+
+                                countPrevSept++;
+                            }
+                            else if($rootScope.month[j] === 9){
+
+                                countPrevOct++;
+                            }
+                            else if($rootScope.month[j] === 10){
+
+                                countPrevNov++;
+                            }
+                            else if($rootScope.month[j] === 11){
+
+                                countPrevDec++;
+                            }
+
+                        }
+
+                    }
+
+                }
+
+            }
+            console.log(countCurrentJan);
+
+            $(document).ready(function () {
+                if($rootScope.currentMonth == 0){
+                    RenderLineChart('report-container', [
+                        [countPrevFeb],[countPrevMar],[countPrevApr],[countPrevMay],[countPrevJun],
+                        [countPrevJul],[countPrevAug],[countPrevSept],[countPrevOct],[countPrevNov],[countPrevDec],
+                        [countCurrentJan]
+                    ]);
+
+                }
+                else if($rootScope.currentMonth == 1){
+                    RenderLineChart('report-container', [
+                        [countPrevMar],[countPrevApr],[countPrevMay],[countPrevJun],
+                        [countPrevJul],[countPrevAug],[countPrevSept],[countPrevOct],[countPrevNov],[countPrevDec],
+                        [countCurrentJan],[countCurrentFeb]
+                    ]);
+
+                }
+                else if($rootScope.currentMonth == 2){
+                    RenderLineChart('report-container', [
+                        [countPrevApr],[countPrevMay],[countPrevJun],
+                        [countPrevJul],[countPrevAug],[countPrevSept],[countPrevOct],[countPrevNov],[countPrevDec],
+                        [countCurrentJan],[countCurrentFeb],[countCurrentMar]
+                    ]);
+
+                }
+                else if($rootScope.currentMonth == 3){
+                    RenderLineChart('report-container', [
+                        [countPrevMay],[countPrevJun],
+                        [countPrevJul],[countPrevAug],[countPrevSept],[countPrevOct],[countPrevNov],[countPrevDec],
+                        [countCurrentJan],[countCurrentFeb],[countCurrentMar],[countCurrentApr]
+                    ]);
+
+                }
+                else if($rootScope.currentMonth == 4){
+                    RenderLineChart('report-container', [
+                        [countPrevJun],
+                        [countPrevJul],[countPrevAug],[countPrevSept],[countPrevOct],[countPrevNov],[countPrevDec],
+                        [countCurrentJan],[countCurrentFeb],[countCurrentMar],[countCurrentApr],[countCurrentMay]
+                    ]);
+
+                }
+                else if($rootScope.currentMonth == 5){
+                    RenderLineChart('report-container', [
+                        [countPrevJul],[countPrevAug],[countPrevSept],[countPrevOct],[countPrevNov],[countPrevDec],
+                        [countCurrentJan],[countCurrentFeb],[countCurrentMar],[countCurrentApr],[countCurrentMay],[countCurrentJun]
+                    ]);
+
+                }
+                else if($rootScope.currentMonth == 6){
+                    RenderLineChart('report-container', [
+                        [countPrevAug],[countPrevSept],[countPrevOct],[countPrevNov],[countPrevDec],
+                        [countCurrentJan],[countCurrentFeb],[countCurrentMar],[countCurrentApr],[countCurrentMay],[countCurrentJun],
+                        [countCurrentJul]
+                    ]);
+
+                }
+                else if($rootScope.currentMonth == 7){
+                    RenderLineChart('report-container', [
+                        [countPrevSept],[countPrevOct],[countPrevNov],[countPrevDec],
+                        [countCurrentJan],[countCurrentFeb],[countCurrentMar],[countCurrentApr],[countCurrentMay],[countCurrentJun],
+                        [countCurrentJul],[countCurrentAug]
+                    ]);
+
+                }
+                else if($rootScope.currentMonth == 8){
+                    RenderLineChart('report-container', [
+                        [countPrevOct],[countPrevNov],[countPrevDec],
+                        [countCurrentJan],[countCurrentFeb],[countCurrentMar],[countCurrentApr],[countCurrentMay],[countCurrentJun],
+                        [countCurrentJul],[countCurrentAug],[countCurrentSept]
+                    ]);
+
+                }
+                else if($rootScope.currentMonth == 9){
+                    RenderLineChart('report-container', [
+                        [countPrevNov],[countPrevDec],
+                        [countCurrentJan],[countCurrentFeb],[countCurrentMar],[countCurrentApr],[countCurrentMay],[countCurrentJun],
+                        [countCurrentJul],[countCurrentAug],[countCurrentSept],[countCurrentOct]
+                    ]);
+
+                }
+                else if($rootScope.currentMonth == 10){
+                    RenderLineChart('report-container', [
+                        [countPrevDec],
+                        [countCurrentJan],[countCurrentFeb],[countCurrentMar],[countCurrentApr],[countCurrentMay],[countCurrentJun],
+                        [countCurrentJul],[countCurrentAug],[countCurrentSept],[countCurrentOct],[countCurrentNov]
+                    ]);
+
+                }
+                else if($rootScope.currentMonth == 11){
+                    RenderLineChart('report-container', [
+                        [countCurrentJan],[countCurrentFeb],[countCurrentMar],[countCurrentApr],[countCurrentMay],[countCurrentJun],
+                        [countCurrentJul],[countCurrentAug],[countCurrentSept],[countCurrentOct],[countCurrentNov] ,[countCurrentDec]
+                    ]);
+
+                }
+
             });
 
             $scope.reportTypes =
@@ -105,8 +282,8 @@ angular.module('PreSales-Huddle')
                     value: 'Prospect segregation by domain',
                     name: 'Prospect segregation by domain'
                 }, {
-                    value: 'Probable teamsize',
-                    name: 'Probable teamsize'
+                    value: 'Probable team size',
+                    name: 'Probable team size'
                 }, {
                     value: 'Number of prospects by each sales person',
                     name: 'Number of prospects by each sales person'
@@ -125,80 +302,19 @@ angular.module('PreSales-Huddle')
             $scope.changeReport = function () {
 
                 $rootScope.flag = 1;
-                var testArray = [],a = [],b=[], i,split_array = [], trimmed_array = [], j, k, l, m, p, q,index,prospectCount = 0, clientsCount = 0;
-                var countCurrentJan = 0, countCurrentFeb = 0, countCurrentMar = 0, countCurrentApr = 0, countCurrentMay = 0, countCurrentJun = 0,
+                var testArray = [],a = [],b=[], i,split_array = [], trimmed_array = [], j, k, l, m, p, q,index,prospectCount = 0, clientsCount = 0,
+                    countCurrentJan = 0, countCurrentFeb = 0, countCurrentMar = 0, countCurrentApr = 0, countCurrentMay = 0, countCurrentJun = 0,
                     countCurrentJul = 0, countCurrentAug = 0, countCurrentSept = 0, countCurrentOct = 0, countCurrentNov = 0, countCurrentDec = 0,
                     countPrevJan = 0,countPrevFeb = 0,countPrevMar = 0,countPrevApr = 0,countPrevMay = 0,countPrevJun= 0,countPrevJul = 0,countPrevAug = 0,
                     countPrevSept = 0,countPrevOct = 0,countPrevNov = 0,countPrevDec =0,countOne = 0,countTwo = 0,
-                    countThreeToFive = 0,countFiveToTen = 0,countTenPlus = 0,countCreated = 0,countPrepCall = 0,countClientCall = 0,countDead = 0,
+                    countThreeToFive = 0,countFiveToTen = 0,countTenPlus = 0,countCreated = 0,countPrep = 0,countClient = 0,countDead = 0,
                     countClientCreated = 0,countFollowUP = 0 ;
 
-               /* if ( angular.equals($scope.reportType, $scope.reportTypes[0].value) ) {
-
-                    for ( i = 0; i < data.length; i++ ) {
-
-                        testArray[i] = data[i].CreateDate;
-                        a[i] = testArray[i].split('-');
-                        testArray[i] = a[i][1];
-
-                        if(testArray[i] === '01'){
-                            countJan++;
-                        }else if(testArray[i] === '02')
-                        {
-                            countFeb++;
-                        }else if(testArray[i] === '03')
-                        {
-                            countMar++;
-                        }else if(testArray[i] === '04')
-                        {
-                            countApr++;
-                        }else if(testArray[i] === '05')
-                        {
-                            countMay++;
-                        }else if(testArray[i] === '06')
-                        {
-                            countJun++;
-                        }else if(testArray[i] === '07')
-                        {
-                            countJul++;
-                        }else if(testArray[i] === '08')
-                        {
-                            countAug++;
-                        }else if(testArray[i] === '09')
-                        {
-                            countSept++;
-                        }else if(testArray[i] === '10')
-                        {
-                            countOct++;
-                        }else if(testArray[i] === '11')
-                        {
-                            countNov++;
-                        }else if(testArray[i] === '12')
-                        {
-                            countDec++;
-                        }
-                    }
-                    $(document).ready(function () {
-
-                        RenderLineChart('report-container', [
-                            [countJan],[countFeb],[countMar],[countApr],[countMay],[countJun],[countJul],[countAug],
-                            [countSept],[countOct],[countNov],[countDec]
-                        ]);
-                    });
-                }*/
                 if ( angular.equals($scope.reportType, $scope.reportTypes[0].value) ) {
-                      var newArray = [];
+
                     for ( i = 0; i < data.length; i++ ) {
 
-                      //  console.log("data[i].CreateDate: ", data[i].CreateDate);
                         testArray[i] = new Date(data[i].CreateDate).toString();
-                       // console.log("testArray[i]: ", testArray[i]);
-                       /* if(testArray[i] !== "Invalid Date"){
-
-                            a[i] = testArray[i].split(' ');
-                            newArray.push(a[i]);
-
-                        }*/
 
                         $rootScope.prospectArray = testArray;
                         $rootScope.prospectArray[i] = new Date( $rootScope.prospectArray[i]);
@@ -206,65 +322,8 @@ angular.module('PreSales-Huddle')
                         $rootScope.month = a;
                         b[i] = $rootScope.prospectArray[i].getFullYear();
                         $rootScope.year = b;
-
-                        //a[i] = testArray[i].split('T');
-                        //testArray[i] = a[i][0];
-                        //if(testArray[i].indexOf('-') !== -1){
-                        //
-                        //    a[i] = testArray[i].split('-');
-                        //    newArray.push(a[i]);
-                        //}
-                        /* if(testArray[i] === '01'){
-                         countJan++;
-                         }else if(testArray[i] === '02')
-                         {
-                         countFeb++;
-                         }else if(testArray[i] === '03')
-                         {
-                         countMar++;
-                         }else if(testArray[i] === '04')
-                         {
-                         countApr++;
-                         }else if(testArray[i] === '05')
-                         {
-                         countMay++;
-                         }else if(testArray[i] === '06')
-                         {
-                         countJun++;
-                         }else if(testArray[i] === '07')
-                         {
-                         countJul++;
-                         }else if(testArray[i] === '08')
-                         {
-                         countAug++;
-                         }else if(testArray[i] === '09')
-                         {
-                         countSept++;
-                         }else if(testArray[i] === '10')
-                         {
-                         countOct++;
-                         }else if(testArray[i] === '11')
-                         {
-                         countNov++;
-                         }else if(testArray[i] === '12')
-                         {
-                         countDec++;
-                         }*/
-                        /*if(a[i].indexOf('') === -1){
-                         trimmed_array.push(a[i]);
-
-                         }
-                         for( j = 0; j < 3; j++){
-
-                         //testArray[i] = parseInt(trimmed_array[i][j]);
-                         console.log(trimmed_array[i][j]);
-                         }
-                         testArray[i] = parseInt(trimmed_array[i]);*/
                     }
-
-                    console.log( $rootScope.prospectArray );
-                    console.log( $rootScope.month);
-                    console.log( $rootScope.year);
+                    console.log( "testArray",testArray);
                     for( j = 0;j < $rootScope.prospectArray.length; j++){
 
                         if(angular.equals($rootScope.currentYear,$rootScope.year[j]) || angular.equals($rootScope.previousYear,$rootScope.year[j])){
@@ -384,48 +443,100 @@ angular.module('PreSales-Huddle')
                     }
                     console.log(countCurrentJan);
 
-                   // console.log("year", $rootScope.year );
-                   /* testArray.length = 0;
-                    for(j=0;j<newArray.length;j++){
-                        testArray.push(newArray[j]);
-
-                        testArray[j] = Date.UTC(testArray[j][0],testArray[j][1]);
-                    }
-
-
-                    console.log(testArray);
-                    var finalArray = countArray(testArray);
-                    console.log(finalArray);
-                    var b = [];
-                    b.push(finalArray);
-                    /!* testArray = countArray(trimmed_array);
-                     console.log(testArray);
-                     var parentArray = $.map(testArray[0], function (value) {
-                     return [value];
-                     });
-                     for ( i = 0; i < testArray.length; i++ ) {
-                     var array = $.map(testArray[i], function (value) {
-                     return [value];
-                     });
-                     parentArray[i] = array;
-                     }
-                     var Array = $.map(parentArray, function (value) {
-                     return [value];
-                     });
-                     console.log(Array);
-                     for( k = 0; k < Array.length; k++ ){
-                     a[i] = Array[i]
-
-                     }
-                     console.log(Array);*!/
-                    console.log(b);*/
                     $(document).ready(function () {
-                        RenderLineChart('report-container', [
-                         [countPrevJan],[countPrevFeb],[countPrevMar],[countPrevApr],[countPrevMay],[countPrevJun],
-                         [countPrevJul],[countPrevAug],[countPrevSept],[countPrevOct],[countPrevNov],[countPrevDec],
-                         [countCurrentJan],[countCurrentFeb],[countCurrentMar],[countCurrentApr],[countCurrentMay],[countCurrentJun]  ,
-                         [countCurrentJul],[countCurrentAug],[countCurrentSept],[countCurrentOct],[countCurrentNov] ,[countCurrentDec]
+                        if($rootScope.currentMonth == 0){
+                            RenderLineChart('report-container', [
+                                [countPrevFeb],[countPrevMar],[countPrevApr],[countPrevMay],[countPrevJun],
+                                [countPrevJul],[countPrevAug],[countPrevSept],[countPrevOct],[countPrevNov],[countPrevDec],
+                                [countCurrentJan]
+                            ]);
+
+                        }
+                        else if($rootScope.currentMonth == 1){
+                            RenderLineChart('report-container', [
+                                [countPrevMar],[countPrevApr],[countPrevMay],[countPrevJun],
+                                [countPrevJul],[countPrevAug],[countPrevSept],[countPrevOct],[countPrevNov],[countPrevDec],
+                                [countCurrentJan],[countCurrentFeb]
+                            ]);
+
+                        }
+                        else if($rootScope.currentMonth == 2){
+                            RenderLineChart('report-container', [
+                                [countPrevApr],[countPrevMay],[countPrevJun],
+                                [countPrevJul],[countPrevAug],[countPrevSept],[countPrevOct],[countPrevNov],[countPrevDec],
+                                [countCurrentJan],[countCurrentFeb],[countCurrentMar]
+                            ]);
+
+                        }
+                        else if($rootScope.currentMonth == 3){
+                            RenderLineChart('report-container', [
+                                [countPrevMay],[countPrevJun],
+                                [countPrevJul],[countPrevAug],[countPrevSept],[countPrevOct],[countPrevNov],[countPrevDec],
+                                [countCurrentJan],[countCurrentFeb],[countCurrentMar],[countCurrentApr]
+                            ]);
+
+                        }
+                        else if($rootScope.currentMonth == 4){
+                            RenderLineChart('report-container', [
+                                    [countPrevJun],
+                                [countPrevJul],[countPrevAug],[countPrevSept],[countPrevOct],[countPrevNov],[countPrevDec],
+                                [countCurrentJan],[countCurrentFeb],[countCurrentMar],[countCurrentApr],[countCurrentMay]
                         ]);
+
+                        }
+                        else if($rootScope.currentMonth == 5){
+                            RenderLineChart('report-container', [
+                                [countPrevJul],[countPrevAug],[countPrevSept],[countPrevOct],[countPrevNov],[countPrevDec],
+                                [countCurrentJan],[countCurrentFeb],[countCurrentMar],[countCurrentApr],[countCurrentMay],[countCurrentJun]
+                            ]);
+
+                        }
+                        else if($rootScope.currentMonth == 6){
+                            RenderLineChart('report-container', [
+                                [countPrevAug],[countPrevSept],[countPrevOct],[countPrevNov],[countPrevDec],
+                                [countCurrentJan],[countCurrentFeb],[countCurrentMar],[countCurrentApr],[countCurrentMay],[countCurrentJun],
+                                [countCurrentJul]
+                            ]);
+
+                        }
+                        else if($rootScope.currentMonth == 7){
+                            RenderLineChart('report-container', [
+                                [countPrevSept],[countPrevOct],[countPrevNov],[countPrevDec],
+                                [countCurrentJan],[countCurrentFeb],[countCurrentMar],[countCurrentApr],[countCurrentMay],[countCurrentJun],
+                                [countCurrentJul],[countCurrentAug]
+                            ]);
+
+                        }
+                        else if($rootScope.currentMonth == 8){
+                            RenderLineChart('report-container', [
+                                [countPrevOct],[countPrevNov],[countPrevDec],
+                                [countCurrentJan],[countCurrentFeb],[countCurrentMar],[countCurrentApr],[countCurrentMay],[countCurrentJun],
+                                [countCurrentJul],[countCurrentAug],[countCurrentSept]
+                            ]);
+
+                        }
+                        else if($rootScope.currentMonth == 9){
+                            RenderLineChart('report-container', [
+                                [countPrevNov],[countPrevDec],
+                                [countCurrentJan],[countCurrentFeb],[countCurrentMar],[countCurrentApr],[countCurrentMay],[countCurrentJun],
+                                [countCurrentJul],[countCurrentAug],[countCurrentSept],[countCurrentOct]
+                            ]);
+
+                        }
+                        else if($rootScope.currentMonth == 10){
+                            RenderLineChart('report-container', [
+                                    [countPrevDec],
+                                [countCurrentJan],[countCurrentFeb],[countCurrentMar],[countCurrentApr],[countCurrentMay],[countCurrentJun],
+                                [countCurrentJul],[countCurrentAug],[countCurrentSept],[countCurrentOct],[countCurrentNov]
+                            ]);
+
+                        }
+                        else if($rootScope.currentMonth == 11){
+                            RenderLineChart('report-container', [
+                                [countCurrentJan],[countCurrentFeb],[countCurrentMar],[countCurrentApr],[countCurrentMay],[countCurrentJun],
+                                [countCurrentJul],[countCurrentAug],[countCurrentSept],[countCurrentOct],[countCurrentNov] ,[countCurrentDec]
+                            ]);
+                        }
                     });
                 }
 
@@ -496,6 +607,7 @@ angular.module('PreSales-Huddle')
                         ]);
                     });
                 }
+
                 else if ( angular.equals($scope.reportType, $scope.reportTypes[2].value) ) {
 
                     for ( i = 0; i < data.length; i++ ) {
@@ -1021,12 +1133,13 @@ angular.module('PreSales-Huddle')
                 colors: ['#7cb5ec', '#434348', '#90ed7d', '#f7a35c', '#8085e9',
                     '#f15c80', '#e4d354', '#2b908f', '#f45b5b', '#91e8e1','#E5005A'],
                 title: {
-                    text: 'Probable teamsize'
+                    text: 'Probable team size'
                 },
                 tooltip: {
-                    formatter: function () {
+                    enabled:false
+                    /*formatter: function () {
                         return  'No. of people = <b>' + this.point.name + '</b>: ' + 'No. of teams = <b>'+ this.point.y ;
-                    }
+                    }*/
                 },
                 legend: {
                     align: 'right',
@@ -1055,7 +1168,7 @@ angular.module('PreSales-Huddle')
 
                             formatter: function () {
                                 if (this.y != 0){
-                                    return '<b>' + this.point.name + '</b>: '+ Highcharts.numberFormat(this.percentage, 2) + '%';
+                                    return  Highcharts.numberFormat(this.percentage, 2) + '%';
                                 }
                                 else{
                                     return null;
