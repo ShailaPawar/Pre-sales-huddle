@@ -158,7 +158,7 @@ angular.module('PreSales-Huddle')
         };
 
         // default sorting order is by Prospect Creation Date
-        $scope.orderByField = 'CreateDate';
+        $scope.orderByField = '-CreateDate';
 
         //  search keyword by  Technology stack and domain
         $scope.searchWord = function (prospectList) {
@@ -578,7 +578,7 @@ angular.module('PreSales-Huddle')
         };
 
         // default sorting order is by Prospect start Date
-        $scope.orderByField = 'StartDate';
+        $scope.orderByField = '-StartDate';
 
         $scope.showClientInfo = function (prospect) {
             $rootScope.prospectToUpdate = prospect;
