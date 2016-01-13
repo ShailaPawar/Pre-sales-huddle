@@ -38,7 +38,7 @@ angular.module('PreSales-Huddle')
             // creationDate.toLocaleString('en-US');
             var data = {
                 Name:               $scope.prospectName,
-                CreateDate :        new Date($scope.date),
+                CreateDate :        $scope.date,
                 TechStack:          $scope.techStack,
                 Domain:             $scope.domain,
                 DesiredTeamSize:    $scope.teamSize,
