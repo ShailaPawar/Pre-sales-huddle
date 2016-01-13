@@ -75,7 +75,7 @@
         </thead>
         <tbody ng-show = "!showDeadProspects">
             <tr  ng-show = "!prospect.BUHead && !prospect.DeadProspectNotes" ng-repeat = "prospect in prospects | orderBy:orderByField:reverseSort | filter:searchWord" >
-                 <td> {{ prospect.Name }} </td>
+                <td> {{ prospect.Name }} </td>
                 <td> {{ prospect.CreateDate  | date: "dd-MMM-yyyy" }} </td>
                 <td> {{ prospect.TechStack }} </td>
                 <td> {{ prospect.Domain }} </td>
