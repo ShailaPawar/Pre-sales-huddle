@@ -31,10 +31,10 @@
                     <span ng-show="reverseSort" class="glyphicon glyphicon-chevron-down"></span>
                 </span>
             </th>
-            <th ng-click="orderByField='CreateDate'; reverseSort = !reverseSort"> Creation Date
-                <span ng-show="orderByField == 'CreateDate'">
-                    <span ng-show="!reverseSort" class="glyphicon glyphicon-chevron-up"></span>
-                    <span ng-show="reverseSort" class="glyphicon glyphicon-chevron-down"></span>
+            <th ng-click="orderByField='-CreateDate'; reverseSort = !reverseSort"> Creation Date
+                <span ng-show="orderByField == '-CreateDate'">
+                    <span ng-show="reverseSort" class="glyphicon glyphicon-chevron-up"></span>
+                    <span ng-show="!reverseSort" class="glyphicon glyphicon-chevron-down"></span>
                 </span>
             </th>
             <th ng-click="orderByField='TechStack'; reverseSort = !reverseSort"> Tech Stack
@@ -162,11 +162,12 @@
                     <span   class = "glyphicon glyphicon-trash" aria-hidden = "true" ></span>
                 </a>
 
-                <a ng-show="!user" id="volunteer" ng-click="volunteerProspect(prospect)" class = "edit-btn" data-toggle = "tooltip" title = "Volunteer" >
-                    <span   class = "glyphicon glyphicon-hand-up" aria-hidden = "true" ></span>
-                </a>
-            </td>
-        </tr>
+                    <a ng-show="!user" id="volunteer" ng-click="volunteerProspect(prospect)" class = "edit-btn" data-toggle = "tooltip" title = "Volunteer" >
+                        <span   class = "glyphicon glyphicon-hand-up" aria-hidden = "true" ></span>
+                    </a>
+                </td>
+            </tr>
+        </span>
         </tbody>
     </table>
     <div class="modal fade" id="myModal" role="dialog" >
