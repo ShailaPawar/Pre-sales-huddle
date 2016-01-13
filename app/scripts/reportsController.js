@@ -1137,9 +1137,7 @@ angular.module('PreSales-Huddle')
                 },
                 tooltip: {
                     enabled:false
-                    /*formatter: function () {
-                        return  'No. of people = <b>' + this.point.name + '</b>: ' + 'No. of teams = <b>'+ this.point.y ;
-                    }*/
+                    
                 },
                 legend: {
                     align: 'right',
