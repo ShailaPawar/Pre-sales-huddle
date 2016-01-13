@@ -922,7 +922,7 @@ angular.module('PreSales-Huddle')
                 }
 
                 a.push(Date.UTC($rootScope.previousYear,$rootScope.previoustMonth + i));
-                xAxisValues.push($rootScope.previousYear + " " + mon);
+                xAxisValues.push(mon + " " + $rootScope.previousYear);
 
 
             }
