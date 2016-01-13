@@ -162,13 +162,9 @@ angular.module('PreSales-Huddle')
 
                                 countPrevDec++;
                             }
-
                         }
-
                     }
-
                 }
-
             }
             console.log(countCurrentJan);
 
