@@ -417,23 +417,23 @@ angular.module('PreSales-Huddle')
                     console.log(testArray);
                     for( j = 0; j < testArray.length; j++){
 
-                        if(testArray[j].indexOf('created') !== -1){
+                        if(testArray[j].indexOf("created") !== -1){
                             countCreated++;
-                        }else if(testArray[j].indexOf('Prep') !== -1){
+                        }else if(testArray[j].indexOf("Prep") !== -1){
 
                             countPrep++;
-                        }else if(testArray[j].indexOf('Client') !== -1){
+                        }else if(testArray[j].indexOf("Client") !== -1){
 
                             countClient++;
                         }
-                        else if(testArray[j].indexOf('Dead') !== -1){
+                        else if(testArray[j].indexOf("Dead prospect") !== -1){
                             countDead++
 
-                        }else if(testArray.indexOf('client') !== -1){
+                        }else if(testArray[j].indexOf("Prospect converted") !== -1){
 
                             countClientCreated++;
                         }
-                        else if(testArray.indexOf('Following up') !== -1){
+                        else{
                             countFollowUP++;
 
                         }
