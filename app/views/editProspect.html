@@ -18,10 +18,10 @@
                 </label>
 
                 <!--<input type = "date" ng-model = "prospect.CreateDate" id = "date" name = "date" class = "form-control"-->
-                       <!--max = "{{maxDate | date: 'yyyy-MM-dd'}}" >-->
+                       <!--max = "{{maxDate | date: 'yyyy-MM-dd'}}" disabled>-->
                 <input type = "date" ng-model = "creationDate"
                        ng-init = "creationDate = setCreateDate(prospect.CreateDate)" id = "date" name = "date" class = "form-control"
-                       max = "{{maxDate | date: 'yyyy-MM-dd'}}" disabled>
+                       max = "{{maxDate | date: 'yyyy-MM-dd'}}" disabled required>
             </div>
             <div class = "form-group">
                 <label for = "techStack"> Tech Stack: </label>
