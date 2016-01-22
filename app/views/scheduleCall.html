@@ -9,18 +9,20 @@
                 <select id="call" class="form-control" ng-model="call" ng-options="typeOfCall.value as typeOfCall.name for typeOfCall in typeOfCall">
                 </select>
             </div>
-            <div class = "form-group">
+            <div class = "form-group" ng-class="{ 'has-error' : scheduleCallForm.fromTime.$invalid && !scheduleCallForm.fromTime.$pristine }">
                 <label for = "fromTime"> From Time:
                     <img src = "images/required.gif" alt = "Required" class = "required-star">
                 </label>
 
                 <div class='input-group date' id='fromTime'  >
-                    <input type='text' class="form-control" name="fromTime" ng-model = "fromTime"/>
+                    <input type='text' class="form-control" name="fromTime" ng-model = "fromTime" required />
 					<span class="input-group-addon">
                         <span class="glyphicon glyphicon-calendar"></span>
 					</span>
                 </div>
+                <p ng-show="scheduleCallForm.fromTime.$invalid && !scheduleCallForm.fromTime.$pristine" class="help-block">From Time is required.</p>
             </div>
+
             <div class = "form-group">
                 <label for = "toTime"> To Time:
                     <img src = "images/required.gif" alt = "Required" class = "required-star">
@@ -46,7 +48,7 @@
                         <tr ng-repeat = "participant in participants">
                             <td>
                                 <input type = "checkbox" ng-model = "included"
-                                    ng-change = "checkState(included, participant)" ng-init = "included = true">
+                                    ng-change = "checkState(included, participant)" ng-init = "included = true" ng-model="participants.checked" ng-click="countCheck(participants)">
                             </td>
                             <td> {{ participant.volunteerName }} </td>
                             <td> {{ participant.ParticipationRole }} </td>
@@ -72,7 +74,7 @@
             </p>
             <div class = "form-group">
                 <input type="button" id="cancel-button" value="Cancel" class="col-sm-2 btn btn-primary" ng-click="go('prospects')">
-                <button type="button" class="col-sm-2 btn btn-primary" ng-click="scheduleCall()" style="margin-left:10px;"> Save </button>
+                <button type="button" id="save" class="col-sm-2 btn btn-primary" ng-click="scheduleCall()" style="margin-left:10px;" ng-disabled="scheduleCallForm.$invalid"> Save </button>
             </div>
             <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                 <div class="vertical-alignment-helper">
@@ -89,28 +91,41 @@
                     </div>
                 </div>
             </div>
+
+
+            <div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                <div class="vertical-alignment-helper">
+                    <div class="modal-dialog vertical-align-center">
+                        <div class="modal-content" style="width: 20% !important;">
+                            <div class="modal-body">
+                                <div style="text-align: center">No Volunteer to schedule Call.
+                                </div>
+                                <br>
+                                <button ng-click="goBack()" type="button" class="btn btn-primary" data-dismiss="modal" style="margin-left: 40%" >OK</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                <div class="vertical-alignment-helper">
+                    <div class="modal-dialog vertical-align-center">
+                        <div class="modal-content" style="width: 20% !important;">
+                            <div class="modal-body">
+                                <div style="text-align: center">Select atleast 1 Volunteer and Try again.
+                                </div>
+                                <br>
+                                <button ng-click="goBackToScheduleCall()" type="button" class="btn btn-primary" data-dismiss="modal" style="margin-left: 40%" >OK</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
         </div>
     </form>
 </section>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

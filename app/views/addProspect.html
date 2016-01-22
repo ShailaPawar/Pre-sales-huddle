@@ -1,13 +1,14 @@
 <span id="pageTitle">Add a Prospect </span>
 <form  name = "createForm" novalidate>
     <div ng-show="!showProspectNote" class = "container" id = "form-container">
-        <div class = "form-group">
+        <div class = "form-group" ng-class="{ 'has-error' : createForm.prospectName.$invalid && !createForm.prospectName.$pristine }">
             <label for = "prospectName"> Prospect Name:
                 <img src = "images/required.gif" alt = "Required" class = "required-star">
             </label>
 
             <input type = "text" id = "prospectName" name = "prospectName" ng-model = "prospectName"
                    class = "form-control" required>
+            <p ng-show="createForm.prospectName.$invalid && !createForm.prospectName.$pristine" class="help-block">Prospect Name is required.</p>
         </div>
         <div class = "form-group">
             <label for = "date"> Creation Date:
@@ -16,7 +17,6 @@
 
             <input type = "date" id = "date" name = "date" ng-model = "date" class = "form-control"
                    max = "{{maxDate | date: 'yyyy-MM-dd'}}" >
-
         </div>
 
         <div class = "form-group">
@@ -46,12 +46,12 @@
             <input type="button" id="cancel-button" value="Cancel" class="col-sm-2 btn btn-primary"
                    ng-click="go('prospects')">
             <button type="submit" class="col-sm-2 btn btn-primary" ng-click="notesPage()"
-                    style="margin-left:10px;"> Next </button>
+                    style="margin-left:10px;" ng-disabled="createForm.$invalid"> Next </button>
         </div>
     </div>
     <div class="form-group"></div>
 </form>
-<form  name = "createForm" novalidate>
+<form  name = "createFormNotes" novalidate>
     <div ng-show="showProspectNote" class = "container" id = "notes-container">
         <div class = "form-group">
             <label for = "notes"> Notes for Prospect '{{nameOfProspect}}'</label>
@@ -81,5 +81,3 @@
         </div>
     </div>
 </form>
-
-

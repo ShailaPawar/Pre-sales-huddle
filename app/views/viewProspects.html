@@ -174,22 +174,25 @@
         <div class="vertical-alignment-helper">
             <div class="modal-dialog vertical-align-center">
 
-            <!-- Modal content-->
-            <div class="modal-content" style="width: 37% !important;">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">Set up Reminder</h4>
+                <!-- Modal content-->
+                <div class="modal-content" style="width: 37% !important;">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Set up Reminder</h4>
+                    </div>
+                    <div class="modal-body">
+                        <label> Remind me to follow up with '{{prospectToView.Name}}' prospect every
+                            <input
+                                   type = "number" name="numberOfDays" id = "numberOfDays" ng-model = "numberOfDays" min = 1 max = 90 style = "margin-left: 1%; margin-right: 1%"  required>
+                            days
+
+                        </label>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="col-sm-2 btn btn-primary" data-dismiss="modal">Cancel</button>
+                        <button type="button" class="col-sm-2 btn btn-primary" ng-click="prospectPage()" data-dismiss="modal">Save</button>
+                    </div>
                 </div>
-                <div class="modal-body">
-                    <label> Remind me to follow up with '{{prospectToView.Name}}' prospect every
-                    <input type = "number" id = "numberOfDays" ng-model = "numberOfDays" min = 1 max = 90 style = "margin-left: 1%; margin-right: 1%" required>
-                    days</label>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="col-sm-2 btn btn-primary" data-dismiss="modal">Cancel</button>
-                    <button type="button" class="col-sm-2 btn btn-primary" ng-click="prospectPage()" data-dismiss="modal">Save</button>
-                </div>
-            </div>
             </div>
         </div>
     </div>

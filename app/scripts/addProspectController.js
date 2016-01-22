@@ -13,7 +13,17 @@ angular.module('PreSales-Huddle')
         document.getElementById('titleText').style.display='none';
 
         $scope.maxDate = new Date();
-        $scope.date = $scope.maxDate;
+        var currentYear = $scope.maxDate.getFullYear();
+        var currentMonth = $scope.maxDate.getMonth();
+        var currentDate = $scope.maxDate.getDate();
+        var currentHour = $scope.maxDate.getHours();
+        var currentMinutes = $scope.maxDate.getMinutes();
+        var currentSeconds = $scope.maxDate.getSeconds();
+        var currentMilliSeconds = $scope.maxDate.getMilliseconds();
+
+        $scope.date = new Date(currentYear, currentMonth, currentDate);
+        console.log("$scope.date", $scope.date);
+
         $rootScope.showProspectNote = 0;
 
 
@@ -40,7 +50,7 @@ angular.module('PreSales-Huddle')
             // creationDate.toLocaleString('en-US');
             var data = {
                 Name:               $scope.prospectName,
-                CreateDate :        $scope.date,
+                CreateDate :        n,
                 TechStack:          $scope.techStack,
                 Domain:             $scope.domain,
                 DesiredTeamSize:    $scope.teamSize,

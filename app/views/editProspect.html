@@ -4,25 +4,35 @@
     <form name = "editForm" novalidate ng-submit="submitMyForm()">
         <div ng-show="!editProspectNotes" class="container" style="background-color:whitesmoke" id = "form-container">
 
-            <div class = "form-group">
+            <div class = "form-group" ng-class="{ 'has-error' : editForm.prospectName.$invalid && !editForm.prospectName.$pristine }">
                 <label for = "prospectName"> Prospect Name:
                     <img src = "images/required.gif" alt = "Required" class = "required-star">
                 </label>
 
                 <input type = "text" ng-model = "prospect.Name" id = "prospectName" name = "prospectName"
                        class = "form-control" required>
+                <p ng-show="editForm.prospectName.$invalid && !editForm.prospectName.$pristine" class="help-block">Prospect Name is required.</p>
             </div>
             <div class = "form-group">
                 <label for = "date"> Creation Date:
                     <img src = "images/required.gif" alt = "Required" class = "required-star">
                 </label>
 
-                <!--<input type = "date" ng-model = "prospect.CreateDate" id = "date" name = "date" class = "form-control"-->
-                       <!--max = "{{maxDate | date: 'yyyy-MM-dd'}}" disabled>-->
-                <input type = "date" ng-model = "creationDate"
-                       ng-init = "creationDate = setCreateDate(prospect.CreateDate)" id = "date" name = "date" class = "form-control"
-                       max = "{{maxDate | date: 'yyyy-MM-dd'}}" disabled required>
+                <input type = "date" ng-model = "prospect.CreateDate" id = "date" name = "date" class = "form-control"
+                       max = "{{maxDate | date: 'yyyy-MM-dd'}}" disabled>
+                <!--<input type = "date" ng-model = "creationDate"-->
+                <!--ng-init = "creationDate = setCreateDate(prospect.CreateDate)" id = "date" name = "date" class = "form-control"-->
+                <!--max = "{{maxDate | date: 'yyyy-MM-dd'}}" disabled required>-->
             </div>
+            <!--<div class = "form-group">
+                <label for = "date"> Creation Date:
+                    <img src = "images/required.gif" alt = "Required" class = "required-star">
+                </label>
+
+                <input type = "date" ng-model = "creationDate"
+                       ng-model-options = "creationDate = setCreateDate(prospect.CreateDate)" id = "date" name = "date" class = "form-control"
+                       max = "{{maxDate | date: 'yyyy-MM-dd'}}" >
+            </div>-->
             <div class = "form-group">
                 <label for = "techStack"> Tech Stack: </label>
 
@@ -50,15 +60,15 @@
                 <input type="button" id="cancel-button" value="Cancel" class="col-sm-2 btn btn-primary"
                        ng-click="go('prospects')">
                 <button type="button" class="col-sm-2 btn btn-primary" ng-click="editProspectNote()"
-                        style="margin-left:10px;"> Next </button>
+                        style="margin-left:10px;" ng-disabled="editForm.$invalid"> Next </button>
             </div>
         </div>
     </form>
-    <form name = "editForm" novalidate ng-submit="submitMyForm()">
+    <form name = "editFormNotes" novalidate ng-submit="submitMyForm()">
         <div ng-show="editProspectNotes" class="container" style="background-color:whitesmoke" id = "notes-container">
 
             <div class = "form-group">
-                <label for = "notes"> Notes for Prospect '{{nameOfProspect}}'</label>
+                <label for = "notes"> Notes for Prospect {{nameOfProspect}}</label>
                 <pre style="font-family: helvetica;font-size: 14px;text-align: left;padding: 0px 0px 0px 0px;border: none;margin-top: -4%;margin-bottom: -8% ">
                     <textarea  rows="20" ng-model = "prospect.ProspectNotes" id = "notes" name = "notes"class = "form-control">
                     </textarea>
@@ -88,3 +98,16 @@
         </div>
     </form>
 </section>
+
+<!--
+
+<div class="form-group" ng-class="{ 'has-error' : userForm.name.$invalid && !userForm.name.$pristine }">
+    <label>Name</label>
+    <input type="text" name="name" class="form-control" ng-model="user.name" required>
+    <p ng-show="userForm.name.$invalid && !userForm.name.$pristine" class="help-block">You name is required.</p>
+</div>
+
+
+
+
+<button type="submit" class="btn btn-primary" ng-disabled="userForm.$invalid">Submit</button>-->

@@ -130,7 +130,7 @@ angular.module('PreSales-Huddle')
             console.log($rootScope.ConfDateStart);
             $rootScope.defaultToTime = new Date($rootScope.ConfDateStart);
             $rootScope.defaultToTime.setMinutes($rootScope.defaultToTime.getMinutes() + 45);
-
+            //$scope.fromTime =  e.date;
             //var d = new Date($rootScope.defaultToTime);
             //var month = d.getMonth() + 1;
             //var day = d.getDate();
@@ -150,11 +150,13 @@ angular.module('PreSales-Huddle')
 
         jQuery('#toTime').datetimepicker();
         jQuery("#toTime").on("dp.change", function (e) {
-
             //jQuery('#fromTime').data("DateTimePicker").setMaxDate(e.date);
 
             $rootScope.ConfDateEnd = e.date;
             console.log($rootScope.ConfDateEnd);
+            document.getElementById("save").disabled=false;
+           // $scope.toTime =  e.date;
+
         });
     });
 
@@ -265,6 +267,8 @@ angular.module('PreSales-Huddle')
                 console.log("participants: ", participants);
                 if (JSON.parse(participants) == null) {
                     numberOfVolunteer = 0;
+                    //alert("no volunteer participated");
+                    showPopup1();
                 }
                 else {
                     numberOfVolunteer = JSON.parse(participants).length;
@@ -292,6 +296,10 @@ angular.module('PreSales-Huddle')
                         console.log("attendee_array: ", attendee_array);
                         checkAuth();
                     }
+                    else{
+                        showPopup2();
+                    }
+                    console.log("attendees",attendees) ;
                 }
 
             }).error(function (data, status, header, config) {
@@ -368,6 +376,15 @@ angular.module('PreSales-Huddle')
             $("#myModal").modal({backdrop: "static"});
         }
 
+        function showPopup1() {
+            $("#myModal1").modal({backdrop: "static"});
+        }
+
+        function showPopup2() {
+            $("#myModal2").modal({backdrop: "static"});
+        }
+
+
         // Check if current user has authorized this application.
         function checkAuth() {
             var api = gapi.auth2.getAuthInstance();
@@ -388,6 +405,11 @@ angular.module('PreSales-Huddle')
     $scope.goBack = function() {
         $('body').removeClass('modal-open');
         $location.path('/prospects');
+    }
+
+    $scope.goBackToScheduleCall = function() {
+        $('body').removeClass('modal-open');
+       /* $location.path('/prospects');*/
     }
     // Cancel button function
     $scope.go = function (path) {

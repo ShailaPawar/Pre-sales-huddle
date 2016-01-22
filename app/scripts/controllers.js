@@ -167,34 +167,34 @@ angular.module('PreSales-Huddle')
         };
 
         $scope.saveData = function(prospect) {
-            console.log("In prospect handler: ", prospect);
+            /*$http.get(baseURL + 'prospect/prospectid/' + prospect.ProspectID).success(function (data, status, headers, config) {
+                console.log("Single Prospect data: ", data);
 
-            //$http.get(baseURL + 'prospect/prospectid/'+ prospect.ProspectID).success(function(data, status, headers, config) {
-            //    console.log("Prospect data by id fecthed: ", data);
-            //    $rootScope.prospectToUpdate = data;
-            //    console.log("$rootScope.prospectToUpdate: ", $rootScope.prospectToUpdate);
-            //
-            //    // creation date
-            //    $rootScope.createDate = $rootScope.prospectToUpdate.CreateDate;
-            //    $rootScope.createDate = $rootScope.createDate.toString();
-            //    $rootScope.createDate = $rootScope.createDate.split('T')[0];
-            //    $rootScope.createDate = new Date($rootScope.createDate);
-            //
-            //    $rootScope.prospectToUpdate.CreateDate = $rootScope.createDate;
-            //    console.log(".....$rootScope.prospectToUpdate.CreateDate: ", $rootScope.prospectToUpdate.CreateDate);
-            //
-            //    // start date
-            //    $rootScope.startDate = $rootScope.prospectToUpdate.StartDate.toString();
-            //    $rootScope.startDate = $rootScope.startDate.split('T')[0];
-            //    $rootScope.startDate = new Date($rootScope.startDate);
-            //
-            //    $rootScope.prospectToUpdate.StartDate = $rootScope.startDate;
-            //}).error(function(data, status, header, config) {
-            //    console.log("Prospect data by id not fecthed");
-            //});
+                $rootScope.singleProspect = data;
 
+                console.log(new Date($rootScope.singleProspect.CreateDate));
+
+                $rootScope.prospectToUpdate = $rootScope.singleProspect;
+                console.log("In saveData() $rootScope.prospectToUpdate:",$rootScope.prospectToUpdate, prospect.CreateDate);
+
+                // creation date
+                $rootScope.createDate = $rootScope.prospectToUpdate.CreateDate;
+                $rootScope.createDate = new Date($rootScope.createDate);
+                $rootScope.prospectToUpdate.CreateDate = $rootScope.createDate;
+
+                // start date
+                $rootScope.startDate = $rootScope.prospectToUpdate.StartDate.toString();
+                $rootScope.startDate = $rootScope.startDate.split('T')[0];
+                $rootScope.startDate = new Date($rootScope.startDate);
+
+                $rootScope.prospectToUpdate.StartDate = $rootScope.startDate;
+            }).error(function (data, status, header, config) {
+                    console.log("Not able to fetch Single Prospect data.");
+                });*/
+
+            console.log(prospect);
             $rootScope.prospectToUpdate = prospect;
-            console.log("In saveData() $rootScope.prospectToUpdate:",$rootScope.prospectToUpdate, prospect.CreateDate);
+            console.log("In saveData() $rootScope.prospectToUpdate:",$rootScope.prospectToUpdate);
 
             // creation date
             $rootScope.createDate = $rootScope.prospectToUpdate.CreateDate;
@@ -221,6 +221,7 @@ angular.module('PreSales-Huddle')
                 var numberOfProspects = prospectList.length;
                 for (var i = 0; i < numberOfProspects; i++) {
                     (function (index) {
+                        prospectList[index].CreateDate = new Date(prospectList[index].CreateDate);
                         $http.get(baseURL + 'participant/prospectid/' + prospectList[i].ProspectID)
                             .success(function (participantData, status, headers, config) {
                                 var participantData = JSON.stringify(participantData);
@@ -328,6 +329,7 @@ angular.module('PreSales-Huddle')
             });
 
             $scope.numberOfDays = "";
+            $('body').removeClass('modal-open');
             javascript:history.go(-1);
             //$location.path('/prospects');
         };
@@ -613,10 +615,10 @@ angular.module('PreSales-Huddle')
 
         $scope.saveData = function(prospect) {
             console.log(prospect);
-            $rootScope.prospectToUpdate = prospect;
+           $rootScope.prospectToUpdate = prospect;
             console.log($rootScope.prospectToUpdate);
 
-            // creation date
+           // creation date
             $rootScope.createDate = $rootScope.prospectToUpdate.CreateDate.toString();
             $rootScope.createDate = $rootScope.createDate.split('T')[0];
             $rootScope.createDate = new Date($rootScope.createDate);
@@ -677,8 +679,8 @@ angular.module('PreSales-Huddle')
         ;
         $scope.Role = 'Domain advisor';
         $scope.changeRole = function () {
-            console.log($scope.volunteerRole[3].value);
-            if (angular.equals($scope.Role, $scope.volunteerRole[3].value)) {
+            console.log($scope.volunteerRole[2].value);
+            if (angular.equals($scope.Role, $scope.volunteerRole[2].value)) {
                 $scope.showDate = true;
             } else {
                 $scope.showDate = false;
