@@ -2,7 +2,7 @@ var baseURL = "http://presaleshuddle:8080/";
 
 angular.module('PreSales-Huddle')
 
-    .controller('AddProspectCtrl', function($scope, $http, $rootScope, $location) {
+    .controller('AddProspectCtrl', function($scope, $filter, $http, $rootScope, $location) {
         document.getElementById('signin').style.visibility='hidden';
         document.getElementById('g-signinP').style.height = '0px';
         document.getElementById('sign-out').style.visibility='visible';
@@ -13,7 +13,13 @@ angular.module('PreSales-Huddle')
         document.getElementById('titleText').style.display='none';
 
         $scope.maxDate = new Date();
-        $scope.date = $scope.maxDate;
+        var currentYear = $scope.maxDate.getFullYear();
+        var currentMonth = $scope.maxDate.getMonth();
+        var currentDate = $scope.maxDate.getDate();
+
+        $scope.date = new Date(currentYear, currentMonth, currentDate);
+        console.log("$scope.date", $scope.date);
+
         $rootScope.showProspectNote = 0;
 
 
@@ -29,18 +35,19 @@ angular.module('PreSales-Huddle')
             }
             if ($scope.date == undefined) {
                 console.log("undefined $scope.createDate: ", $scope.date);
-                $scope.date = new Date();
+                $scope.date = new Date(currentYear, currentMonth, currentDate);
                 console.log("$scope.date: ", $scope.date);
             }
-            console.log("$scope.date: ", $scope.date);
-            var n = $scope.date.toDateString();
+            //console.log("$scope.date: ", $scope.date);
+            //console.log("$scope.date.toLocaleDateString()", $scope.date.toLocaleDateString());
+            var n = (new Date ($scope.date)).toDateString();
             var time = $scope.date.toLocaleTimeString();
-            var status = "Prospect created on " + n;
-            //+ ' ' + time;
-            // creationDate.toLocaleString('en-US');
+            var status = "Prospect created" + " on " + n;
+            //$rootScope.ProspectCreationStatus = status + " on " + n;
+
             var data = {
                 Name:               $scope.prospectName,
-                CreateDate :        $scope.date,
+                CreateDate :        n,
                 TechStack:          $scope.techStack,
                 Domain:             $scope.domain,
                 DesiredTeamSize:    $scope.teamSize,
@@ -50,8 +57,13 @@ angular.module('PreSales-Huddle')
             };
 
             console.log(data);
-            /*$("#myModal3").modal({backdrop: false})*/;
-            $http.post(baseURL + 'prospect/', data = data).success(function(data, status, headers, config) {
+
+            var config = {
+                headers: {'Authentication': JSON.parse($rootScope.authenticationData)}
+            };
+
+            /*$("#myModal3").modal({backdrop: false});*/
+            $http.post(baseURL + 'prospect/', data = data, config).success(function(data, status, headers, config) {
                 console.log('Prospect added.');
                 $("#myModal").modal({backdrop: "static"});
 
@@ -79,7 +91,7 @@ angular.module('PreSales-Huddle')
 
         $scope.goBack = function() {
             $('body').removeClass('modal-open');
-            $location.path('/prospects');
+            $location.path('/viewProspects');
         }
 
         // Cancel button function

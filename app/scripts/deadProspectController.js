@@ -40,7 +40,9 @@ angular.module('PreSales-Huddle')
 
             console.log(data);
 
-            $http.put(baseURL + 'prospect/', data = data).success(function(data, status, headers, config) {
+            $http.put(baseURL + 'prospect/', data = data, {
+                headers: {'Authentication': JSON.parse($rootScope.authenticationData)}
+            }).success(function(data, status, headers, config) {
                 console.log('Prospect is dead.');
                 $("#myModal").modal({backdrop: "static"});
                 /* $location.path('/prospects');*/

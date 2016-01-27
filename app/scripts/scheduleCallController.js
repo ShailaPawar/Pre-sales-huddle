@@ -32,8 +32,9 @@ angular.module('PreSales-Huddle')
     console.log("current prospect:", currentProspect);
 
     // set Default call participation status of all volunteers to "Yes"
-    $http.get(baseURL + 'participant/prospectid/' + currentProspect.ProspectID)
-        .success(function (data, status, headers, config) {
+    $http.get(baseURL + 'participant/prospectid/' + currentProspect.ProspectID, {
+            headers: {'Authentication': JSON.parse($rootScope.authenticationData)}
+        }).success(function (data, status, headers, config) {
             console.log (data);
             if (data != undefined) {
                 var callParticipants = JSON.stringify(data);
@@ -48,8 +49,9 @@ angular.module('PreSales-Huddle')
                     for (var i = 0; i < numberOfVolunteer; i++) {
                         volunteersList[i].Included = "Yes";
                         (function (index) {
-                            $http.put(baseURL + 'participant/', data = volunteersList[i])
-                                .success(function (data, status, headers, config) {
+                            $http.put(baseURL + 'participant/', data = volunteersList[i], {
+                                    headers: {'Authentication': JSON.parse($rootScope.authenticationData)}
+                                }).success(function (data, status, headers, config) {
                                     console.log('participant updated.');
                                 }).error(function (participantData, status, headers, config) {
                                 console.log(participantData, status, headers, config);
@@ -73,13 +75,18 @@ angular.module('PreSales-Huddle')
         {
             value: 'Client engg call',
             name: 'Client engg call'
+        },
+        {
+            value: 'Kick-off call',
+            name: 'Kick-off call'
         }
     ];
     $scope.call = 'Internal Prep call';
 
     // display volunteer table
-    $http.get(baseURL + 'participant/prospectid/' + currentProspect.ProspectID)
-        .success(function (data, status, headers, config) {
+    $http.get(baseURL + 'participant/prospectid/' + currentProspect.ProspectID, {
+        headers: {'Authentication': JSON.parse($rootScope.authenticationData)}
+    }).success(function (data, status, headers, config) {
             //$rootScope.participants = data;
 
             var displayParticipants = JSON.stringify(data);
@@ -97,11 +104,15 @@ angular.module('PreSales-Huddle')
                         continue;
                     }
                     volunteerName = volunteerName.UserID.substring(0, volunteerName.UserID.indexOf('@'));
+
                     var volunteerFirstName = volunteerName.split('.')[0];
                     var volunteerLastName = volunteerName.split('.')[1];
-                    volunteerName = volunteerFirstName.charAt(0).toUpperCase() +
-                        volunteerFirstName.substr(1) + ' ' + volunteerLastName.charAt(0).toUpperCase() +
-                        volunteerLastName.substr(1);
+                    if (angular.equals(undefined, volunteerLastName)) {
+                        volunteerName = volunteerFirstName.charAt(0).toUpperCase() + volunteerFirstName.substr(1);
+                    } else {
+                        volunteerName = volunteerFirstName.charAt(0).toUpperCase() + volunteerFirstName.substr(1) + ' '
+                            + volunteerLastName.charAt(0).toUpperCase() + volunteerLastName.substr(1);
+                    }
                     volunteersList[i].volunteerName = volunteerName;
 
                     var notesLength = volunteersList[i].Notes.length;
@@ -179,8 +190,9 @@ angular.module('PreSales-Huddle')
             Notes: participant.Notes
         };
 
-        $http.put(baseURL + 'participant/', data = participantData)
-            .success(function (data, status, headers, config) {
+        $http.put(baseURL + 'participant/', data = participantData, {
+                headers: {'Authentication': JSON.parse($rootScope.authenticationData)}
+            }).success(function (data, status, headers, config) {
                 console.log("Data", participantData);
                 console.log('participant updated.');
             }).error(function (participantData, status, headers, config) {
@@ -198,34 +210,32 @@ angular.module('PreSales-Huddle')
     var qoute = '"';
 
     $scope.scheduleCall = function () {
-        console.log("$scope.call: ", $scope.call);
+        //console.log("$scope.call: ", $scope.call);
         var prospectStatus;
 
-        var date = new Date($rootScope.ConfDateStart);
-        var n = date.toDateString();
-        var time = date.toLocaleTimeString();
-        var date_time = n + " " + time;
+        if (!angular.equals(undefined, $rootScope.ConfDateStart)) {
+            var date = new Date($rootScope.ConfDateStart);
+            var n = date.toDateString();
+            var time = date.toLocaleTimeString();
+            var date_time = n + " " + time;
 
-        //console.log("length: ", date.toTimeString(), date.toTimeString().length);
+            var timeString = date.toTimeString();
+            var timeZone = timeString.split(" ");
+            var timeZoneStr = timeZone[1] + " " + timeZone[2];
 
-        var timeString = date.toTimeString();
-        var timeZone = timeString.split(" ");
-        var timeZoneStr = timeZone[1] + " " + timeZone[2];
-        //console.log("timeZoneStr: ", timeZoneStr);
-
-        if(angular.equals($scope.call, "Internal Prep call")) {
-            console.log("ConfDateStart: ", $rootScope.ConfDateStart);
-            prospectStatus = "Prep call scheduled for " + date_time + " " + timeZoneStr;
-                //new Date($rootScope.ConfDateStart);
-                //n + ' ' + time;
-             //(new Date($rootScope.ConfDateStart)).toLocaleString('en-US');
-        } else {
-            prospectStatus = "Client call scheduled for " + date_time + " " + timeZoneStr;
-                 //new Date($rootScope.ConfDateStart);
-                //n + ' ' + time;
-             //(new Date($rootScope.ConfDateStart)).toLocaleString('en-US');
+            if (angular.equals($scope.call, "Internal Prep call")) {
+                //console.log("ConfDateStart: ", $rootScope.ConfDateStart);
+                prospectStatus = "Prep call scheduled";
+                var status = prospectStatus + " for " + date_time + " " + timeZoneStr;
+            } else if (angular.equals($scope.call, "Client call")) {
+                prospectStatus = "Client call scheduled";
+                var status = prospectStatus + " for " + date_time + " " + timeZoneStr;
+            } else if (angular.equals($scope.call, "Client call")) {
+                prospectStatus = "Kick-off call scheduled";
+                var status = prospectStatus + " for " + date_time + " " + timeZoneStr;
+            }
+            //console.log("Prospect Status: ", prospectStatus);
         }
-        console.log("Prospect Status: ", prospectStatus);
 
         var prospectData = {
             ProspectID: $rootScope.prospectToUpdate.ProspectID,
@@ -247,8 +257,9 @@ angular.module('PreSales-Huddle')
         };
 
         // update prospect after scheduling call
-        $http.put(baseURL + 'prospect/', data = prospectData)
-            .success(function (data, status, headers, config) {
+        $http.put(baseURL + 'prospect/', data = prospectData, {
+                headers: {'Authentication': JSON.parse($rootScope.authenticationData)}
+            }).success(function (data, status, headers, config) {
                 console.log('Call details added to Prospect.');
                 /*$location.path('/prospects');*/
             }).error(function (data, status, headers, config) {
@@ -257,8 +268,9 @@ angular.module('PreSales-Huddle')
         });
 
         // select participants before sending calender invite
-        $http.get(baseURL + 'participant/prospectid/' + currentProspect.ProspectID)
-            .success(function (data, status, headers, config) {
+        $http.get(baseURL + 'participant/prospectid/' + currentProspect.ProspectID, {
+                headers: {'Authentication': JSON.parse($rootScope.authenticationData)}
+            }).success(function (data, status, headers, config) {
 
                 console.log (data);
                 var participants = JSON.stringify(data);
@@ -346,7 +358,8 @@ angular.module('PreSales-Huddle')
 
             var request = gapi.client.calendar.events.insert({
                 'calendarId': 'primary',
-                'resource': event
+                'resource': event,
+                'sendNotifications': true
             });
 
             request.execute(function (event) {
@@ -387,11 +400,11 @@ angular.module('PreSales-Huddle')
 
     $scope.goBack = function() {
         $('body').removeClass('modal-open');
-        $location.path('/prospects');
+        $location.path('/viewProspects');
     }
     // Cancel button function
     $scope.go = function (path) {
         $rootScope.lastform = "createProspect";
         $location.path(path);
     }
-})
+});

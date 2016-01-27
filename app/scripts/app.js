@@ -1,7 +1,8 @@
 'use strict';
 angular.module('PreSales-Huddle', ['ngResource', 'ngRoute'])
     .config(function ($routeProvider, $httpProvider) {
-        $routeProvider.when('/prospects', {
+        $routeProvider
+            .when('/viewProspects', {
                 templateUrl: 'views/viewProspects.html',
                 controller: 'ProspectsCtrl',
                 title: 'All Prospects'

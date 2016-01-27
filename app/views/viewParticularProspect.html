@@ -1,55 +1,67 @@
-<section id="page-sub-header">
-    <a ng-href="" class="col-sm-2 btn btn-primary pull-right" id="cancel-button" value="Cancel"  ng-click="go('prospects')"> Back </a>
+<section id = "page-sub-header">
+    <a ng-href = "" class = "col-sm-2 btn btn-primary pull-right" id = "cancel-button" value = "Cancel"  ng-click = "go('viewProspects')"> Back </a>
 </section>
 
 <section>
-    <span id="pageTitle"> Prospect </span>
-    <form name = "editForm" novalidate ng-submit="submitMyForm()">
-        <div class="container" style="background-color:whitesmoke" id = "form-container">
+    <span id = "pageTitle"> Prospect </span>
+    <form name = "editForm" novalidate ng-submit = "submitMyForm()">
+        <div ng-show = "!viewProspectNotes" class = "container" style = "background-color:whitesmoke" id = "form-container">
 
             <div class = "form-group" ng-class = "{ 'has-error' : editForm.prospectName.$invalid && submitted }">
-                <label for = "prospectName"> Prospect Name:
-                </label>
+                <label for = "prospectName"> Prospect Name: </label>
 
                 <input type = "text" ng-model = "prospect.Name" id = "prospectName" name = "prospectName" class = "form-control" readonly>
             </div>
             <div class = "form-group" ng-class = "{ 'has-error' : editForm.date.$invalid && submitted }">
-                <label for = "date"> Creation Date:
-                </label>
+                <label for = "date"> Creation Date: </label>
 
-                <input type = "date" ng-model = "prospect.CreateDate" id = "date" name = "date" class = "form-control" max = "{{ maxDate | date: 'yyyy-MM-dd'}}" readonly>
+                <input type = "date" ng-model = "prospect.CreateDate" id = "date" name = "date" class = "form-control"
+                       max = "{{ maxDate | date: 'yyyy-MM-dd'}}" readonly>
             </div>
             <div class = "form-group" ng-class = "{ 'has-error' : editForm.techStack.$invalid && submitted }">
-                <label for = "techStack"> Tech Stack:
-                </label>
+                <label for = "techStack"> Tech Stack: </label>
 
                 <input type = "text" ng-model = "prospect.TechStack" id = "techStack" name = "techStack"class = "form-control" readonly>
             </div>
             <div class = "form-group" ng-class = "{ 'has-error' : editForm.domain.$invalid && submittted }">
-                <label for = "domain"> Domain:
-                </label>
+                <label for = "domain"> Domain: </label>
 
                 <input type = "text" ng-model = "prospect.Domain" id = "domain" name = "domain" class = "form-control" readonly>
             </div>
             <div class = "form-group" ng-class = "{ 'has-error' : editForm.teamSize.$invalid && submittted }">
-                <label for = "teamSize"> Probable Team Size:
-                </label>
+                <label for = "teamSize"> Probable Team Size: </label>
 
                 <input type = "number" ng-model = "prospect.DesiredTeamSize" id = "teamSize" name = "teamSize" class = "form-control" readonly>
             </div>
             <div class = "form-group" ng-class = "{ 'has-error' : editForm.techStack.$invalid && submitted }">
-                <label for = "status"> Prospect Status:
-                </label>
+                <label for = "status"> Prospect Status: </label>
 
                 <input type = "text" ng-model = "prospect.ProspectStatus" id = "status" name = "techStack"class = "form-control" readonly>
             </div>
             <div class = "form-group">
-                <label for = "notes"> Prospect Notes:</label>
-
-                <textarea  ng-model = "prospect.ProspectNotes" id = "notes" name = "notes"class = "form-control" readonly></textarea>
+                <!--<input type="button" id="cancelbutton" value="Cancel" class="col-sm-2 btn btn-primary"-->
+                       <!--ng-click="go('prospects')">-->
+                <button type = "button" class = "col-sm-2 btn btn-primary" ng-click = "viewProspectNote()"
+                        style = "margin-bottom: 2%;"> Next </button>
+            </div>
+        </div>
+        <div class = "form-group"></div>
+    </form>
+    <form name = "viewForm" novalidate ng-submit = "submitMyForm()">
+        <div ng-show = "viewProspectNotes" class = "container" style = "background-color:whitesmoke" id = "notes-container">
+            <div class = "form-group">
+                <label for = "notes"> Notes for Prospect '{{nameOfProspect}}'</label>
+            <pre style = "font-family: helvetica; font-size: 14px; text-align: left; padding: 0px 0px 0px 0px; border: none;
+                margin-top: -4%; margin-bottom: -8% ">
+                <textarea  rows = "20" ng-model = "prospect.ProspectNotes" id = "notes" name = "notes"class = "form-control" readonly>
+                </textarea>
+            </pre>
             </div>
 
+            <div class = "form-group">
+                <input type = "button" id = "notesBack-button" value = "Prev" class = "col-sm-2 btn btn-primary"
+                       ng-click = "goToViewForm()">
+            </div>
         </div>
-        <div class="form-group"></div>
     </form>
 </section>
