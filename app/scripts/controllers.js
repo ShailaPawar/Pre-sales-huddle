@@ -261,16 +261,51 @@ angular.module('PreSales-Huddle')
             $scope.discussions = data;
         }).error(function (data, status, header, config) {});
 
+
         $scope.addDiscussion = function() {
+            if($scope.query == undefined){
+                $("#myModal1").modal({backdrop: "static"});
+            }
+            else{
+                var data = {
+                    ProspectID: $rootScope.prospectToUpdate.ProspectID,
+                    UserID: $rootScope.salesName,
+                    Query: $scope.query
+                };
+                console.log("addDiscussion", data);
+                $http.post(baseURL + 'discussion/', data = data, {
+                headers: {'Authentication': JSON.parse($rootScope.authenticationData)}
+            }).success(function (data, status, headers, config) {
+                console.log('Discussion added.');
+                $location.path('/discussions');
+                }).error(function (data, status, headers, config) {
+                    console.log('Discussion not added.');
+                });
+
+                $scope.query = "";
+
+            javascript:history.go(-1);
+        };
+
+        $scope.goBack = function() {
+            $('body').removeClass('modal-open');
+            $("#myModal").modal({backdrop: "static"});
+        }
+
+        $scope.addDiscussionCancel = function() {
+            $scope.query = "";
+            $('body').removeClass('modal-open');
+            $location.path('/discussions');
+        }
+
+        /*$scope.addDiscussion = function() {
             var data = {
                 ProspectID: $rootScope.prospectToUpdate.ProspectID,
                 UserID: $rootScope.salesName,
                 Query: $scope.query
             };
             console.log("addDiscussion", data);
-            $http.post(baseURL + 'discussion/', data = data, {
-                headers: {'Authentication': JSON.parse($rootScope.authenticationData)}
-            }).success(function (data, status, headers, config) {
+            $http.post(baseURL + 'discussion/', data = data).success(function (data, status, headers, config) {
                 console.log('Discussion added.');
                 $location.path('/discussions');
             }).error(function (data, status, headers, config) {
@@ -279,8 +314,8 @@ angular.module('PreSales-Huddle')
 
             $scope.query = "";
 
-            //javascript:history.go(-1);
-        };
+            javascript:history.go(-1);
+        };*/
 
         $scope.showDiscussion = function (discussion) {
             console.log("showdiscussion: ", discussion);
@@ -432,10 +467,10 @@ angular.module('PreSales-Huddle')
 
         $scope.saveData = function(prospect) {
             console.log(prospect);
-            $rootScope.prospectToUpdate = prospect;
+           $rootScope.prospectToUpdate = prospect;
             console.log($rootScope.prospectToUpdate);
 
-            // creation date
+           // creation date
             $rootScope.createDate = $rootScope.prospectToUpdate.CreateDate.toString();
             $rootScope.createDate = $rootScope.createDate.split('T')[0];
             $rootScope.createDate = new Date($rootScope.createDate);
@@ -497,15 +532,61 @@ angular.module('PreSales-Huddle')
                 }]
         ;
         $scope.Role = 'Domain advisor';
+        $scope.domainLabel = true;
+        $scope.technicalLabel = false;
+        $scope.staffingLabel = false;
+        $scope.teamMemberLabel = false;
+        $scope.listnerLabel = false;
+
+
         $scope.changeRole = function () {
             console.log($scope.volunteerRole[3].value);
+
+            if (angular.equals($scope.Role, $scope.volunteerRole[0].value)) {
+                $scope.domainLabel = true;
+                $scope.technicalLabel = false;
+                $scope.staffingLabel = false;
+                $scope.teamMemberLabel = false;
+                $scope.listnerLabel = false;
+                $scope.showDate = false;
+            }
+
+            if (angular.equals($scope.Role, $scope.volunteerRole[1].value)) {
+                $scope.domainLabel = false;
+                $scope.technicalLabel = true;
+                $scope.staffingLabel = false;
+                $scope.teamMemberLabel = false;
+                $scope.listnerLabel = false;
+                $scope.showDate = false;
+            }
+
+            if (angular.equals($scope.Role, $scope.volunteerRole[2].value)) {
+                $scope.domainLabel = false;
+                $scope.technicalLabel = false;
+                $scope.staffingLabel = true;
+                $scope.teamMemberLabel = false;
+                $scope.listnerLabel = false;
+                $scope.showDate = false;
+            }
+
             if (angular.equals($scope.Role, $scope.volunteerRole[3].value)) {
+                $scope.domainLabel = false;
+                $scope.technicalLabel = false;
+                $scope.staffingLabel = false;
+                $scope.teamMemberLabel = true;
+                $scope.listnerLabel = false;
                 $scope.showDate = true;
-            } else {
+            }
+
+            if (angular.equals($scope.Role, $scope.volunteerRole[4].value)) {
+                $scope.domainLabel = false;
+                $scope.technicalLabel = false;
+                $scope.staffingLabel = false;
+                $scope.teamMemberLabel = false;
+                $scope.listnerLabel = true;
                 $scope.showDate = false;
             }
         };
-
 
         $scope.addVolunteer = function () {
             var data = {
@@ -562,36 +643,46 @@ angular.module('PreSales-Huddle')
         $scope.answers = $rootScope.discussionToView.Answers;
 
         $scope.addAnswer = function () {
-            var data = {
-                DiscussionID: $rootScope.discussionToView.DiscussionID,
-                ProspectID: $rootScope.discussionToView.ProspectID,
-                UserID: $rootScope.discussionToView.UserID,
-                Query: $rootScope.discussionToView.Query,
-                Answers: [
-                    {
-                        AnswerStr: $scope.answer,
-                        UserID: $rootScope.salesName
-                    }
-                ]
-            };
-            console.log(data);
-           /* $("#myModal11").modal("show");*/
-            $http.post(baseURL + 'discussion/answer', data = data, {
+            if($scope.answer == undefined){
+                $("#myModal1").modal("show");
+            }
+            else{
+                var data = {
+                    DiscussionID: $rootScope.discussionToView.DiscussionID,
+                    ProspectID: $rootScope.discussionToView.ProspectID,
+                    UserID: $rootScope.discussionToView.UserID,
+                    Query: $rootScope.discussionToView.Query,
+                    Answers: [
+                        {
+                            AnswerStr: $scope.answer,
+                            UserID: $rootScope.salesName
+                        }
+                    ]
+                };
+                console.log(data);
+                /* $("#myModal11").modal("show");*/
+                $http.post(baseURL + 'discussion/answer', data = data, {
                 headers: {'Authentication': JSON.parse($rootScope.authenticationData)}
             }).success(function (data, status, headers, config) {
-                console.log('discussion updated.', data);
-                console.log('discussion updated.');
-                $("#myModal").modal("show");
-                /*$location.path('/discussions');*/
-            }).error(function (data, status, headers, config) {
-                console.log(data, status, headers, config);
-                console.log('discussion not updated.');
-            });
+                        console.log('discussion updated.', data);
+                        console.log('discussion updated.');
+                        $("#myModal").modal("show");
+                        /*$location.path('/discussions');*/
+                    }).error(function (data, status, headers, config) {
+                        console.log(data, status, headers, config);
+                        console.log('discussion not updated.');
+                    });
+            }
         };
 
         $scope.goBack = function() {
             $('body').removeClass('modal-open');
             $location.path('/discussions');
+        }
+
+        $scope.goBackToProspectDiss = function() {
+            $('body').removeClass('modal-open');
+            $location.path('/prospectDiscussion');
         }
     })
 

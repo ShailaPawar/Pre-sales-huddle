@@ -2,20 +2,19 @@
 <form name = "deadForm" novalidate>
     <div class = "container" id = "form-container">
 
-        <div class = "form-group">
+        <div class = "form-group" ng-class="{ 'has-error' : deadForm.notes.$invalid && !deadForm.notes.$pristine }">
             <label for = "notes"> Notes:
                 <img src = "images/required.gif" alt = "Required" class = "required-star">
             </label>
-            <textarea rows="20" id = "notes" name = "notes" ng-model = "notes" class = "form-control"
-                      placeholder = "Please enter some notes to describe why this prospect did not work out for us...">
-            </textarea>
+            <textarea rows="20" id = "notes" name = "notes" ng-model = "notes" class = "form-control" required></textarea>
+            <p ng-show="deadForm.notes.$invalid && !deadForm.notes.$pristine" class="help-block">Notes or Reason for Dead Prospect.</p>
         </div>
 
         <div class = "form-group">
             <input type="button" id="cancel-button" value="Cancel" class="col-sm-2 btn btn-primary"
                    ng-click="go('viewProspects')">
             <button type="submit" class="col-sm-2 btn btn-primary" ng-click="deadProspect()"
-                    style="margin-left:10px;"> Save </button>
+                    style="margin-left:10px;" ng-disabled="deadForm.$invalid"> Save </button>
         </div>
     </div>
     <div class="form-group">
@@ -35,3 +34,8 @@
         </div>
     </div>
 </form>
+
+
+
+
+
