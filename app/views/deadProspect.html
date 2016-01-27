@@ -6,7 +6,8 @@
             <label for = "notes"> Notes:
                 <img src = "images/required.gif" alt = "Required" class = "required-star">
             </label>
-            <textarea rows="20" id = "notes" name = "notes" ng-model = "notes" class = "form-control"></textarea>
+            <textarea rows="20" id = "notes" name = "notes" ng-model = "notes" class = "form-control" required></textarea>
+            <p ng-show="deadForm.notes.$invalid && !deadForm.notes.$pristine" class="help-block">Notes or Reason for Dead Prospect.</p>
         </div>
 
         <div class = "form-group">
@@ -33,6 +34,7 @@
         </div>
     </div>
 </form>
+
 
 
 

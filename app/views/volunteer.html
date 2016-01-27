@@ -10,6 +10,18 @@
 
                 <select id="role" class="form-control" ng-model="Role"  ng-change="changeRole()" ng-options="volunteerRole.value as volunteerRole.name for volunteerRole in volunteerRole">
                  </select>
+                <p ng-show="domainLabel" style = "font-size: 85%; padding-top: 1% "> Note: You will be expected bring in expertise with respect to the functional domain (e.g. Insurance) of this project.
+                    Please explain your expertise in the notes section below.
+                </p>
+                <p ng-show="technicalLabel" style = "font-size: 85%; padding-top: 1% "> Note: You will be expected bring in expertise with respect to the technical domain (e.g. MEAN stack) of this project.
+                    Please explain your expertise in the notes section below.
+                </p>
+                <p ng-show="staffingLabel" style = "font-size: 85%; padding-top: 1% "> Note: You are a lead or BU head who can guide the sales person on staffing this project.
+                </p>
+                <p ng-show="teamMemberLabel" style = "font-size: 85%; padding-top: 1% "> Note: You are interested to join this project. You must specify your earliest possible joining date.
+                </p>
+                <p ng-show="listnerLabel" style = "font-size: 85%; padding-top: 1% "> Note: You will participate in this call only to listen and learn.
+                </p>
             </div>
             <div class = "form-group" ng-show="showDate" ng-class = "{ 'has-error' : editForm.date.$invalid && submitted }">
                 <label for = "date"> Earliest Availability Date:

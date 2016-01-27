@@ -30,7 +30,9 @@ angular.module('PreSales-Huddle')
                 ProspectNotes:      $rootScope.prospectToUpdate.ProspectNotes,
                 ConfCalls:          $rootScope.prospectToUpdate.ConfCalls,
                 ProspectStatus:     status,
-                SalesID:            $rootScope.prospectToUpdate.salesName,
+                /*SalesID:            $rootScope.prospectToUpdate.salesName,*/
+                /*SalesID:            $rootScope.prospectToUpdate.SalesID,*/
+                SalesID:            $rootScope.salesName,
                 StartDate:          $rootScope.prospectToUpdate.StartDate,
                 TeamSize:           $rootScope.prospectToUpdate.TeamSize,
                 ClientNotes:        $rootScope.prospectToUpdate.ClientNotes,

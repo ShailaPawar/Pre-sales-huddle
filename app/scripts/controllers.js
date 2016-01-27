@@ -227,14 +227,32 @@ angular.module('PreSales-Huddle')
                                 var participantData = JSON.stringify(participantData);
                                 if (JSON.parse(participantData) == null) {
                                     prospectList[index].noOfVolunteers = 0;
+                                    prospectList[index].currentUserVolunteer = 0;
                                 }
                                 else {
                                     prospectList[index].noOfVolunteers = JSON.parse(participantData).length;
+                                    console.log("participantData:-",participantData)
+                                    var participantDataLength = prospectList[index].noOfVolunteers;
+                                    var currentUserAvailable = 0 ;
+                                    while(participantDataLength != 0){
+                                        participantDataString = JSON.stringify(participantData);
+                                        participantDataParse = JSON.parse(participantData);
+                                        if(participantDataParse[participantDataLength-1].UserID == $rootScope.currentUser) {
+                                            currentUserAvailable = 1;
+                                            break ;
+                                         }
+                                        participantDataLength --;
+                                     }
+                                if(currentUserAvailable == 1){
+                                    prospectList[index].currentUserVolunteer = 1;
                                 }
+                                else{
+                                    prospectList[index].currentUserVolunteer = 0;
+                                }
+                             }
                             }).error(function (data, status, header, config) {
-                            console.log("Not able to calculate volunteer count")
-                        });
-
+                                console.log("Not able to calculate volunteer count")
+                            });
                         $http.get(baseURL + 'discussion/prospectid/' + prospectList[i].ProspectID)
                             .success(function (discussionData, status, headers, config) {
                                 var discussionData = JSON.stringify(discussionData);
@@ -245,16 +263,16 @@ angular.module('PreSales-Huddle')
                                     prospectList[index].noOfDiscussion = JSON.parse(discussionData).length;
                                 }
                             }).error(function (data, status, header, config) {
-                            console.log("Not able to calculate Discussion count")
-                        });
+                                console.log("Not able to calculate Discussion count")
+                            });
                     }(i));
                 }
                 $scope.prospects = prospectList;
                 //console.log("prospectList", prospectList);
-                //console.log("all $scope.prospects", $scope.prospects);
+                console.log("all $scope.prospects", $scope.prospects);
 
             }).error(function (data, status, header, config) {
-            });
+                });
         }
 
         displayProspectList();
@@ -294,45 +312,69 @@ angular.module('PreSales-Huddle')
         };
 
         //  set up reminder save button
+
+
+
+
+
         $scope.prospectPage = function() {
-            var changeStatus = "Following up every " + $scope.numberOfDays + " days";
+            var numberOfDays = $scope.numberOfDays ;
 
-            var data = {
-                ProspectID:         $rootScope.prospectToView.ProspectID,
-                Name:               $rootScope.prospectToView.Name,
-                CreateDate :        $rootScope.prospectToView.CreateDate,
-                TechStack:          $rootScope.prospectToView.TechStack,
-                Domain:             $rootScope.prospectToView.Domain,
-                DesiredTeamSize:    $rootScope.prospectToView.DesiredTeamSize,
-                ProspectNotes:      $rootScope.prospectToView.ProspectNotes,
-                ConfCalls:          $rootScope.prospectToView.ConfCalls,
-                ProspectStatus:     changeStatus,
-                SalesID:            $rootScope.prospectToView.salesName,
-                StartDate:          $rootScope.prospectToView.StartDate,
-                TeamSize:           $rootScope.prospectToView.TeamSize,
-                ClientNotes:        $rootScope.prospectToView.ClientNotes,
-                BUHead:             $rootScope.prospectToView.BUHead,
-                DeadProspectNotes:  $rootScope.prospectToView.notes
-            };
+            if(numberOfDays == undefined){
+               // alert("Invalid Number Of Days Entered.");
+                $("#myModal1").modal({backdrop: "static"});
+            }
 
-            console.log(data);
+            else{
+                var changeStatus = "Following up every " + $scope.numberOfDays + " days";
 
-            $http.put(baseURL + 'prospect/', data = data).success(function(data, status, headers, config) {
-                console.log('Reminder for prospect is set.');
-                //$('#myModal').modal('hide');
-                //$("#myModal").modal({backdrop: "static"});
-                //displayProspectList();
-                $location.path('/prospects');
-            }).error(function(data, status, headers, config) {
-                console.log(data, status, headers, config);
-                console.log('Reminder for prospect is not set.');
-            });
+                var data = {
+                    ProspectID:         $rootScope.prospectToView.ProspectID,
+                    Name:               $rootScope.prospectToView.Name,
+                    CreateDate :        $rootScope.prospectToView.CreateDate,
+                    TechStack:          $rootScope.prospectToView.TechStack,
+                    Domain:             $rootScope.prospectToView.Domain,
+                    DesiredTeamSize:    $rootScope.prospectToView.DesiredTeamSize,
+                    ProspectNotes:      $rootScope.prospectToView.ProspectNotes,
+                    ConfCalls:          $rootScope.prospectToView.ConfCalls,
+                    ProspectStatus:     changeStatus,
+                    SalesID:            $rootScope.prospectToView.SalesID,
+                    StartDate:          $rootScope.prospectToView.StartDate,
+                    TeamSize:           $rootScope.prospectToView.TeamSize,
+                    ClientNotes:        $rootScope.prospectToView.ClientNotes,
+                    BUHead:             $rootScope.prospectToView.BUHead,
+                    DeadProspectNotes:  $rootScope.prospectToView.notes
+                };
 
+                console.log(data);
+
+                $http.put(baseURL + 'prospect/', data = data).success(function(data, status, headers, config) {
+                    console.log('Reminder for prospect is set.');
+                    //$('#myModal').modal('hide');
+                    //$("#myModal").modal({backdrop: "static"});
+                    //displayProspectList();
+                    $location.path('/prospects');
+                }).error(function(data, status, headers, config) {
+                    console.log(data, status, headers, config);
+                    console.log('Reminder for prospect is not set.');
+                });
+
+                $scope.numberOfDays = "";
+                $('body').removeClass('modal-open');
+                javascript:history.go(-1);
+                //$location.path('/prospects');
+            }
+        };
+        $scope.goBack = function() {
+            $('body').removeClass('modal-open');
+            $("#myModal").modal({backdrop: "static"});
+        }
+
+        $scope.setUpReminderCancel = function() {
             $scope.numberOfDays = "";
             $('body').removeClass('modal-open');
             javascript:history.go(-1);
-            //$location.path('/prospects');
-        };
+        }
 
         // checkbox handling
         $scope.checkDeadProspectState = function ($event, participant) {
@@ -345,6 +387,19 @@ angular.module('PreSales-Huddle')
                 $rootScope.showDeadProspects = false;
             }
         };
+
+        // checkbox show only my prospect handling
+        $scope.checkMyProspect = function ($event, participant) {
+            console.log("checkMyProspect:", $event);
+            $rootScope.showMyProspect = false;
+            if ($event == true) {
+                console.log("yes", $event);
+                $rootScope.showMyProspect = true;
+            } else if ($event == false) {
+                $rootScope.showMyProspect = false;
+            }
+        };
+
     })
 
     .controller('EditProspectCtrl', function($scope, $http, $rootScope, $location) {
@@ -451,7 +506,43 @@ angular.module('PreSales-Huddle')
             $scope.discussions = data;
         }).error(function (data, status, header, config) {});
 
+
         $scope.addDiscussion = function() {
+            if($scope.query == undefined){
+                $("#myModal1").modal({backdrop: "static"});
+            }
+            else{
+                var data = {
+                    ProspectID: $rootScope.prospectToUpdate.ProspectID,
+                    UserID: $rootScope.salesName,
+                    Query: $scope.query
+                };
+                console.log("addDiscussion", data);
+                $http.post(baseURL + 'discussion/', data = data).success(function (data, status, headers, config) {
+                console.log('Discussion added.');
+                $location.path('/discussions');
+                }).error(function (data, status, headers, config) {
+                    console.log('Discussion not added.');
+                });
+
+                $scope.query = "";
+
+                javascript:history.go(-1);
+            }
+        };
+
+        $scope.goBack = function() {
+            $('body').removeClass('modal-open');
+            $("#myModal").modal({backdrop: "static"});
+        }
+
+        $scope.addDiscussionCancel = function() {
+            $scope.query = "";
+            $('body').removeClass('modal-open');
+            $location.path('/discussions');
+        }
+
+        /*$scope.addDiscussion = function() {
             var data = {
                 ProspectID: $rootScope.prospectToUpdate.ProspectID,
                 UserID: $rootScope.salesName,
@@ -468,7 +559,7 @@ angular.module('PreSales-Huddle')
             $scope.query = "";
 
             javascript:history.go(-1);
-        };
+        };*/
 
         $scope.showDiscussion = function (discussion) {
             console.log("showdiscussion: ", discussion);
@@ -678,15 +769,61 @@ angular.module('PreSales-Huddle')
                 }]
         ;
         $scope.Role = 'Domain advisor';
+        $scope.domainLabel = true;
+        $scope.technicalLabel = false;
+        $scope.staffingLabel = false;
+        $scope.teamMemberLabel = false;
+        $scope.listnerLabel = false;
+
+
         $scope.changeRole = function () {
             console.log($scope.volunteerRole[2].value);
+
+            if (angular.equals($scope.Role, $scope.volunteerRole[0].value)) {
+                $scope.domainLabel = true;
+                $scope.technicalLabel = false;
+                $scope.staffingLabel = false;
+                $scope.teamMemberLabel = false;
+                $scope.listnerLabel = false;
+                $scope.showDate = false;
+            }
+
+            if (angular.equals($scope.Role, $scope.volunteerRole[1].value)) {
+                $scope.domainLabel = false;
+                $scope.technicalLabel = true;
+                $scope.staffingLabel = false;
+                $scope.teamMemberLabel = false;
+                $scope.listnerLabel = false;
+                $scope.showDate = false;
+            }
+
             if (angular.equals($scope.Role, $scope.volunteerRole[2].value)) {
+                $scope.domainLabel = false;
+                $scope.technicalLabel = false;
+                $scope.staffingLabel = true;
+                $scope.teamMemberLabel = false;
+                $scope.listnerLabel = false;
+                $scope.showDate = false;
+            }
+
+            if (angular.equals($scope.Role, $scope.volunteerRole[3].value)) {
+                $scope.domainLabel = false;
+                $scope.technicalLabel = false;
+                $scope.staffingLabel = false;
+                $scope.teamMemberLabel = true;
+                $scope.listnerLabel = false;
                 $scope.showDate = true;
-            } else {
+            }
+
+            if (angular.equals($scope.Role, $scope.volunteerRole[4].value)) {
+                $scope.domainLabel = false;
+                $scope.technicalLabel = false;
+                $scope.staffingLabel = false;
+                $scope.teamMemberLabel = false;
+                $scope.listnerLabel = true;
                 $scope.showDate = false;
             }
         };
-
 
         $scope.addVolunteer = function () {
             var data = {
@@ -741,34 +878,46 @@ angular.module('PreSales-Huddle')
         $scope.answers = $rootScope.discussionToView.Answers;
 
         $scope.addAnswer = function () {
-            var data = {
-                DiscussionID: $rootScope.discussionToView.DiscussionID,
-                ProspectID: $rootScope.discussionToView.ProspectID,
-                UserID: $rootScope.discussionToView.UserID,
-                Query: $rootScope.discussionToView.Query,
-                Answers: [
-                    {
-                        AnswerStr: $scope.answer,
-                        UserID: $rootScope.salesName
+            if($scope.answer == undefined){
+                $("#myModal1").modal("show");
+            }
+            else{
+                var data = {
+                    DiscussionID: $rootScope.discussionToView.DiscussionID,
+                    ProspectID: $rootScope.discussionToView.ProspectID,
+                    UserID: $rootScope.discussionToView.UserID,
+                    Query: $rootScope.discussionToView.Query,
+                    Answers: [
+                        {
+                            AnswerStr: $scope.answer,
+                            UserID: $rootScope.salesName
+                        }
+                    ]
+                };
+                console.log(data);
+                /* $("#myModal11").modal("show");*/
+                $http.post(baseURL + 'discussion/answer', data = data)
+                    .success(function (data, status, headers, config) {
+                        console.log('discussion updated.', data);
+                        console.log('discussion updated.');
+                        $("#myModal").modal("show");
+                        /*$location.path('/discussions');*/
+                    }).error(function (data, status, headers, config) {
+                        console.log(data, status, headers, config);
+                        console.log('discussion not updated.');
                     }
-                ]
-            };
-            console.log(data);
-           /* $("#myModal11").modal("show");*/
-            $http.post(baseURL + 'discussion/answer', data = data).success(function (data, status, headers, config) {
-                console.log('discussion updated.', data);
-                console.log('discussion updated.');
-                $("#myModal").modal("show");
-                /*$location.path('/discussions');*/
-            }).error(function (data, status, headers, config) {
-                console.log(data, status, headers, config);
-                console.log('discussion not updated.');
-            });
+                );
+            }
         };
 
         $scope.goBack = function() {
             $('body').removeClass('modal-open');
             $location.path('/discussions');
+        }
+
+        $scope.goBackToProspectDiss = function() {
+            $('body').removeClass('modal-open');
+            $location.path('/prospectDiscussion');
         }
     })
 
