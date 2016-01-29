@@ -1,6 +1,6 @@
 <span id="pageTitle">Add a Prospect </span>
 <form  name = "createForm" novalidate>
-    <div ng-show="!showProspectNote" class = "container" id = "form-container">
+    <div ng-show="showaddPropsectForm" class = "container" id = "form-container">
         <div class = "form-group" ng-class="{ 'has-error' : createForm.prospectName.$invalid && !createForm.prospectName.$pristine }">
             <label for = "prospectName"> Prospect Name:
                 <img src = "images/required.gif" alt = "Required" class = "required-star">
@@ -17,6 +17,7 @@
 
             <input type = "date" id = "date" name = "date" ng-model = "date" class = "form-control"
                    max = "{{maxDate | date: 'yyyy-MM-dd'}}" >
+
         </div>
 
         <div class = "form-group">
@@ -24,6 +25,12 @@
 
             <input type = "text" id = "techStack" name = "techStack" ng-model = "techStack"
                    placeholder = "e.g: C++, JavaScript, iOS" class = "form-control" >
+           <!-- <ul class="tagit ui-widget ui-widget-content ui-corner-all" id="singleFieldTags">
+                <li class="tagit-new">
+                    <input type = "text" id = "techStack" name = "techStack" ng-model = "techStack"
+                           placeholder = "e.g: C++, JavaScript, iOS" class = "form-control"  >
+                </li>
+            </ul>-->
         </div>
         <div class = "form-group">
             <label for = "domain"> Domain: </label>
@@ -61,6 +68,58 @@
         <div class = "form-group">
             <input type="button" id="notesBack-button" value="Prev" class="col-sm-2 btn btn-primary"
                    ng-click="addProspectForm()">
+            <button type="submit" class="col-sm-2 btn btn-primary" ng-click="contactsPage()"
+                    style="margin-left:10px;"> Next </button>
+        </div>
+    </div>
+    <div class="form-group"></div>
+
+   <!-- <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="vertical-alignment-helper">
+            <div class="modal-dialog vertical-align-center">
+                <div class="modal-content" style="width: 20% !important;">
+                    <div class="modal-body">
+                        <div style="text-align: center">Prospect added. </div>
+                        <br>
+                        <button ng-click="goBack()" type="button" class="btn btn-primary" data-dismiss="modal" style="margin-left: 40%">OK</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>-->
+</form>
+<form  name = "createForm" novalidate>
+    <div ng-show="showContactDetails" class = "container" id = "contact-container">
+        <div class = "form-group">
+             <div class = "form-group">
+         <label for = "keyContacts"> Key Contacts: </label>
+
+         <textarea id = "keyContacts" name = "keyContacts" ng-model = "keyContacts"
+                class = "form-control" ></textarea>
+     </div>
+         <div class = "form-group">
+             <label for = "websiteURL"> Website URL: </label>
+
+         <input type="text" id = "websiteURL" name = "websiteURL" ng-model = "websiteURL"  placeholder = "e.g: www.google.com"
+                   class = "form-control" >
+         </div>
+            <div class = "form-group">
+                <label for = "folderURL"> Folder URL: </label>
+
+                <input type="text" id = "folderURL" name = "folderURL" ng-model = "folderURL" placeholder = "e.g: www.synerzip.com/home/Documents"
+                       class = "form-control" >
+            </div>
+            <div class = "dropdown form-group" >
+                <label for = "PreRevenue"> Select Revenue:
+                </label>
+                <select id="PreRevenue" class="form-control" ng-model="PreRevenue" ng-options="revenue.value as revenue.name for revenue in revenue">
+                </select>
+            </div>
+        </div>
+
+        <div class = "form-group">
+            <input type="button" id="contactBack-button" value="Back" class="col-sm-2 btn btn-primary"
+                   ng-click="notesPage()">
             <button type="submit" class="col-sm-2 btn btn-primary" ng-click="addProspect()"
                     style="margin-left:10px;"> Add </button>
         </div>
@@ -81,3 +140,6 @@
         </div>
     </div>
 </form>
+
+
+

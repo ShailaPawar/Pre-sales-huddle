@@ -21,7 +21,21 @@ angular.module('PreSales-Huddle')
         console.log("$scope.date", $scope.date);
 
         $rootScope.showProspectNote = 0;
-
+        $rootScope.showContactDetails = 0;
+        $rootScope.showaddPropsectForm = 1;
+        $scope.revenue =
+            [{
+                value: 'Pre-revenue',
+                name:  'Pre-revenue'
+            }, {
+                value: 'Revenue under $10M',
+                name:  'Revenue under $10M'
+            }, {
+                value: 'Revenue over $10M',
+                name:  'Revenue over $10M'
+            }]
+        ;
+        $scope.PreRevenue = 'Pre-revenue';
 
         $scope.addProspect = function() {
             if (angular.equals(undefined, $scope.techStack)) {
@@ -53,7 +67,11 @@ angular.module('PreSales-Huddle')
                 DesiredTeamSize:    $scope.teamSize,
                 ProspectNotes:      $scope.notes,
                 ProspectStatus:     status,
-                SalesID:            $rootScope.salesName
+                SalesID:            $rootScope.salesName,
+                KeyContacts:        $scope.keyContacts,
+                WebsiteURL:         $scope.websiteURL,
+                FolderURL:          $scope.folderURL,
+                Revenue:            $scope.PreRevenue
             };
 
             console.log(data);
@@ -77,16 +95,29 @@ angular.module('PreSales-Huddle')
             $scope.domain = "";
             $scope.teamSize = "";
             $scope.ProspectNotes = "";
-
+            $scope.keyContacts = "";
+            $scope.websiteURL = "";
+            $scope.folderURL = "";
+            $scope.PreRevenue = "";
         };
 
         $scope.notesPage = function() {
             $rootScope.nameOfProspect = $scope.prospectName;
             $rootScope.showProspectNote = 1;
+            $rootScope.showContactDetails = 0;
+            $rootScope.showaddPropsectForm = 0;
+        };
+
+        $scope.contactsPage = function() {
+            $rootScope.showProspectNote = 0;
+            $rootScope.showContactDetails = 1;
+            $rootScope.showaddPropsectForm = 0;
         };
 
         $scope.addProspectForm = function() {
             $rootScope.showProspectNote= 0 ;
+            $rootScope.showContactDetails = 0;
+            $rootScope.showaddPropsectForm = 1;
         };
 
         $scope.goBack = function() {
@@ -99,7 +130,37 @@ angular.module('PreSales-Huddle')
             console.log("path: ", path);
             $rootScope.lastform = "create";
             $location.path(path);
+
         };
-    });
 
+       /* $(function(){
 
+            $("#tags input").on({
+                focusout : function() {
+                    var txt= this.value.replace(/[^a-z0-9\+\-\.]/ig,''); // allowed characters
+                    if(txt) $("<span/>",{text:txt.toLowerCase(), insertAfter:this});
+                    this.value="";
+                },
+                keyup : function(ev) {
+                    // if: comma|enter (delimit more keyCodes with | pipe)
+                    if(/(188|13)/.test(ev.which)) $(this).focusout();
+                }
+            });
+            $('#tags').on('click', 'span', function() {
+                if(confirm("Remove "+ $(this).text() +"?")) $(this).remove();
+            });
+
+        });*/
+       /* $(function(e) {
+            var target = $(e.target);
+            if (target.hasClass('tagit-label')) {
+                var tag = target.closest('.tagit-choice');
+                if (!tag.hasClass('removed')) {
+                    that._trigger('onTagClicked', e, {
+                        tag: tag,
+                        tagLabel: that.tagLabel(tag)
+                    });
+                }
+            }
+        });*/
+    }) ;

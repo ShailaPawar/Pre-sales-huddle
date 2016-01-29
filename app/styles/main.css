@@ -263,6 +263,43 @@ pre {
     height: 60% !important;
 }
 
-#notesBack-button {
+#notesBack-button,#contactBack-button {
     margin-bottom: 2%;
+}
+#prospectNameUrl,#discussionUrl,#scheduleCallUrl,#deadProspectNameUrl,#deadDiscussionUrl,#deadScheduleCallUrl{
+    color: black;
+
+}
+#tags{
+
+    font-family:Arial;
+    width: 100%;
+}
+#tags > span{
+    cursor:pointer;
+    display:block;
+    float:left;
+    color:#fff;
+    background:lightsteelblue;
+    padding:5px;
+    padding-right:25px;
+    margin:4px;
+}
+#tags > span:after{
+    position:absolute;
+    content:"×";
+    border:1px solid;
+    padding:2px 5px;
+    margin-left:3px;
+    font-size:11px;
+}
+#tags > input{
+    background:#fff;
+    border:1px solid #e5e5e5;
+    width:100%;
+}
+#contact-container {
+    background-color: whitesmoke;
+    width: 46%;
+    height: 60% !important;
 }

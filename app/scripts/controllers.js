@@ -408,7 +408,7 @@ angular.module('PreSales-Huddle')
         $scope.goBack = function() {
             $('body').removeClass('modal-open');
             $location.path('/clients');
-        }
+        };
 
         // Cancel button function
         $scope.go = function (path) {
@@ -767,54 +767,6 @@ angular.module('PreSales-Huddle')
         $scope.answers = $rootScope.discussionToView.Answers;
 
     })
-
-    .controller('ReportTeamsizeCtrl' , function($scope, $http, $rootScope, $location){
-        document.getElementById('signin').style.visibility = 'hidden';
-        document.getElementById('g-signinP').style.height = '0px';
-        document.getElementById('sign-out').style.visibility = 'visible';
-        document.getElementById('prospectList').style.visibility = 'visible';
-        document.getElementById('clientList').style.visibility = 'visible';
-        document.getElementById('headerText').style.visibility = 'visible';
-        document.getElementById('reports').style.visibility = 'visible';
-        document.getElementById('notifications').style.visibility='visible';
-        document.getElementById('titleText').style.display = 'none';
-
-        $scope.prospect = $rootScope.prospectToUpdate;
-
-        $http.get(baseURL + 'prospect/all/', {
-            headers: {'Authentication': JSON.parse($rootScope.authenticationData)}
-        }).success(function(data, status, headers, config) {
-            var prospectData = JSON.stringify(data);
-            var prospectList = JSON.parse(prospectData);
-            var numberOfProspects = prospectList.length;
-            for(var i = 0; i < numberOfProspects; i++){
-                (function (index) {
-                    $http.get(baseURL + 'participant/prospectid/' + prospectList[i].ProspectID, {
-                            headers: {'Authentication': JSON.parse($rootScope.authenticationData)}
-                        }).success(function(participantData, status, headers, config){
-                            var participantData = JSON.stringify(participantData);
-                            if (JSON.parse(participantData) == null) {
-                                prospectList[index].noOfVolunteers = 0;
-                            }
-                            else {
-                                prospectList[index].noOfVolunteers = JSON.parse(participantData).length;
-                            }
-                        }).error(function(data, status, header, config) {
-                        console.log("Not able to calculate volunteer count")
-                    });
-                }(i));
-            }
-            $scope.prospects = prospectList;
-            console.log("prospectList",prospectList);
-            console.log("all $scope.prospects",$scope.prospects);
-            var testArray = [];
-            for( var j = 0; j < prospectList.length; j++ ){
-                testArray[j] = prospectList[j].noOfVolunteers;
-
-            }
-            console.log(testArray);
-
-        }).error(function(data, status, header, config) {});
-    });
+;
 
 
