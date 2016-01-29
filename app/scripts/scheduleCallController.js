@@ -3,33 +3,33 @@ var baseURL = "http://presaleshuddle:8080/";
 angular.module('PreSales-Huddle')
 
     .controller('ScheduleCallCtrl', function ($scope, $http, $rootScope, $location) {
-    document.getElementById('signin').style.visibility = 'hidden';
-    document.getElementById('g-signinP').style.height = '0px';
-    document.getElementById('sign-out').style.visibility = 'visible';
-    document.getElementById('prospectList').style.visibility = 'visible';
-    document.getElementById('clientList').style.visibility = 'visible';
-    document.getElementById('headerText').style.visibility = 'visible';
-    document.getElementById('reports').style.visibility = 'visible';
-    document.getElementById('notifications').style.visibility='visible';
-    document.getElementById('titleText').style.display = 'none';
+        document.getElementById('signin').style.visibility = 'hidden';
+        document.getElementById('g-signinP').style.height = '0px';
+        document.getElementById('sign-out').style.visibility = 'visible';
+        document.getElementById('prospectList').style.visibility = 'visible';
+        document.getElementById('clientList').style.visibility = 'visible';
+        document.getElementById('headerText').style.visibility = 'visible';
+        document.getElementById('reports').style.visibility = 'visible';
+        document.getElementById('notifications').style.visibility='visible';
+        document.getElementById('titleText').style.display = 'none';
 
-    // code to show full notes on mouse hover
-    $('.dropdown').hover( function () {
-        $(this).find('.dropdown-menu').stop(true, true).delay(200).fadeIn(200);
-    }, function() {
-        $(this).find('.dropdown-menu').stop(true, true).delay(200).fadeOut(200);
-    });
+        // code to show full notes on mouse hover
+        $('.dropdown').hover( function () {
+            $(this).find('.dropdown-menu').stop(true, true).delay(200).fadeIn(200);
+        }, function() {
+            $(this).find('.dropdown-menu').stop(true, true).delay(200).fadeOut(200);
+        });
 
-    /* reffer for fix footer height
-     $().ready(function(){
-     ch = $('#participantTable').width();
-     alert(ch);
-     $('#scheduleCallContainer').css({
-     width : ch +'px'
-     })
-     });*/
-    var currentProspect = $rootScope.prospectToUpdate;
-    console.log("current prospect:", currentProspect);
+        /* reffer for fix footer height
+         $().ready(function(){
+         ch = $('#participantTable').width();
+         alert(ch);
+         $('#scheduleCallContainer').css({
+         width : ch +'px'
+         })
+         });*/
+        currentProspect = $rootScope.prospectToUpdate;
+        console.log("current prospect:", currentProspect);
 
     // set Default call participation status of all volunteers to "Yes"
     $http.get(baseURL + 'participant/prospectid/' + currentProspect.ProspectID, {
@@ -40,11 +40,11 @@ angular.module('PreSales-Huddle')
                 var callParticipants = JSON.stringify(data);
                 console.log("callParticipants", callParticipants);
 
-                if (JSON.parse(callParticipants) != null) {
-                    var volunteersList = JSON.parse(callParticipants);
-                    numberOfVolunteer = volunteersList.length;
+                    if (JSON.parse(callParticipants) != null) {
+                        var volunteersList = JSON.parse(callParticipants);
+                        numberOfVolunteer = volunteersList.length;
 
-                    console.log("volunteersList: ", volunteersList);
+                        console.log("volunteersList: ", volunteersList);
 
                     for (var i = 0; i < numberOfVolunteer; i++) {
                         volunteersList[i].Included = "Yes";
@@ -92,11 +92,11 @@ angular.module('PreSales-Huddle')
             var displayParticipants = JSON.stringify(data);
             console.log("displayParticipants", displayParticipants);
 
-            if (JSON.parse(displayParticipants) != null) {
-                var volunteersList = JSON.parse(displayParticipants);
-                numberOfVolunteer = volunteersList.length;
+                if (JSON.parse(displayParticipants) != null) {
+                    var volunteersList = JSON.parse(displayParticipants);
+                    numberOfVolunteer = volunteersList.length;
 
-                console.log("volunteersList: ", volunteersList);
+                    console.log("volunteersList: ", volunteersList);
 
                 for (var i = 0; i < numberOfVolunteer; i++) {
                     var volunteerName = volunteersList[i];
@@ -211,9 +211,9 @@ angular.module('PreSales-Huddle')
     var attendee;
     var qoute = '"';
 
-    $scope.scheduleCall = function () {
-        //console.log("$scope.call: ", $scope.call);
-        var prospectStatus;
+        $scope.scheduleCall = function () {
+            console.log("$scope.call: ", $scope.call);
+            $rootScope.prospectStatus;
 
         if (!angular.equals(undefined, $rootScope.ConfDateStart)) {
             var date = new Date($rootScope.ConfDateStart);
@@ -225,53 +225,19 @@ angular.module('PreSales-Huddle')
             var timeZone = timeString.split(" ");
             var timeZoneStr = timeZone[1] + " " + timeZone[2];
 
-            if (angular.equals($scope.call, "Internal Prep call")) {
-                //console.log("ConfDateStart: ", $rootScope.ConfDateStart);
-                prospectStatus = "Prep call scheduled";
-                var status = prospectStatus + " for " + date_time + " " + timeZoneStr;
-            } else if (angular.equals($scope.call, "Client call")) {
-                prospectStatus = "Client call scheduled";
-                var status = prospectStatus + " for " + date_time + " " + timeZoneStr;
-            } else if (angular.equals($scope.call, "Client call")) {
-                prospectStatus = "Kick-off call scheduled";
-                var status = prospectStatus + " for " + date_time + " " + timeZoneStr;
+            if(angular.equals($scope.call, "Internal Prep call")) {
+                console.log("ConfDateStart: ", $rootScope.ConfDateStart);
+                $rootScope.prospectStatus = "Prep call scheduled for " + date_time + " " + timeZoneStr;
+                //new Date($rootScope.ConfDateStart);
+                //n + ' ' + time;
+                //(new Date($rootScope.ConfDateStart)).toLocaleString('en-US');
+            } else {
+                $rootScope.prospectStatus = "Client call scheduled for " + date_time + " " + timeZoneStr;
+                //new Date($rootScope.ConfDateStart);
+                //n + ' ' + time;
+                //(new Date($rootScope.ConfDateStart)).toLocaleString('en-US');
             }
-            //console.log("Prospect Status: ", prospectStatus);
-        }
-
-        var prospectData = {
-            ProspectID: $rootScope.prospectToUpdate.ProspectID,
-            Name: currentProspect.Name,
-            ConfCalls: [
-                {
-                    ConfDateStart: $rootScope.ConfDateStart,
-                    ConfDateEnd: $rootScope.ConfDateEnd,
-                    ConfType: $scope.call
-                }
-            ],
-            TechStack: currentProspect.TechStack,
-            Domain: currentProspect.Domain,
-            DesiredTeamSize: currentProspect.DesiredTeamSize,
-            ProspectNotes: currentProspect.ProspectNotes,
-            CreateDate: currentProspect.CreateDate,
-            SalesID: $rootScope.salesName,
-            ProspectStatus: prospectStatus,
-            KeyContacts:        $rootScope.prospectToUpdate.keyContacts,
-            WebsiteURL:         $rootScope.prospectToUpdate.websiteURL,
-            FolderURL:          $rootScope.prospectToUpdate.folderURL,
-            Revenue:            $rootScope.prospectToUpdate.PreRevenue
-        };
-
-        // update prospect after scheduling call
-        $http.put(baseURL + 'prospect/', data = prospectData, {
-                headers: {'Authentication': JSON.parse($rootScope.authenticationData)}
-            }).success(function (data, status, headers, config) {
-                console.log('Call details added to Prospect.');
-                /*$location.path('/prospects');*/
-            }).error(function (data, status, headers, config) {
-            console.log(data, status, headers, config);
-            console.log('Error occurred.');
-        });
+            console.log("Prospect Status: ", $rootScope.prospectStatus);
 
         // select participants before sending calender invite
         $http.get(baseURL + 'participant/prospectid/' + currentProspect.ProspectID, {
@@ -291,36 +257,36 @@ angular.module('PreSales-Huddle')
                     var volunteersList = JSON.parse(participants);
                     console.log("volunteersList: ", volunteersList);
 
-                    for (var i = 0; i < numberOfVolunteer; i++) {
-                        if (volunteersList[i].Included == "Yes" && volunteersList[i].UserID != "") {
-                            end = ' }';
-                            attendee = volunteersList[i].UserID;
-                            console.log("attendee: ", attendee);
-                            if (attendees == null) {
-                                attendees = (start + qoute + attendee + qoute + end);
-                                $rootScope.attendees = attendees;
-                                console.log(" null attendees: ", attendees);
-                            } else {
-                                attendees += (', ' + start + qoute + attendee + qoute + end);
-                                $rootScope.attendees += attendees;
-                                console.log(" not nul attendees: ", attendees);
+                        for (var i = 0; i < numberOfVolunteer; i++) {
+                            if (volunteersList[i].Included == "Yes" && volunteersList[i].UserID != "") {
+                                end = ' }';
+                                attendee = volunteersList[i].UserID;
+                                console.log("attendee: ", attendee);
+                                if (attendees == null) {
+                                    attendees = (start + qoute + attendee + qoute + end);
+                                    $rootScope.attendees = attendees;
+                                    console.log(" null attendees: ", attendees);
+                                } else {
+                                    attendees += (', ' + start + qoute + attendee + qoute + end);
+                                    $rootScope.attendees += attendees;
+                                    console.log(" not nul attendees: ", attendees);
+                                }
                             }
                         }
+                        if (attendees) {
+                            attendee_array = '[ ' + attendees + ' ]';
+                            console.log("attendee_array: ", attendee_array);
+                            checkAuth();
+                        }
+                        else{
+                            showPopup2();
+                        }
+                        console.log("attendees",attendees) ;
                     }
-                    if (attendees) {
-                        attendee_array = '[ ' + attendees + ' ]';
-                        console.log("attendee_array: ", attendee_array);
-                        checkAuth();
-                    }
-                    else{
-                        showPopup2();
-                    }
-                    console.log("attendees",attendees) ;
-                }
 
-            }).error(function (data, status, header, config) {
-            console.log("Participants not fecthed.")
-        });
+                }).error(function (data, status, header, config) {
+                    console.log("Participants not fecthed.")
+                });
 
         //send calender invite
         function sendCalendarInvite() {
@@ -389,17 +355,86 @@ angular.module('PreSales-Huddle')
             gapi.client.load('calendar', 'v3', sendCalendarInvite);
         }
 
-        function showPopup() {
-            $("#myModal").modal({backdrop: "static"});
-        }
+            function showPopup() {
+                $("#myModal").modal({backdrop: "static"});
+
+                var prospectData = {
+                    ProspectID: $rootScope.prospectToUpdate.ProspectID,
+                    Name:       currentProspect.Name,
+                    ConfCalls: [
+                        {
+                            ConfDateStart:      $rootScope.ConfDateStart,
+                            ConfDateEnd:        $rootScope.ConfDateEnd,
+                            GoogleCalenderLink: $rootScope.scheduleCallLink,
+                            ConfType:           $scope.call,
+                            EnggFacilitator:    $scope.enggFacilitatorName
+                        }
+                    ],
+                    TechStack:       currentProspect.TechStack,
+                    Domain:          currentProspect.Domain,
+                    DesiredTeamSize: currentProspect.DesiredTeamSize,
+                    ProspectNotes:   currentProspect.ProspectNotes,
+                    CreateDate:      currentProspect.CreateDate,
+                    SalesID:         $rootScope.salesName,
+                    ProspectStatus:  $rootScope.prospectStatus,
+                    KeyContacts:     $rootScope.prospectToUpdate.keyContacts,
+                    WebsiteURL:      $rootScope.prospectToUpdate.websiteURL,
+                    FolderURL:       $rootScope.prospectToUpdate.folderURL,
+                    Revenue:         $rootScope.prospectToUpdate.PreRevenue
+                };
+
+                // update prospect after scheduling call
+                $http.post(baseURL + 'prospect/confcall', data = prospectData)
+                    .success(function (data, status, headers, config) {
+                        console.log('Call details added to Prospect.');
+                        /*$location.path('/prospects');*/
+                    }).error(function (data, status, headers, config) {
+                        console.log(data, status, headers, config);
+                        console.log('Error occurred.');
+                    });
+               // updateProspectStatus();
+            }
+
+            function updateProspectStatus() {
+                $http.get(baseURL + 'prospect/prospectid/' + $rootScope.prospectToUpdate.ProspectID).success(function (data, status, headers, config) {
+                    console.log("Single Prospect data: ", data);
+                    $rootScope.prospectToUpdateStatus = data ;
+
+                    var prospectData = {
+                        ProspectID:      $rootScope.prospectToUpdateStatus.ProspectID,
+                        Name:            $rootScope.prospectToUpdateStatus.Name,
+                        ConfCalls:       $rootScope.prospectToUpdateStatus.ConfCalls,
+                        TechStack:       $rootScope.prospectToUpdateStatus.TechStack,
+                        Domain:          $rootScope.prospectToUpdateStatus.Domain,
+                        DesiredTeamSize: $rootScope.prospectToUpdateStatus.DesiredTeamSize,
+                        ProspectNotes:   $rootScope.prospectToUpdateStatus.ProspectNotes,
+                        CreateDate:      $rootScope.prospectToUpdateStatus.CreateDate,
+                        SalesID:         $rootScope.prospectToUpdateStatus.SalesID,
+                        ProspectStatus:  $rootScope.prospectStatus,
+                        KeyContacts:     $rootScope.prospectToUpdate.keyContacts,
+                        WebsiteURL:      $rootScope.prospectToUpdate.websiteURL,
+                        FolderURL:       $rootScope.prospectToUpdate.folderURL,
+                        Revenue:         $rootScope.prospectToUpdate.PreRevenue
+                    };
+                    console.log("Single Prospect data: ", prospectData)
+                    $http.put(baseURL + 'prospect/', data = prospectData).success(function(data, status, headers, config) {
+                        console.log('Prospect Status updated.');
+                        alert("done updateProspectStatus")
+                    }).error(function(data, status, headers, config) {
+                            console.log('Prospect Status not updated.');
+                    });
+                }).error(function (data, status, header, config) {
+                        console.log("Not able to fetch Single Prospect data.");
+                })
+            }
 
         function showPopup1() {
             $("#myModal1").modal({backdrop: "static"});
         }
 
-        function showPopup2() {
-            $("#myModal2").modal({backdrop: "static"});
-        }
+            function showPopup2() {
+                $("#myModal2").modal({backdrop: "static"});
+            }
 
 
         // Check if current user has authorized this application.
@@ -422,12 +457,12 @@ angular.module('PreSales-Huddle')
     $scope.goBack = function() {
         $('body').removeClass('modal-open');
         $location.path('/viewProspects');
-    };
+    }
 
     $scope.goBackToScheduleCall = function() {
         $('body').removeClass('modal-open');
        /* $location.path('/prospects');*/
-    };
+    }
     // Cancel button function
     $scope.go = function (path) {
         $rootScope.lastform = "createProspect";

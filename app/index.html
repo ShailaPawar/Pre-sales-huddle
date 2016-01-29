@@ -73,7 +73,10 @@
                 </nav>
                 </div>
             </header>
-            <div class = "title" id = "titleText" disabled>Synerzip Pre-Sales Huddle</div>
+            <div class="title" id="titleText" disabled>Synerzip Pre-Sales Huddle</div>
+            <main class = "main" id = "main">
+                <div ng-view = ""></div>
+            </main>
             <div class = "google-button" id = "g-signinP" ng-controller="GoogleSignInCtrl">
                 <div id = "gSignInWrapper">
                     <div id = "signin" class = "customGPlusSignIn" ng-click = "onSignIn()">
@@ -82,9 +85,6 @@
                     </div>
                 </div>
             </div >
-            <main class = "main" id = "main">
-                <div ng-view = ""></div>
-            </main>
             <footer class = "footer" >
                 <p><span style="background-color:whitesmoke">Copyright @ Synerzip Inc. All Rights Reserved. </span></p>
             </footer>
@@ -119,6 +119,7 @@
         <script src = "scripts/reportsController.js"></script>
         <script src = "scripts/deadProspectController.js"></script>
         <script src = "scripts/prospectsController.js"></script>
+        <script src = "scripts/previousCallController.js"></script>
 
         <script src = "extenalLibraries/jquery/2.1.1/jquery-2.1.1.min.js"></script>
         <script src = "extenalLibraries/bootstrap/3.3.5/js/bootstrap.min.js"></script>
@@ -132,11 +133,11 @@
         <script src = "extenalLibraries/reports/exporting.js"></script>
         <script src = "extenalLibraries/reports/highcharts-3d.js"></script>
 
+        <script src = "extenalLibraries/google-api/js/client.js"></script>
         <script src = "extenalLibraries/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.min.js"></script>
         <script src = "extenalLibraries/bootstrap/3.1.1/js/bootstrap.min.js"></script>
         <script src = "extenalLibraries/moment/js/2.5.1/moment.min.js"></script>
         <script src = "extenalLibraries/bootstrap-datetimepicker/3.0.0/js/bootstrap-datetimepicker.min.js"></script>
         <script src = "extenalLibraries/moment/js/2.4.0/lang/en-gb.js"></script>
-        <script src = "extenalLibraries/google-api/js/client.js"></script>
     </body>
 </html>

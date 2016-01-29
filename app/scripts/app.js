@@ -59,6 +59,12 @@ angular.module('PreSales-Huddle', ['ngResource', 'ngRoute'])
                 controller: 'ScheduleCallCtrl',
                 title: 'Schedule a call'
             })
+            //previous Scheduled Calls
+            .when('/previousCall', {
+                templateUrl: 'views/previousSCheduledCalls.html',
+                controller: 'previousCallController',
+                title: 'Schedule a call'
+            })
             .when('/viewParticularProspect', {
                 templateUrl: 'views/viewParticularProspect.html',
                 controller: 'ViewProspectCtrl',

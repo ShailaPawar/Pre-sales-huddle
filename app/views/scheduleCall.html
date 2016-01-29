@@ -43,6 +43,9 @@
                     <th> Role </th>
                     <th style = "width: 20%"> Availability Date </th>
                     <th> Notes </th>
+                    <th data-toggle = "tooltip" title = "Engg side facilitator" style="width: 5%">
+                        Engg side facilitator
+                    </th>
                     </thead>
                     <tbody>
                         <tr ng-repeat = "participant in participants">
@@ -62,6 +65,9 @@
                                     background: white;margin: 0%;word-break: keep-all !important;border: none;">{{ participant.Notes }}
                                     </pre>
                                 </ul>
+                            </td>
+                            <td>
+                                <input type = "radio" name="enggFacilitator" ng-model="$parent.enggFacilitatorName" value=" {{ participant.volunteerName }} " ng-checked = 'true'>
                             </td>
                         </tr>
                     </tbody>
