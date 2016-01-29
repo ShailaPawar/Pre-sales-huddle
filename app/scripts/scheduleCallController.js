@@ -238,7 +238,7 @@ angular.module('PreSales-Huddle')
                 //(new Date($rootScope.ConfDateStart)).toLocaleString('en-US');
             }
             console.log("Prospect Status: ", $rootScope.prospectStatus);
-
+        }
         // select participants before sending calender invite
         $http.get(baseURL + 'participant/prospectid/' + currentProspect.ProspectID, {
                 headers: {'Authentication': JSON.parse($rootScope.authenticationData)}
@@ -453,6 +453,7 @@ angular.module('PreSales-Huddle')
                 });
         }
     };
+
 
     $scope.goBack = function() {
         $('body').removeClass('modal-open');

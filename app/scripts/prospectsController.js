@@ -34,32 +34,18 @@ angular.module('PreSales-Huddle')
     };
 
     $scope.saveData = function(prospect) {
-        $http.get(baseURL + 'prospect/prospectid/' + prospect.ProspectID, {
-            headers: {'Authentication': JSON.parse($rootScope.authenticationData)}
-        }).success(function (data, status, headers, config) {
-            console.log("Single Prospect data: ", data);
+        $rootScope.prospectToUpdate = prospect;
+        // creation date
+        $rootScope.createDate = $rootScope.prospectToUpdate.CreateDate;
+        $rootScope.createDate = new Date($rootScope.createDate);
+        $rootScope.prospectToUpdate.CreateDate = $rootScope.createDate;
 
-            $rootScope.singleProspect = data;
+        // start date
+        $rootScope.startDate = $rootScope.prospectToUpdate.StartDate.toString();
+        $rootScope.startDate = $rootScope.startDate.split('T')[0];
+        $rootScope.startDate = new Date($rootScope.startDate);
 
-            console.log(new Date($rootScope.singleProspect.CreateDate));
-
-            $rootScope.prospectToUpdate = $rootScope.singleProspect;
-            console.log("In saveData() $rootScope.prospectToUpdate:",$rootScope.prospectToUpdate, prospect.CreateDate);
-
-            // creation date
-            $rootScope.createDate = $rootScope.prospectToUpdate.CreateDate;
-            $rootScope.createDate = new Date($rootScope.createDate);
-            $rootScope.prospectToUpdate.CreateDate = $rootScope.createDate;
-
-            // start date
-            $rootScope.startDate = $rootScope.prospectToUpdate.StartDate.toString();
-            $rootScope.startDate = $rootScope.startDate.split('T')[0];
-            $rootScope.startDate = new Date($rootScope.startDate);
-
-            $rootScope.prospectToUpdate.StartDate = $rootScope.startDate;
-        }).error(function (data, status, header, config) {
-            console.log("Not able to fetch Single Prospect data.");
-        });
+        $rootScope.prospectToUpdate.StartDate = $rootScope.startDate;
     };
 
     function displayProspectList() {

@@ -17,7 +17,9 @@ angular.module('PreSales-Huddle')
         var currentProspect = $rootScope.prospectToUpdate;
         console.log("current prospect:", currentProspect);
 
-        $http.get(baseURL + 'prospect/prospectid/' + $rootScope.prospectToUpdate.ProspectID).success(function (data, status, headers, config) {
+        $http.get(baseURL + 'prospect/prospectid/' + $rootScope.prospectToUpdate.ProspectID,  {
+            headers: {'Authentication': JSON.parse($rootScope.authenticationData)}
+        }).success(function (data, status, headers, config) {
             console.log("Single Prospect data: ", data);
             $rootScope.prospectToViewCallDetails = data ;
             console.log("$rootScope.prospectToViewCallDetails: ", $rootScope.prospectToViewCallDetails);
@@ -50,7 +52,7 @@ angular.module('PreSales-Huddle')
 
 
         $scope.goBack = function() {
-           $location.path('/prospects');
+           $location.path('/viewProspects');
         };
 
         $scope.scheduleCall = function() {
