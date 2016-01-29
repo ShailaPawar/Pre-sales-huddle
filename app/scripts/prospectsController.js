@@ -108,9 +108,27 @@ angular.module('PreSales-Huddle')
                         var participantData = JSON.stringify(participantData);
                         if (JSON.parse(participantData) == null) {
                             prospectList[index].noOfVolunteers = 0;
+                            prospectList[index].currentUserVolunteer = 0;
                         }
                         else {
                             prospectList[index].noOfVolunteers = JSON.parse(participantData).length;
+                            var participantDataLength = prospectList[index].noOfVolunteers;
+                            var currentUserAvailable = 0 ;
+                            while(participantDataLength != 0){
+                                participantDataString = JSON.stringify(participantData);
+                                participantDataParse = JSON.parse(participantData);
+                                if(participantDataParse[participantDataLength-1].UserID == $rootScope.currentUser) {
+                                    currentUserAvailable = 1;
+                                    break ;
+                                }
+                                participantDataLength --;
+                            }
+                            if(currentUserAvailable == 1){
+                                prospectList[index].currentUserVolunteer = 1;
+                            }
+                            else{
+                                prospectList[index].currentUserVolunteer = 0;
+                            }
                         }
                     }).error(function (data, status, header, config) {
                         console.log("Not able to calculate volunteer count")
@@ -189,7 +207,7 @@ angular.module('PreSales-Huddle')
             ProspectNotes:      $rootScope.prospectToView.ProspectNotes,
             ConfCalls:          $rootScope.prospectToView.ConfCalls,
             ProspectStatus:     changeStatus,
-            SalesID:            $rootScope.prospectToView.salesName,
+            SalesID:            $rootScope.prospectToView.SalesID,
             StartDate:          $rootScope.prospectToView.StartDate,
             TeamSize:           $rootScope.prospectToView.TeamSize,
             ClientNotes:        $rootScope.prospectToView.ClientNotes,
@@ -217,6 +235,12 @@ angular.module('PreSales-Huddle')
         //$location.path('/prospects');
     };
 
+    $scope.setUpReminderCancel = function() {
+        $scope.numberOfDays = "";
+        $('body').removeClass('modal-open');
+        javascript:history.go(-1);
+    };
+
     // checkbox handling
     $scope.checkDeadProspectState = function ($event, participant) {
         console.log("checkDeadProspectState:", $event);
@@ -226,6 +250,18 @@ angular.module('PreSales-Huddle')
             $rootScope.showDeadProspects = true;
         } else if ($event == false) {
             $rootScope.showDeadProspects = false;
+        }
+    };
+
+    // checkbox show only my prospect handling
+    $scope.checkMyProspect = function ($event, participant) {
+        console.log("checkMyProspect:", $event);
+        $rootScope.showMyProspect = false;
+        if ($event == true) {
+            console.log("yes", $event);
+            $rootScope.showMyProspect = true;
+        } else if ($event == false) {
+            $rootScope.showMyProspect = false;
         }
     };
 });

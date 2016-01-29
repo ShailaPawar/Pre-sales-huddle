@@ -197,7 +197,8 @@ angular.module('PreSales-Huddle')
                 ConfCalls:          $rootScope.prospectToUpdate.ConfCalls,
                 ProspectStatus:     $scope.prospect.ProspectStatus,
                 SalesID:            $rootScope.salesName,
-                StartDate:          $rootScope.prospectToUpdate.StartDate
+                StartDate:          $rootScope.prospectToUpdate.StartDate,
+                DeadProspectNotes:  $rootScope.prospectToUpdate.DeadProspectNotes
             };
             console.log(data);
 
@@ -265,8 +266,7 @@ angular.module('PreSales-Huddle')
         $scope.addDiscussion = function() {
             if($scope.query == undefined){
                 $("#myModal1").modal({backdrop: "static"});
-            }
-            else{
+            } else {
                 var data = {
                     ProspectID: $rootScope.prospectToUpdate.ProspectID,
                     UserID: $rootScope.salesName,
@@ -274,29 +274,30 @@ angular.module('PreSales-Huddle')
                 };
                 console.log("addDiscussion", data);
                 $http.post(baseURL + 'discussion/', data = data, {
-                headers: {'Authentication': JSON.parse($rootScope.authenticationData)}
-            }).success(function (data, status, headers, config) {
-                console.log('Discussion added.');
-                $location.path('/discussions');
+                    headers: {'Authentication': JSON.parse($rootScope.authenticationData)}
+                }).success(function (data, status, headers, config) {
+                    console.log('Discussion added.');
+                    $location.path('/discussions');
                 }).error(function (data, status, headers, config) {
                     console.log('Discussion not added.');
                 });
 
                 $scope.query = "";
 
-            javascript:history.go(-1);
+                javascript:history.go(-1);
+            }
         };
 
         $scope.goBack = function() {
             $('body').removeClass('modal-open');
             $("#myModal").modal({backdrop: "static"});
-        }
+        };
 
         $scope.addDiscussionCancel = function() {
             $scope.query = "";
             $('body').removeClass('modal-open');
             $location.path('/discussions');
-        }
+        };
 
         /*$scope.addDiscussion = function() {
             var data = {

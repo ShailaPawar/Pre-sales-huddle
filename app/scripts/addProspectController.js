@@ -87,20 +87,19 @@ angular.module('PreSales-Huddle')
 
         $scope.addProspectForm = function() {
             $rootScope.showProspectNote= 0 ;
-        }
+        };
 
         $scope.goBack = function() {
             $('body').removeClass('modal-open');
             $location.path('/viewProspects');
-        }
+        };
 
         // Cancel button function
         $scope.go = function(path) {
             console.log("path: ", path);
             $rootScope.lastform = "create";
             $location.path(path);
-
-        }
-    }) ;
+        };
+    });
 
 
