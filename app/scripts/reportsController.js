@@ -21,10 +21,11 @@ angular.module('PreSales-Huddle')
         $rootScope.currentYear = $rootScope.currentDate.getFullYear();
         $rootScope.currentMonth = $rootScope.currentDate.getMonth();
         $rootScope.previousYear = $rootScope.previousYearDate.getFullYear();
-        $rootScope.previoustMonth = $rootScope.previousYearDate.getMonth();
-
+        $rootScope.previoustMonth = $rootScope.previousYearDate.getMonth()-1;
+        console.log("prev year date",$rootScope.previousYearDate);
         $scope.prospect = $rootScope.prospectToUpdate;
-        $http.get(baseURL + 'prospect/all/').success(function (data, status, headers, config) {
+        $http.get(baseURL + 'prospect/all/',{ headers: {'Authentication': JSON.parse($rootScope.authenticationData)}
+         }).success(function (data, status, headers, config) {
             $scope.prospect = data;
 
             $rootScope.flag = 1;
@@ -214,7 +215,8 @@ angular.module('PreSales-Huddle')
                 else if ( angular.equals($scope.reportType, $scope.reportTypes[7].value)) {
 
                     $scope.prospect = $rootScope.prospectToUpdate;
-                    $http.get(baseURL + 'prospect/all/').success(function(data, status, headers, config) {
+                    $http.get(baseURL + 'prospect/all/',{ headers: {'Authentication': JSON.parse($rootScope.authenticationData)}
+                    }).success(function (data, status, headers, config) {
                         var prospectData = JSON.stringify(data);
                         var prospectList = JSON.parse(prospectData);
                         var numberOfProspects = prospectList.length;
@@ -317,8 +319,11 @@ angular.module('PreSales-Huddle')
                      a.push(Date.UTC($rootScope.currentYear,$rootScope.currentMonth + j));
                      xAxisValues.push(mon + " " + $rootScope.currentYear);
                  }
-
-            console.log($rootScope.currentMonth);
+            console.log("current month",$rootScope.currentMonth);
+            console.log("current year",$rootScope.currentYear);
+            console.log("prev year",$rootScope.previousYear);
+            console.log("prev month",$rootScope.previoustMonth);;
+            console.log("xAxisValues",  xAxisValues);
             new Highcharts.Chart({
                 title: {
                     text: 'Prospect addition per month',
@@ -663,7 +668,6 @@ angular.module('PreSales-Huddle')
                         size:400,
                         center:[550,200],
                         cursor: 'pointer',
-                        borderColor: null,
                         dataLabels: {
                             enabled: true,
                             color: '#000000',
@@ -797,7 +801,8 @@ angular.module('PreSales-Huddle')
         }
         function propsectPerMonth(){
 
-            $http.get(baseURL + 'prospect/all/').success(function (data, status, headers, config) {
+            $http.get(baseURL + 'prospect/all/',{ headers: {'Authentication': JSON.parse($rootScope.authenticationData)}
+            }).success(function (data, status, headers, config) {
                 $scope.prospect = data;
 
                 var testArray = [], a = [], b = [], i, j, countCurrentJan = 0, countCurrentFeb = 0, countCurrentMar = 0,

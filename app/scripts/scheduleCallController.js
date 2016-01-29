@@ -255,7 +255,11 @@ angular.module('PreSales-Huddle')
             ProspectNotes: currentProspect.ProspectNotes,
             CreateDate: currentProspect.CreateDate,
             SalesID: $rootScope.salesName,
-            ProspectStatus: prospectStatus
+            ProspectStatus: prospectStatus,
+            KeyContacts:        $rootScope.prospectToUpdate.keyContacts,
+            WebsiteURL:         $rootScope.prospectToUpdate.websiteURL,
+            FolderURL:          $rootScope.prospectToUpdate.folderURL,
+            Revenue:            $rootScope.prospectToUpdate.PreRevenue
         };
 
         // update prospect after scheduling call
@@ -379,7 +383,7 @@ angular.module('PreSales-Huddle')
                 document.getElementById("message").innerHTML = '<a href="' + $rootScope.scheduleCallLink + '"target="_blank">here</a>';
                 showPopup();
             });
-        };
+        }
 
         function loadCalendarApi() {
             gapi.client.load('calendar', 'v3', sendCalendarInvite);
@@ -412,18 +416,18 @@ angular.module('PreSales-Huddle')
                 function (fail) {
                     alert(JSON.stringify({message: "fail", value: fail}));
                 });
-        };
+        }
     };
 
     $scope.goBack = function() {
         $('body').removeClass('modal-open');
         $location.path('/viewProspects');
-    }
+    };
 
     $scope.goBackToScheduleCall = function() {
         $('body').removeClass('modal-open');
        /* $location.path('/prospects');*/
-    }
+    };
     // Cancel button function
     $scope.go = function (path) {
         $rootScope.lastform = "createProspect";

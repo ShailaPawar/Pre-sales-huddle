@@ -212,7 +212,12 @@ angular.module('PreSales-Huddle')
             TeamSize:           $rootScope.prospectToView.TeamSize,
             ClientNotes:        $rootScope.prospectToView.ClientNotes,
             BUHead:             $rootScope.prospectToView.BUHead,
-            DeadProspectNotes:  $rootScope.prospectToView.notes
+            DeadProspectNotes:  $rootScope.prospectToView.notes,
+            KeyContacts:        $rootScope.prospectToView.KeyContacts,
+            WebsiteURL:         $rootScope.prospectToView.WebsiteURL,
+            FolderURL:          $rootScope.prospectToView.FolderURL,
+            Revenue:            $rootScope.prospectToView.Revenue
+
         };
 
         console.log(data);

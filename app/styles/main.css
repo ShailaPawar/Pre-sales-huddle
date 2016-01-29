@@ -257,13 +257,13 @@ pre {
     pointer-events:all;
 }
 
-#notes-container {
+#notes-container,#contacts-container {
     background-color: whitesmoke;
     width: 46%;
     height: 60% !important;
 }
 
-#notesBack-button,#contactBack-button {
+#notesBack-button,#contactsBack-button {
     margin-bottom: 2%;
 }
 #prospectNameUrl,#discussionUrl,#scheduleCallUrl,#deadProspectNameUrl,#deadDiscussionUrl,#deadScheduleCallUrl{
@@ -298,8 +298,4 @@ pre {
     border:1px solid #e5e5e5;
     width:100%;
 }
-#contact-container {
-    background-color: whitesmoke;
-    width: 46%;
-    height: 60% !important;
-}
+

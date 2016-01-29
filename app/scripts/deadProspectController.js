@@ -37,7 +37,12 @@ angular.module('PreSales-Huddle')
                 TeamSize:           $rootScope.prospectToUpdate.TeamSize,
                 ClientNotes:        $rootScope.prospectToUpdate.ClientNotes,
                 BUHead:             $rootScope.prospectToUpdate.BUHead,
-                DeadProspectNotes:  $scope.notes
+                DeadProspectNotes:  $scope.notes,
+                KeyContacts:        $rootScope.prospectToUpdate.KeyContacts,
+                WebsiteURL:         $rootScope.prospectToUpdate.WebsiteURL,
+                FolderURL:          $rootScope.prospectToUpdate.FolderURL,
+                Revenue:            $rootScope.prospectToUpdate.Revenue
+
             };
 
             console.log(data);
