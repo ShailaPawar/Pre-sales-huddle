@@ -152,14 +152,6 @@ angular.module('PreSales-Huddle')
         document.getElementById('notifications').style.visibility ='visible';
         document.getElementById('titleText').style.display ='none';
 
-        //$scope.$watch('creationDate', function(newVal, oldVal){
-        //    $scope.creationDate = newVal;
-        //    console.log($scope.creationDate);
-        //})
-        $scope.setCreateDate = function(prospectCreationDate) {
-            console.log("prospectCreationDate: ", prospectCreationDate);
-            return new Date(prospectCreationDate);
-        };
         $scope.maxDate = new Date();
         console.log("In EditCtrl $rootScope.prospectToUpdate: ", $rootScope.prospectToUpdate);
         $scope.prospect = $rootScope.prospectToUpdate;

@@ -61,7 +61,7 @@ angular.module('PreSales-Huddle')
 
             var data = {
                 Name:               $scope.prospectName,
-                CreateDate :        n,
+                CreateDate :        $scope.date,
                 TechStack:          $scope.techStack,
                 Domain:             $scope.domain,
                 DesiredTeamSize:    $scope.teamSize,
