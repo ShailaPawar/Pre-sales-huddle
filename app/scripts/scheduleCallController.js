@@ -213,32 +213,25 @@ angular.module('PreSales-Huddle')
 
         $scope.scheduleCall = function () {
             console.log("$scope.call: ", $scope.call);
-            $rootScope.prospectStatus;
 
-        if (!angular.equals(undefined, $rootScope.ConfDateStart)) {
-            var date = new Date($rootScope.ConfDateStart);
-            var n = date.toDateString();
-            var time = date.toLocaleTimeString();
-            var date_time = n + " " + time;
-
-            var timeString = date.toTimeString();
-            var timeZone = timeString.split(" ");
-            var timeZoneStr = timeZone[1] + " " + timeZone[2];
-
-            if(angular.equals($scope.call, "Internal Prep call")) {
-                console.log("ConfDateStart: ", $rootScope.ConfDateStart);
-                $rootScope.prospectStatus = "Prep call scheduled for " + date_time + " " + timeZoneStr;
-                //new Date($rootScope.ConfDateStart);
-                //n + ' ' + time;
-                //(new Date($rootScope.ConfDateStart)).toLocaleString('en-US');
-            } else {
-                $rootScope.prospectStatus = "Client call scheduled for " + date_time + " " + timeZoneStr;
-                //new Date($rootScope.ConfDateStart);
-                //n + ' ' + time;
-                //(new Date($rootScope.ConfDateStart)).toLocaleString('en-US');
-            }
-            console.log("Prospect Status: ", $rootScope.prospectStatus);
-        }
+        //if (!angular.equals(undefined, $rootScope.ConfDateStart)) {
+        //    var date = new Date($rootScope.ConfDateStart);
+        //    var n = date.toDateString();
+        //    var time = date.toLocaleTimeString();
+        //    var date_time = n + " " + time;
+        //
+        //    var timeString = date.toTimeString();
+        //    var timeZone = timeString.split(" ");
+        //    var timeZoneStr = timeZone[1] + " " + timeZone[2];
+        //
+        //    if (angular.equals($scope.call, "Internal Prep call")) {
+        //        $rootScope.prospectStatus = "Prep call scheduled for " + date_time + " " + timeZoneStr;
+        //    } else if (angular.equals($scope.call, "Client call")) {
+        //        $rootScope.prospectStatus = "Client call scheduled for " + date_time + " " + timeZoneStr;
+        //    } else if (angular.equals($scope.call, "Kick-off calll")) {
+        //        $rootScope.prospectStatus = "Kick-off call scheduled for " + date_time + " " + timeZoneStr;
+        //    }
+        //}
         // select participants before sending calender invite
         $http.get(baseURL + 'participant/prospectid/' + currentProspect.ProspectID, {
                 headers: {'Authentication': JSON.parse($rootScope.authenticationData)}
@@ -313,7 +306,7 @@ angular.module('PreSales-Huddle')
             //var date_time = new Date(date_time_str);
             //console.log("date_time: ", date_time);
             var event = {
-                'summary': 'Prospect: ' + currentProspect.Name + ' ' + $scope.call,
+                'summary': 'Prospect: ' + currentProspect.Name + ' ' + $scope.call + ' (Engg Facilitator: ' + $scope.enggFacilitatorName + ')',
                 'start': {
                     'dateTime': $rootScope.ConfDateStart,
                     'timeZone': $rootScope.timeZoneValue
@@ -367,7 +360,7 @@ angular.module('PreSales-Huddle')
                             ConfDateEnd:        $rootScope.ConfDateEnd,
                             GoogleCalenderLink: $rootScope.scheduleCallLink,
                             ConfType:           $scope.call,
-                            EnggFacilitator:    $scope.enggFacilitatorName
+                            EnggFacilitator:    $scope.enggFacilitator
                         }
                     ],
                     TechStack:       currentProspect.TechStack,
@@ -384,22 +377,44 @@ angular.module('PreSales-Huddle')
                 };
 
                 // update prospect after scheduling call
-                $http.post(baseURL + 'prospect/confcall', data = prospectData)
-                    .success(function (data, status, headers, config) {
+                $http.post(baseURL + 'prospect/confcall', data = prospectData, {
+                        headers: {'Authentication': JSON.parse($rootScope.authenticationData)}
+                    }).success(function (data, status, headers, config) {
                         console.log('Call details added to Prospect.');
                         /*$location.path('/prospects');*/
                     }).error(function (data, status, headers, config) {
                         console.log(data, status, headers, config);
                         console.log('Error occurred.');
                     });
-               // updateProspectStatus();
+               //updateProspectStatus();
             }
 
             function updateProspectStatus() {
-                $http.get(baseURL + 'prospect/prospectid/' + $rootScope.prospectToUpdate.ProspectID).success(function (data, status, headers, config) {
+                if (!angular.equals(undefined, $rootScope.ConfDateStart)) {
+                    var date = new Date($rootScope.ConfDateStart);
+                    var n = date.toDateString();
+                    var time = date.toLocaleTimeString();
+                    var date_time = n + " " + time;
+
+                    var timeString = date.toTimeString();
+                    var timeZone = timeString.split(" ");
+                    var timeZoneStr = timeZone[1] + " " + timeZone[2];
+
+                    if (angular.equals($scope.call, "Internal Prep call")) {
+                        $rootScope.prospectStatus = "Prep call scheduled for " + date_time + " " + timeZoneStr;
+                    } else if (angular.equals($scope.call, "Client call")) {
+                        $rootScope.prospectStatus = "Client call scheduled for " + date_time + " " + timeZoneStr;
+                    } else if (angular.equals($scope.call, "Kick-off calll")) {
+                        $rootScope.prospectStatus = "Kick-off call scheduled for " + date_time + " " + timeZoneStr;
+                    }
+                }
+                $http.get(baseURL + 'prospect/prospectid/' + $rootScope.prospectToUpdate.ProspectID, {
+                    headers: {'Authentication': JSON.parse($rootScope.authenticationData)}
+                }).success(function (data, status, headers, config) {
                     console.log("Single Prospect data: ", data);
                     $rootScope.prospectToUpdateStatus = data ;
 
+                    console.log("$rootScope.prospectStatus: ", $rootScope.prospectStatus);
                     var prospectData = {
                         ProspectID:      $rootScope.prospectToUpdateStatus.ProspectID,
                         Name:            $rootScope.prospectToUpdateStatus.Name,
@@ -416,10 +431,11 @@ angular.module('PreSales-Huddle')
                         FolderURL:       $rootScope.prospectToUpdate.folderURL,
                         Revenue:         $rootScope.prospectToUpdate.PreRevenue
                     };
-                    console.log("Single Prospect data: ", prospectData)
-                    $http.put(baseURL + 'prospect/', data = prospectData).success(function(data, status, headers, config) {
+                    console.log("Single Prospect data: ", prospectData);
+                    $http.put(baseURL + 'prospect/', data = prospectData, {
+                        headers: {'Authentication': JSON.parse($rootScope.authenticationData)}
+                    }).success(function(data, status, headers, config) {
                         console.log('Prospect Status updated.');
-                        alert("done updateProspectStatus")
                     }).error(function(data, status, headers, config) {
                             console.log('Prospect Status not updated.');
                     });

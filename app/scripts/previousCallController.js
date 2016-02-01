@@ -45,6 +45,7 @@ angular.module('PreSales-Huddle')
                 $scope.previousCallDetails[i].ConfDateStart = date_time + " " + timeZoneStr;
             }
             $scope.previousCalls = $scope.previousCallDetails;
+            console.log("")
         }).error(function (data, status, header, config) {
                 console.log("Not able to fetch Single Prospect data.");
         })

@@ -21,7 +21,7 @@ angular.module('PreSales-Huddle')
         $rootScope.currentYear = $rootScope.currentDate.getFullYear();
         $rootScope.currentMonth = $rootScope.currentDate.getMonth();
         $rootScope.previousYear = $rootScope.previousYearDate.getFullYear();
-        $rootScope.previoustMonth = $rootScope.previousYearDate.getMonth()-1;
+        $rootScope.previoustMonth = $rootScope.previousYearDate.getMonth();
         console.log("prev year date",$rootScope.previousYearDate);
         $scope.prospect = $rootScope.prospectToUpdate;
         $http.get(baseURL + 'prospect/all/',{ headers: {'Authentication': JSON.parse($rootScope.authenticationData)}
