@@ -1,5 +1,6 @@
 // var baseURL = "http://172.24.212.123:8280/";
 var baseURL = "http://presaleshuddle:8080/";
+//var baseURL = "http://golangwebservice-presales.rhcloud.com/";
 
 angular.module('PreSales-Huddle')
 
