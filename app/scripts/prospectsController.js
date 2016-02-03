@@ -171,11 +171,11 @@ angular.module('PreSales-Huddle')
                     }
                 }
 
-                console.log("$rootScope.numberOfProspect",$rootScope.numberOfProspect)
-                console.log("$rootScope.numberOfClient",$rootScope.numberOfClient)
+                console.log("$rootScope.numberOfProspect",$rootScope.numberOfProspect);
+                console.log("$rootScope.numberOfClient",$rootScope.numberOfClient);
             }).error(function (data, status, header, config) {
                 console.log("Not able to calculate Discussion count")
-            })
+            });
         displayProspectList();
     }
 
