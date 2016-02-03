@@ -57,6 +57,9 @@ angular.module('PreSales-Huddle')
                 },{
                     value: 'Volunteer participation for prospects',
                     name:  'Volunteer participation for prospects'
+                },{
+                    value: 'Revenue distribution',
+                    name:  'Revenue distribution'
                 }]
             ;
             $scope.reportType = 'Prospect addition per month';
@@ -67,7 +70,7 @@ angular.module('PreSales-Huddle')
                     countFiveToTen = 0, countTenPlus = 0, countCreated = 0, countPrep = 0, countClient = 0, countDead = 0,
                     countClientCreated = 0, countFollowUP = 0 ;
 
-                if ( angular.equals($scope.reportType, $scope.reportTypes[0].value) ) {
+                if ( angular.equals($scope.reportType, $scope.reportTypes[0].value)) {
                     propsectPerMonth();
                 }
 
@@ -224,8 +227,9 @@ angular.module('PreSales-Huddle')
                         var testArray = [],roleArray = [];
                         for (var i = 0; i < numberOfProspects; i++) {
                             (function (index) {
-                                $http.get(baseURL + 'participant/prospectid/' + prospectList[i].ProspectID)
-                                    .success(function(participantData, status, headers, config){
+                                $http.get(baseURL + 'participant/prospectid/' + prospectList[i].ProspectID, {
+                                        headers: {'Authentication': JSON.parse($rootScope.authenticationData)}
+                                    }).success(function(participantData, status, headers, config){
 
                                         var participantdata = JSON.stringify(participantData);
                                         if (JSON.parse(participantdata) == null) {
@@ -252,6 +256,23 @@ angular.module('PreSales-Huddle')
                             }(i));
                         }
                     }).error(function(data, status, header, config) {});
+                }
+
+                else if ( angular.equals($scope.reportType, $scope.reportTypes[8].value)){
+
+                    for ( i = 0; i < data.length; i++ ) {
+                        testArray[i] = data[i].Revenue;
+                    }
+                    console.log(testArray);
+                    var finalArray = dataToRenderChart(testArray);
+                    console.log("finalArray",finalArray);
+                    $(document).ready(function () {
+                        var Array = arrayToObject(finalArray);
+
+                        RenderPieChartRevenue('report-container', [
+                            Array
+                        ]);
+                    });
                 }
             };
         }).error(function (data, status, header, config) {});
@@ -749,6 +770,61 @@ angular.module('PreSales-Huddle')
                 });
             }
         }
+        function RenderPieChartRevenue(elementId, dataList) {
+            for (var i = 0; i < dataList.length; i++) {
+                new Highcharts.Chart({
+                    chart: {
+                        type: 'pie',
+                        options3d: {
+                            enabled: true,
+                            alpha: 45,
+                            beta: 0
+                        },
+                        renderTo: elementId,
+                        plotBackgroundColor: null,
+                        plotBorderWidth: null,
+                        plotShadow: false,
+                        height: 600,
+                        width: 1140
+                    },
+                    colors: ['#7cb5ec', '#434348', '#90ed7d', '#f7a35c', '#8085e9',
+                        '#f15c80', '#e4d354', '#2b908f', '#f45b5b', '#91e8e1','#8c8c8c'],
+                    title: {
+                        text: 'Revenue distribution'
+                    },
+                    tooltip: {
+                        formatter: function () {
+                            return '<b>' + this.point.name + '</b>: ' + this.point.y;
+                        }
+                    },
+                    plotOptions: {
+                        pie: {
+                            allowPointSelect: true,
+                            size: 400,
+                            center: [550, 200],
+                            cursor: 'pointer',
+                            depth: 55,
+                            dataLabels: {
+                                formatter: function () {
+
+                                    if (this.y != 0) {
+                                        return '<b>' + this.point.name + '</b>: ' + Highcharts.numberFormat(this.percentage, 2) + '%';
+                                    }
+                                    else {
+                                        return null;
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    series: [{
+                        type: 'pie',
+                        name: 'Browser share',
+                        data: dataList[0]
+                    }]
+                });
+            }
+        }
         function countArray(original) {
             var compressed = [];
             var copy = original.slice(0);
@@ -1106,4 +1182,15 @@ angular.module('PreSales-Huddle')
             return Array;
 
         }
+        $scope.checkMyProspectReport = function ($event, participant) {
+
+            if (angular.equals("Engineer", $rootScope.assignRole)) {
+                $rootScope.user = 0;
+                console.log($rootScope.user,"data");
+            } else {
+                $rootScope.user = 1;
+                console.log($rootScope.user);
+            }
+
+        };
     });

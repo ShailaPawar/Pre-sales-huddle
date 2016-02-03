@@ -157,7 +157,7 @@ angular.module('PreSales-Huddle')
         console.log("In EditCtrl $rootScope.prospectToUpdate: ", $rootScope.prospectToUpdate);
         $scope.prospect = $rootScope.prospectToUpdate;
         $rootScope.editProspectNotes = 0;
-        $rootScope.editContactDetails = 0;
+        //$rootScope.editContactDetails = 0;
         $rootScope.editProspectData = 1;
         $scope.revenue =
             [{
@@ -229,22 +229,22 @@ angular.module('PreSales-Huddle')
         $scope.editProspectNote = function() {
             $rootScope.nameOfProspect = $scope.prospect.Name;
             $rootScope.editProspectNotes = 1;
-            $rootScope.editContactDetails = 0;
+           // $rootScope.editContactDetails = 0;
             $rootScope.editProspectData = 0;
         };
 
         $scope.goEditForm = function() {
             $rootScope.editProspectNotes = 0;
-            $rootScope.editContactDetails = 0;
+           // $rootScope.editContactDetails = 0;
             $rootScope.editProspectData = 1;
         };
 
-        $scope.editContacts = function() {
+       /* $scope.editContacts = function() {
             $rootScope.editProspectNotes = 0;
             $rootScope.editContactDetails = 1;
             $rootScope.editProspectData = 0;
 
-        };
+        };*/
 
         $scope.goBack = function() {
             $('body').removeClass('modal-open');
@@ -367,6 +367,8 @@ angular.module('PreSales-Huddle')
         console.log("prospectFetched: ", prospectFetched);
         $scope.prospect = prospectFetched;
         console.log("$scope.prospect: ", $scope.prospect);
+        $rootScope.addClientNotes= 0 ;
+        $rootScope.addClientForm = 1;
 
         $scope.BUHead = [
                             {
@@ -376,18 +378,15 @@ angular.module('PreSales-Huddle')
                                 value: 'BU3 (Amit)',
                                 name: 'BU3 (Amit)'
                             }, {
-
                                 value: 'BU4 (Preshit)',
                                 name: 'BU4 (Preshit)'
-                            },
-                            {
+                            }, {
                                 value: 'BU5 (Vrinda)',
                                 name: 'BU5 (Vrinda)'
                             }, {
                                 value: 'BU6 (Ashutosh)',
                                 name: 'BU6 (Ashutosh)'
                             }, {
-
                                 value: 'BU7 (Mukund)',
                                 name: 'BU7 (Mukund)'
                             }
@@ -415,12 +414,12 @@ angular.module('PreSales-Huddle')
                 SalesID:        $rootScope.salesName,
                 ConfCalls:      prospectFetched.ConfCalls,
                 ProspectStatus: prospectStatus,
-                KeyContacts:    $scope.KeyContacts,
-                WebsiteURL:     $scope.WebsiteURL,
-                FolderURL:      $scope.FolderURL,
-                Revenue:        $scope.Revenue
+                KeyContacts:    $scope.prospect.KeyContacts,
+                WebsiteURL:     $scope.prospect.WebsiteURL,
+                FolderURL:      $scope.prospect.FolderURL,
+                Revenue:        $scope.prospect.Revenue
             };
-
+            console.log("data",data);
             $http.put(baseURL + 'prospect/', data = data, {
                 headers: {'Authentication': JSON.parse($rootScope.authenticationData)}
             }).success(function (data, status, headers, config) {
@@ -431,7 +430,16 @@ angular.module('PreSales-Huddle')
                 console.log('Prospect not converted to Client.');
             });
         };
+        $scope.clientNotesPage = function() {
+            $rootScope.nameOfProspect = $scope.prospect.Name;
+            $rootScope.addClientNotes = 1;
+            $rootScope.addClientForm = 0;
+        };
 
+        $scope.addToClientForm = function() {
+            $rootScope.addClientNotes= 0 ;
+            $rootScope.addClientForm = 1;
+        };
         $scope.goBack = function() {
             $('body').removeClass('modal-open');
             $location.path('/clients');
@@ -456,9 +464,20 @@ angular.module('PreSales-Huddle')
         document.getElementById('notifications').style.visibility='visible';
         document.getElementById('titleText').style.display = 'none';
 
-        var prospectFetched = $rootScope.prospectToUpdate;
-        $scope.prospect = prospectFetched;
+        $scope.prospect = $rootScope.prospectToUpdate;
         console.log("$scope.prospect: ", $scope.prospect);
+        $rootScope.showParticularClient = 1;
+        $rootScope.showClientNotes = 0;
+
+        $scope.viewClientNotes = function() {
+            $rootScope.nameOfProspect = $scope.prospect.Name;
+            $rootScope.showParticularClient = 0;
+            $rootScope.showClientNotes = 1;
+        };
+        $scope.goToViewForm = function() {
+            $rootScope.showParticularClient = 1;
+            $rootScope.showClientNotes = 0;
+        };
 
         // back button function
         $scope.go = function (path) {
@@ -731,28 +750,28 @@ angular.module('PreSales-Huddle')
         $scope.prospect = $rootScope.prospectToUpdate;
         $rootScope.viewProspectNotes = 0;
         $rootScope.viewParticularPropsectDetails = 1;
-        $rootScope.viewContactDetails = 0;
+       // $rootScope.viewContactDetails = 0;
 
         $scope.viewProspectNote = function() {
             $rootScope.nameOfProspect = $scope.prospect.Name;
             $rootScope.viewProspectNotes = 1;
             $rootScope.viewParticularPropsectDetails = 0;
-            $rootScope.viewContactDetails = 0;
+            //$rootScope.viewContactDetails = 0;
         };
 
         $scope.goToViewForm = function() {
             $rootScope.viewProspectNotes = 0;
             $rootScope.viewParticularPropsectDetails = 1;
-            $rootScope.viewContactDetails = 0;
+           // $rootScope.viewContactDetails = 0;
 
         };
 
-        $scope.viewContacts = function() {
+       /* $scope.viewContacts = function() {
             $rootScope.viewProspectNotes = 0;
             $rootScope.viewParticularPropsectDetails = 0;
             $rootScope.viewContactDetails = 1;
 
-        };
+        };*/
         // Cancel button function
         $scope.go = function(path) {
             $rootScope.lastform = "createProspect";

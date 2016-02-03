@@ -42,6 +42,30 @@
                 <input type = "number" ng-model = "prospect.DesiredTeamSize" id = "teamSize" name = "teamSize"
                        class = "form-control" min="0" >
             </div>
+            <div class = "form-group">
+                <label for = "websiteURL"> Website URL: </label>
+
+                <input type="text" id = "websiteURL" name = "websiteURL" ng-model = "prospect.WebsiteURL"  placeholder = "e.g: www.google.com"
+                       class = "form-control" >
+            </div>
+            <div class = "form-group">
+                <label for = "folderURL"> Folder URL: </label>
+
+                <input type="text" id = "folderURL" name = "folderURL" ng-model = "prospect.FolderURL" placeholder = "e.g: www.synerzip.com/home/Documents"
+                       class = "form-control" >
+            </div>
+            <div class = "dropdown form-group" >
+                <label for = "PreRevenue"> Select Revenue:
+                </label>
+                <select id="PreRevenue" class="form-control" ng-model="prospect.Revenue" ng-options="revenue.value as revenue.name for revenue in revenue">
+                </select>
+            </div>
+            <div class = "form-group">
+                <label for = "keyContacts"> Key Contacts: </label>
+
+                   <textarea id = "keyContacts" name = "keyContacts" ng-model = "prospect.KeyContacts"
+                             class = "form-control" ></textarea>
+            </div>
             <p>
                 <span style = "font-size: 9pt;"> All fields marked with an
                     <img src = "images/required.gif" alt = "asterisk" class = "required-star"> are required.
@@ -60,7 +84,7 @@
         <div ng-show="editProspectNotes" class="container" style="background-color:whitesmoke" id = "notes-container">
 
             <div class = "form-group">
-                <label for = "notes"> Notes for Prospect {{nameOfProspect}}</label>
+                <label for = "notes"> Notes for Prospect '{{nameOfProspect}}'</label>
                 <pre style="font-family: helvetica;font-size: 14px;text-align: left;padding: 0px 0px 0px 0px;border: none;margin-top: -4%;margin-bottom: -8% ">
                     <textarea  rows="20" ng-model = "prospect.ProspectNotes" id = "notes" name = "notes"class = "form-control">
                     </textarea>
@@ -70,12 +94,12 @@
             <div class = "form-group">
                 <input type="button" id="notesBack-button" value="Prev" class="col-sm-2 btn btn-primary"
                        ng-click="goEditForm()">
-                <button type="button" class="col-sm-2 btn btn-primary" ng-click="editContacts()"
-                       style="margin-left:10px;"> Next </button>
+                <button type="button" class="col-sm-2 btn btn-primary" ng-click="editProspect()"
+                        style="margin-left:10px;"> Save </button>
             </div>
         </div>
         <div class="form-group"></div>
-       <!-- <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
             <div class="vertical-alignment-helper">
                 <div class="modal-dialog vertical-align-center">
                     <div class="modal-content" style="width: 20% !important;">
@@ -87,10 +111,10 @@
                     </div>
                 </div>
             </div>
-        </div>-->
+        </div>
     </form>
 
-    <form  name = "createForm" novalidate ng-submit="submitMyForm()">
+   <!-- <form  name = "createForm" novalidate ng-submit="submitMyForm()">
         <div ng-show="editContactDetails" class = "container" id = "contacts-container">
             <div class = "form-group">
                 <div class = "form-group">
@@ -139,7 +163,7 @@
                 </div>
             </div>
         </div>
-    </form>
+    </form>-->
 
 
 </section>

@@ -1,7 +1,7 @@
 <section>
     <span id="pageTitle"> Convert Prospect to Client</span>
     <form name = "addclient" novalidate ng-submit="submitMyForm()">
-        <div class="container" id = "form-container">
+        <div ng-show="addClientForm" class = "container" id = "form-container">
 
             <div class = "form-group" ng-class="{ 'has-error' : addclient.prospectName.$invalid && !addclient.prospectName.$pristine }">
                 <label for = "prospectName"> Prospect Name:
@@ -40,10 +40,35 @@
                 <p ng-show = "addclient.teamSize.$invalid && !addclient.teamSize.$pristine" class="help-block">Actual Team Size required.</p>
 
             </div>
-            <div class = "form-group">
+           <!-- <div class = "form-group">
                 <label for = "notes"> Client Notes: </label>
                 <textarea id = "notes" name = "notes" ng-model = "notes" class = "form-control">
                     </textarea>
+            </div>-->
+            <div class = "form-group">
+                <label for = "websiteURL"> Website URL: </label>
+
+                <input type="text" id = "websiteURL" name = "websiteURL" ng-model = "prospect.WebsiteURL"  placeholder = "e.g: www.google.com"
+                       class = "form-control" >
+            </div>
+            <div class = "form-group">
+                <label for = "folderURL"> Folder URL: </label>
+
+                <input type="text" id = "folderURL" name = "folderURL" ng-model = "prospect.FolderURL" placeholder = "e.g: www.synerzip.com/home/Documents"
+                       class = "form-control" >
+            </div>
+            <div class = "form-group">
+                <label for = "PreRevenue"> Revenue:
+                </label>
+                <input type="text" id = "PreRevenue" name = "PreRevenue" ng-model = "prospect.Revenue" ng-options="revenue.value as revenue.name for revenue in revenue"
+                       class = "form-control" >
+
+            </div>
+            <div class = "form-group">
+                <label for = "keyContacts"> Key Contacts: </label>
+
+                   <textarea id = "keyContacts" name = "keyContacts" ng-model = "prospect.KeyContacts"
+                             class = "form-control" ></textarea>
             </div>
             <p>
             <span style = "font-size: 9pt;"> All fields marked with an
@@ -52,14 +77,15 @@
             </p>
             <div class = "form-group">
                 <input type="button" id="cancel-button" value="Cancel" class="col-sm-2 btn btn-primary"
+                <input type="button" id="cancel-button" value="Cancel" class="col-sm-2 btn btn-primary"
                        ng-click="go('viewProspects')">
-                <button type="button" class="col-sm-2 btn btn-primary" ng-click="addToClient()"
-                        style="margin-left:10px;" ng-disabled="addclient.$invalid"> Save </button>
+                <button type="button" class="col-sm-2 btn btn-primary" ng-click="clientNotesPage()"
+                        style="margin-left:10px;" ng-disabled="addclient.$invalid"> Next </button>
             </div>
         </div>
         <div class="form-group">
         </div>
-        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+       <!-- <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
             <div class="vertical-alignment-helper">
                 <div class="modal-dialog vertical-align-center">
                     <div class="modal-content" style="width: 20% !important;">
@@ -72,6 +98,36 @@
                 </div>
             </div>
         </div>
+-->
+    </form>
+    <form  name = "createFormNotes" novalidate>
+        <div ng-show="addClientNotes" class = "container" id = "notes-container">
+            <div class = "form-group">
+                <label for = "notes"> Notes for Client '{{nameOfProspect}}'</label>
+                <textarea rows="20" id = "notes" name = "notes" ng-model = "notes" class = "form-control"></textarea>
+            </div>
 
+            <div class = "form-group">
+                <input type="button" id="notesBack-button" value="Prev" class="col-sm-2 btn btn-primary"
+                       ng-click="addToClientForm()">
+                <button type="submit" class="col-sm-2 btn btn-primary" ng-click="addToClient()"
+                        style="margin-left:10px;"> Add </button>
+            </div>
+        </div>
+        <div class="form-group"></div>
+
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="vertical-alignment-helper">
+                <div class="modal-dialog vertical-align-center">
+                    <div class="modal-content" style="width: 20% !important;">
+                        <div class="modal-body">
+                            <div style="text-align: center">Prospect added. </div>
+                            <br>
+                            <button ng-click="goBack()" type="button" class="btn btn-primary" data-dismiss="modal" style="margin-left: 40%">OK</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </form>
 </section>

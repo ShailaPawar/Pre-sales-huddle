@@ -22,7 +22,7 @@ angular.module('PreSales-Huddle')
         console.log("$scope.date", $scope.date);
 
         $rootScope.showProspectNote = 0;
-        $rootScope.showContactDetails = 0;
+        //$rootScope.showContactDetails = 0;
         $rootScope.showaddPropsectForm = 1;
         $scope.revenue =
             [{
@@ -105,19 +105,19 @@ angular.module('PreSales-Huddle')
         $scope.notesPage = function() {
             $rootScope.nameOfProspect = $scope.prospectName;
             $rootScope.showProspectNote = 1;
-            $rootScope.showContactDetails = 0;
+           // $rootScope.showContactDetails = 0;
             $rootScope.showaddPropsectForm = 0;
         };
 
-        $scope.contactsPage = function() {
+        /*$scope.contactsPage = function() {
             $rootScope.showProspectNote = 0;
             $rootScope.showContactDetails = 1;
             $rootScope.showaddPropsectForm = 0;
         };
-
+*/
         $scope.addProspectForm = function() {
             $rootScope.showProspectNote= 0 ;
-            $rootScope.showContactDetails = 0;
+         //   $rootScope.showContactDetails = 0;
             $rootScope.showaddPropsectForm = 1;
         };
 
