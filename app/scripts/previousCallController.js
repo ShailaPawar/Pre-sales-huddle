@@ -27,10 +27,34 @@ angular.module('PreSales-Huddle')
             $scope.previousCallDetails = $rootScope.prospectToViewCallDetails.ConfCalls
             $scope.previousCallDetails = JSON.stringify($scope.previousCallDetails);
             $scope.previousCallDetails = JSON.parse($scope.previousCallDetails)
-
+            console.log("$scope.previousCallDetails ", $scope.previousCallDetails);
             var previousCallDetailsLength = $scope.previousCallDetails.length;
             console.log("previousCallDetailsLength",previousCallDetailsLength);
+                if (previousCallDetailsLength == 0){
+                    $rootScope.noPreviousCalls = 1;
+                }
+                else{
+                    $rootScope.noPreviousCalls = 0;
+                    for(var i = 0 ; i < previousCallDetailsLength ; i++){
+                        var date = new Date($scope.previousCallDetails[i].ConfDateStart);
+                        var n = date.toDateString();
+                        var time = date.toLocaleTimeString();
+                        var date_time = n + " " + time;
 
+                        //console.log("length: ", date.toTimeString(), date.toTimeString().length);
+
+                        var timeString = date.toTimeString();
+                        var timeZone = timeString.split(" ");
+                        var timeZoneStr = timeZone[1] + " " + timeZone[2];
+                        //console.log("timeZoneStr: ", timeZoneStr);
+                        $scope.previousCallDetails[i].ConfDateStart = date_time + " " + timeZoneStr;
+                    }
+
+                }
+
+
+
+/*
             for(var i = 0 ; i < previousCallDetailsLength ; i++){
                 var date = new Date($scope.previousCallDetails[i].ConfDateStart);
                 var n = date.toDateString();
@@ -44,7 +68,7 @@ angular.module('PreSales-Huddle')
                 var timeZoneStr = timeZone[1] + " " + timeZone[2];
                 //console.log("timeZoneStr: ", timeZoneStr);
                 $scope.previousCallDetails[i].ConfDateStart = date_time + " " + timeZoneStr;
-            }
+            }*/
             $scope.previousCalls = $scope.previousCallDetails;
             console.log("")
         }).error(function (data, status, header, config) {

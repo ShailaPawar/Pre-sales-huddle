@@ -13,7 +13,7 @@
                     <th> Datetime </th>
                     <th style="width: 23%"> Google Calendar link </th>
                     </thead>
-                    <tbody>
+                    <tbody ng-show = " !noPreviousCalls ">
                     <tr ng-repeat = "previousCall in previousCalls">
                         <td> {{ previousCall.ConfType }} </td>
                         <td> {{ previousCall.ConfDateStart }} </td>
@@ -21,11 +21,17 @@
                         </td>
                     </tr>
                     </tbody>
+                    <tbody ng-show = " noPreviousCalls ">
+                    <tr ng-show = " noPreviousCalls ">
+                        <td> No Previous Calls to Show</td>
+                    </tr>
+                    </tbody>
                 </table>
             </div>
 
             <div class = "form-group">
-                <input type="button" id="cancel-button" value="Schedule another call" class="col-sm-3 btn btn-primary" ng-click="scheduleCall()" >
+                <input ng-show = " !noPreviousCalls " type="button" id="cancel-button" value="Schedule another call" class="col-sm-3 btn btn-primary" ng-click="scheduleCall()" >
+                <input ng-show = " noPreviousCalls " type="button" id="cancel-button"  value="Schedule call" class="col-sm-3 btn btn-primary" ng-click="scheduleCall()" >
             </div>
         </div>
 </section>

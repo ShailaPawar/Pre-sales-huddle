@@ -81,6 +81,11 @@
                 Actions
             </th>
         </thead>
+        <!--<tbody ng-show = "numberOfProspect == 0">
+                <tr ng-show = "numberOfProspect == 0">
+                    <td>No Prospect To Show.</td>
+                </tr>
+        </tbody>-->
 
         <!--Hide dead prospects-->
         <tbody ng-show = "(user) && (!showDeadProspects  && !showMyProspect)">
@@ -166,10 +171,13 @@
                     <span   class = "glyphicon glyphicon-comment" aria-hidden = "true" ></span>
                 </a>
 
-                <a href = '#/scheduleCall' ng-show="user" ng-click="saveData(prospect)" class = "edit-btn" data-toggle = "tooltip" title = "Schedule call" >
+                <!--<a href = '#/scheduleCall' ng-show="user" ng-click="saveData(prospect)" class = "edit-btn" data-toggle = "tooltip" title = "Schedule call" >
+                    <span  class = "glyphicon glyphicon-phone-alt" aria-hidden = "true" ></span>
+                </a>-->
+
+                <a href = '#/previousCall' ng-show="user" ng-click="saveData(prospect)" class = "edit-btn" data-toggle = "tooltip" title = "Schedule call" >
                     <span  class = "glyphicon glyphicon-phone-alt" aria-hidden = "true" ></span>
                 </a>
-
                 <a href = '#/addToClient' ng-show="user"  id="convertToClient" ng-click="saveData(prospect)" class = "edit-btn" data-toggle = "tooltip" title = "Convert to client" >
                     <span  class = "glyphicon glyphicon-usd" aria-hidden = "true" ></span>
                 </a>
@@ -203,35 +211,39 @@
             <!--<td> {{ prospect.ProspectNotes }} </td>-->
 
             <td>
-                <a href = '#/viewParticularProspect' ng-click="saveData(prospect)"  ng-show="!user" id="viewProspects" class = "edit-btn" data-toggle = "tooltip" title = "View prospect information" >
+                <a href = '#/viewParticularProspect' ng-click="saveData(prospect)"  ng-show="!user" class = "edit-btn" data-toggle = "tooltip" title = "View prospect information" >
                     <span   class = "glyphicon glyphicon-eye-open" aria-hidden = "true"  ></span>
                 </a>
 
-                <a href = '#/editProspect' ng-show="user" id="updateProspects" ng-click="saveData(prospect)" class = "edit-btn" data-toggle = "tooltip" title = "View/Update prospect information" >
+                <a href = '#/editProspect' ng-show="user" ng-click="saveData(prospect)" class = "edit-btn" data-toggle = "tooltip" title = "View/Update prospect information" >
                     <span  class = "glyphicon glyphicon-edit" aria-hidden = "true" ></span>
                     <!-- <span class = "visuallyhidden"> Edit {{prospect.Name}} </span>-->
                 </a>
 
-                <a href = '#/discussions' ng-click="saveData(prospect)" id="discussions" class = "edit-btn" data-toggle = "tooltip" title = "Discussions" >
+                <a href = '#/discussions' ng-click="saveData(prospect)" class = "edit-btn" data-toggle = "tooltip" title = "Discussions" >
                     <span   class = "glyphicon glyphicon-comment" aria-hidden = "true" ></span>
                 </a>
 
-                <a href = '#/scheduleCall' ng-show="user" ng-click="saveData(prospect)" class = "edit-btn" data-toggle = "tooltip" title = "Schedule call" >
+                <!--<a href = '#/scheduleCall' ng-show="user" ng-click="saveData(prospect)" class = "edit-btn" data-toggle = "tooltip" title = "Schedule call" >
+                    <span  class = "glyphicon glyphicon-phone-alt" aria-hidden = "true" ></span>
+                </a>-->
+
+                <a href = '#/previousCall' ng-show="user" ng-click="saveData(prospect)" class = "edit-btn" data-toggle = "tooltip" title = "Schedule call" >
                     <span  class = "glyphicon glyphicon-phone-alt" aria-hidden = "true" ></span>
                 </a>
 
-                <a href = '#/addToClient' ng-show="user"  id="convertToClients" ng-click="saveData(prospect)" class = "edit-btn" data-toggle = "tooltip" title = "Convert to client" >
+                <a href = '#/addToClient' ng-show="user" ng-click="saveData(prospect)" class = "edit-btn" data-toggle = "tooltip" title = "Convert to client" >
                     <span  class = "glyphicon glyphicon-usd" aria-hidden = "true" ></span>
                 </a>
 
-                <a href = '/prospects' ng-show="user" data-toggle="modal" ng-click="viewModal(prospect)" data-target="#myModal" class = "edit-btn" id="setReminders" data-toggle = "tooltip" title = "Set up reminder" >
+                <a href = '/prospects' ng-show="user" data-toggle="modal" ng-click="viewModal(prospect)" data-target="#myModal" class = "edit-btn" data-toggle = "tooltip" title = "Set up reminder" >
                     <span  class = "glyphicon glyphicon-envelope" aria-hidden = "true" ></span>
                 </a>
-                <a href = '#/deadProspect' ng-show="user" ng-click="saveData(prospect)"  id="deadProspects" class = "edit-btn" data-toggle = "tooltip" title = "Dead prospect" >
+                <a href = '#/deadProspect' ng-show="user" ng-click="saveData(prospect)" class = "edit-btn" data-toggle = "tooltip" title = "Dead prospect" >
                     <span   class = "glyphicon glyphicon-trash" aria-hidden = "true" ></span>
                 </a>
 
-                <a ng-show="!user" id="volunteers" ng-click="volunteerProspect(prospect)" class = "edit-btn" data-toggle = "tooltip" title = "Volunteer" >
+                <a ng-show="!user" ng-click="volunteerProspect(prospect)" class = "edit-btn" data-toggle = "tooltip" title = "Volunteer" >
                     <span   class = "glyphicon glyphicon-hand-up" aria-hidden = "true" ></span>
                 </a>
             </td>
@@ -252,35 +264,39 @@
             <!--<td> {{ prospect.ProspectNotes }} </td>-->
 
             <td>
-                <a href = '#/viewParticularProspect' ng-click="saveData(prospect)"  ng-show="!user" id="viewProspect" class = "edit-btn" data-toggle = "tooltip" title = "View prospect information" >
+                <a href = '#/viewParticularProspect' ng-click="saveData(prospect)"  ng-show="!user" class = "edit-btn" data-toggle = "tooltip" title = "View prospect information" >
                     <span   class = "glyphicon glyphicon-eye-open" aria-hidden = "true"  ></span>
                 </a>
 
-                <a href = '#/editProspect' ng-show="user" id="updateProspect" ng-click="saveData(prospect)" class = "edit-btn" data-toggle = "tooltip" title = "View/Update prospect information" >
+                <a href = '#/editProspect' ng-show="user" ng-click="saveData(prospect)" class = "edit-btn" data-toggle = "tooltip" title = "View/Update prospect information" >
                     <span  class = "glyphicon glyphicon-edit" aria-hidden = "true" ></span>
                     <!-- <span class = "visuallyhidden"> Edit {{prospect.Name}} </span>-->
                 </a>
 
-                <a href = '#/discussions' ng-click="saveData(prospect)" id="discussion" class = "edit-btn" data-toggle = "tooltip" title = "Discussions" >
+                <a href = '#/discussions' ng-click="saveData(prospect)" class = "edit-btn" data-toggle = "tooltip" title = "Discussions" >
                     <span   class = "glyphicon glyphicon-comment" aria-hidden = "true" ></span>
                 </a>
 
-                <a href = '#/scheduleCall' ng-show="user" ng-click="saveData(prospect)" class = "edit-btn" data-toggle = "tooltip" title = "Schedule call" >
+                <!--<a href = '#/scheduleCall' ng-show="user" ng-click="saveData(prospect)" class = "edit-btn" data-toggle = "tooltip" title = "Schedule call" >
+                    <span  class = "glyphicon glyphicon-phone-alt" aria-hidden = "true" ></span>
+                </a>-->
+
+                <a href = '#/previousCall' ng-show="user" ng-click="saveData(prospect)" class = "edit-btn" data-toggle = "tooltip" title = "Schedule call" >
                     <span  class = "glyphicon glyphicon-phone-alt" aria-hidden = "true" ></span>
                 </a>
 
-                <a href = '#/addToClient' ng-show="user"  id="convertToClient" ng-click="saveData(prospect)" class = "edit-btn" data-toggle = "tooltip" title = "Convert to client" >
+                <a href = '#/addToClient' ng-show="user"  ng-click="saveData(prospect)" class = "edit-btn" data-toggle = "tooltip" title = "Convert to client" >
                     <span  class = "glyphicon glyphicon-usd" aria-hidden = "true" ></span>
                 </a>
 
-                <a href = '/prospects' ng-show="user" data-toggle="modal" ng-click="viewModal(prospect)" data-target="#myModal" class = "edit-btn" id="setReminder" data-toggle = "tooltip" title = "Set up reminder" >
+                <a href = '/prospects' ng-show="user" data-toggle="modal" ng-click="viewModal(prospect)" data-target="#myModal" class = "edit-btn" data-toggle = "tooltip" title = "Set up reminder" >
                     <span  class = "glyphicon glyphicon-envelope" aria-hidden = "true" ></span>
                 </a>
-                <a href = '#/deadProspect' ng-show="user" ng-click="saveData(prospect)"  id="deadProspect" class = "edit-btn" data-toggle = "tooltip" title = "Dead prospect" >
+                <a href = '#/deadProspect' ng-show="user" ng-click="saveData(prospect)" class = "edit-btn" data-toggle = "tooltip" title = "Dead prospect" >
                     <span   class = "glyphicon glyphicon-trash" aria-hidden = "true" ></span>
                 </a>
 
-                <a ng-show="!user" id="volunteer" ng-click="volunteerProspect(prospect)" class = "edit-btn" data-toggle = "tooltip" title = "Volunteer" >
+                <a ng-show="!user" ng-click="volunteerProspect(prospect)" class = "edit-btn" data-toggle = "tooltip" title = "Volunteer" >
                     <span   class = "glyphicon glyphicon-hand-up" aria-hidden = "true" ></span>
                 </a>
             </td>
@@ -305,35 +321,39 @@
             <!--<td> {{ prospect.ProspectNotes }} </td>-->
 
             <td>
-                <a href = '#/viewParticularProspect' ng-click="saveData(prospect)"  ng-show="!user" id="viewProspects" class = "edit-btn" data-toggle = "tooltip" title = "View prospect information" >
+                <a href = '#/viewParticularProspect' ng-click="saveData(prospect)"  ng-show="!user" class = "edit-btn" data-toggle = "tooltip" title = "View prospect information" >
                     <span   class = "glyphicon glyphicon-eye-open" aria-hidden = "true"  ></span>
                 </a>
 
-                <a href = '#/editProspect' ng-show="user" id="updateProspects" ng-click="saveData(prospect)" class = "edit-btn" data-toggle = "tooltip" title = "View/Update prospect information" >
+                <a href = '#/editProspect' ng-show="user" ng-click="saveData(prospect)" class = "edit-btn" data-toggle = "tooltip" title = "View/Update prospect information" >
                     <span  class = "glyphicon glyphicon-edit" aria-hidden = "true" ></span>
                     <!-- <span class = "visuallyhidden"> Edit {{prospect.Name}} </span>-->
                 </a>
 
-                <a href = '#/discussions' ng-click="saveData(prospect)" id="discussions" class = "edit-btn" data-toggle = "tooltip" title = "Discussions" >
+                <a href = '#/discussions' ng-click="saveData(prospect)" class = "edit-btn" data-toggle = "tooltip" title = "Discussions" >
                     <span   class = "glyphicon glyphicon-comment" aria-hidden = "true" ></span>
                 </a>
 
-                <a href = '#/scheduleCall' ng-show="user" ng-click="saveData(prospect)" class = "edit-btn" data-toggle = "tooltip" title = "Schedule call" >
+                <!--<a href = '#/scheduleCall' ng-show="user" ng-click="saveData(prospect)" class = "edit-btn" data-toggle = "tooltip" title = "Schedule call" >
+                    <span  class = "glyphicon glyphicon-phone-alt" aria-hidden = "true" ></span>
+                </a>-->
+
+                <a href = '#/previousCall' ng-show="user" ng-click="saveData(prospect)" class = "edit-btn" data-toggle = "tooltip" title = "Schedule call" >
                     <span  class = "glyphicon glyphicon-phone-alt" aria-hidden = "true" ></span>
                 </a>
 
-                <a href = '#/addToClient' ng-show="user"  id="convertToClients" ng-click="saveData(prospect)" class = "edit-btn" data-toggle = "tooltip" title = "Convert to client" >
+                <a href = '#/addToClient' ng-show="user" ng-click="saveData(prospect)" class = "edit-btn" data-toggle = "tooltip" title = "Convert to client" >
                     <span  class = "glyphicon glyphicon-usd" aria-hidden = "true" ></span>
                 </a>
 
-                <a href = '/prospects' ng-show="user" data-toggle="modal" ng-click="viewModal(prospect)" data-target="#myModal" class = "edit-btn" id="setReminders" data-toggle = "tooltip" title = "Set up reminder" >
+                <a href = '/prospects' ng-show="user" data-toggle="modal" ng-click="viewModal(prospect)" data-target="#myModal" class = "edit-btn" data-toggle = "tooltip" title = "Set up reminder" >
                     <span  class = "glyphicon glyphicon-envelope" aria-hidden = "true" ></span>
                 </a>
-                <a href = '#/deadProspect' ng-show="user" ng-click="saveData(prospect)"  id="deadProspects" class = "edit-btn" data-toggle = "tooltip" title = "Dead prospect" >
+                <a href = '#/deadProspect' ng-show="user" ng-click="saveData(prospect)"  class = "edit-btn" data-toggle = "tooltip" title = "Dead prospect" >
                     <span   class = "glyphicon glyphicon-trash" aria-hidden = "true" ></span>
                 </a>
 
-                <a ng-show="!user" id="volunteers" ng-click="volunteerProspect(prospect)" class = "edit-btn" data-toggle = "tooltip" title = "Volunteer" >
+                <a ng-show="!user"  ng-click="volunteerProspect(prospect)" class = "edit-btn" data-toggle = "tooltip" title = "Volunteer" >
                     <span   class = "glyphicon glyphicon-hand-up" aria-hidden = "true" ></span>
                 </a>
             </td>
@@ -354,41 +374,47 @@
             <!--<td> {{ prospect.ProspectNotes }} </td>-->
 
             <td>
-                <a href = '#/viewParticularProspect' ng-click="saveData(prospect)"  ng-show="!user" id="viewProspects" class = "edit-btn" data-toggle = "tooltip" title = "View prospect information" >
+                <a href = '#/viewParticularProspect' ng-click="saveData(prospect)"  ng-show="!user" class = "edit-btn" data-toggle = "tooltip" title = "View prospect information" >
                     <span   class = "glyphicon glyphicon-eye-open" aria-hidden = "true"  ></span>
                 </a>
 
-                <a href = '#/editProspect' ng-show="user" id="updateProspects" ng-click="saveData(prospect)" class = "edit-btn" data-toggle = "tooltip" title = "View/Update prospect information" >
+                <a href = '#/editProspect' ng-show="user" ng-click="saveData(prospect)" class = "edit-btn" data-toggle = "tooltip" title = "View/Update prospect information" >
                     <span  class = "glyphicon glyphicon-edit" aria-hidden = "true" ></span>
                     <!-- <span class = "visuallyhidden"> Edit {{prospect.Name}} </span>-->
                 </a>
 
-                <a href = '#/discussions' ng-click="saveData(prospect)" id="discussions" class = "edit-btn" data-toggle = "tooltip" title = "Discussions" >
+                <a href = '#/discussions' ng-click="saveData(prospect)"  class = "edit-btn" data-toggle = "tooltip" title = "Discussions" >
                     <span   class = "glyphicon glyphicon-comment" aria-hidden = "true" ></span>
                 </a>
 
-                <a href = '#/scheduleCall' ng-show="user" ng-click="saveData(prospect)" class = "edit-btn" data-toggle = "tooltip" title = "Schedule call" >
+                <!--<a href = '#/scheduleCall' ng-show="user" ng-click="saveData(prospect)" class = "edit-btn" data-toggle = "tooltip" title = "Schedule call" >
+                    <span  class = "glyphicon glyphicon-phone-alt" aria-hidden = "true" ></span>
+                </a>-->
+
+                <a href = '#/previousCall' ng-show="user" ng-click="saveData(prospect)" class = "edit-btn" data-toggle = "tooltip" title = "Schedule call" >
                     <span  class = "glyphicon glyphicon-phone-alt" aria-hidden = "true" ></span>
                 </a>
 
-                <a href = '#/addToClient' ng-show="user"  id="convertToClients" ng-click="saveData(prospect)" class = "edit-btn" data-toggle = "tooltip" title = "Convert to client" >
+                <a href = '#/addToClient' ng-show="user"  ng-click="saveData(prospect)" class = "edit-btn" data-toggle = "tooltip" title = "Convert to client" >
                     <span  class = "glyphicon glyphicon-usd" aria-hidden = "true" ></span>
                 </a>
 
-                <a href = '/prospects' ng-show="user" data-toggle="modal" ng-click="viewModal(prospect)" data-target="#myModal" class = "edit-btn" id="setReminders" data-toggle = "tooltip" title = "Set up reminder" >
+                <a href = '/prospects' ng-show="user" data-toggle="modal" ng-click="viewModal(prospect)" data-target="#myModal" class = "edit-btn" data-toggle = "tooltip" title = "Set up reminder" >
                     <span  class = "glyphicon glyphicon-envelope" aria-hidden = "true" ></span>
                 </a>
-                <a href = '#/deadProspect' ng-show="user" ng-click="saveData(prospect)"  id="deadProspects" class = "edit-btn" data-toggle = "tooltip" title = "Dead prospect" >
+                <a href = '#/deadProspect' ng-show="user" ng-click="saveData(prospect)"   class = "edit-btn" data-toggle = "tooltip" title = "Dead prospect" >
                     <span   class = "glyphicon glyphicon-trash" aria-hidden = "true" ></span>
                 </a>
 
-                <a ng-show="!user" id="volunteers" ng-click="volunteerProspect(prospect)" class = "edit-btn" data-toggle = "tooltip" title = "Volunteer" >
+                <a ng-show="!user"  ng-click="volunteerProspect(prospect)" class = "edit-btn" data-toggle = "tooltip" title = "Volunteer" >
                     <span   class = "glyphicon glyphicon-hand-up" aria-hidden = "true" ></span>
                 </a>
             </td>
         </tr>
         </tbody>
     </table>
+
+        <p id="blankMessage" ng-show = "numberOfProspect == 0">No prospects to view.</p>
 
 
     <div class="modal fade" id="myModal" role="dialog" >

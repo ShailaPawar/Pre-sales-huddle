@@ -57,6 +57,7 @@ angular.module('PreSales-Huddle')
             var prospectData = JSON.stringify(data);
             var prospectList = JSON.parse(prospectData);
             var numberOfProspects = prospectList.length;
+
             for (var i = 0; i < numberOfProspects; i++) {
                 (function (index) {
 
@@ -142,7 +143,45 @@ angular.module('PreSales-Huddle')
         });
     }
 
-    displayProspectList();
+
+    checkList();
+
+    function checkList(){
+       // alert("in check");
+        $http.get(baseURL + 'prospect/all/', {
+            headers: {'Authentication': JSON.parse($rootScope.authenticationData)}})
+            .success(function (data, status, headers, config) {
+                var prospectData = JSON.stringify(data);
+                var prospectList = JSON.parse(prospectData);
+                if( prospectList == null){
+                    $rootScope.numberOfProspect = 0;
+                    $rootScope.numberOfClient = 0;
+                }
+                else{
+                    var numberOfProspects = prospectList.length;
+                    $rootScope.numberOfProspect = 0;
+                    $rootScope.numberOfClient = 0;
+                    for (var i = 0; i < numberOfProspects; i++) {
+                      if(prospectList[i].BUHead == ""){
+                          $rootScope.numberOfProspect++;
+                      }
+                      else{
+                          $rootScope.numberOfClient++;
+                      }
+                    }
+                }
+
+                console.log("$rootScope.numberOfProspect",$rootScope.numberOfProspect)
+                console.log("$rootScope.numberOfClient",$rootScope.numberOfClient)
+            }).error(function (data, status, header, config) {
+                console.log("Not able to calculate Discussion count")
+            })
+        displayProspectList();
+    }
+
+
+
+
 
     $scope.volunteerProspect = function(prospect) {
         $rootScope.prospectToUpdate = prospect;
@@ -182,55 +221,64 @@ angular.module('PreSales-Huddle')
 
     //  set up reminder save button
     $scope.prospectPage = function() {
-        var changeStatus = "Following up every " + $scope.numberOfDays + " days";
+        var numberOfDays = $scope.numberOfDays ;
+        if(numberOfDays == undefined){
+            $("#myModal1").modal({backdrop: "static"});
+        }
+        else{
 
-        var data = {
-            ProspectID:         $rootScope.prospectToView.ProspectID,
-            Name:               $rootScope.prospectToView.Name,
-            CreateDate :        $rootScope.prospectToView.CreateDate,
-            TechStack:          $rootScope.prospectToView.TechStack,
-            Domain:             $rootScope.prospectToView.Domain,
-            DesiredTeamSize:    $rootScope.prospectToView.DesiredTeamSize,
-            ProspectNotes:      $rootScope.prospectToView.ProspectNotes,
-            ConfCalls:          $rootScope.prospectToView.ConfCalls,
-            ProspectStatus:     changeStatus,
-            SalesID:            $rootScope.prospectToView.SalesID,
-            StartDate:          $rootScope.prospectToView.StartDate,
-            TeamSize:           $rootScope.prospectToView.TeamSize,
-            ClientNotes:        $rootScope.prospectToView.ClientNotes,
-            BUHead:             $rootScope.prospectToView.BUHead,
-            DeadProspectNotes:  $rootScope.prospectToView.notes,
-            KeyContacts:        $rootScope.prospectToView.KeyContacts,
-            WebsiteURL:         $rootScope.prospectToView.WebsiteURL,
-            FolderURL:          $rootScope.prospectToView.FolderURL,
-            Revenue:            $rootScope.prospectToView.Revenue
+            var changeStatus = "Following up every " + $scope.numberOfDays + " days";
 
-        };
+            var data = {
+                ProspectID:         $rootScope.prospectToView.ProspectID,
+                Name:               $rootScope.prospectToView.Name,
+                CreateDate :        $rootScope.prospectToView.CreateDate,
+                TechStack:          $rootScope.prospectToView.TechStack,
+                Domain:             $rootScope.prospectToView.Domain,
+                DesiredTeamSize:    $rootScope.prospectToView.DesiredTeamSize,
+                ProspectNotes:      $rootScope.prospectToView.ProspectNotes,
+                ConfCalls:          $rootScope.prospectToView.ConfCalls,
+                ProspectStatus:     changeStatus,
+                SalesID:            $rootScope.prospectToView.SalesID,
+                StartDate:          $rootScope.prospectToView.StartDate,
+                TeamSize:           $rootScope.prospectToView.TeamSize,
+                ClientNotes:        $rootScope.prospectToView.ClientNotes,
+                BUHead:             $rootScope.prospectToView.BUHead,
+                DeadProspectNotes:  $rootScope.prospectToView.notes
+            };
 
-        console.log(data);
+            console.log(data);
 
-        $http.put(baseURL + 'prospect/', data = data, {
-            headers: {'Authentication': JSON.parse($rootScope.authenticationData)}
-        }).success(function(data, status, headers, config) {
-            console.log('Reminder for prospect is set.');
-            //$('#myModal').modal('hide');
-            //$("#myModal").modal({backdrop: "static"});
-            //displayProspectList();
-            $location.path('/viewProspects');
-        }).error(function(data, status, headers, config) {
-            console.log(data, status, headers, config);
-            console.log('Reminder for prospect is not set.');
-        });
+            $http.put(baseURL + 'prospect/', data = data , {
+                headers: {'Authentication': JSON.parse($rootScope.authenticationData)}
+            }).success(function(data, status, headers, config) {
+                console.log('Reminder for prospect is set.');
+                //$('#myModal').modal('hide');
+                //$("#myModal").modal({backdrop: "static"});
+                displayProspectList();
+                //$location.path('/prospects');
+                console.log("console.log(data);",data);
+            }).error(function(data, status, headers, config) {
+                    console.log(data, status, headers, config);
+                    console.log('Reminder for prospect is not set.');
+                });
 
-        $scope.numberOfDays = "";
-        //javascript:history.go(-1);
-        //$location.path('/prospects');
+            $scope.numberOfDays = "";
+            $('body').removeClass('modal-open');
+            //javascript:history.go(-1);
+            //$location.path('/prospects');
+        }
     };
+        $scope.goBack = function() {
+            $('body').removeClass('modal-open');
+            $("#myModal").modal({backdrop: "static"});
+        }
+
 
     $scope.setUpReminderCancel = function() {
         $scope.numberOfDays = "";
         $('body').removeClass('modal-open');
-        javascript:history.go(-1);
+        //javascript:history.go(-1);
     };
 
     // checkbox handling

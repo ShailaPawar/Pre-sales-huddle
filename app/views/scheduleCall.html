@@ -67,7 +67,8 @@
                                 </ul>
                             </td>
                             <td>
-                                <input type = "radio" name="enggFacilitator" ng-model="$parent.enggFacilitatorName" value=" {{ participant.volunteerName }} " ng-checked = 'true'>
+                                <input type = "radio" name="enggFacilitator" ng-model="$parent.enggFacilitatorName" value=" {{ participant.volunteerName }} ">
+                                <!--<input type = "radio" name="enggFacilitator" ng-model="enggFacilitatorName" value=" {{ participant.volunteerName }} ">-->
                             </td>
                         </tr>
                     </tbody>
@@ -79,8 +80,9 @@
                 </span>
             </p>
             <div class = "form-group">
-                <input type="button" id="cancel-button" value="Cancel" class="col-sm-2 btn btn-primary" ng-click="go('viewProspects')">
-                <button type="button" id="save" class="col-sm-2 btn btn-primary" ng-click="scheduleCall()" style="margin-left:10px;" ng-disabled="scheduleCallForm.$invalid"> Save </button>
+                <input type="button" id="cancel-button" value="Cancel" class="col-sm-2 btn btn-primary" ng-click="go('previousCall')">
+                <!--<button type="button" id="save" class="col-sm-2 btn btn-primary" ng-click="scheduleCall()" style="margin-left:10px;" ng-disabled="scheduleCallForm.$invalid"> Save </button>-->
+                <button type="button" id="save" class="col-sm-2 btn btn-primary" ng-click="checkFacilitator()" style="margin-left:10px;" ng-disabled="scheduleCallForm.$invalid"> Save </button>
             </div>
             <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                 <div class="vertical-alignment-helper">
@@ -121,6 +123,21 @@
                         <div class="modal-content" style="width: 20% !important;">
                             <div class="modal-body">
                                 <div style="text-align: center">Select atleast 1 Volunteer and Try again.
+                                </div>
+                                <br>
+                                <button ng-click="goBackToScheduleCall()" type="button" class="btn btn-primary" data-dismiss="modal" style="margin-left: 40%" >OK</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal fade" id="modalCheckFacilitator" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                <div class="vertical-alignment-helper">
+                    <div class="modal-dialog vertical-align-center">
+                        <div class="modal-content" style="width: 20% !important;">
+                            <div class="modal-body">
+                                <div style="text-align: center">Select Engg. Facilitator for this call and Try again.
                                 </div>
                                 <br>
                                 <button ng-click="goBackToScheduleCall()" type="button" class="btn btn-primary" data-dismiss="modal" style="margin-left: 40%" >OK</button>

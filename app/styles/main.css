@@ -298,4 +298,12 @@ pre {
     border:1px solid #e5e5e5;
     width:100%;
 }
+#blankMessage{
+    margin-top: 8% !important ;
+    font-family: calibri;
+    font-size: 27pt;
+    text-align: center;
+    color: #000000;
+}
+
 

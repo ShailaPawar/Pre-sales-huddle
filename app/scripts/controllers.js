@@ -425,6 +425,7 @@ angular.module('PreSales-Huddle')
             }).success(function (data, status, headers, config) {
                 console.log('Prospect converted to Client.');
                 $("#myModal").modal({backdrop: "static"});
+                $rootScope.numberOfClient++;
                 /*$location.path('/prospects');*/
             }).error(function (data, status, headers, config) {
                 console.log('Prospect not converted to Client.');
