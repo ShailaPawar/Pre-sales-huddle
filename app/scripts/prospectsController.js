@@ -179,8 +179,16 @@ angular.module('PreSales-Huddle')
         displayProspectList();
     }
 
-
-
+        /*window.onbeforeunload = function () {
+            return ("message");
+        }*/
+        /*$(function(){
+            $.lockNav({
+                DisableF5: true,
+                WarnBeforeUnload: true,
+                WarningMessage: 'You may lose information.'
+            });
+        });*/
 
 
     $scope.volunteerProspect = function(prospect) {
@@ -281,6 +289,14 @@ angular.module('PreSales-Huddle')
         //javascript:history.go(-1);
     };
 
+    if($rootScope.showDeadProspects == true) {
+        $scope.includDeadProspects  = true;
+    }
+
+    if($rootScope.showMyProspect == true) {
+        $scope.myProspect  = true;
+    }
+
     // checkbox handling
     $scope.checkDeadProspectState = function ($event, participant) {
         console.log("checkDeadProspectState:", $event);
@@ -304,4 +320,9 @@ angular.module('PreSales-Huddle')
             $rootScope.showMyProspect = false;
         }
     };
+        //for refresh issue
+        /*$(window).bind('beforeunload', function(e) {
+            return "Unloading this page may lose data. What do you want to do..."
+            e.preventDefault();
+        });*/
 });
