@@ -352,6 +352,16 @@ angular.module('PreSales-Huddle')
                     x: -20 //center
                 },
                 chart: {
+                    events:{
+                        load: function() {
+                            this.credits.element.onclick = function() {
+                                window.open(
+                                    'http://www.Highcharts.com',
+                                    '_blank'
+                                );
+                            }
+                        }
+                    },
                     renderTo: elementId,
                     height: 600,
                     width: 1140
@@ -385,6 +395,16 @@ angular.module('PreSales-Huddle')
                 new Highcharts.Chart({
 
                     chart: {
+                        events:{
+                            load: function() {
+                                this.credits.element.onclick = function() {
+                                    window.open(
+                                        'http://www.Highcharts.com',
+                                        '_blank'
+                                    );
+                                }
+                            }
+                        },
                         renderTo: elementId,
                         plotBackgroundColor: null,
                         plotBorderWidth: null,
@@ -437,6 +457,16 @@ angular.module('PreSales-Huddle')
                             enabled: true,
                             alpha: 45,
                             beta: 0
+                        },
+                        events:{
+                            load: function() {
+                                this.credits.element.onclick = function() {
+                                    window.open(
+                                        'http://www.Highcharts.com',
+                                        '_blank'
+                                    );
+                                }
+                            }
                         },
                         renderTo: elementId,
                         plotBackgroundColor: null,
@@ -491,7 +521,16 @@ angular.module('PreSales-Huddle')
                         alpha: 45,
                         beta: 0
                     },
-
+                    events:{
+                        load: function() {
+                            this.credits.element.onclick = function() {
+                                window.open(
+                                    'http://www.Highcharts.com',
+                                    '_blank'
+                                );
+                            }
+                        }
+                    },
                     renderTo: elementId,
                     plotBackgroundColor: null,
                     plotBorderWidth: null,
@@ -565,6 +604,16 @@ angular.module('PreSales-Huddle')
                             depth: 50,
                             viewDistance: 25
                         },
+                        events:{
+                            load: function() {
+                                this.credits.element.onclick = function() {
+                                    window.open(
+                                        'http://www.Highcharts.com',
+                                        '_blank'
+                                    );
+                                }
+                            }
+                        },
                         type: 'column',
                         renderTo: elementId,
                         plotBackgroundColor: null,
@@ -620,6 +669,16 @@ angular.module('PreSales-Huddle')
                         alpha: 45,
                         beta: 0
                     },
+                    events:{
+                        load: function() {
+                            this.credits.element.onclick = function() {
+                                window.open(
+                                    'http://www.Highcharts.com',
+                                    '_blank'
+                                );
+                            }
+                        }
+                    },
                     renderTo: elementId,
                     plotBackgroundColor: null,
                     plotBorderWidth: null,
@@ -667,6 +726,16 @@ angular.module('PreSales-Huddle')
             new Highcharts.Chart({
 
                 chart: {
+                    events:{
+                        load: function() {
+                            this.credits.element.onclick = function() {
+                                window.open(
+                                    'http://www.Highcharts.com',
+                                    '_blank'
+                                );
+                            }
+                        }
+                    },
                     renderTo: elementId,
                     plotBackgroundColor: null,
                     plotBorderWidth: null,
@@ -725,6 +794,16 @@ angular.module('PreSales-Huddle')
                             depth: 50,
                             viewDistance: 25
                         },
+                        events:{
+                            load: function() {
+                                this.credits.element.onclick = function() {
+                                    window.open(
+                                        'http://www.Highcharts.com',
+                                        '_blank'
+                                    );
+                                }
+                            }
+                        },
                         type: 'column',
                         renderTo: elementId,
                         plotBackgroundColor: null,
@@ -779,6 +858,16 @@ angular.module('PreSales-Huddle')
                             enabled: true,
                             alpha: 45,
                             beta: 0
+                        },
+                        events:{
+                            load: function() {
+                                this.credits.element.onclick = function() {
+                                    window.open(
+                                        'http://www.Highcharts.com',
+                                        '_blank'
+                                    );
+                                }
+                            }
                         },
                         renderTo: elementId,
                         plotBackgroundColor: null,
