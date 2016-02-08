@@ -42,9 +42,9 @@
                        class = "form-control" readonly>
             </div>
             <div class = "form-group">
-                <label for = "folderURL"> Folder URL: </label>
+                <label for = "folderURL">Documents folder URL: </label>
 
-                <input type="text" id = "folderURL" name = "folderURL" ng-model = "prospect.FolderURL" placeholder = "e.g: www.synerzip.com/home/Documents"
+                <input type="text" id = "folderURL" name = "folderURL" ng-model = "prospect.FolderURL" placeholder = "e.g:https://drive.google.com/drive/folders/XYZ"
                        class = "form-control" readonly>
             </div>
             <div class = "form-group">
@@ -57,8 +57,10 @@
             <div class = "form-group">
                 <label for = "keyContacts"> Key Contacts: </label>
 
+                <!--<input type="text" id = "keyContacts" name = "keyContacts" ng-model = "prospect.KeyContacts" placeholder = "List key contacts and their designations/roles here"
+                       class = "form-control" readonly>-->
                    <textarea id = "keyContacts" name = "keyContacts" ng-model = "prospect.KeyContacts"
-                             class = "form-control" readonly></textarea>
+                             class = "form-control" placeholder = "List key contacts and their designations/roles here" readonly></textarea>
             </div>
             <div class = "form-group">
                 <!-- <input type="button" id="cancel-button" value="Cancel" class="col-sm-2 btn btn-primary"

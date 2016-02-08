@@ -17,6 +17,7 @@ angular.module('PreSales-Huddle')
 
         var currentProspect = $rootScope.prospectToUpdate;
         console.log("current prospect:", currentProspect);
+        $scope.prospect = $rootScope.prospectToUpdate;
 
         $http.get(baseURL + 'prospect/prospectid/' + $rootScope.prospectToUpdate.ProspectID,  {
             headers: {'Authentication': JSON.parse($rootScope.authenticationData)}
@@ -24,9 +25,9 @@ angular.module('PreSales-Huddle')
             console.log("Single Prospect data: ", data);
             $rootScope.prospectToViewCallDetails = data ;
             console.log("$rootScope.prospectToViewCallDetails: ", $rootScope.prospectToViewCallDetails);
-            $scope.previousCallDetails = $rootScope.prospectToViewCallDetails.ConfCalls
+            $scope.previousCallDetails = $rootScope.prospectToViewCallDetails.ConfCalls;
             $scope.previousCallDetails = JSON.stringify($scope.previousCallDetails);
-            $scope.previousCallDetails = JSON.parse($scope.previousCallDetails)
+            $scope.previousCallDetails = JSON.parse($scope.previousCallDetails);
             console.log("$scope.previousCallDetails ", $scope.previousCallDetails);
             var previousCallDetailsLength = $scope.previousCallDetails.length;
             console.log("previousCallDetailsLength",previousCallDetailsLength);

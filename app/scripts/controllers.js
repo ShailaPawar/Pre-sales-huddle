@@ -29,6 +29,7 @@ angular.module('PreSales-Huddle')
 
                     var profile = data.getBasicProfile();
                     $rootScope.currentUser = profile.getEmail();
+                    $rootScope.currentUserName = profile.getName();
                     $rootScope.currentUserImage = profile.getImageUrl();
                     $rootScope.salesName = profile.getName();
 

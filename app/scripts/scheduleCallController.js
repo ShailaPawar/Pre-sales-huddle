@@ -30,6 +30,7 @@ angular.module('PreSales-Huddle')
          })
          });*/
         currentProspect = $rootScope.prospectToUpdate;
+        $scope.prospect = $rootScope.prospectToUpdate;
         console.log("current prospect:", currentProspect);
 
     // set Default call participation status of all volunteers to "Yes"
@@ -219,7 +220,7 @@ angular.module('PreSales-Huddle')
             else{
                 $scope.scheduleCall();
             }
-        }
+        };
 
         $scope.scheduleCall = function () {
             console.log("$scope.call: ", $scope.call);

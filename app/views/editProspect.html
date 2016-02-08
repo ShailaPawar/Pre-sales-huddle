@@ -49,13 +49,13 @@
                        class = "form-control" >
             </div>
             <div class = "form-group">
-                <label for = "folderURL"> Folder URL: </label>
+                <label for = "folderURL">Documents folder URL: </label>
 
-                <input type="text" id = "folderURL" name = "folderURL" ng-model = "prospect.FolderURL" placeholder = "e.g: www.synerzip.com/home/Documents"
+                <input type="text" id = "folderURL" name = "folderURL" ng-model = "prospect.FolderURL" placeholder = "e.g: https://drive.google.com/drive/folders/XYZ"
                        class = "form-control" >
             </div>
             <div class = "dropdown form-group" >
-                <label for = "PreRevenue"> Select Revenue:
+                <label for = "PreRevenue"> Revenue:
                 </label>
                 <select id="PreRevenue" class="form-control" ng-model="prospect.Revenue" ng-options="revenue.value as revenue.name for revenue in revenue">
                 </select>
@@ -63,8 +63,10 @@
             <div class = "form-group">
                 <label for = "keyContacts"> Key Contacts: </label>
 
+                <!--<input type="text" id = "keyContacts" name = "keyContacts" ng-model = "prospect.KeyContacts" placeholder = "List key contacts and their designations/roles here"
+                       class = "form-control" >-->
                    <textarea id = "keyContacts" name = "keyContacts" ng-model = "prospect.KeyContacts"
-                             class = "form-control" ></textarea>
+                             class = "form-control" placeholder = "List key contacts and their designations/roles here"></textarea>
             </div>
             <p>
                 <span style = "font-size: 9pt;"> All fields marked with an
