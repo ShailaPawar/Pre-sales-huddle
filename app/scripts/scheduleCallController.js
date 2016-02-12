@@ -45,11 +45,13 @@ angular.module('PreSales-Huddle')
                     if (JSON.parse(callParticipants) != null) {
                         var volunteersList = JSON.parse(callParticipants);
                         numberOfVolunteer = volunteersList.length;
-
                         console.log("volunteersList: ", volunteersList);
 
                     for (var i = 0; i < numberOfVolunteer; i++) {
                         volunteersList[i].Included = "Yes";
+                        if ( volunteersList[i].ImageURl == '' ) {
+                            volunteersList[i].ImageURl = '../images/user.png';
+                        }
                         (function (index) {
                             $http.put(baseURL + 'participant/', data = volunteersList[i], {
                                     headers: {'Authentication': JSON.parse($rootScope.authenticationData)}
@@ -188,6 +190,7 @@ angular.module('PreSales-Huddle')
         var participantData = {
             ProspectID: participant.ProspectID,
             UserID: participant.UserID,
+            ImageURl:  participant.ImageURl,
             Included: pStatus,
             ParticipationRole: participant.ParticipationRole,
             AvailableDate: participant.AvailableDate,

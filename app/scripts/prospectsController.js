@@ -320,10 +320,4 @@ angular.module('PreSales-Huddle')
             $rootScope.showMyProspect = false;
         }
     };
-        //for refresh issue
-        /*$(window).bind('beforeunload', function(e) {
-            return "Unloading this page may lose data. What do you want to do..."
-            e.preventDefault();
-            console.log("hello");*//*
-        });*/
 });

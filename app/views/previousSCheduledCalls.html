@@ -3,9 +3,7 @@
 </section>
 <section>
     <span id="pageTitle"> Scheduled Call for Prospect '{{prospect.Name}}' </span>
-
         <div class="container" style="background-color:whitesmoke;width: 65%" id = "form-container1" >
-
             <div class = "form-group">
                 <table class = "table table-striped table-hover" style="background-color:whitesmoke">
                     <thead>
@@ -22,7 +20,7 @@
                     </tr>
                     </tbody>
                     <tbody ng-show = " noPreviousCalls ">
-                    <tr ng-show = " noPreviousCalls ">
+                    <tr>
                         <td> No Previous Calls to Show</td>
                     </tr>
                     </tbody>
@@ -31,7 +29,7 @@
 
             <div class = "form-group">
                 <input ng-show = " !noPreviousCalls " type="button" id="cancel-button" value="Schedule another call" class="col-sm-3 btn btn-primary" ng-click="scheduleCall()" >
-                <input ng-show = " noPreviousCalls " type="button" id="cancel-button"  value="Schedule call" class="col-sm-3 btn btn-primary" ng-click="scheduleCall()" >
+                <input ng-show = " noPreviousCalls " type="button"   value="Schedule call" class="col-sm-3 btn btn-primary" ng-click="scheduleCall()"  style="margin-bottom: 2%;" >
             </div>
         </div>
 </section>

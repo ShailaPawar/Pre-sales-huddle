@@ -1,4 +1,3 @@
-// var baseURL = "http://172.24.212.123:8280/";
 var baseURL = "http://presaleshuddle:8080/";
 //var baseURL = "http://golangwebservice-presales.rhcloud.com/";
 
@@ -32,8 +31,7 @@ angular.module('PreSales-Huddle')
                     $rootScope.currentUserName = profile.getName();
                     $rootScope.currentUserImage = profile.getImageUrl();
                     $rootScope.salesName = profile.getName();
-
-
+                    console.log("$rootScope.currentUserImage",$rootScope.currentUserImage);
                     // for user authentication
                     var connect_data = {
                         User: $rootScope.currentUser,
@@ -141,6 +139,27 @@ angular.module('PreSales-Huddle')
                     window.location.reload();
                 });
         };
+
+        function warning()
+        {   $rootScope.currentUrl = $location.path();
+            console.log("currentUrl",$rootScope.currentUrl);
+            if( $scope.count != 1 && $rootScope.currentUrl != '' ){
+                return "Sure you want to leave?(message)";
+            }
+        }
+        window.onbeforeunload = warning;
+
+        window.onunload = function (event) {
+            if( $scope.count != 1 && $rootScope.currentUrl != '' ){
+                if (typeof event == 'undefined') {
+                    event = window.event;
+                }
+                if (event) {
+                    window.location = '#';
+                    window.location.reload();
+                }
+            }
+        }
     })
 
     .controller('EditProspectCtrl', function($scope, $http, $rootScope, $location) {
@@ -641,12 +660,13 @@ angular.module('PreSales-Huddle')
             var data = {
                 ProspectID: $rootScope.prospectToUpdate.ProspectID,
                 UserID: $rootScope.currentUser,
+                ImageURl: $rootScope.currentUserImage,
                 ParticipationRole: $scope.Role,
                 AvailableDate: $scope.CreateDate,
                 Notes: $scope.Notes,
                 Included: "Yes"
             };
-
+            console.log("data for volunteer",data);
             $http.post(baseURL + 'participant/', data = data, {
                 headers: {'Authentication': JSON.parse($rootScope.authenticationData)}
             }).success(function (data, status, headers, config) {
