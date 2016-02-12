@@ -144,7 +144,7 @@ angular.module('PreSales-Huddle')
         {   $rootScope.currentUrl = $location.path();
             console.log("currentUrl",$rootScope.currentUrl);
             if( $scope.count != 1 && $rootScope.currentUrl != '' ){
-                return "Sure you want to leave?(message)";
+                return "This action will end your current session.";
             }
         }
         window.onbeforeunload = warning;
