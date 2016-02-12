@@ -2,8 +2,8 @@
  * Created by synerzip on 12/01/16.
  */
 
-var baseURL = "http://presaleshuddle:8080/";
-//var baseURL = "http://golangwebservice-presales.rhcloud.com/";
+//var baseURL = "http://presaleshuddle:8080/";
+var baseURL = "http://golangwebservice-presales.rhcloud.com/";
 
 angular.module('PreSales-Huddle')
 
