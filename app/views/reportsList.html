@@ -9,13 +9,40 @@
                 <select id="reportType" class="form-control" ng-model="reportType"  ng-change="changeReport()" ng-options="reportTypes.value as reportTypes.name for reportTypes in reportTypes">
                 </select>
             </div>
+            <div class="pull-left" style="margin-top: auto; margin-bottom: 2%; font-weight: bold; font-size: medium">
+                <input type = "checkbox" ng-model = "myProspectReport"
+                       ng-change = "changeReport()"> Reports only for my prospects
+            </div>
+
         </div>
     </form>
-       <br>
+    <br>
+   <!-- <form name = "engineerReportsFormList" novalidate ng-submit="submitMyForm()">
+        <div ng-show = "viewEngineerReport" div class="container" style="background-color:whitesmoke" id = "engineerReort-container">
+
+            <div class = "dropdown form-group" >
+                <label for = "engineerReportType"> Select Report for:
+                </label>
+                <select id="engineerReportType" class="form-control" ng-model="engineerReportType"  ng-change="changeReport()" ng-options="engineerReportTypes.value as engineerReportTypes.name for engineerReportTypes in engineerReportTypes">
+                </select>
+            </div>
+            <div class="pull-left" style="margin-top: auto; margin-bottom: 2%; font-weight: bold; font-size: medium">
+                <input type = "checkbox" ng-model = "myProspectReport"
+                       ng-change = "changeReport()" > Reports for my Prospects
+            </div>
+
+        </div>
+    </form>
+    <br>-->
     <form name = "reportsForm" novalidate ng-submit="submitMyForm()">
-        <div  class="container" ng-show="flag" id="report-container" style="margin-left: -1%;width: 99.99%;height:200%">
+        <div class="container" ng-show="flag" id="report-container" style="margin-left: -1%;width: 99.99%;height:200%">
         </div>
     </form>
+    <!--<form name = "salesReportsForm" novalidate ng-submit="submitMyForm()">
+    <div ng-show = "salesReportsContainer"  class="container" ng-show="flag" id="salesReport-container" style="margin-left: -1%;width: 99.99%;height:200%">
+    </div>
+     </form>-->
+
 
 
 </section>

@@ -305,6 +305,12 @@ pre {
     text-align: center;
     color: #000000;
 }
+#engineerReort-container{
+
+    background-color: whitesmoke;
+    width: 46%;
+    height: 60% !important;
+}
 textarea {
     resize: none;
 }
@@ -317,3 +323,4 @@ textarea {
     -moz-border-radius: 99em;
     box-shadow: 0 3px 2px rgba(0, 0, 0, 0.3);
 }
+

@@ -57,7 +57,9 @@ angular.module('PreSales-Huddle')
             var prospectData = JSON.stringify(data);
             var prospectList = JSON.parse(prospectData);
             var numberOfProspects = prospectList.length;
-
+            var count =0;
+            $rootScope.countArray = [];
+            $rootScope.finalCount = 0;
             for (var i = 0; i < numberOfProspects; i++) {
                 (function (index) {
 
@@ -113,10 +115,25 @@ angular.module('PreSales-Huddle')
                             }
                             if(currentUserAvailable == 1){
                                 prospectList[index].currentUserVolunteer = 1;
+                                count++;
+                                $rootScope.countArray.push(prospectList[index]);
                             }
                             else{
                                 prospectList[index].currentUserVolunteer = 0;
                             }
+                           /* console.log("count",count);
+                            $scope.countArray.push(count);
+                            $scope.countArray.sort(function(a, b){return b - a});*/
+                            if(index === numberOfProspects -1){
+
+                                $rootScope.finalCount = $rootScope.countArray.length;
+                                console.log("finalcount",$rootScope.finalCount);
+
+                            }
+
+                           /* $scope.finalCountArray.push($scope.countArray[0]);
+                            $scope.finalCountArray.sort(function(a, b){return b - a});
+                            console.log("finalcountArray",$scope.finalCountArray);*/
                         }
                     }).error(function (data, status, header, config) {
                         console.log("Not able to calculate volunteer count")
@@ -195,6 +212,7 @@ angular.module('PreSales-Huddle')
         $rootScope.prospectToUpdate = prospect;
         var flag = 0;
         var numberOfVolunteer = 0;
+
         $http.get(baseURL + 'participant/prospectid/'+ prospect.ProspectID, {
             headers: {'Authentication': JSON.parse($rootScope.authenticationData)}
         }).success(function(data, status, headers, config) {
@@ -210,9 +228,11 @@ angular.module('PreSales-Huddle')
             for(var i = 0; i < numberOfVolunteer; i++){
                 if(angular.equals($rootScope.currentUser, volunteersList[i].UserID)) {
                     flag = 1;
-                    alert("You have already volunteered for this prospect.")
+                    alert("You have already volunteered for this prospect.");
+
                 }
             }
+
             if(angular.equals(flag, 0)){
                 console.log("flag" + flag);
                 $location.path('/volunteer');
@@ -220,6 +240,7 @@ angular.module('PreSales-Huddle')
         }).error(function(data, status, header, config) {
             console.log("not fecthed")
         });
+
     };
 
     $scope.viewModal = function(prospect) {
@@ -280,7 +301,7 @@ angular.module('PreSales-Huddle')
         $scope.goBack = function() {
             $('body').removeClass('modal-open');
             $("#myModal").modal({backdrop: "static"});
-        }
+        };
 
 
     $scope.setUpReminderCancel = function() {
