@@ -49,8 +49,8 @@ angular.module('PreSales-Huddle')
 
                     for (var i = 0; i < numberOfVolunteer; i++) {
                         volunteersList[i].Included = "Yes";
-                        if ( volunteersList[i].ImageURl == '' ) {
-                            volunteersList[i].ImageURl = '../images/user.png';
+                        if ( volunteersList[i].ImageURL == '' ) {
+                            volunteersList[i].ImageURL = '../images/user.png';
                         }
                         (function (index) {
                             $http.put(baseURL + 'participant/', data = volunteersList[i], {
@@ -190,7 +190,7 @@ angular.module('PreSales-Huddle')
         var participantData = {
             ProspectID: participant.ProspectID,
             UserID: participant.UserID,
-            ImageURl:  participant.ImageURl,
+            ImageURL:  participant.ImageURL,
             Included: pStatus,
             ParticipationRole: participant.ParticipationRole,
             AvailableDate: participant.AvailableDate,

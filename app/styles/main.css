@@ -305,11 +305,9 @@ pre {
     text-align: center;
     color: #000000;
 }
-
 textarea {
     resize: none;
 }
-
 .circle {
     display: block;
     width: 70%;

@@ -660,7 +660,7 @@ angular.module('PreSales-Huddle')
             var data = {
                 ProspectID: $rootScope.prospectToUpdate.ProspectID,
                 UserID: $rootScope.currentUser,
-                ImageURl: $rootScope.currentUserImage,
+                ImageURL: $rootScope.currentUserImage,
                 ParticipationRole: $scope.Role,
                 AvailableDate: $scope.CreateDate,
                 Notes: $scope.Notes,

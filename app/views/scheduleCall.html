@@ -54,7 +54,7 @@
                                 <input type = "checkbox" ng-model = "included"
                                     ng-change = "checkState(included, participant)" ng-init = "included = true" ng-model="participants.checked" ng-click="countCheck(participants)">
                             </td>
-                            <td> <img class = " circle " ng-src = " {{participant.ImageURl}} " style="float: left" ></td>
+                            <td> <img class = " circle " ng-src = " {{participant.ImageURL}} " style="float: left" ></td>
                             <td> {{ participant.volunteerName }} </td>
                             <td> {{ participant.ParticipationRole }} </td>
                             <td> {{ participant.AvailableDate | date: "dd-MMM-yyyy" }} </td>
