@@ -2,8 +2,8 @@
  * Created by synerzip on 12/01/16.
  */
 
-//var baseURL = "http://presaleshuddle:8080/";
-var baseURL = "http://golangwebservice-presales.rhcloud.com/";
+var baseURL = "http://presaleshuddle:8080/";
+//var baseURL = "http://golangwebservice-presales.rhcloud.com/";
 
 angular.module('PreSales-Huddle')
 
@@ -31,8 +31,6 @@ angular.module('PreSales-Huddle')
                 ProspectNotes:      $rootScope.prospectToUpdate.ProspectNotes,
                 ConfCalls:          $rootScope.prospectToUpdate.ConfCalls,
                 ProspectStatus:     status,
-                /*SalesID:            $rootScope.prospectToUpdate.salesName,*/
-                /*SalesID:            $rootScope.prospectToUpdate.SalesID,*/
                 SalesID:            $rootScope.salesName,
                 StartDate:          $rootScope.prospectToUpdate.StartDate,
                 TeamSize:           $rootScope.prospectToUpdate.TeamSize,
@@ -52,7 +50,7 @@ angular.module('PreSales-Huddle')
                 headers: {'Authentication': JSON.parse($rootScope.authenticationData)}
             }).success(function(data, status, headers, config) {
                 console.log('Prospect is dead.');
-                $("#myModal").modal({backdrop: "static"});
+                $("#deadProspectModal").modal({backdrop: "static"});
                 /* $location.path('/prospects');*/
             }).error(function(data, status, headers, config) {
                 console.log(data, status, headers, config);

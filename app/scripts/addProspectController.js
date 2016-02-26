@@ -1,5 +1,5 @@
-//var baseURL = "http://presaleshuddle:8080/";
-var baseURL = "http://golangwebservice-presales.rhcloud.com/";
+var baseURL = "http://presaleshuddle:8080/";
+//var baseURL = "http://golangwebservice-presales.rhcloud.com/";
 
 
 angular.module('PreSales-Huddle')
@@ -85,7 +85,7 @@ angular.module('PreSales-Huddle')
             /*$("#myModal3").modal({backdrop: false});*/
             $http.post(baseURL + 'prospect/', data = data, config).success(function(data, status, headers, config) {
                 console.log('Prospect added.');
-                $("#myModal").modal({backdrop: "static"});
+                $("#prospectAddedModal").modal({backdrop: "static"});
 
             }).error(function(data, status, headers, config) {
                     console.log('Prospect not added.');

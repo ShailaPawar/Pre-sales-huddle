@@ -2,8 +2,8 @@
  * Created by synerzip on 27/01/16.
  */
 
-//var baseURL = "http://presaleshuddle:8080/";
-var baseURL = "http://golangwebservice-presales.rhcloud.com/";
+var baseURL = "http://presaleshuddle:8080/";
+//var baseURL = "http://golangwebservice-presales.rhcloud.com/";
 
 angular.module('PreSales-Huddle')
 
@@ -156,6 +156,7 @@ angular.module('PreSales-Huddle')
                 }(i));
             }
             $scope.prospects = prospectList;
+            console.log("$scope.prospects",$scope.prospects);
         }).error(function (data, status, header, config) {
         });
     }

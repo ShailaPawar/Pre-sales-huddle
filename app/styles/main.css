@@ -312,7 +312,8 @@ pre {
     height: 60% !important;
 }
 textarea {
-    resize: none;
+    /*resize: none;*/
+    overflow: hidden;
 }
 .circle {
     display: block;

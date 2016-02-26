@@ -87,7 +87,7 @@
 
             <div class = "form-group">
                 <label for = "notes"> Notes for Prospect '{{nameOfProspect}}'</label>
-                <pre style="font-family: helvetica;font-size: 14px;text-align: left;padding: 0px 0px 0px 0px;border: none;margin-top: -4%;margin-bottom: -8% ">
+                <pre style="font-family: helvetica;font-size: 14px;text-align: left;padding: 0px 0px 0px 0px;border: none; ">
                     <textarea  rows="20" ng-model = "prospect.ProspectNotes" id = "notes" name = "notes"class = "form-control">
                     </textarea>
                 </pre>
@@ -100,15 +100,15 @@
                         style="margin-left:10px;"> Save </button>
             </div>
         </div>
-        <div class="form-group"></div>
-        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-            <div class="vertical-alignment-helper">
-                <div class="modal-dialog vertical-align-center">
-                    <div class="modal-content" style="width: 20% !important;">
-                        <div class="modal-body">
-                            <div style="text-align: center">Prospect updated. </div>
+        <div class = " form-group "></div>
+        <div class = " modal fade " id = " prospectUpdatedModal " tabindex = " -1 " role = " dialog " aria-labelledby = " myModalLabel ">
+            <div class = " vertical-alignment-helper ">
+                <div class = " modal-dialog vertical-align-center ">
+                    <div class = " modal-content " style = " width: 20% !important; ">
+                        <div class = " modal-body ">
+                            <div style = " text-align: center "> Prospect updated. </div>
                             <br>
-                            <button ng-click="goBack()" type="button" class="btn btn-primary" data-dismiss="modal" style="margin-left: 40%">OK</button>
+                            <button ng-click = " goBack() " type = " button " class = " btn btn-primary " data-dismiss = " modal " style = " margin-left: 40% ">OK</button>
                         </div>
                     </div>
                 </div>
@@ -116,69 +116,5 @@
         </div>
     </form>
 
-   <!-- <form  name = "createForm" novalidate ng-submit="submitMyForm()">
-        <div ng-show="editContactDetails" class = "container" id = "contacts-container">
-            <div class = "form-group">
-                <div class = "form-group">
-                    <label for = "keyContacts"> Key Contacts: </label>
-
-                   <textarea id = "keyContacts" name = "keyContacts" ng-model = "prospect.KeyContacts"
-                     class = "form-control" ></textarea>
-                </div>
-                <div class = "form-group">
-                    <label for = "websiteURL"> Website URL: </label>
-
-                    <input type="text" id = "websiteURL" name = "websiteURL" ng-model = "prospect.WebsiteURL"  placeholder = "e.g: www.google.com"
-                           class = "form-control" >
-                </div>
-                <div class = "form-group">
-                    <label for = "folderURL"> Folder URL: </label>
-
-                    <input type="text" id = "folderURL" name = "folderURL" ng-model = "prospect.FolderURL" placeholder = "e.g: www.synerzip.com/home/Documents"
-                           class = "form-control" >
-                </div>
-                <div class = "dropdown form-group" >
-                    <label for = "PreRevenue"> Select Revenue:
-                    </label>
-                    <select id="PreRevenue" class="form-control" ng-model="prospect.Revenue" ng-options="revenue.value as revenue.name for revenue in revenue">
-                    </select>
-                </div>
-            </div>
-            <div class = "form-group">
-                <input type="button" id="contactsBack-button" value="Prev" class="col-sm-2 btn btn-primary"
-                       ng-click="editProspectNote()">
-                <button type="button" class="col-sm-2 btn btn-primary" ng-click="editProspect()"
-                        style="margin-left:10px;"> Save </button>
-            </div>
-        </div>
-        <div class="form-group"></div>
-        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-            <div class="vertical-alignment-helper">
-                <div class="modal-dialog vertical-align-center">
-                    <div class="modal-content" style="width: 20% !important;">
-                        <div class="modal-body">
-                            <div style="text-align: center">Prospect updated. </div>
-                            <br>
-                            <button ng-click="goBack()" type="button" class="btn btn-primary" data-dismiss="modal" style="margin-left: 40%">OK</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </form>-->
-
 
 </section>
-
-<!--
-
-<div class="form-group" ng-class="{ 'has-error' : userForm.name.$invalid && !userForm.name.$pristine }">
-    <label>Name</label>
-    <input type="text" name="name" class="form-control" ng-model="user.name" required>
-    <p ng-show="userForm.name.$invalid && !userForm.name.$pristine" class="help-block">You name is required.</p>
-</div>
-
-
-
-
-<button type="submit" class="btn btn-primary" ng-disabled="userForm.$invalid">Submit</button>-->

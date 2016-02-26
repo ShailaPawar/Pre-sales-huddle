@@ -5,23 +5,19 @@
             <div class = "form-group" style = "margin-top:1%;">
                 <label> Send me a notification emails for: </label>
                 <div>
-                    <input type = "radio" name = "SelectOne" value="everyProspect" > Every prospect<br>
-                    <input type = "radio" name = "SelectOne" value="starredProspect" checked> Only relevant prospects<br>
+                    <input type = "radio"  name = "SelectOne" ng-model = " SelectOne " ng-value = " 0 " > Every prospect<br>
+                    <input type = "radio"  name = "SelectOne" ng-model = " SelectOne " ng-value = " 1 " > Only relevant prospects<br>
                 </div>
             </div>
             <div class = "form-group">
                 <label> Notify me for: </label>
-                <div>
-                    <input type = "checkbox" checked disabled readonly> Prospect created <br>
-                    <input type = "checkbox" checked > Prospect updated <br>
-                    <input type = "checkbox" checked > Question posted <br>
-                    <input type = "checkbox" checked > Question answered <br>
-                    <input type = "checkbox" checked > Someone volunteered <br>
-                    <input type = "checkbox" checked > Call scheduled <br>
-                    <input type = "checkbox" checked > Prospect went dead <br>
-                    <input type = "checkbox" checked > Prospect converted to client <br>
+
+                <input type = "checkbox" value = " 2 " checked disabled readonly> Prospect created <br>
+                <div ng-repeat="notificationOption in notificationOptions" ng-disabled="checked">
+                    <input type="checkbox" ng-model="notificationOption.selected" value={{notificationOption.value}} /> {{notificationOption.name}}
                 </div>
             </div>
+
             <p>
             <span style = "font-size: 85%;">
                 Notification emails will be sent to you as per the configuration you have selected above
@@ -30,9 +26,23 @@
             <div class = "form-group">
                 <input type = "button" id = "cancel-button" value = "Cancel" class = "col-sm-3 btn btn-primary"
                        ng-click = "go('viewProspects')">
-                <button type = "submit" class = "col-sm-3 btn btn-primary"
-                        style = "margin-left:3%;"> Save </button>
+                <button ng-click = "setNotification()" type = "submit" class = "col-sm-3 btn btn-primary" style = "margin-left:3%;"> Save </button>
             </div>
         </div>
     </form>
+
+
+    <div class = " modal fade " id = " notificationModal " tabindex = " -1 " role = " dialog " aria-labelledby = " myModalLabel ">
+        <div class = " vertical-alignment-helper ">
+            <div class = " modal-dialog vertical-align-center ">
+                <div class = " modal-content " style = " width: 20% !important; ">
+                    <div class = " modal-body ">
+                        <div style = " text-align: center "> Your notification preference is updated.  </div>
+                        <br>
+                        <button ng-click = " goBack() " type = " button " class = " btn btn-primary " data-dismiss = " modal " style = " margin-left: 40% "> OK </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </section>
