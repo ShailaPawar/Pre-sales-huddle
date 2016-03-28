@@ -42,7 +42,7 @@ angular.module('PreSales-Huddle')
                     Query: $scope.query
                 };
                 console.log("addDiscussion", data);
-                $http.post(baseURL + 'discussion/', data = data, {
+                $http.post(baseURL + 'discussion/question', data = data, {
                     headers: {'Authentication': JSON.parse($rootScope.authenticationData)}
                 }).success(function (data, status, headers, config) {
                         console.log('Discussion added.');
