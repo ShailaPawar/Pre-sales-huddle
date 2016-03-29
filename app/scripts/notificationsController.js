@@ -96,7 +96,7 @@ angular.module('PreSales-Huddle')
                 Role:           $rootScope.assignRole
             };
 
-            $http.put(baseURL + 'user/notifications/', data = data, {
+            $http.put(baseURL + 'user/notification/', data = data, {
                 headers: {'Authentication': JSON.parse($rootScope.authenticationData)}
                  })
                 .success(function (data, status, headers, config) {

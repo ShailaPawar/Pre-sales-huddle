@@ -69,7 +69,7 @@ angular.module('PreSales-Huddle')
                 DesiredTeamSize:    $scope.teamSize,
                 ProspectNotes:      $scope.notes,
                 ProspectStatus:     status,
-                SalesID:            $rootScope.salesName,
+                SalesID:            $rootScope.currentUser,
                 KeyContacts:        $scope.keyContacts,
                 WebsiteURL:         $scope.websiteURL,
                 FolderURL:          $scope.folderURL,

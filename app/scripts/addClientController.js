@@ -74,7 +74,7 @@ angular.module('PreSales-Huddle')
                 Revenue:        $scope.prospect.Revenue
             };
             console.log("data",data);
-            $http.put(baseURL + 'prospect/', data = data, {
+            $http.put(baseURL + 'prospect/toclient', data = data, {
                 headers: {'Authentication': JSON.parse($rootScope.authenticationData)}
             }).success(function (data, status, headers, config) {
                     console.log('Prospect converted to Client.');

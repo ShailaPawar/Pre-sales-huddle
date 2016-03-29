@@ -46,7 +46,7 @@ angular.module('PreSales-Huddle')
 
             console.log(data);
 
-            $http.put(baseURL + 'prospect/', data = data, {
+            $http.put(baseURL + 'prospect/todead', data = data, {
                 headers: {'Authentication': JSON.parse($rootScope.authenticationData)}
             }).success(function(data, status, headers, config) {
                 console.log('Prospect is dead.');
